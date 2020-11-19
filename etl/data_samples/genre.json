@@ -16,23 +16,23 @@
         "term": "Literatur"
       }
     ],
-    "absoluteRank": 36557,
-    "relativeRank": 0.9971988795518207
+    "count": 36557,
+    "rank": 0.9971988795518207
   },
   {
     "id": "IMAGE",
     "type": "genre",
     "classificationType": "europeana:type",
     "name": "IMAGE",
-    "absoluteRank": 36557,
-    "relativeRank": 0.9971988795518207
+    "count": 36557,
+    "rank": 0.9971988795518207
   },
   {
     "id": "liturgischer Text",
     "type": "genre",
     "classificationType": "Literaturgattung",
     "name": "liturgischer Text",
-    "absoluteRank": 36557,
-    "relativeRank": 0.9971988795518207
+    "count": 36557,
+    "rank": 0.9971988795518207
   }
 ]

@@ -82,7 +82,7 @@
     ],
     "inscription": "Inschrift: Rückseite — John Brogden",
     "altName": ["Foo Bar"],
-    "absoluteRank": 62,
-    "relativeRank": 0.9993051398719951
+    "count": 62,
+    "rank": 0.9993051398719951
   }
 ]
