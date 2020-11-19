@@ -1,0 +1,88 @@
+[
+  {
+    "id": "DE-Mb112-lido-t3-00023088-T-001-T-065",
+    "type": "artwork",
+    "name": "Sequentiar, Graduale und Sakramentar — ---, Folio 107Buchseite",
+    "measurements": [
+      {
+        "displayName": "Höhe x Breite: 32 x 21 cm",
+        "type": "Höhe x Breite",
+        "unit": "cm",
+        "value": "32 x 21",
+        "extend": "gesamt"
+      },
+      {
+        "displayName": "Spaltenzahl: einspaltig"
+      },
+      {
+        "shape": "Oval"
+      },
+      {
+        "format": "Sammelbild"
+      },
+      {
+        "qualifier": "Sammelbild"
+      }
+    ],
+    "recordLegal": {
+      "recordID": {
+        "source": "Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg",
+        "id": "obj00023088,T,001,T,065"
+      },
+      "recordType": {
+        "id": "http://terminology.lido-schema.org/lido00141",
+        "term": "Einzelobjekt"
+      },
+      "recordSource": "Bildarchiv Foto Marburg",
+      "rights": {
+        "type": {
+          "id": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "term": "CC0 1.0 Public Domain Dedication"
+        },
+        "rightsHolder": {
+          "source": "ISIL (ISO 15511)",
+          "id": "http://ld.zdb-services.de/resource/organisations/DE-Mb112",
+          "term": "Bildarchiv Foto Marburg"
+        }
+      },
+      "recordInfoLink": "http://www.bildindex.de/document/obj00023088?part=67"
+    },
+    "resourceLegal": {
+      "resourceID": {
+        "id": "LA 2.118/33"
+      },
+      "resourceType": "Digitales Bild (retrodigitalisiert)",
+      "rights": {
+        "type": {
+          "id": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "term": "CC0 1.0 Public Domain Dedication"
+        },
+        "rightsHolder": {
+          "source": "ISIL (ISO 15511)",
+          "id": "http://ld.zdb-services.de/resource/organisations/DE-Mb112",
+          "term": "Bildarchiv Foto Marburg"
+        }
+      },
+      "resourceDateTaken": "1971/1976?",
+      "linkResource": "http://www.bildindex.de/bilder/d/mi00649c07"
+    },
+    "types": [
+      "300194222"
+    ],
+    "genres": [
+      "300180362"
+    ],
+    "location": "Hessische Landesbibliothek Fulda (Fulda)",
+    "artists": [
+      "500095236"
+    ],
+    "iconographies": [
+      "11D121",
+      "48A98311"
+    ],
+    "inscription": "Inschrift: Rückseite — John Brogden",
+    "altName": ["Foo Bar"],
+    "absoluteRank": 62,
+    "relativeRank": 0.9993051398719951
+  }
+]

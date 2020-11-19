@@ -1,0 +1,22 @@
+[
+  {
+    "id": "300010797",
+    "type": "material",
+    "conceptID": [
+      {
+        "source": "http://vocab.getty.edu/aat",
+        "id": "http://vocab.getty.edu/aat/300010797"
+      },
+      {
+        "source": "http://d-nb.info/gnd",
+        "id": "http://d-nb.info/gnd/4021142-3"
+      }
+    ],
+    "name": "Glas",
+    "altNames": [
+      "Durchsichtiges Ding"
+    ],
+    "absoluteRank": 225,
+    "relativeRank": 0.9426829268292682
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "500095236",
+    "type": "artist",
+    "actorId": [
+      {
+        "source": "http://vocab.getty.edu/ulan",
+        "id": "http://vocab.getty.edu/ulan/500095236"
+      },
+      {
+        "source": "http://d-nb.info/gnd",
+        "id": "http://d-nb.info/gnd/118581708"
+      }
+    ],
+    "name": "Meyboden, Hans",
+    "altNames": [
+      "Meyboden, Hans"
+    ],
+    "nationality": "Deutschland",
+    "birth": "1901-02-20",
+    "death": "1965-03-05",
+    "gender": "männlich",
+    "roles": [
+      "Maler"
+    ],
+    "absoluteRank": 68,
+    "relativeRank": 0.9839217354317312
+  }
+]
