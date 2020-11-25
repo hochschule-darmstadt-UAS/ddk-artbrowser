@@ -1,11 +1,9 @@
 [
   {
     "id": "300194222",
-    "type": "type",
+    "entityType": "type",
     "name": "Buchseite",
-    "altNames": [
-      "Buch"
-    ],
+    "altNames": ["Buch"],
     "conceptID": [
       {
         "source": "http://vocab.getty.edu/aat",

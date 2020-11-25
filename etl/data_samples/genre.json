@@ -1,7 +1,7 @@
 [
   {
-    "id": "300180362",
-    "type": "genre",
+    "id": "getty-300180362",
+    "entityType": "genre",
     "classificationType": "Objektklassifikation",
     "name": "Literatur",
     "conceptID": [
@@ -21,7 +21,7 @@
   },
   {
     "id": "IMAGE",
-    "type": "genre",
+    "entityType": "genre",
     "classificationType": "europeana:type",
     "name": "IMAGE",
     "count": 36557,
@@ -29,7 +29,7 @@
   },
   {
     "id": "liturgischer Text",
-    "type": "genre",
+    "entityType": "genre",
     "classificationType": "Literaturgattung",
     "name": "liturgischer Text",
     "count": 36557,
