@@ -57,20 +57,6 @@ export class IconographyComponent implements OnInit {
     this.ngUnsubscribe.complete();
   }
 
-  @ViewChild('appInfo', { static: false, read: ElementRef })
-  set content(content: ElementRef) {
-    if (content) {
-      // initially setter gets called with undefined
-      this.appInfoRef = content;
-      const hierarchyRoot = this.appInfoRef.nativeElement.querySelector('#badge-' + this.iconclassData.id);
-      if (hierarchyRoot) {
-        hierarchyRoot.className = 'current-element';
-      } else {
-        console.error('root badge not found!');
-      }
-    }
-  }
-
   public handleError() {
     console.log('ERROR');
   }

@@ -1,14 +1,6 @@
-$color1: #00bc8c;
-
 :host ::ng-deep .app-information-content-badges {
   display: flex;
   flex-flow: column;
-}
-
-:host ::ng-deep .current-element {
-  .badge {
-    background: $color1;
-  }
 }
 
 :host ::ng-deep .children {
