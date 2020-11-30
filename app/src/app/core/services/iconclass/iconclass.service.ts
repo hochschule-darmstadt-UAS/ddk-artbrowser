@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { iconclassEnvironment } from '../../../../environments/environment';
 import { Observable, throwError } from 'rxjs';
@@ -10,7 +10,12 @@ import { EntityIcon, EntityType } from '../../../shared/models/entity.interface'
   providedIn: 'root'
 })
 export class IconclassService {
-  constructor(private http: HttpClient) {}
+  private readonly ISO_639_1_LOCALE: string;
+
+  constructor(private http: HttpClient, @Inject(LOCALE_ID) localeId: string) {
+    // build backend api url with specific index by localeId
+    this.ISO_639_1_LOCALE = localeId.substr(0, 2);
+  }
 
   public getIconclassByNotation(notation: string): Observable<Iconography> {
     return this.getIconclassListByNotation([notation]).map(value => {
@@ -49,14 +54,14 @@ export class IconclassService {
 
   public setIconographyLabel(iconography: Iconography) {
     const regex = /[();]/g; // TODO: find better regex?
-    const match = regex.exec(iconography.text.de); // TODO: substitute with active language
+    const match = regex.exec(iconography.text[this.ISO_639_1_LOCALE || 'de']); // TODO: substitute with active language
     if (match) {
-      iconography.label = iconography.id + ': ' + iconography.text.de.substr(0, match.index);
+      iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'].substr(0, match.index);
     } else {
-      iconography.label = iconography.id + ': ' + iconography.text.de;
+      iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'];
     }
     iconography.label = iconography.label.length > 50 ? iconography.label.substr(0, 50) + '...' : iconography.label;
-    iconography.text.de = this.capitalizeFirstLetter(iconography.text.de);
+    iconography.text[this.ISO_639_1_LOCALE || 'de'] = this.capitalizeFirstLetter(iconography.text[this.ISO_639_1_LOCALE || 'de']);
     return iconography;
   }
 

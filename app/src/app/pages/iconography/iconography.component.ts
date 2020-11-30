@@ -1,10 +1,13 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { IconclassService } from '../../core/services/iconclass/iconclass.service';
 import { Iconography } from '../../shared/models/iconography.interface';
-import { Entity } from '../../shared/models/entity.interface';
+import { Entity, EntityType } from '../../shared/models/entity.interface';
+import { Artwork } from '../../shared/models/artwork.interface';
+import { shuffle } from '../../core/services/utils.service';
+import { DataService } from '../../core/services/elasticsearch/data.service';
 
 @Component({
   selector: 'app-iconography',
@@ -19,13 +22,24 @@ export class IconographyComponent implements OnInit {
   children: Iconography[] = [];
   parents: Iconography[] = [];
 
+  /** Related artworks */
+  sliderItems: Artwork[] = [];
+
   private appInfoRef: ElementRef;
   /**
    * @description use this to end subscription to url parameter in ngOnDestroy
    */
   private ngUnsubscribe = new Subject();
+  private readonly ISO_639_1_LOCALE: string;
 
-  constructor(private iconclassService: IconclassService, private route: ActivatedRoute) {}
+  constructor(
+    private dataService: DataService,
+    private iconclassService: IconclassService,
+    private route: ActivatedRoute,
+    @Inject(LOCALE_ID) localeId: string
+  ) {
+    this.ISO_639_1_LOCALE = localeId.substr(0, 2);
+  }
 
   ngOnInit() {
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
@@ -46,6 +60,8 @@ export class IconographyComponent implements OnInit {
           this.children = res;
         });
       });
+      /** load slider items */
+      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
   }
 
