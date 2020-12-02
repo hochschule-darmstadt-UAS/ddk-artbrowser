@@ -1,10 +1,10 @@
-import { Entity, EntityType } from './entity.interface';
+import { Entity, EntityIcon, EntityType } from './entity.interface';
 
 export interface Location extends Entity {
-  country?: string;
-  website?: string;
+  inventoryNumber?: string;
+  placeName?: string;
+  placeAltNames?: string[];
   part_of: Partial<Location>[];
-  lat?: string;
-  lon?: string;
   type: EntityType.LOCATION;
+  icon: EntityIcon.LOCATION;
 }

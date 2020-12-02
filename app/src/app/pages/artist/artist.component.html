@@ -5,25 +5,25 @@
 
       <table class="table-fit">
         <tbody>
-          <tr *ngIf="artist?.date_of_birth">
+          <tr *ngIf="artist?.dateOfBirth">
             <td class="text-muted"><ng-container i18n="Born infos @@born">Born</ng-container>:</td>
-            <td>{{ artist?.date_of_birth + (artist?.place_of_birth ? ' in ' + artist?.place_of_birth : '') }}</td>
+            <td>{{ artist?.dateOfBirth + (artist?.place_of_birth ? ' in ' + artist?.place_of_birth : '') }}</td>
           </tr>
 
-          <tr *ngIf="artist?.date_of_death">
+          <tr *ngIf="artist?.dateOfDeath">
             <td class="text-muted"><span i18n="Died infos label@@died">Died</span>:</td>
-            <td>{{ artist?.date_of_death + (artist?.place_of_death ? ' in ' + artist.place_of_death : '') }}</td>
+            <td>{{ artist?.dateOfDeath + (artist?.place_of_death ? ' in ' + artist.place_of_death : '') }}</td>
           </tr>
         </tbody>
       </table>
 
-      <div *ngIf="artist?.gender || artist?.citizenship || artist?.movements?.length || artist?.influenced_by?.length || artist?.abstract">
+      <div *ngIf="artist?.gender || artist?.nationality || artist?.movements?.length || artist?.influenced_by?.length || artist?.abstract">
         <app-collapse [showVideo]="videoExists">
           <app-abstract [entity]="artist"></app-abstract>
 
           <div class="videos">
-            <div class="video" *ngFor="let url of uniqueEntityVideos;  let i=index">
-              <app-video *ngIf="(i < 3)" [videoUrl]="url" (videoFound)="videoFound($event)"></app-video>
+            <div class="video" *ngFor="let url of uniqueEntityVideos; let i = index">
+              <app-video *ngIf="i < 3" [videoUrl]="url" (videoFound)="videoFound($event)"></app-video>
             </div>
           </div>
 
@@ -34,9 +34,9 @@
                 <td>{{ artist?.gender }}</td>
               </tr>
 
-              <tr *ngIf="artist?.citizenship">
+              <tr *ngIf="artist?.nationality">
                 <td class="text-muted"><ng-container i18n="Artist citizenship label@@citizenship">Citizenship</ng-container>:</td>
-                <td>{{ artist?.citizenship }}</td>
+                <td>{{ artist?.nationality }}</td>
               </tr>
 
               <tr *ngIf="artist?.movements?.length">
