@@ -2,9 +2,8 @@
   {
     "id": "getty-300180362",
     "entityType": "genre",
-    "classificationType": "Objektklassifikation",
-    "name": "Literatur",
-    "conceptID": [
+    "label": "Literatur",
+    "sourceID": [
       {
         "source": "http://vocab.getty.edu/aat",
         "id": "http://vocab.getty.edu/aat/300180362",
@@ -17,22 +16,23 @@
       }
     ],
     "count": 36557,
-    "rank": 0.9971988795518207
+    "rank": 0.9971988795518207,
+    "classificationType": "Objektklassifikation"
   },
   {
     "id": "IMAGE",
     "entityType": "genre",
-    "classificationType": "europeana:type",
-    "name": "IMAGE",
+    "label": "IMAGE",
     "count": 36557,
-    "rank": 0.9971988795518207
+    "rank": 0.9971988795518207,
+    "classificationType": "europeana:type"
   },
   {
     "id": "liturgischer Text",
     "entityType": "genre",
-    "classificationType": "Literaturgattung",
-    "name": "liturgischer Text",
+    "label": "liturgischer Text",
     "count": 36557,
-    "rank": 0.9971988795518207
+    "rank": 0.9971988795518207,
+    "classificationType": "Literaturgattung"
   }
 ]
