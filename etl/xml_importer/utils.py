@@ -5,42 +5,60 @@ namespace = {'lido': 'http://www.lido-schema.org'}
 class Measurment():
     def __init__(self, measurments_sets):
         self.root = measurments_sets
-        self.displaySize = ''
-        self.type = ''
-        self.unit = ''
-        self.value = ''
-        self.extend = ''
-        self.displayName = ''
-        self.shape = ''
-        self.format = ''
-        self.qualifier = ''
+        self.measurment = {
+            "displaySize": "",
+            "type": "",
+            "unit": "",
+            "value": "",
+            "extend": "",
+            "displayName": "",
+            "shape": "",
+            "format": "",
+            "qualifier": "",
+        }
         self.parse()
 
     def parse(self):
-        self.displaySize = self.root[0].findall(paths["Artwork_Mesurments_DisplaySize_Path"], namespace)[0].text
-        self.type = self.root[0].findall(paths["Artwork_Mesurments_Type_Path"], namespace)[0].text
-        self.unit = self.root[0].findall(paths["Artwork_Mesurments_Unit_Path"], namespace)[0].text
-        self.value = self.root[0].findall(paths["Artwork_Mesurments_Value_Path"], namespace)[0].text
+        self.measurment["displaySize"] = self.root[0].findall(paths["Artwork_Mesurments_DisplaySize_Path"], namespace)[0].text
+        self.measurment["type"] = self.root[0].findall(paths["Artwork_Mesurments_Type_Path"], namespace)[0].text
+        self.measurment["unit"] = self.root[0].findall(paths["Artwork_Mesurments_Unit_Path"], namespace)[0].text
+        self.measurment["value"] = self.root[0].findall(paths["Artwork_Mesurments_Value_Path"], namespace)[0].text
 
+        measurmentsets = []
         for measurments_set in self.root:
+            measurmentset = measurments_set.findall('lido:displayObjectMeasurements', namespace)
+            if len(measurmentset) > 0:
+                measurmentsets.append(measurmentset[0].text)
+            else:
+                pass
+
             shape = measurments_set.findall(paths["Artwork_Mesurments_Shape_Path"], namespace)
-            #print(shape)
             if len(shape) > 0:
-                self.shape = shape[0].text
+                self.measurment["shape"] = shape[0].text
             else:
                 pass
 
             format = measurments_set.findall(paths["Artwork_Mesurments_Format_Path"], namespace)
             if len(format) > 0:
-                self.format = format[0].text
+                self.measurment["format"] = format[0].text
             else:
                 pass
 
             qualifier = measurments_set.findall(paths["Artwork_Mesurments_Qualifier_Path"], namespace)
             if len(qualifier) > 0:
-                self.qualifier = qualifier[0].text
+                self.measurment["qualifier"] = qualifier[0].text
             else:
                 pass
+
+        self.measurment["displaySize"] = measurmentsets[0]
+
+        if len(measurmentsets) > 1:
+            self.measurment["displayName"] = measurmentsets[1]
+        else:
+            pass
+
+    def getmeasurment(self):
+        return self.measurment
 
 
 class Record:
@@ -71,6 +89,8 @@ class Record:
         }
         self.parse()
 
+    def get_recordLegal(self):
+        return self.recordLegal
 
     def parse(self):
         self.recordID = self.root.findall(paths["Artwork_RecordLegal_RecordID_Path"], namespace)[0]
@@ -79,9 +99,8 @@ class Record:
         self.rights = self.root.findall(paths["Artwork_RecordLegal_Rights_Path"], namespace)[0]
         self.recordInfoLink = self.root.findall(paths["Artwork_RecordLegal_RecordInfoLink_Path"], namespace)[0]
 
-
         self.recordLegal["recordID"]["source"] = self.recordID.attrib.get('{http://www.lido-schema.org}source', namespace)
-        self.recordLegal["recordID"]["id"] = self.recordType.text
+        self.recordLegal["recordID"]["id"] = self.recordID.text
 
         self.recordLegal["recordType"]["id"] = self.recordType.findall('lido:conceptID', namespace)[0].text
         self.recordLegal["recordType"]["term"] = self.recordType.findall('lido:term', namespace)[0].text
@@ -127,13 +146,14 @@ class Resource:
              "linkResource": ""
          }
         self.parse()
+        self.getresourceLegal()
 
     def parse(self):
-        self.resourceID = self.root.findall(paths["Artwork_ResourceLegal_resourceID_Path"], namespace)[0]
-        self.resourceType = self.root.findall(paths["Artwork_ResourceLegal_resourceType_Path"], namespace)[0]
-        self.rights = self.root.findall(paths["Artwork_ResourceLegal_Rights_Path"], namespace)[0]
-        self.resourceDateTaken = self.root.findall(paths["Artwork_ResourceLegal_ResourceDateTaken_Path"], namespace)
-        self.linkResource =self.root.findall(paths["Artwork_ResourceLegal_LinkResource_Path"], namespace)[0]
+        self.resourceID = self.root[0].findall(paths["Artwork_ResourceLegal_resourceID_Path"], namespace)[0]
+        self.resourceType = self.root[0].findall(paths["Artwork_ResourceLegal_resourceType_Path"], namespace)[0]
+        self.rights = self.root[0].findall(paths["Artwork_ResourceLegal_Rights_Path"], namespace)[0]
+        self.resourceDateTaken = self.root[0].findall(paths["Artwork_ResourceLegal_ResourceDateTaken_Path"], namespace)
+        self.linkResource =self.root[0].findall(paths["Artwork_ResourceLegal_LinkResource_Path"], namespace)[0]
 
         self.resourceLegal["resourceID"]["id"] = self.resourceID.text
         self.resourceLegal["resourceType"] = self.resourceType.text
@@ -154,7 +174,10 @@ class Resource:
             pass
 
         self.resourceLegal["linkResource"] = self.linkResource.text
-        #print(self.resourceLegal["linkResource"])
+
+    def getresourceLegal(self):
+        return self.resourceLegal
+
 
 
 

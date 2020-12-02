@@ -12,6 +12,11 @@ locations = dict()
 materials = dict()
 iconographys = dict()
 
+artworks = []
+def parse_lido(lido):
+    artwork = entities.Artwork(lido)
+    artworks[artwork.id] = artwork
+
 
 if __name__ == '__main__':
     data = 'merged.xml'
@@ -19,12 +24,14 @@ if __name__ == '__main__':
     namespace = {'lido': 'http://www.lido-schema.org'}
     lidos = root.findall('lido:lido', namespace)
     for lido_xml in lidos:
-        lido = entities.LidoObject(lido_xml)
+        lido = entities.LidoObject(lido_xml).artwork
+        artworks.append(lido)
 
 
+    print(artworks)
 
-    #for lido in lidos:
-        #print("k")
+
+    
 
 
 

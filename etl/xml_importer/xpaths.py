@@ -31,23 +31,18 @@ paths = {
     "Artwork_ResourceLegal_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
     "Artwork_ResourceLegal_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
 
+    "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID[@lido:source]',
 
+    "Artwork_Genres_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:conceptID[@lido:source]',
 
-    "Artwork_ResourceLegal_Rights_Type_Id_Path": 'lido:rightsResource',
-    "Artwork_ResourceLegal_Rights_Type_Term_Path": 'lido:administrativeMetadata/lido:recordWrap/lido:recordRights/lido:rightsType/lido:term',
+    "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet[1]/lido:repositoryName/lido:legalBodyName/lido:appellationValue[1]',
 
-    "Artwork_ResourceLegal_RightsHolder_Source_Path": 'lido:administrativeMetadata/lido:recordWrap/lido:recordRights/lido:rightsHolder/lido:legalBodyID[@lido:source]',
-    "Artwork_ResourceLegal_RightsHolder_Id_Path": 'lido:administrativeMetadata/lido:recordWrap/lido:recordRights/lido:rightsHolder/lido:legalBodyID[@lido:source]',
-    "Artwork_ResourceLegal_RightsHolder_Term_Path": 'lido:administrativeMetadata/lido:recordWrap/lido:recordRights/lido:rightsHolder/lido:legalBodyName/lido:appellationValue',
+    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
 
-
-    "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID',
-    "Artwork_Genres_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:conceptID',
-    "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet/lido:repositoryName/lido:legalBodyName/lido:appellationValue[1]',
-    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor/lido:actorInRole/lido:actor/lido:actorID',
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
+
     "Artwork_Inscription_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:inscriptionsWrap/lido:inscriptions/lido:inscriptionDescription/lido:descriptiveNoteValue',
-    "Artwork__Path": '/////',
+
     "namespace": "{'lido': 'http://www.lido-schema.org'}"
 
 # LOCATION
