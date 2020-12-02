@@ -75,6 +75,7 @@ export class HomeComponent implements OnInit {
    */
   private getSlides = async (): Promise<SliderCategory[]> => {
     const cats = [];
+    console.log('Hello');
     cats.push(await this.getSliderCategory<Artwork>(EntityType.ARTWORK));
     cats.push(await this.getSliderCategory<Artist>(EntityType.ARTIST));
     cats.push(await this.getSliderCategory<Location>(EntityType.LOCATION));

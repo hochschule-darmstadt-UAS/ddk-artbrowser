@@ -8,8 +8,8 @@ export interface Entity {
   imageMedium?: string;
   type: EntityType;
   icon: EntityIcon;
-  absoluteRank: number;
-  relativeRank: number;
+  count: number;
+  rank: number;
   route: string;
   sourceID?: Partial<SourceID>;
 }

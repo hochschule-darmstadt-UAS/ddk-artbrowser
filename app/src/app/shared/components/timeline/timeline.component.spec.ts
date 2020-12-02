@@ -39,8 +39,8 @@ describe('SliderComponent', () => {
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
-        absoluteRank: 37,
-        relativeRank: 0.9795063116489386,
+        count: 37,
+        rank: 0.9795063116489386,
         date: 1300
       },
       {
@@ -49,8 +49,8 @@ describe('SliderComponent', () => {
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
-        absoluteRank: 46,
-        relativeRank: 0.9944890206318238,
+        count: 46,
+        rank: 0.9944890206318238,
         date: 1305
       },
       {
@@ -59,8 +59,8 @@ describe('SliderComponent', () => {
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
-        absoluteRank: 36,
-        relativeRank: 0.9762525340301427,
+        count: 36,
+        rank: 0.9762525340301427,
         date: 1333
       },
       {
@@ -69,8 +69,8 @@ describe('SliderComponent', () => {
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
-        absoluteRank: 21,
-        relativeRank: 0.22987683344390347,
+        count: 21,
+        rank: 0.22987683344390347,
         date: 1352
       }
     ];

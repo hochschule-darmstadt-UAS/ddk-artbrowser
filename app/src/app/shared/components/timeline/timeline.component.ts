@@ -290,19 +290,19 @@ export class TimelineComponent {
 
   /** Transform artworks into TimelineItems to display them aside with artists */
   private buildTimelineItemsFromArtworks() {
-    this.artworks.forEach(artwork =>
+    this.artworks.forEach(artwork => {
       this.items.push({
         id: artwork.id,
         label: artwork.label,
-        image: artwork.image,
-        imageSmall: artwork.imageSmall,
-        imageMedium: artwork.imageMedium,
+        image: artwork.resources[0].linkResource,
+        imageSmall: artwork.resources[0].linkResource,
+        imageMedium: artwork.resources[0].linkResource,
         type: artwork.type,
-        absoluteRank: artwork.absoluteRank,
-        relativeRank: artwork.relativeRank,
-        date: artwork.inception
-      } as TimelineItem)
-    );
+        count: artwork.count,
+        rank: artwork.rank,
+        date: artwork.inception || 1234 // TODO
+      } as TimelineItem);
+    });
   }
 
   /** This adds artists to the timeline according to the displayed artworks. The artists get placed at their birth date */
@@ -311,7 +311,7 @@ export class TimelineComponent {
     const artistIds: Set<string> = new Set();
     /** Get the artist ids from the top 10% ranked artworks to display them aside with artworks */
     this.artworks
-      .sort((a, b) => (a.relativeRank > b.relativeRank ? 1 : -1))
+      .sort((a, b) => (a.rank > b.rank ? 1 : -1))
       .slice(0, Math.max(10, Math.floor(this.artworks.length / 10))) // get top 10%
       .forEach(artwork => {
         if (artwork.artists) {
@@ -351,8 +351,8 @@ export class TimelineComponent {
             imageSmall: artist.imageSmall,
             imageMedium: artist.imageMedium,
             type: artist.type,
-            absoluteRank: artist.absoluteRank,
-            relativeRank: artist.relativeRank,
+            count: artist.count,
+            rank: artist.rank,
             date: artistSortDate,
             description: artistDescription
           } as TimelineItem);

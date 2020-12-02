@@ -12,8 +12,8 @@ import { shuffle } from 'src/app/core/services/utils.service';
   styleUrls: ['./artist.component.scss']
 })
 export class ArtistComponent implements OnInit, OnDestroy {
-  /* TODO:REVIEW
-    Similiarities in every page-Component:
+  /* TODO: REVIEW
+    Similarities in every page-Component:
     - variables: ngUnsubscribe, collapse, sliderItems, dataService, route
     - ngOnDestroy, calculateCollapseState, ngOnInit
 

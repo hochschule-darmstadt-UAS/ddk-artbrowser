@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const elasticEnvironment = {
-  serverURI: '/api/*'
+  serverURI: 'https://cai-ddk-art-browser-staging.fbi.h-da.de/api' // TODO replace with "/api"
 };
 
 export const analyticsEnvironment = {

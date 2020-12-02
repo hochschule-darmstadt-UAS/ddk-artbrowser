@@ -6,7 +6,7 @@ import { elasticEnvironment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
 import { usePlural } from 'src/app/shared/models/entity.interface';
 
-const defaultSortField = 'relativeRank';
+const defaultSortField = 'rank';
 
 /**
  * Service that handles the requests to the API
@@ -169,7 +169,7 @@ export class DataService {
   public async getCategoryItems<T>(type: EntityType, count = 20): Promise<T[]> {
     const query = new QueryBuilder()
       .mustMatch('type', type)
-      .mustPrefix('image', 'http')
+      // .mustPrefix('image', 'http')
       .sort(defaultSortField)
       .size(count);
     return this.performQuery<T>(query);
@@ -202,6 +202,8 @@ export class DataService {
    * @param type type to filter for
    */
   private async performQuery<T>(query: QueryBuilder, url: string = this.baseUrl, type?: EntityType) {
+    console.log(url);
+
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes

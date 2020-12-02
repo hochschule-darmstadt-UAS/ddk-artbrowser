@@ -53,7 +53,7 @@
       <li class="nav-item">
         <a class="nav-link" [ngClass]="{ active: !showTimelineNotArtworks }" data-toggle="tab" href="#artworks_tab">
           <i class="mr-1 fa fa-palette"></i>
-          <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ artist?.absoluteRank }}</span>
+          <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ artist?.count }}</span>
           <ng-container i18n="Timeline toggle label@@toggleartworks">Artworks</ng-container>
         </a>
       </li>
