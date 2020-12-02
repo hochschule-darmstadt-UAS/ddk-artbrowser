@@ -18,7 +18,6 @@ export interface Artwork extends Entity {
   resources: Partial<Resource>[];
   inscriptions?: string[];
   inception?: number;
-  route: string;
   type: EntityType.ARTWORK;
   icon: EntityIcon.ARTWORK;
 }

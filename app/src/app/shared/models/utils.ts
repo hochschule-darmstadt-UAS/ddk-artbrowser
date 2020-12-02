@@ -27,5 +27,16 @@ export interface RecordLegal {
 }
 
 export interface Measurement {
-  displayName: string;
+  displayName?: string;
+  type?: string;
+  unit?: string;
+  value?: string;
+  extend?: string;
+  shape?: string;
+  format?: string;
+  qualifier?: string;
+  height?: string; // util
+  width?: string; // util
+  length?: string; // util
+  diameter?: string; // util
 }

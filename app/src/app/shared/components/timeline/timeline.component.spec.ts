@@ -36,7 +36,6 @@ describe('SliderComponent', () => {
       {
         id: 'Q18578798',
         label: 'The Execution of the Four Crowned Martyrs',
-        description: 'painting by Niccolò di Pietro Gerini',
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
@@ -47,7 +46,6 @@ describe('SliderComponent', () => {
       {
         id: 'Q549172',
         label: 'Flight into Egypt',
-        description: 'fresco by Giotto',
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
@@ -58,7 +56,6 @@ describe('SliderComponent', () => {
       {
         id: 'Q979440',
         label: 'Annunciation with St. Margaret and St. Ansanus',
-        description: 'painting by Simone Martini and Lippo Memmi',
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
@@ -69,8 +66,6 @@ describe('SliderComponent', () => {
       {
         id: 'Q3815314',
         label: 'Head of Christ',
-        description: 'sculpture by Jaume Cascalls',
-        abstract: 'The Head of Christ is a Jesus head conserved at the National Art Museum of Catalonia.',
         type: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',

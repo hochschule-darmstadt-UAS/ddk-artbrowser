@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const elasticEnvironment = {
-  serverURI: '/api'
+  serverURI: '/api/*'
 };
 
 export const analyticsEnvironment = {

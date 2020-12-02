@@ -1,22 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { Motif, Artwork, EntityType } from 'src/app/shared/models/models';
+import { Type, Artwork, EntityType } from 'src/app/shared/models/models';
 import { Subject } from 'rxjs';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
 
 @Component({
-  selector: 'app-motif',
-  templateUrl: './motif.component.html',
-  styleUrls: ['./motif.component.scss']
+  selector: 'app-type',
+  templateUrl: './type.component.html',
+  styleUrls: ['./type.component.scss']
 })
-export class MotifComponent implements OnInit, OnDestroy {
+export class TypeComponent implements OnInit, OnDestroy {
   /** use this to end subscription to url parameter in ngOnDestroy */
   private ngUnsubscribe = new Subject();
 
   /** The entity this page is about */
-  motif: Motif = null;
+  type: Type = null;
 
   /** Related artworks */
   sliderItems: Artwork[] = [];
@@ -27,12 +27,12 @@ export class MotifComponent implements OnInit, OnDestroy {
   ngOnInit() {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
-      const motifId = params.get('motifId');
+      const typeId = params.get('typeId');
       /** Use data service to fetch entity from database */
-      this.motif = await this.dataService.findById<Motif>(motifId, EntityType.MOTIF);
+      this.type = await this.dataService.findById<Type>(typeId, EntityType.TYPE);
 
       /** load slider items */
-      await this.dataService.findArtworksByType(EntityType.MOTIF, [this.motif.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
+      await this.dataService.findArtworksByType(EntityType.TYPE, [this.type.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
   }
 

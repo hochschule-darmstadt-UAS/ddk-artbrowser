@@ -1,17 +1,15 @@
 <div class="container">
   <h2>
-    <span i18n="All@@all">All {{queryCount}}</span>
+    <span i18n="All@@all">All {{ queryCount }}</span>
     <span class="ml-2" i18n="Entities Type Labels@@entities_labels" *ngIf="type; let type">
-    {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials}}
-  </span>
+      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials}}
+    </span>
   </h2>
 
   <app-infinite-scroll (scrolled)="onScroll()">
     <div class="d-flex flex-wrap bd-highlight mb-3 m-auto justify-content-around">
       <div *ngFor="let entity of entities" class="item">
-        <a *ngIf="entity && entity?.id"
-           class="item-link"
-           [routerLink]="['/'+type, entity?.id]">
+        <a *ngIf="entity && entity?.id" class="item-link" [routerLink]="['/' + type, entity?.id]">
           <div class="img-wrapper">
             <img
               *ngIf="entity?.imageSmall"
@@ -24,27 +22,23 @@
           <div class="item-caption">
             <div class="ml-1">
               <i class="mr-1 fas" [ngClass]="entity.icon"></i>
-              <span>{{entity.label}}</span>
+              <span>{{ entity.label }}</span>
             </div>
-            <div *ngIf="type!='artwork'" class="ml-1">
+            <div *ngIf="type != 'artwork'" class="ml-1">
               <i class="mr-1 fas fa-images"></i>
-              <span>{{entity.absoluteRank}}</span>
+              <span>{{ entity.rank }}</span>
             </div>
-            <div *ngIf="type=='movement' && entity.start_time && entity.end_time" class="ml-1">
-              <i class="mr-1 fa fa-ruler-horizontal"></i>
-              <span>{{entity.start_time}} - {{entity.end_time}}</span>
-            </div>
-            <div *ngIf="type=='artist'" class="ml-1">
-              <div *ngIf="entity.date_of_birth && entity.date_of_death">
-                <span>{{entity.date_of_birth}} - {{entity.date_of_death}}</span>
+            <div *ngIf="type == 'artist'" class="ml-1">
+              <div *ngIf="entity.dateOfBirth && entity.dateOfDeath">
+                <span>{{ entity.dateOfBirth }} - {{ entity.dateOfDeath }}</span>
               </div>
-              <div *ngIf="entity.date_of_birth && !entity.date_of_death">
+              <div *ngIf="entity.dateOfBirth && !entity.dateOfDeath">
                 <i class="mr-1 fa fa-star-of-life"></i>
-                <span>{{entity.date_of_birth}}</span>
+                <span>{{ entity.dateOfBirth }}</span>
               </div>
-              <div *ngIf="!entity.date_of_birth && entity.date_of_death">
+              <div *ngIf="!entity.dateOfBirth && entity.dateOfDeath">
                 <i class="ml-1 mr-1 fa fa-cross"></i>
-                <span>{{entity.date_of_death}}</span>
+                <span>{{ entity.dateOfDeath }}</span>
               </div>
             </div>
           </div>

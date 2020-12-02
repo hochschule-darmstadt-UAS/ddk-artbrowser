@@ -5,6 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 
 interface TimelineItem extends Entity {
+  description: string;
   date: number; // represents the value the item is located in the timeline
 }
 
@@ -293,9 +294,6 @@ export class TimelineComponent {
       this.items.push({
         id: artwork.id,
         label: artwork.label,
-        description: artwork.description,
-        abstract: artwork.abstract,
-        wikipediaLink: artwork.wikipediaLink,
         image: artwork.image,
         imageSmall: artwork.imageSmall,
         imageMedium: artwork.imageMedium,
@@ -323,39 +321,40 @@ export class TimelineComponent {
     /** Transform artists into Timeline items and set description */
     await this.dataService.findMultipleById(Array.from(artistIds) as any, EntityType.ARTIST).then((artworkArtists: Artist[]) => {
       artworkArtists.forEach(async artist => {
-        if (artist.imageSmall && (artist.dateOfBirth || artist.dateOfDeath)) {
+        // TODO: Refactor
+        const dateOfBirth = +artist.dateOfBirth || +artist.evidenceFirst;
+        const dateOfDeath = +artist.dateOfDeath || +artist.evidenceLast;
+        if (artist.imageSmall && (dateOfBirth || dateOfDeath)) {
           // decide whether to use date of birth or date of death for sorting (default: date of birth)
           // and set description accordingly
           let artistDescription;
-          if (artist.dateOfBirth && artist.dateOfDeath) {
-            artistDescription = `${artist.dateOfBirth} - ${artist.dateOfDeath}`;
-          } else if (artist.dateOfBirth) {
-            artistDescription = `*${artist.dateOfBirth}`;
+          if (dateOfBirth && dateOfDeath) {
+            artistDescription = `${dateOfBirth} - ${dateOfDeath}`;
+          } else if (dateOfBirth) {
+            artistDescription = `*${dateOfBirth}`;
           } else {
-            artistDescription = '†' + artist.dateOfDeath;
+            artistDescription = '†' + dateOfDeath;
           }
           let artistSortDate;
-          if (artist.dateOfBirth && artist.dateOfDeath) {
-            artistSortDate = Math.floor(artist.dateOfBirth + (artist.dateOfDeath - artist.dateOfBirth) * 0.33);
-          } else if (artist.dateOfBirth) {
-            artistSortDate = artist.dateOfBirth;
+          if (dateOfBirth && dateOfDeath) {
+            artistSortDate = Math.floor(dateOfBirth + (dateOfDeath - dateOfBirth) * 0.33);
+          } else if (dateOfBirth) {
+            artistSortDate = dateOfBirth;
           } else {
-            artistSortDate = artist.dateOfDeath;
+            artistSortDate = dateOfDeath;
           }
 
           artists.push({
             id: artist.id,
             label: artist.label,
-            description: artistDescription,
-            abstract: artist.abstract,
-            wikipediaLink: artist.wikipediaLink,
             image: artist.image,
             imageSmall: artist.imageSmall,
             imageMedium: artist.imageMedium,
             type: artist.type,
             absoluteRank: artist.absoluteRank,
             relativeRank: artist.relativeRank,
-            date: artistSortDate
+            date: artistSortDate,
+            description: artistDescription
           } as TimelineItem);
         }
       });

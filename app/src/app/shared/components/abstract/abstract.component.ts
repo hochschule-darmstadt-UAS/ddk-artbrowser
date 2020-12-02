@@ -18,7 +18,6 @@ export class AbstractComponent implements OnInit {
 
   /**
    * Check on every change if the preconditions are met
-   * @param changes
    */
   ngOnChanges(changes) {
     this.checkRequiredFields();

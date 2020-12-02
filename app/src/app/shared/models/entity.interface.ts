@@ -10,6 +10,7 @@ export interface Entity {
   icon: EntityIcon;
   absoluteRank: number;
   relativeRank: number;
+  route: string;
   sourceID?: Partial<SourceID>;
 }
 

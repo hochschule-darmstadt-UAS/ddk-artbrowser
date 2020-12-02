@@ -10,7 +10,6 @@ import { usePlural } from 'src/app/shared/models/entity.interface';
 /**
  * @description Interface for the search results.
  * @export
- * @interface SearchResult
  */
 export interface SearchResult {
   items: Entity[];
@@ -29,15 +28,11 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   /**
    * variable of the search results
-   * @type {SearchResult[]}
-   * @memberof SearchResultComponent
    */
   searchResults: SearchResult[] = [];
 
   /**
    * specific search terms
-   * @type {string[]}
-   * @memberof SearchResultComponent
    */
   searchTerms: string[] = [];
 
@@ -56,14 +51,11 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       if (params.artist) {
         this.searchResults.push(await this.getSearchResults(params.artist, EntityType.ARTIST, EntityIcon.ARTIST));
       }
-      if (params.movement) {
-        this.searchResults.push(await this.getSearchResults(params.movement, EntityType.MOVEMENT, EntityIcon.MOVEMENT));
-      }
       if (params.genre) {
         this.searchResults.push(await this.getSearchResults(params.genre, EntityType.GENRE, EntityIcon.GENRE));
       }
-      if (params.motif) {
-        this.searchResults.push(await this.getSearchResults(params.motif, EntityType.MOTIF, EntityIcon.MOTIF));
+      if (params.type) {
+        this.searchResults.push(await this.getSearchResults(params.type, EntityType.TYPE, EntityIcon.TYPE));
       }
       if (params.location) {
         this.searchResults.push(await this.getSearchResults(params.location, EntityType.LOCATION, EntityIcon.LOCATION));
@@ -96,8 +88,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Serach artworks by ids and terms
-   * Return arwork array
+   * Search artworks by ids and terms
+   * Return artwork array
    * @param results search result array
    * @param terms terms array
    */
