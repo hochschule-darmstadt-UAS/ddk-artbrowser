@@ -1,19 +1,13 @@
 export interface Entity {
   id: string;
-  label?: string;
-  description?: string;
-  abstract?: string;
-  wikipediaLink?: string;
+  label?: string
   image?: string;
   imageSmall?: string;
   imageMedium?: string;
-  iconclasses?: Array<Iconclass>;
   type: EntityType;
   icon: EntityIcon;
-  route: string;
   absoluteRank: number;
   relativeRank: number;
-  videos?: string;
 }
 
 export type Iconclass = string;
