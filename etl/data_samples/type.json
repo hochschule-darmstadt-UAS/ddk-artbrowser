@@ -1,0 +1,22 @@
+[
+  {
+    "id": "300194222",
+    "entityType": "type",
+    "name": "Buchseite",
+    "altNames": ["Buch"],
+    "conceptID": [
+      {
+        "source": "http://vocab.getty.edu/aat",
+        "id": "http://vocab.getty.edu/aat/300194222",
+        "term": "Buchseite"
+      },
+      {
+        "source": "http://d-nb.info/gnd",
+        "id": "http://d-nb.info/gnd/4671374-8",
+        "term": "Buchseite"
+      }
+    ],
+    "count": 1,
+    "rank": 0.39775910364145656
+  }
+]

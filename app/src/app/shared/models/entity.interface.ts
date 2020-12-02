@@ -20,7 +20,8 @@ export enum EntityType {
   LOCATION = 'location',
   MATERIAL = 'material',
   MOVEMENT = 'movement',
-  MOTIF = 'motif'
+  MOTIF = 'motif',
+  ICONOGRAPHY = 'iconography'
 }
 
 export const usePlural = (type: EntityType) => (type === 'all' ? type : type + 's');
@@ -33,5 +34,6 @@ export enum EntityIcon {
   LOCATION = 'fa-archway',
   MOTIF = 'fa-image',
   GENRE = 'fa-tag',
-  MATERIAL = 'fa-scroll'
+  MATERIAL = 'fa-scroll',
+  ICONOGRAPHY = 'fa-fingerprint'
 }
