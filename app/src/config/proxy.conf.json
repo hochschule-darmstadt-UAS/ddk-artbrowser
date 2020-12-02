@@ -1,5 +1,5 @@
 {
-  "/api": {
+  "/api/*": {
     "target": "https://cai-ddk-art-browser-staging.fbi.h-da.de",
     "secure": false
   },

@@ -37,6 +37,7 @@ export class DataService {
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => this.setTypes(entity));
+    console.log(entities);
     return !entities.length ? null : entities[0];
   }
 
@@ -202,8 +203,6 @@ export class DataService {
    * @param type type to filter for
    */
   private async performQuery<T>(query: QueryBuilder, url: string = this.baseUrl, type?: EntityType) {
-    console.log(url);
-
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
