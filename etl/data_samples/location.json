@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ddk-location-Hessische Landesbibliothek Fulda (Fulda)",
+    "entityType": "location",
+    "label": "Hessische Landesbibliothek Fulda (Fulda)",
+    "altLabels": ["Bibliothek Fulda"],
+    "sourceID": {
+      "source": "http://vocab.getty.edu/tgn",
+      "id": "http://vocab.getty.edu/tgn/7005294",
+      "term": "Fulda"
+    },
+    "count": 61,
+    "rank": 0.9682436811406351,
+    "inventoryNumber": "Hs. Aa. 6, 107",
+    "placeLabel": "Fulda",
+    "placeAltLabels": ["Test", "Test2", "alternativeFulda"]
+  }
+]
