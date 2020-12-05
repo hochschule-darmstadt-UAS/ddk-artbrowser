@@ -7,7 +7,7 @@ export const elasticEnvironment = {
 };
 
 export const analyticsEnvironment =
-  window.location.host === 'cai-ddk-art-browser-staging.fbi.h-da.de'
+  window.location.host === 'https://cai-ddk-art-browser-staging.fbi.h-da.de'
     ? {
         // staging
         enabled: true,

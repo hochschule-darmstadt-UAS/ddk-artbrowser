@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.placeholderArray.unshift(this.inputRef.nativeElement.placeholder);
     const inv = interval(8000);
-    inv.pipe(takeUntil(this.ngUnsubscribe)).subscribe(val => this.changePlaceholdertext());
+    inv.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.changePlaceholdertext());
     this.cdRef.detectChanges();
   }
 
@@ -125,6 +125,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /** sort search items by rank and whether results starts with search term
    * @param entities results which should be sorted
+   * @param term the searched term
    */
   sortSearchResultsByRank(entities: Entity[], term: string): Entity[] {
     return entities.sort((left, right): any => {
@@ -147,7 +148,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     const movements = [];
     const locations = [];
     for (const ent of entities) {
-      switch (ent.type) {
+      switch (ent.entityType) {
         case EntityType.ARTWORK: {
           artworks.push(ent);
           break;
@@ -206,17 +207,17 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param entities results which should be resorted
    */
   groupSearchResultsByType(entities: Entity[]): Entity[] {
-    let types = [];
-    entities.forEach(function(entity) {
-      if (!types.includes(entity.type)) {
-        types.push(entity.type);
+    const types = [];
+    entities.forEach(entity => {
+      if (!types.includes(entity.entityType)) {
+        types.push(entity.entityType);
       }
     });
 
-    let entitiesResorted = [];
-    types.forEach(function(type) {
-      entities.forEach(function(entity) {
-        if (entity.type == type) {
+    const entitiesResorted = [];
+    types.forEach(type => {
+      entities.forEach(entity => {
+        if (entity.entityType === type) {
           entitiesResorted.push(entity);
         }
       });

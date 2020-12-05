@@ -1,12 +1,12 @@
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
-import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass, Movement } from 'src/app/shared/models/models';
+import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 'src/app/shared/models/models';
 import { elasticEnvironment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
-import { usePlural } from 'src/app/shared/models/entity.interface';
+import { usePlural } from '../../../shared/models/entity.interface';
 
-const defaultSortField = 'relativeRank';
+const defaultSortField = 'rank';
 
 /**
  * Service that handles the requests to the API
@@ -23,7 +23,18 @@ export class DataService {
   constructor(private http: HttpClient, @Inject(LOCALE_ID) localeId: string) {
     // build backend api url with specific index by localeId
     this.ISO_639_1_LOCALE = localeId.substr(0, 2);
-    this.baseUrl = elasticEnvironment.serverURI + '/' + (this.ISO_639_1_LOCALE || 'en') + '/_search';
+    this.baseUrl = elasticEnvironment.serverURI + '/_search';
+  }
+
+  /**
+   * set type specific attributes
+   * @param entity entity object
+   */
+  private static setTypes(entity: any) {
+    if (entity.type && entity.id) {
+      entity.route = `/${entity.type}/${entity.id}`;
+      entity.icon = EntityIcon[entity.type.toUpperCase()];
+    }
   }
 
   /**
@@ -36,7 +47,8 @@ export class DataService {
     const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
-    entities.forEach(entity => this.setTypes(entity));
+    entities.forEach(entity => DataService.setTypes(entity));
+    console.log(entities);
     return !entities.length ? null : entities[0];
   }
 
@@ -59,6 +71,7 @@ export class DataService {
    * Find Artworks by the given ids for the given type
    * @param type the type to search in
    * @param ids the ids to search for
+   * @param count the number of fetched artworks, which can be chosen from
    */
   public findArtworksByType(type: EntityType, ids: string[], count = 200): Promise<Artwork[]> {
     const query = new QueryBuilder()
@@ -66,32 +79,8 @@ export class DataService {
       .sort(defaultSortField)
       .minimumShouldMatch(1)
       .ofType(EntityType.ARTWORK);
-    ids.forEach(id => query.shouldMatch(usePlural(type), `${id}`));
+    ids.forEach(id => query.shouldMatch(type !== EntityType.LOCATION ? usePlural(type) : type, `${id}`));
     return this.performQuery<Artwork>(query);
-  }
-
-  /**
-   * Find all movements which are part of topMovement and have start_time and end_time set
-   * @param topMovementId Id of 'parent' movement
-   */
-  public getHasPartMovements(topMovementId: string): Promise<Movement[]> {
-    return this.findById<Movement>(topMovementId, EntityType.MOVEMENT).then(topMovement => {
-      return this.findMultipleById<Movement>(topMovement.has_part, EntityType.MOVEMENT).then(hasPartMovements => {
-        return hasPartMovements.filter(m => m.start_time && m.end_time);
-      });
-    });
-  }
-
-  /**
-   * Find all movements which movement is part of and have start_time and end_time set
-   * @param subMovementId Id of 'sub' movement
-   */
-  public getPartOfMovements(subMovementId: string): Promise<Movement[]> {
-    return this.findById<Movement>(subMovementId, EntityType.MOVEMENT).then(subMovement => {
-      return this.findMultipleById<Movement>(subMovement.part_of, EntityType.MOVEMENT).then(partOfMovements => {
-        return partOfMovements.filter(m => m.start_time && m.end_time);
-      });
-    });
   }
 
   /**
@@ -102,7 +91,7 @@ export class DataService {
     const query = new QueryBuilder()
       .size(20)
       .sort(defaultSortField)
-      .mustMatch('type', 'artwork')
+      .mustMatch('entityType', 'artwork')
       .shouldMatch('label', `${label}`);
     return this.performQuery<Artwork>(query);
   }
@@ -115,7 +104,7 @@ export class DataService {
     const query = new QueryBuilder()
       .size(5)
       .sort(defaultSortField)
-      .mustMatch('type', 'artwork')
+      .mustMatch('entityType', 'artwork')
       .mustMatch('movements', `${movement}`);
     return this.performQuery<Artwork>(query);
   }
@@ -130,7 +119,7 @@ export class DataService {
     const query = new QueryBuilder()
       .size(400)
       .sort(defaultSortField)
-      .mustMatch('type', 'artwork');
+      .mustMatch('entityType', 'artwork');
 
     _.each(searchObj, (arr, key) => {
       if (Array.isArray(arr)) {
@@ -149,7 +138,7 @@ export class DataService {
 
   public async getEntityItems<T>(type: EntityType, count = 20, from = 0): Promise<T[]> {
     const query = new QueryBuilder()
-      .mustMatch('type', type)
+      .mustMatch('entityType', type)
       .sort(defaultSortField)
       .size(count)
       .from(from);
@@ -165,7 +154,7 @@ export class DataService {
 
   public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {
     const query = new QueryBuilder()
-      .mustMatch('type', 'artwork')
+      .mustMatch('entityType', 'artwork')
       .mustPrefix('image', 'http')
       .sort(defaultSortField)
       .size(count);
@@ -192,8 +181,8 @@ export class DataService {
    */
   public async getCategoryItems<T>(type: EntityType, count = 20): Promise<T[]> {
     const query = new QueryBuilder()
-      .mustMatch('type', type)
-      .mustPrefix('image', 'http')
+      .mustMatch('entityType', type)
+      // .mustPrefix('image', 'http')
       .sort(defaultSortField)
       .size(count);
     return this.performQuery<T>(query);
@@ -229,7 +218,7 @@ export class DataService {
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
-    entities.forEach(entity => this.setTypes(entity));
+    entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
       console.warn(NoResultsWarning(query));
@@ -261,29 +250,29 @@ export class DataService {
    * @param entity entity for which thumbnails should be added
    */
   private addThumbnails(entity: Entity) {
-    const prefix = 'https://upload.wikimedia.org/wikipedia/commons/';
-    if (entity.image && !entity.image.endsWith('.tif') && !entity.image.endsWith('.tiff')) {
-      entity.imageSmall = entity.image.replace(prefix, prefix + 'thumb/') + '/256px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1);
-      entity.imageMedium = entity.image.replace(prefix, prefix + 'thumb/') + '/512px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1);
+    const prefix = 'http://www.bildindex.de/bilder/';
+    if (entity.entityType === EntityType.ARTWORK) {
+      const e = entity as Artwork;
+      const link = e.resources[0].linkResource;
+      const imageID = link.substr(link.lastIndexOf('/') + 1);
+      entity.image = prefix + 'd/' + imageID;
+      entity.imageMedium = prefix + 'm/' + imageID;
+      entity.imageSmall = prefix + 't/' + imageID;
+      console.log(link, link.replace(link.split('/').join(), 'm'));
     } else {
-      // There can only be loaded 4 images at once https://phabricator.wikimedia.org/T255854 so HTTP 429 error may occur.
-      entity.imageSmall =
-        entity.image.replace(prefix, prefix + 'thumb/') + '/lossy-page1-256px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1) + '.jpg';
-      entity.image = entity.imageMedium =
-        entity.image.replace(prefix, prefix + 'thumb/') + '/lossy-page1-512px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1) + '.jpg';
+      /** fetch 20 artworks to choose from */
+      this.findArtworksByType(entity.entityType, [entity.id], 20).then(result => {
+        if (result.length) {
+          const link = result[0].resources[0].linkResource;
+          const imageID = link.substr(link.lastIndexOf('/') + 1);
+          entity.image = prefix + 'd/' + imageID;
+          entity.imageMedium = prefix + 'm/' + imageID;
+          entity.imageSmall = prefix + 't/' + imageID;
+        }
+      });
     }
-    return entity;
-  }
 
-  /**
-   * set type specific attributes
-   * @param entity entity object
-   */
-  private setTypes(entity: any) {
-    if (entity.type && entity.id) {
-      entity.route = `/${entity.type}/${entity.id}`;
-      entity.icon = EntityIcon[entity.type.toUpperCase()];
-    }
+    return entity;
   }
 }
 

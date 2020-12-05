@@ -1,19 +1,8 @@
-import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
-import {NgbCarouselConfig, NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
-import {
-  Entity,
-  Artist,
-  Artwork,
-  Movement,
-  Material,
-  Location,
-  Genre,
-  Motif,
-  EntityIcon,
-  EntityType
-} from 'src/app/shared/models/models';
-import {DataService} from 'src/app/core/services/elasticsearch/data.service';
-import {shuffle} from 'src/app/core/services/utils.service';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+import { Entity, Artist, Artwork, Material, Location, Genre, Type, EntityIcon, EntityType } from 'src/app/shared/models/models';
+import { DataService } from 'src/app/core/services/elasticsearch/data.service';
+import { shuffle } from 'src/app/core/services/utils.service';
 
 /**
  * @description Interface for the category sliders.
@@ -82,26 +71,26 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * @description Fetch items for each category using the service. Retrun an array of slider category items.
+   * @description Fetch items for each category using the service. Return an array of slider category items.
    */
   private getSlides = async (): Promise<SliderCategory[]> => {
     const cats = [];
+    console.log('Hello');
     cats.push(await this.getSliderCategory<Artwork>(EntityType.ARTWORK));
     cats.push(await this.getSliderCategory<Artist>(EntityType.ARTIST));
-    cats.push(await this.getSliderCategory<Movement>(EntityType.MOVEMENT));
     cats.push(await this.getSliderCategory<Location>(EntityType.LOCATION));
     cats.push(await this.getSliderCategory<Material>(EntityType.MATERIAL));
     cats.push(await this.getSliderCategory<Genre>(EntityType.GENRE));
-    cats.push(await this.getSliderCategory<Motif>(EntityType.MOTIF));
+    cats.push(await this.getSliderCategory<Type>(EntityType.TYPE));
     return cats;
-  }
+  };
 
   /**
    * @description Get categories by entity type. Return SliderCategory object.
    */
   private async getSliderCategory<T>(category: EntityType): Promise<SliderCategory> {
     const items = shuffle(await this.dataService.getCategoryItems<T>(category));
-    return {items, type: category, icon: EntityIcon[category.toUpperCase()]};
+    return { items, type: category, icon: EntityIcon[category.toUpperCase()] };
   }
 
   private setBackground() {

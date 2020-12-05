@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MotifComponent } from './motif.component';
+import { TypeComponent } from './motif.component';
 import { SlideComponent } from 'src/app/shared/components/carousel/slide/slide.component';
 import { CarouselComponent } from 'src/app/shared/components/carousel/carousel.component';
 import { RouterModule } from '@angular/router';
@@ -14,14 +14,14 @@ import { BadgeComponent } from 'src/app/shared/components/badge/badge.component'
 import { CollapseComponent } from 'src/app/shared/components/collapse/collapse.component';
 
 describe('MotifComponent', () => {
-  let component: MotifComponent;
-  let fixture: ComponentFixture<MotifComponent>;
+  let component: TypeComponent;
+  let fixture: ComponentFixture<TypeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NgbModule, HttpClientModule, RouterModule.forRoot([])],
       declarations: [
-        MotifComponent,
+        TypeComponent,
         SlideComponent,
         CarouselComponent,
         AbstractComponent,
@@ -35,7 +35,7 @@ describe('MotifComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MotifComponent);
+    fixture = TestBed.createComponent(TypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

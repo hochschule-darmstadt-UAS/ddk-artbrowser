@@ -19,7 +19,7 @@ export class BadgeComponent implements OnInit, OnChanges {
   tooltip: string;
   highlight: boolean;
 
-  tooltipBreakLimit: number = 150;
+  tooltipBreakLimit = 150;
 
   /**
    * When an Entity has been passed to the component
@@ -29,11 +29,11 @@ export class BadgeComponent implements OnInit, OnChanges {
    */
   ngOnInit() {
     if (this.entity) {
-      this.icon = icons[this.entity.type] || 'fa-user';
-      this.redirectUrl = `/${this.entity.type}/${this.entity.id}` || '/';
+      this.icon = icons[this.entity.entityType] || 'fa-user';
+      this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
       this.label = this.entity.label || '';
 
-      this.tooltip = this.entity.abstract || this.entity.description || null;
+      this.tooltip = this.entity.label || null;
       if (this.tooltip) {
         this.tooltip.trim();
       }
@@ -50,8 +50,12 @@ export class BadgeComponent implements OnInit, OnChanges {
      */
     if (this.tooltip && this.tooltip.length >= this.tooltipBreakLimit) {
       let substrTo = this.tooltip.indexOf('.', this.tooltipBreakLimit);
-      if (substrTo < this.tooltipBreakLimit) substrTo = this.tooltip.indexOf(' ', this.tooltipBreakLimit);
-      if (substrTo < this.tooltipBreakLimit) substrTo = this.tooltipBreakLimit;
+      if (substrTo < this.tooltipBreakLimit) {
+        substrTo = this.tooltip.indexOf(' ', this.tooltipBreakLimit);
+      }
+      if (substrTo < this.tooltipBreakLimit) {
+        substrTo = this.tooltipBreakLimit;
+      }
       this.tooltip = this.tooltip.substr(0, substrTo).replace(/ *\([^)]*\) */g, '') + ' [...]';
     }
   }
@@ -60,7 +64,7 @@ export class BadgeComponent implements OnInit, OnChanges {
     if (this.isHoverBadge) {
       this.highlight = false;
       if (this.hoveredArtwork) {
-        this.highlight = this.hoveredArtwork[usePlural(this.entity.type)].includes(this.entity.id);
+        this.highlight = this.hoveredArtwork[usePlural(this.entity.entityType)].includes(this.entity.id);
       }
     }
   }

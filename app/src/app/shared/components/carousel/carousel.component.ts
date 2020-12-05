@@ -23,7 +23,7 @@ export interface Slide {
  * In order to test the Slide component individually
  * we need a default slide that can be passed to it
  *
- * @returns {Slide} a default slide
+ * @returns a default slide
  */
 export function makeDefaultSlide(id: number = 0, items: Array<Entity> = []): Slide {
   return {
@@ -109,7 +109,6 @@ export class CarouselComponent implements OnChanges {
   }
 
   /** delete slide based on id of the passed slide
-   * @param slide slide to be deleted
    */
   deleteUnusedSlides() {
     const lastSlide = this.slides[this.slides.length - 1];

@@ -10,11 +10,15 @@ import { EntityIcon, EntityType } from '../../../shared/models/entity.interface'
   providedIn: 'root'
 })
 export class IconclassService {
-  private readonly ISO_639_1_LOCALE: string;
-
   constructor(private http: HttpClient, @Inject(LOCALE_ID) localeId: string) {
     // build backend api url with specific index by localeId
     this.ISO_639_1_LOCALE = localeId.substr(0, 2);
+  }
+
+  private readonly ISO_639_1_LOCALE: string;
+
+  private static capitalizeFirstLetter(iconText: string) {
+    return iconText.charAt(0).toUpperCase() + iconText.slice(1);
   }
 
   public getIconclassByNotation(notation: string): Observable<Iconography> {
@@ -40,7 +44,7 @@ export class IconclassService {
         const ico = {
           id: item.n,
           icon: EntityIcon.ICONOGRAPHY,
-          type: EntityType.ICONOGRAPHY,
+          entityType: EntityType.ICONOGRAPHY,
           children: item.c,
           parents: item.p,
           keywords: item.kw,
@@ -61,11 +65,7 @@ export class IconclassService {
       iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'];
     }
     iconography.label = iconography.label.length > 50 ? iconography.label.substr(0, 50) + '...' : iconography.label;
-    iconography.text[this.ISO_639_1_LOCALE || 'de'] = this.capitalizeFirstLetter(iconography.text[this.ISO_639_1_LOCALE || 'de']);
+    iconography.text[this.ISO_639_1_LOCALE || 'de'] = IconclassService.capitalizeFirstLetter(iconography.text[this.ISO_639_1_LOCALE || 'de']);
     return iconography;
-  }
-
-  private capitalizeFirstLetter(iconText: string) {
-    return iconText.charAt(0).toUpperCase() + iconText.slice(1);
   }
 }

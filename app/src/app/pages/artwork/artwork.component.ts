@@ -22,7 +22,7 @@ interface ArtworkTab {
 })
 export class ArtworkComponent implements OnInit, OnDestroy {
   /* TODO:REVIEW
-    Similiarities in every page-Component:
+    Similarities in every page-Component:
     - variables: ngUnsubscribe, collapse (here: detailsCollapsed), dataService, route
     - ngOnDestroy, calculateCollapseState, ngOnInit
 
@@ -109,15 +109,9 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       const artworkId = params.get('artworkId');
       this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
 
-      if (this.artwork.videos && this.artwork.videos.length > 0) {
-        this.uniqueVideos.unshift(this.artwork.videos[0]);
-      }
-
       if (this.artwork) {
-        this.mergeMotifs();
-        this.combineEventData();
         await this.resolveIds('main_subjects');
-        this.insertMainMotifTab();
+        await this.insertIconographiesTab();
 
         /* load tabs content */
         this.loadTabs();
@@ -133,32 +127,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     this.artwork[key] = await this.dataService.findMultipleById(this.artwork[key] as string[]);
   }
 
-  /**
-   * merges main_subjects into motifs for display in the 'all' and 'motifs' tab of the artwork page
-   */
-  mergeMotifs() {
-    this.artwork.main_subjects.forEach(motifId => {
-      if (!this.artwork.motifs.includes(motifId)) {
-        this.artwork.motifs.push(motifId);
-      }
-    });
-  }
-
-  /**
-   * function to restrict the displayed motifs on the artwork component
-   */
-  filterDuplicateMotifs() {
-    const mainIds = this.artwork.main_subjects.map(motif => motif.id);
-    return this.artwork.motifs.filter(motif => !mainIds.includes(motif.id));
-  }
-
-  addUniqueVideos(inputArray) {
-    for ( const entity of inputArray) {
-      if (entity.videos && entity.videos.length >  0 && !this.uniqueVideos.includes(entity.videos[0])) {
-        this.uniqueVideos.push(entity.videos[0]);
-      }
-    }
-  }
   /**
    * hide artwork image
    */
@@ -216,8 +184,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         // load entities
         this.dataService.findMultipleById(this.artwork[types] as any, tab.type).then(artists => {
           this.artwork[types] = artists;
-          this.addUniqueVideos(this.artwork.artists);
-          this.addUniqueVideos(this.artwork.movements);
         });
         // load related artworks by type
         return await this.dataService.findArtworksByType(tab.type, this.artwork[types] as any).then(artworks => {
@@ -252,40 +218,19 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    * inserts a custom tab that displays related artworks by main motifs.
    * since main motifs are of type motif and not a new entity type, this custom tab logic exists
    */
-  async insertMainMotifTab() {
-    const main_motifs = this.artwork.main_subjects.map(entity => entity.id);
-
-    const items = await this.dataService.findArtworksByType(EntityType.MOTIF, main_motifs);
+  async insertIconographiesTab() {
+    const items = await this.dataService.findArtworksByType(
+      EntityType.ICONOGRAPHY,
+      this.artwork.iconographies.map(value => value.label)
+    );
 
     const tab = {
       active: false,
-      icon: EntityIcon['MOTIF'],
-      type: 'main_motif' as EntityType,
+      icon: EntityIcon.ICONOGRAPHY,
+      type: EntityType.ICONOGRAPHY,
       items
     };
 
     this.artworkTabs.splice(1, 0, tab); // insert after first element (All, Main Motif, ...rest)
-  }
-
-  videoFound(event) {
-    this.videoExists = this.videoExists ? true : event;
-  }
-
-  /**
-   * combines the "new" attributes and sorts them by start year
-   * (exhibition history and significant event)
-   * for a unified display mode
-   */
-  combineEventData() {
-    this.artwork.events = [
-      ...this.artwork['exhibition_history'],
-      ...this.artwork['significant_event']
-    ].map(event => {
-      if (event.type === 'significant_event') {
-        event.start_time = event['point_in_time'];
-        delete event['point_in_time'];
-      }
-      return event;
-    }).sort((left, right) => left.start_time - right.start_time);
   }
 }

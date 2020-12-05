@@ -1,36 +1,23 @@
-import { Entity, EntityType } from './entity.interface';
+import { Entity, EntityIcon, EntityType } from './entity.interface';
 import { Artist } from './artist.interface';
 import { Genre } from './genre.interface';
-import { Movement } from './movement.interface';
 import { Material } from './material.interface';
-import { Motif } from './motif.interface';
+import { Iconography } from './iconography.interface';
+import { Measurement, RecordLegal, Resource } from './utils';
+import { Type } from './type.interface';
 
 export interface Artwork extends Entity {
   artists: Partial<Artist>[];
-  locations: Partial<Location>[];
+  location: Partial<Location>;
   genres: Partial<Genre>[];
-  movements: Partial<Movement>[];
-  inception?: number;
+  types: Partial<Type>[];
+  iconographies: Partial<Iconography>[];
   materials: Partial<Material>[];
-  motifs: Partial<Motif>[];
-  main_subjects: Partial<Motif>[];
-  country?: string;
-  height?: number;
-  height_unit?: string;
-  width?: number;
-  width_unit?: string;
-  length?: number;
-  length_unit?: string;
-  diameter?: number;
-  diameter_unit?: string;
-  events?: SignificantEvent[];
-  type: EntityType.ARTWORK;
-}
-
-export interface SignificantEvent {
-  start_time: number;
-  end_time?: number;
-  label: string;
-  description?: string;
-  type: string;
+  measurements: Partial<Measurement>[];
+  recordLegal: Partial<RecordLegal>;
+  resources: Partial<Resource>[];
+  inscriptions?: string[];
+  inception?: number;
+  entityType: EntityType.ARTWORK;
+  icon: EntityIcon.ARTWORK;
 }

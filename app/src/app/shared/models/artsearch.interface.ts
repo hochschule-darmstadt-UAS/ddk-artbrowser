@@ -1,5 +1,5 @@
 export interface ArtSearch {
-  motifs?: string[];
+  types?: string[];
   artists?: string[];
   movements?: string[];
   genres?: string[];
