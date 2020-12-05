@@ -264,7 +264,7 @@
             </lido:relatedWorksWrap>
         </lido:objectRelationWrap>
     </lido:descriptiveMetadata>
-    <lido:administrativeMetadata xml:lang="de">
+    <lido:administrativeMetDE-Mb112-lido-t3-00023088-T-001-T-065adata xml:lang="de">
         <lido:recordWrap>
             <lido:recordID lido:type="http://terminology.lido-schema.org/lido00100"
                            lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">obj00023088,T,001,T,065</lido:recordID>
@@ -326,7 +326,7 @@
                 </lido:rightsResource>
             </lido:resourceSet>
         </lido:resourceWrap>
-    </lido:administrativeMetadata>
+    </lido:administrativeMetDE-Mb112-lido-t3-00023088-T-001-T-065adata>
 </lido:lido>
    <lido:lido>
       <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"
