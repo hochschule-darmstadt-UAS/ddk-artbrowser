@@ -36,7 +36,7 @@ describe('SliderComponent', () => {
       {
         id: 'Q18578798',
         label: 'The Execution of the Four Crowned Martyrs',
-        type: EntityType.ARTWORK,
+        entityType: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
         count: 37,
@@ -46,7 +46,7 @@ describe('SliderComponent', () => {
       {
         id: 'Q549172',
         label: 'Flight into Egypt',
-        type: EntityType.ARTWORK,
+        entityType: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
         count: 46,
@@ -56,7 +56,7 @@ describe('SliderComponent', () => {
       {
         id: 'Q979440',
         label: 'Annunciation with St. Margaret and St. Ansanus',
-        type: EntityType.ARTWORK,
+        entityType: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
         count: 36,
@@ -66,7 +66,7 @@ describe('SliderComponent', () => {
       {
         id: 'Q3815314',
         label: 'Head of Christ',
-        type: EntityType.ARTWORK,
+        entityType: EntityType.ARTWORK,
         icon: EntityIcon.ARTWORK,
         route: '',
         count: 21,

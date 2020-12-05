@@ -5,6 +5,6 @@ export interface Location extends Entity {
   placeName?: string;
   placeAltNames?: string[];
   part_of: Partial<Location>[];
-  type: EntityType.LOCATION;
+  entityType: EntityType.LOCATION;
   icon: EntityIcon.LOCATION;
 }

@@ -29,8 +29,8 @@ export class BadgeComponent implements OnInit, OnChanges {
    */
   ngOnInit() {
     if (this.entity) {
-      this.icon = icons[this.entity.type] || 'fa-user';
-      this.redirectUrl = `/${this.entity.type}/${this.entity.id}` || '/';
+      this.icon = icons[this.entity.entityType] || 'fa-user';
+      this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
       this.label = this.entity.label || '';
 
       this.tooltip = this.entity.label || null;
@@ -64,7 +64,7 @@ export class BadgeComponent implements OnInit, OnChanges {
     if (this.isHoverBadge) {
       this.highlight = false;
       if (this.hoveredArtwork) {
-        this.highlight = this.hoveredArtwork[usePlural(this.entity.type)].includes(this.entity.id);
+        this.highlight = this.hoveredArtwork[usePlural(this.entity.entityType)].includes(this.entity.id);
       }
     }
   }

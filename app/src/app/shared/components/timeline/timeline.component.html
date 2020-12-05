@@ -19,7 +19,7 @@
       >
         <a
           class="item"
-          [routerLink]="item?.type === 'artist' ? ['/artist', item?.id] : ['/artwork', item?.id]"
+          [routerLink]="item?.entityType === 'artist' ? ['/artist', item?.id] : ['/artwork', item?.id]"
           angulartics2On="click"
           angularticsCategory="Navigation"
           angularticsAction="Timeline"
@@ -33,13 +33,13 @@
               src="{{ item?.imageSmall }}"
               alt="{{ item?.label }}"
               (error)="onLoadingError(item)"
-              [ngClass]="item?.type == 'artist' ? 'rounded-circle' : ''"
+              [ngClass]="item?.entityType == 'artist' ? 'rounded-circle' : ''"
             />
-            <div class="overlay_view" [ngClass]="item?.type == 'artist' ? 'rounded-circle' : ''">
+            <div class="overlay_view" [ngClass]="item?.entityType == 'artist' ? 'rounded-circle' : ''">
               <span class="img_description">{{ item?.label }}</span>
             </div>
           </div>
-          <div *ngIf="item?.date" [textContent]="item?.type === 'artist' ? item?.description : item?.date" class="center item-caption"></div>
+          <div *ngIf="item?.date" [textContent]="item?.entityType === 'artist' ? item?.description : item?.date" class="center item-caption"></div>
         </a>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="text-muted" *ngIf="entity">
-  <a class="badge badge-secondary chip" [routerLink]="['/' + entity.type + 's']">
+  <a class="badge badge-secondary chip" [routerLink]="['/' + entity.entityType + 's']">
     <i class="fas {{ entity?.icon }}"></i>
-    <ng-container i18n="Entity Type Labels@@entity_labels" *ngIf="entity.type; let type">
+    <ng-container i18n="Entity Type Labels@@entity_labels" *ngIf="entity.entityType; let type">
       {type, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}
     </ng-container>
   </a>

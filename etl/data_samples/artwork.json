@@ -6,7 +6,6 @@
     "altLabel": ["Foo Bar"],
     "count": 62,
     "rank": 0.9993051398719951,
-
     "measurements": [
       {
         "displayName": "Höhe x Breite: 32 x 21 cm",
@@ -73,9 +72,10 @@
       }
     ],
     "types": ["getty-300194222"],
-    "genres": ["getty-300180362"],
+    "genres": ["getty-300180362", "IMAGE", "liturgischer Text"],
     "location": "Hessische Landesbibliothek Fulda (Fulda)",
     "artists": ["getty-500095236"],
+    "materials": ["getty-300010797"],
     "iconographies": ["11D121", "48A98311"],
     "inscriptions": ["Inschrift: Rückseite — John Brogden"],
     "inception": "um 1120/1130"

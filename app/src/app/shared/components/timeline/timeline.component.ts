@@ -55,8 +55,8 @@ export class TimelineComponent {
   private sliderAllowEvent = true;
 
   /** Controls carousel animations */
-  private slideOutRight = false;
-  private slideOutLeft = false;
+  slideOutRight = false;
+  slideOutLeft = false;
 
   /** The reference item describes the index of the item referring
    *  to the displayed value in the slider.
@@ -297,7 +297,7 @@ export class TimelineComponent {
         image: artwork.resources[0].linkResource,
         imageSmall: artwork.resources[0].linkResource,
         imageMedium: artwork.resources[0].linkResource,
-        type: artwork.type,
+        entityType: artwork.entityType,
         count: artwork.count,
         rank: artwork.rank,
         date: artwork.inception || 1234 // TODO
@@ -350,7 +350,7 @@ export class TimelineComponent {
             image: artist.image,
             imageSmall: artist.imageSmall,
             imageMedium: artist.imageMedium,
-            type: artist.type,
+            entityType: artist.entityType,
             count: artist.count,
             rank: artist.rank,
             date: artistSortDate,

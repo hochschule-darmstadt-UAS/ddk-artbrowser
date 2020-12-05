@@ -6,7 +6,7 @@ export interface Entity {
   image?: string;
   imageSmall?: string;
   imageMedium?: string;
-  type: EntityType;
+  entityType: EntityType;
   icon: EntityIcon;
   count: number;
   rank: number;

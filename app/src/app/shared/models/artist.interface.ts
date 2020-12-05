@@ -8,6 +8,6 @@ export interface Artist extends Entity {
   evidenceLast?: string;
   nationality?: string;
   roles: string[];
-  type: EntityType.ARTIST;
+  entityType: EntityType.ARTIST;
   icon: EntityIcon.ARTIST;
 }
