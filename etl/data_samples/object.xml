@@ -105,6 +105,7 @@
                             <lido:measurementUnit>cm</lido:measurementUnit>
                             <lido:measurementValue>32 x 21</lido:measurementValue>
                         </lido:measurementsSet>
+                        <lido:extentMeasurements>gesamt</lido:extentMeasurements>
                     </lido:objectMeasurements>
                 </lido:objectMeasurementsSet>
                 <lido:objectMeasurementsSet>
