@@ -2,13 +2,7 @@ paths = {
     #ARTWORK
     "Artwork_Id_Path": 'lido:lidoRecID[@lido:source]',
     "Artwork_Name_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:titleWrap/lido:titleSet/lido:appellationValue[@lido:pref="preferred"][1]',
-    "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID[@lido:source]',
-    "Artwork_Genres_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:conceptID[@lido:source]',
-    "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet[1]/lido:repositoryName/lido:legalBodyName/lido:appellationValue[1]',
-    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
-    "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
     #entityTape?
-    #materials?
     #inception?
 
     ##Prio 2
@@ -16,15 +10,16 @@ paths = {
     "Artwork_Inscription_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:inscriptionsWrap/lido:inscriptions/lido:inscriptionDescription/lido:descriptiveNoteValue',
 
     #TYPE
-    #id
+    "Artwork_Type_ID_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID[@lido:source]',
     #entityType
-    #name
+    "Artwork_Type_Name_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term',
     #conceptId
 
     ##Prio 2
     #altNames
 
     #GENRE
+    "Artwork_Genres_ID_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:conceptID[@lido:source]',
     #id
     #type
     #name
@@ -35,6 +30,7 @@ paths = {
     #altNames
 
     #LOCATION
+    "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet[1]/lido:repositoryName/lido:legalBodyName/lido:appellationValue[1]',
     #id
     #entityType
     #name
@@ -49,6 +45,7 @@ paths = {
     #altNames
 
     #ARTIST
+    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
     #id
     #entityType
     #actorID
@@ -74,6 +71,7 @@ paths = {
     #altNames
 
     #ICONOGRAPHY
+    "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
     #id
     #entityType
     #conceptID

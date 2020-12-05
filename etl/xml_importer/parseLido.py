@@ -3,6 +3,7 @@ import json
 from xpaths import paths
 
 from etl.xml_importer.entities.artwork import Artwork
+from etl.xml_importer.entities.type import Type
 from etl.xml_importer.lidoObject import LidoObject
 from etl.xml_importer.utils.measurement import Measurment
 from etl.xml_importer.utils.recordLegal import RecordLegal
@@ -15,6 +16,7 @@ genres = dict()
 locations = dict()
 materials = dict()
 iconographys = dict()
+types = dict()
 
 artworks = []
 
@@ -38,13 +40,14 @@ def _print(artworks):
     i = 0
     for artwork in artworks:
         print(i, ". Artwork")
-        print(artwork.id)
-        print(artwork.name)
+        print("ID: ", artwork.id)
+        print("Name: ", artwork.name)
+        print("Inscriptions: ", artwork.inscriptions)
         print(artwork.types)
-        print(artwork.genres)
-        print(artwork.location)
-        print(artwork.artists)
-        print(artwork.iconographies)
+        #print(artwork.genres)
+        #print(artwork.location)
+        #print(artwork.artists)
+        #print(artwork.iconographies)
         #print(artwork.materials)
         #print(artwork.measurements)
         #print(artwork.recordLegal)
@@ -56,11 +59,12 @@ def parse(lido):
     artwork = Artwork()
     artwork.id = _parse_id(lido)
     artwork.name = _parse_name(lido)
-    artwork.types = _parse_types(lido)
-    artwork.genres = _parse_genres(lido)
-    artwork.location = _parse_location(lido)
-    artwork.artists = _parse_artists(lido)
-    artwork.iconographies = _parse_iconographies(lido)
+    artwork.inscriptions = _parse_inscription(lido)
+    artwork.types = _parse_typeIDs(lido)
+    #artwork.genres = _parse_genres(lido)
+    #artwork.location = _parse_location(lido)
+    #artwork.artists = _parse_artists(lido)
+    #artwork.iconographies = _parse_iconographies(lido)
     #artwork.materials = _parse_materials(lido)
     #artwork.measurements = _parse_measurements(lido)
     #artwork.recordLegal = _parse_recordLegal(lido)
@@ -79,23 +83,53 @@ def _parse_id(lido):
     id = lido.find(paths["Artwork_Id_Path"], namespace)
     return id.text.replace("/", "-").replace(",", "-")
 
-def _parse_name(lido):
+def _parse_name(lido): #TODO: Format DE-Mb112-00000000001
     name = lido.find(paths["Artwork_Name_Path"], namespace)
     return name.text
 
+def _parse_inscription(lido):
+    inscriptions = []
+    allInscriptions = lido.findall(paths["Artwork_Inscription_Path"], namespace)
+    for currentInscription in allInscriptions:
+        inscription = currentInscription.text
+        inscriptions.append(inscription)
+
+    return inscriptions
+
+def _parse_typeIDs(lido):
+    typeIDs = _parse_types(lido)
+    return typeIDs
+
 def _parse_types(lido):
-    types = []
-    #TODO: ist path richtig? in Excel-Tabelle gibt es keine path
-    allTypes = lido.findall(paths["Artwork_Type_Path"], namespace)
-    for currentType in allTypes:
-        type = currentType.text.split('/')[-1]
-        types.append(type)
+    typeIDs = []
+    type = Type()
+    allTypeIDs = lido.findall(paths["Artwork_Type_ID_Path"], namespace)
 
-    return types
+    #Prio1: gett, Prio2: gnd, Prio3: term
+    for currentTypeID in allTypeIDs:
+        if 'getty' in currentTypeID.text:
+            type.id = "getty-" + currentTypeID.text.split('/')[-1]
+            break
+        elif 'gnd' in currentTypeID.text:
+            type.id = "gnd-" + currentTypeID.text.split('/')[-1]
+            break
+        elif 'term' in currentTypeID.text:
+            type.id = "ddk-" + currentTypeID.text.split('/')[-1]
+            break
 
-def _parse_genres(lido):
+    typeIDs.append(type.id)
+
+    if checkIfObjectExists(types, type.id) == 1:
+        type = types[type.id]
+    else:
+        types[type.id] = type
+
+    #TODO: abklaeren: warum eine Liste von strings fuer artwork? erkenne in den Beispielen keine Liste von mehreren Typen
+    return typeIDs
+
+def _parse_genres(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
     genres = []
-    #TODO: sind IDs, so richtig?
+    #TODO: Prio1: getty, Prio2: gnd, Prio3: term
     allGenres = lido.findall(paths["Artwork_Genres_Path"], namespace)
     for currentGenre in allGenres:
         genre = currentGenre.text.split('/')[-1]
@@ -103,9 +137,8 @@ def _parse_genres(lido):
 
     return genres
 
-def _parse_location(lido):
+def _parse_location(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
     locations = []
-    #TODO: alle Locations fuer das uebergebene lido heraussuchen
     allLocations = lido.findall(paths["Artwork_Location_Path"], namespace)
     for currentLocation in allLocations:
         location = currentLocation.text
@@ -113,7 +146,7 @@ def _parse_location(lido):
 
     return locations
 
-def _parse_artists(lido):
+def _parse_artists(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
     artists = []
     allArtists = lido.findall(paths["Artwork_Artists_Path"], namespace)
     for currentArtist in allArtists:
@@ -142,7 +175,7 @@ def _parse_artists(lido):
              #   pass
     #self.artwork["artists"] = Artists
 
-def _parse_iconographies(lido):
+def _parse_iconographies(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben
     iconographies = []
     allIconographies = lido.findall(paths["Artwork_Iconographies_Path"], namespace)
     for currentIconography in allIconographies:
@@ -150,22 +183,6 @@ def _parse_iconographies(lido):
         iconographies.append(iconography)
 
     return iconographies
-
-def _parse_inscription(lido):
-    inscriptions = []
-    #TODO: alle inscriptions fuer das uebergebene lido heraussuchen
-    allInscriptions = lido.findall(paths[""], namespace)
-    for currentInscription in allInscriptions:
-        inscription = currentInscription.text
-        inscriptions.append(inscription)
-
-    return inscriptions
-
-    #inscription_List = self.root.findall(paths["Artwork_Inscription_Path"], namespace)
-   # if len(inscription_List) > 0:
-       # self.artwork["inscription"] = inscription_List[0].text
-   #else:
-       # pass
 
 def _parse_materials(lido):
     materials = []
@@ -230,3 +247,8 @@ def _parse_altName(lido):
     #else:
     #    pass
     #self.artwork["altName"] = altenames
+
+#####################################################
+def checkIfObjectExists(dictionary, id):
+    if id in dictionary:
+        return 1
