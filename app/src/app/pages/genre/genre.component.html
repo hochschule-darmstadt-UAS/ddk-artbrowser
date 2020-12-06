@@ -3,13 +3,7 @@
     <div class="col-sm-7" *ngIf="genre">
       <app-title [entity]="genre"></app-title>
 
-      <div class="mb-3 mt-5"></div>
-
-      <div *ngIf="genre?.abstract">
-        <app-collapse>
-          <app-abstract [entity]="genre"></app-abstract>
-        </app-collapse>
-      </div>
+      <app-information label="Links" [sourceID]="genre?.conceptID"></app-information>
     </div>
 
     <div class="col-sm-5 img" *ngIf="genre?.imageSmall">
