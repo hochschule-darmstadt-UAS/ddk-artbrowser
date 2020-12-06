@@ -2,6 +2,8 @@
   <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="type">
       <app-title [entity]="type"></app-title>
+
+      <app-information label="Links" [sourceID]="type?.conceptID"></app-information>
     </div>
 
     <div class="col-sm-5 img" *ngIf="type?.image">
