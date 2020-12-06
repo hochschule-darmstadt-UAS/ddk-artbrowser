@@ -12,6 +12,7 @@ export interface Entity {
   rank: number;
   route: string;
   sourceID?: Partial<SourceID>;
+  conceptID?: Partial<SourceID>[];
 }
 
 export type Iconclass = string;

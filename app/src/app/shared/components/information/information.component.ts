@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Entity } from '../../models/models';
+import { SourceID } from '../../models/utils';
 
 @Component({
   selector: 'app-information',
@@ -18,6 +19,9 @@ export class InformationComponent {
 
   @Input()
   values: Entity[];
+
+  @Input()
+  sourceID: Partial<SourceID>[];
 
   constructor() {}
 

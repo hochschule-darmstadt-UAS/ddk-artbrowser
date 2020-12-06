@@ -1,4 +1,4 @@
-<div class="row" *ngIf="value || values?.length || isHref">
+<div class="row" *ngIf="value || values?.length || isHref || sourceID">
   <div class="col-md-1 app-information-description">
     <p class="mb-1 text-muted">{{ label }}{{ label ? ':' : '' }}</p>
   </div>
@@ -12,5 +12,12 @@
     <p *ngIf="values?.length" class="mb-1 add-padding app-information-content-badges">
       <app-badge id="badge-{{ entity.id }}" *ngFor="let entity of values; index as i" [entity]="entity"></app-badge>
     </p>
+
+    <span *ngIf="sourceID" class="mb-1 add-padding sourceid">
+      <ul>
+        <li><a href="{{ sourceID[0].id }}" target="_blank">Getty</a></li>
+        <li><a href="{{ sourceID[1].id }}" target="_blank">DNB</a></li>
+      </ul>
+    </span>
   </div>
 </div>
