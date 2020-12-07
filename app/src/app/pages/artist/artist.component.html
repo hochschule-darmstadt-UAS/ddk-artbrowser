@@ -3,37 +3,15 @@
     <div class="col-sm-7" *ngIf="artist">
       <app-title [entity]="artist"></app-title>
 
-      <table class="table-fit">
-        <tbody>
-          <tr *ngIf="artist?.dateOfBirth">
-            <td class="text-muted"><ng-container i18n="Born infos @@born">Born</ng-container>:</td>
-            <td>{{ artist?.dateOfBirth }}</td>
-          </tr>
+      <app-information label="Geboren" [value]="artist?.birth"></app-information>
+      <app-information label="Gestorben" [value]="artist?.death"></app-information>
 
-          <tr *ngIf="artist?.dateOfDeath">
-            <td class="text-muted"><span i18n="Died infos label@@died">Died</span>:</td>
-            <td>{{ artist?.dateOfDeath }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div *ngIf="artist?.gender || artist?.nationality">
+      <div>
         <app-collapse>
-          <app-abstract [entity]="artist"></app-abstract>
-
-          <table class="table-fit">
-            <tbody>
-              <tr *ngIf="artist?.gender">
-                <td class="text-muted"><ng-container i18n="Artist gender label@@gender">Gender</ng-container>:</td>
-                <td>{{ artist?.gender }}</td>
-              </tr>
-
-              <tr *ngIf="artist?.nationality">
-                <td class="text-muted"><ng-container i18n="Artist citizenship label@@citizenship">Citizenship</ng-container>:</td>
-                <td>{{ artist?.nationality }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <app-information label="Geschlecht" [value]="artist?.gender"></app-information>
+          <app-information label="Nationalität" [value]="artist?.nationality"></app-information>
+          <app-information label="Rollen" [value]="artist.roles.join(', ')"></app-information>
+          <app-information label="Links" [sourceID]="artist?.actorId"></app-information>
         </app-collapse>
       </div>
     </div>

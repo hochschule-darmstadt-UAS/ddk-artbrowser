@@ -10,4 +10,6 @@ export interface Artist extends Entity {
   roles: string[];
   entityType: EntityType.ARTIST;
   icon: EntityIcon.ARTIST;
+  birth?: string;
+  death?: string;
 }
