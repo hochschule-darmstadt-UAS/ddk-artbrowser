@@ -1,7 +1,7 @@
 <div class="container entity artwork">
-  <div class="row pb-5 border-bottom" *ngIf="!imageHidden && artwork?.imageMedium">
+  <div class="row pb-5 border-bottom" *ngIf="!imageHidden && (artwork?.resources)[0].linkResource">
     <div class="img-container mx-auto d-block" (click)="showModal()">
-      <img class="img-fluid d-block" id="image-main" (error)="hideImage()" src="{{ artwork?.imageMedium }}" alt="" />
+      <img class="img-fluid d-block" id="image-main" (error)="hideImage()" src="{{ (artwork?.resources)[0].linkResource }}" alt="" />
       <div class="enlarge">
         <i class="fas fa-expand" (click)="showModal()"></i>
       </div>
@@ -14,7 +14,7 @@
 
       <app-information i18n-label="Artist label@@artist" label="Artist" [values]="artwork?.artists"></app-information>
 
-      <app-information i18n-label="Location label@@location" label="Location" [values]="artwork?.location"></app-information>
+      <app-information i18n-label="Location label@@location" label="Location" [values]="[artwork?.location]"></app-information>
 
       <app-information i18n-label="Inception label@@inception" label="Inception" [value]="artwork?.inception"></app-information>
 
@@ -23,7 +23,7 @@
         show the collapse element
       -->
       <div *ngIf="artwork?.genres?.length || artwork?.materials?.length || artwork?.types?.length || artwork?.measurements">
-        <app-collapse [showVideo]="videoExists">
+        <app-collapse>
           <app-abstract [entity]="artwork"></app-abstract>
 
           <app-information i18n-label="Genres label@@genre" label="Genre" [values]="artwork?.genres"></app-information>

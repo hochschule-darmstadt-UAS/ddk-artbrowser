@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Artwork, EntityType, EntityIcon } from 'src/app/shared/models/models';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Artwork, EntityIcon, EntityType } from 'src/app/shared/models/models';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -66,11 +66,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    */
   private ngUnsubscribe = new Subject();
 
-  /** a video was found */
-  videoExists = false;
-  /* List of unique Videos */
-  uniqueVideos: string[] = [];
-
   constructor(private dataService: DataService, private route: ActivatedRoute) {}
 
   /**
@@ -91,8 +86,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
       /* reset properties */
-      this.uniqueVideos = [];
-      this.videoExists = false;
       this.artwork = this.hoveredArtwork = this.hoveredArtwork = null;
       this.imageHidden = this.modalIsVisible = this.commonTagsCollapsed = false;
       // clears items of all artwork tabs
@@ -108,7 +101,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       const artworkId = params.get('artworkId');
       this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
-
+      console.log(this.artwork);
       if (this.artwork) {
         await this.resolveIds('main_subjects');
         await this.insertIconographiesTab();
@@ -179,16 +172,19 @@ export class ArtworkComponent implements OnInit, OnDestroy {
           return;
         }
 
-        const types = usePlural(tab.type);
+        const types = tab.type !== EntityType.LOCATION ? usePlural(tab.type) : 'location';
+
+        console.log([].concat(this.artwork[types] as any));
 
         // load entities
-        this.dataService.findMultipleById(this.artwork[types] as any, tab.type).then(artists => {
+        this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type).then(artists => {
+          console.log(artists, types);
           this.artwork[types] = artists;
         });
         // load related artworks by type
-        return await this.dataService.findArtworksByType(tab.type, this.artwork[types] as any).then(artworks => {
+        return await this.dataService.findArtworksByType(tab.type, [].concat(this.artwork[types] as any)).then(artworks => {
           // filters and shuffles main artwork out of tab items,
-          tab.items = shuffle(artworks.filter(artwork => artwork.id !== this.artwork.id));
+          tab.items = shuffle(artworks); // .filter(artwork => artwork.id !== this.artwork.id));
           // put items into 'all' tab
           allTab.items.push(...tab.items.slice(0, 10));
         });
@@ -221,7 +217,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   async insertIconographiesTab() {
     const items = await this.dataService.findArtworksByType(
       EntityType.ICONOGRAPHY,
-      this.artwork.iconographies.map(value => value.label)
+      this.artwork.iconographies.map(value => value + '')
     );
 
     const tab = {

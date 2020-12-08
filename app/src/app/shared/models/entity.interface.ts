@@ -29,7 +29,7 @@ export enum EntityType {
   TYPE = 'type'
 }
 
-export const usePlural = (type: EntityType) => (type === 'all' ? type : type + 's');
+export const usePlural = (type: EntityType) => (type === 'all' ? type : type === EntityType.ICONOGRAPHY ? 'iconographies' : type + 's');
 
 export enum EntityIcon {
   ALL = 'fa-list-ul',
