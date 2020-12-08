@@ -22,11 +22,11 @@
         <note priority="1" from="description">All</note>
       </trans-unit>
       <trans-unit id="480d33207a8003c4e3d38902d7769ac338138974" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {...}}</source>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
 	      <target state="final">{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</target>
       </trans-unit>
       <trans-unit id="50df1cb87526ad73fdc267424b35afb5de63af93" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {...}}</source>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
 	      <target state="final">{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</target>
       </trans-unit>
 

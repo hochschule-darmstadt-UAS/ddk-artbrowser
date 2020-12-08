@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="row mb-3 pt-3">
+  <div class="row mb-3 pt-3" *ngIf="artworkTabs[0].items?.length">
     <div class="col-sm-12">
       <h3 i18n="Related Artworks label@@related_artworks">Related Artworks</h3>
 
@@ -53,7 +53,8 @@
             <a class="nav-link" [ngClass]="{ active: tab.active }" data-toggle="tab" href="#{{ tab.type }}_tab">
               <i class="mr-1 fa fa-{{ tab.icon }}"></i>
               <ng-container i18n="Entity Type Labels@@entity_labels" *ngIf="tab.type; let type">
-                {type, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material}}
+                {type, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography
+                {Iconography}}
               </ng-container>
             </a>
           </li>
@@ -78,17 +79,13 @@
             [attr.aria-expanded]="!commonTagsCollapsed"
             (click)="commonTagsCollapsed = !commonTagsCollapsed"
           >
-            <ng-container i18n="Related Artworks headline text before tab name @@related_artworks_headline_prev">
-              Common
-            </ng-container>
+            <ng-container i18n="Related Artworks headline text before tab name @@related_artworks_headline_prev"> Common </ng-container>
             <span *ngIf="tab != 'all'">
               <ng-container i18n="Related Artworks headline text tab name@@related_artworks_headline_tab_name">
-                {tab, select, all {all} motif {motif} artist {artist} location {location} genre {genre} movement {movement} material {material}}
+                {tab, select, all {all} artist {artist} location {location} genre {genre} material {material} iconography {iconography}}
               </ng-container>
             </span>
-            <ng-container i18n="Related Artworks headline text after tab name @@related_artworks_headline_after">
-              tags with artwork
-            </ng-container>
+            <ng-container i18n="Related Artworks headline text after tab name @@related_artworks_headline_after"> tags with artwork </ng-container>
             <span>"{{ artwork?.label?.length > 35 ? (artwork?.label | slice: 0:35) + '...' : artwork?.label }}"</span>
             <i *ngIf="commonTagsCollapsed" class="ml-2 fas fa-chevron-down"></i>
             <i *ngIf="!commonTagsCollapsed" class="ml-2 fas fa-chevron-up"></i>
@@ -98,9 +95,7 @@
             <p class="mb-4 mt-0">
               <em>
                 (
-                <ng-container i18n="Related Artworks hint text@@related_artworks_hint">
-                  move the mouse over an artwork to display common tags
-                </ng-container>
+                <ng-container i18n="Related Artworks hint text@@related_artworks_hint"> move the mouse over an artwork to display common tags </ng-container>
                 )
               </em>
             </p>

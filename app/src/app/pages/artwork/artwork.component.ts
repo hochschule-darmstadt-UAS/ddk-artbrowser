@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
-import { usePlural } from 'src/app/shared/models/entity.interface';
+import { usePlural, usePluralAttributes } from 'src/app/shared/models/entity.interface';
 
 /** interface for the tabs */
 interface ArtworkTab {
@@ -18,7 +18,7 @@ interface ArtworkTab {
 @Component({
   selector: 'app-artwork',
   templateUrl: './artwork.component.html',
-  styleUrls: ['./artwork.component.scss']
+  styleUrls: ['./artwork.component.scss'],
 })
 export class ArtworkComponent implements OnInit, OnDestroy {
   /* TODO:REVIEW
@@ -75,16 +75,16 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     // define tabs if not set
     if (!this.artworkTabs || !this.artworkTabs.length) {
       this.addTab(EntityType.ALL, true);
-      this.addTab(EntityType.MOTIF);
+      this.addTab(EntityType.ICONOGRAPHY);
+      this.addTab(EntityType.TYPE);
       this.addTab(EntityType.ARTIST);
       this.addTab(EntityType.LOCATION);
       this.addTab(EntityType.GENRE);
-      this.addTab(EntityType.MOVEMENT);
       this.addTab(EntityType.MATERIAL);
     }
 
     /** Extract the id of entity from URL params. */
-    this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
+    this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (params) => {
       /* reset properties */
       this.artwork = this.hoveredArtwork = this.hoveredArtwork = null;
       this.imageHidden = this.modalIsVisible = this.commonTagsCollapsed = false;
@@ -96,16 +96,14 @@ export class ArtworkComponent implements OnInit, OnDestroy {
           }
           return { ...tab, items: [] };
         })
-        .filter(tab => tab !== null);
+        .filter((tab) => tab !== null);
 
       /** Use data service to fetch entity from database */
       const artworkId = params.get('artworkId');
       this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
-      console.log(this.artwork);
+      this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
       if (this.artwork) {
         await this.resolveIds('main_subjects');
-        await this.insertIconographiesTab();
-
         /* load tabs content */
         this.loadTabs();
       }
@@ -172,19 +170,16 @@ export class ArtworkComponent implements OnInit, OnDestroy {
           return;
         }
 
-        const types = tab.type !== EntityType.LOCATION ? usePlural(tab.type) : 'location';
-
-        console.log([].concat(this.artwork[types] as any));
+        const types = usePluralAttributes(tab.type);
 
         // load entities
-        this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type).then(artists => {
-          console.log(artists, types);
+        this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type).then((artists) => {
           this.artwork[types] = artists;
         });
         // load related artworks by type
-        return await this.dataService.findArtworksByType(tab.type, [].concat(this.artwork[types] as any)).then(artworks => {
+        return await this.dataService.findArtworksByType(tab.type, [].concat(this.artwork[types] as any)).then((artworks) => {
           // filters and shuffles main artwork out of tab items,
-          tab.items = shuffle(artworks); // .filter(artwork => artwork.id !== this.artwork.id));
+          tab.items = shuffle(artworks).filter((artwork) => artwork.id !== this.artwork.id);
           // put items into 'all' tab
           allTab.items.push(...tab.items.slice(0, 10));
         });
@@ -206,27 +201,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       active,
       icon: EntityIcon[type.toUpperCase()],
       type,
-      items: []
+      items: [],
     });
-  }
-
-  /**
-   * inserts a custom tab that displays related artworks by main motifs.
-   * since main motifs are of type motif and not a new entity type, this custom tab logic exists
-   */
-  async insertIconographiesTab() {
-    const items = await this.dataService.findArtworksByType(
-      EntityType.ICONOGRAPHY,
-      this.artwork.iconographies.map(value => value + '')
-    );
-
-    const tab = {
-      active: false,
-      icon: EntityIcon.ICONOGRAPHY,
-      type: EntityType.ICONOGRAPHY,
-      items
-    };
-
-    this.artworkTabs.splice(1, 0, tab); // insert after first element (All, Main Motif, ...rest)
   }
 }

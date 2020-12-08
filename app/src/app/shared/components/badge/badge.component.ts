@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation, Input, OnInit, OnChanges } from '@angular/core';
 import { Entity, Artwork } from '../../models/models';
-import { usePlural } from '../../models/entity.interface';
+import { usePlural, usePluralAttributes } from '../../models/entity.interface';
 
 @Component({
   selector: 'app-badge',
   templateUrl: './badge.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./badge.component.scss']
+  styleUrls: ['./badge.component.scss'],
 })
 export class BadgeComponent implements OnInit, OnChanges {
   @Input() entity: Entity;
@@ -62,7 +62,7 @@ export class BadgeComponent implements OnInit, OnChanges {
     if (this.isHoverBadge) {
       this.highlight = false;
       if (this.hoveredArtwork) {
-        this.highlight = this.hoveredArtwork[usePlural(this.entity.entityType)].includes(this.entity.id);
+        this.highlight = this.hoveredArtwork[usePluralAttributes(this.entity.entityType)].includes(this.entity.id);
       }
     }
   }
