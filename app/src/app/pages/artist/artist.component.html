@@ -11,12 +11,12 @@
           <app-information label="Geschlecht" [value]="artist?.gender"></app-information>
           <app-information label="Nationalität" [value]="artist?.nationality"></app-information>
           <app-information label="Rollen" [value]="artist.roles.join(', ')"></app-information>
-          <app-information label="Links" [sourceID]="artist?.actorId"></app-information>
+          <app-information label="Links" [sourceID]="artist?.sourceId"></app-information>
         </app-collapse>
       </div>
     </div>
-    <div class="col-sm-5 img" *ngIf="artist?.image">
-      <img class="img-fluid rounded-circle" src="{{ artist?.imageSmall }}" alt="" />
+    <div class="col-sm-5 img" *ngIf="artist?.imageMedium">
+      <img class="img-fluid rounded-circle" src="{{ artist?.imageMedium }}" alt="" />
     </div>
   </div>
 
