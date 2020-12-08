@@ -1,3 +1,5 @@
+namespace = {'lido': 'http://www.lido-schema.org'}
+
 paths = {
     #ARTWORK
     "Artwork_Id_Path": 'lido:lidoRecID[@lido:source]',
@@ -10,9 +12,10 @@ paths = {
     "Artwork_Inscription_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:inscriptionsWrap/lido:inscriptions/lido:inscriptionDescription/lido:descriptiveNoteValue',
 
     #TYPE
-    "Artwork_Type_ID_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:conceptID[@lido:source]',
+    "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType',
+    "Type_ID_Path": 'lido:conceptID[@lido:source]',
     #entityType
-    "Artwork_Type_Name_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType/lido:term',
+    "Type_Name_Path": 'lido:term',
     #conceptId
 
     ##Prio 2
