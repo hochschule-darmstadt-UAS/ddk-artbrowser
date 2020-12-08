@@ -3,11 +3,11 @@
     <div class="col-sm-7" *ngIf="material">
       <app-title [entity]="material"></app-title>
       
-      <app-information label="Links" [sourceID]="material?.conceptID"></app-information>
+      <app-information label="Links" [sourceID]="material?.sourceID"></app-information>
     </div>
 
-    <div class="col-sm-5 img" *ngIf="material?.image">
-      <img class="img-fluid rounded-circle" src="{{ material?.imageSmall }}" alt="" />
+    <div class="col-sm-5 img" *ngIf="material?.imageMedium">
+      <img class="img-fluid rounded-circle" src="{{ material?.imageMedium }}" alt="" />
     </div>
   </div>
   <span class="artworks-amount">{{ material?.count }}</span>
