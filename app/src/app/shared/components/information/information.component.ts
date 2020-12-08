@@ -21,7 +21,7 @@ export class InformationComponent {
   values: Entity[];
 
   @Input()
-  sourceID: Partial<SourceID>[];
+  sourceID: SourceID[];
 
   constructor() {}
 

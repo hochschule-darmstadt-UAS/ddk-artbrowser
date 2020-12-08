@@ -31,9 +31,9 @@ export class DataService {
    * @param entity entity object
    */
   private static setTypes(entity: any) {
-    if (entity.type && entity.id) {
-      entity.route = `/${entity.type}/${entity.id}`;
-      entity.icon = EntityIcon[entity.type.toUpperCase()];
+    if (entity.entityType && entity.id) {
+      entity.route = `/${entity.entityType}/${entity.id}`;
+      entity.icon = EntityIcon[entity.entityType.toUpperCase()];
     }
   }
 
@@ -45,6 +45,7 @@ export class DataService {
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
     const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
+    console.log(response);
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
@@ -78,7 +79,7 @@ export class DataService {
       .size(count)
       .sort(defaultSortField)
       .minimumShouldMatch(1)
-      .ofType(EntityType.ARTWORK);
+      .mustTerm("entityType", EntityType.ARTWORK)
     ids.forEach(id => query.shouldMatch(type !== EntityType.LOCATION ? usePlural(type) : type, `${id}`));
     return this.performQuery<Artwork>(query);
   }
@@ -237,7 +238,7 @@ export class DataService {
     _.each(
       data.hits.hits,
       function(val) {
-        if (!filterBy || (filterBy && val._source.type === filterBy)) {
+        if (!filterBy || (filterBy && val._source.entityType === filterBy)) {
           entities.push(this.addThumbnails(val._source));
         }
       }.bind(this)
