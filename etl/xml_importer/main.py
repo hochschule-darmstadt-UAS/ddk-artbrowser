@@ -1,7 +1,42 @@
 #import entities
+import xml.etree.ElementTree as xml
+from xpaths import paths
+from etl.xml_importer.entities.artwork import Artwork
 
-from etl.xml_importer.parseLido import _parse_lido_file
+artworks = []
+
+def _printArtworks(artworks):
+    i = 0
+    for artwork in artworks:
+        print(i, ". Artwork")
+        print("ID: ", artwork.id)
+        print("Name: ", artwork.name)
+        print("Inscriptions: ", artwork.inscriptions)
+        print(artwork.types)
+        # print(artwork.genres)
+        # print(artwork.location)
+        # print(artwork.artists)
+        # print(artwork.iconographies)
+        # print(artwork.materials)
+        # print(artwork.measurements)
+        # print(artwork.recordLegal)
+        # print(artwork.resources)
+        print()
+        i += 1
+
 
 if __name__ == '__main__':
     lidoFile = 'merged.xml'
-    _parse_lido_file(lidoFile)
+    root = xml.parse(lidoFile).getroot()
+    # print(root.tag)
+    namespace = {'lido': 'http://www.lido-schema.org'}
+    lidos = root.findall('lido:lido', namespace)
+
+    for lido in lidos:
+        artwork = Artwork(lido)
+        artworks.append(artwork)
+
+    _printArtworks(artworks)
+
+
+
