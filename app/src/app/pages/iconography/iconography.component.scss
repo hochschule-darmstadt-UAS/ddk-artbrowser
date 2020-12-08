@@ -13,18 +13,7 @@
   margin-left: 5.6rem;
 }
 
-:host ::ng-deep .app-information-description {
-  max-width: 15%;
-  min-width: 15%;
-}
-
-:host ::ng-deep .app-information-content {
-  max-width: 85%;
-  min-width: 85%;
-}
-
 .subtitle {
-  color: #888;
   font-size: small;
   display: block;
 }
