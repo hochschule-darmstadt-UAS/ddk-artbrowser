@@ -3,11 +3,11 @@
     <div class="col-sm-7" *ngIf="genre">
       <app-title [entity]="genre"></app-title>
 
-      <app-information label="Links" [sourceID]="genre?.conceptID"></app-information>
+      <app-information label="Links" [sourceID]="genre?.sourceID"></app-information>
     </div>
 
-    <div class="col-sm-5 img" *ngIf="genre?.imageSmall">
-      <img class="img-fluid rounded-circle" src="{{ genre?.imageSmall }}" alt="" />
+    <div class="col-sm-5 img" *ngIf="genre?.imageMedium">
+      <img class="img-fluid rounded-circle" src="{{ genre?.imageMedium }}" alt="" />
     </div>
   </div>
   <span class="artworks-amount">{{ genre?.count }}</span>
