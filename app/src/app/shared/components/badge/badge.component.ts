@@ -28,6 +28,7 @@ export class BadgeComponent implements OnInit, OnChanges {
    *  - Generate a tooltip: Either from Wikipedia Abstracts or the Wikidata description
    */
   ngOnInit() {
+    console.log(this.entity);
     if (this.entity) {
       this.icon = icons[this.entity.entityType] || 'fa-user';
       this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';

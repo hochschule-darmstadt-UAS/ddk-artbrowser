@@ -5,6 +5,7 @@ import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 's
 import { elasticEnvironment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
 import { usePlural } from '../../../shared/models/entity.interface';
+import * as bodyBuilder from 'bodybuilder';
 
 const defaultSortField = 'rank';
 
@@ -17,9 +18,8 @@ export class DataService {
   private readonly baseUrl: string;
   private readonly ISO_639_1_LOCALE: string;
 
-  /**
-   * Constructor
-   */
+  private bodybuilder = bodyBuilder();
+
   constructor(private http: HttpClient, @Inject(LOCALE_ID) localeId: string) {
     // build backend api url with specific index by localeId
     this.ISO_639_1_LOCALE = localeId.substr(0, 2);
@@ -37,14 +37,11 @@ export class DataService {
     }
   }
 
-  /**
-   * Fetches an entity from the server
-   * Returns null if not found
-   * @param id Id of the entity to retrieve
-   * @param type if specified, it is assured that the returned entity has this entityType
-   */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
-    const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
+    const body = bodyBuilder()
+      .query('match', 'id', id)
+      .build();
+    const response = await this.http.post<T>(this.baseUrl, body).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
@@ -52,29 +49,16 @@ export class DataService {
     return !entities.length ? null : entities[0];
   }
 
-  /**
-   * Fetches multiple entities from the server
-   * @param ids ids of entities that should be retrieved
-   * @param type if specified, it is assured that the returned entities have this entityType
-   */
-  public async findMultipleById<T>(ids: string[], type?: EntityType): Promise<T[]> {
-    const copyids = ids && ids.filter(id => !!id);
-    if (!copyids || copyids.length === 0) {
-      return [];
-    }
-    const query = new QueryBuilder().size(400);
-    copyids.forEach(id => query.shouldMatch('id', `${id}`));
-    return this.performQuery<T>(query, this.baseUrl, type);
-  }
+  public async findMultipleById<T>(ids: string[], type?: EntityType): Promise<T[]> {}
 
   /**
    * Find Artworks by the given ids for the given type
    * @param type the type to search in
    * @param ids the ids to search for
-   * @param count the number of fetched artworks, which can be chosen from
    */
   public findArtworksByType(type: EntityType, ids: string[], count = 200): Promise<Artwork[]> {
-    const query = new QueryBuilder()
+    const body = bodyBuilder()
+      .query()
       .size(count)
       .sort(defaultSortField)
       .minimumShouldMatch(1)
@@ -83,149 +67,23 @@ export class DataService {
     return this.performQuery<Artwork>(query);
   }
 
-  /**
-   * Find an artwork by label
-   * @param label artwork label
-   */
-  public findArtworksByLabel(label: string): Promise<Artwork[]> {
-    const query = new QueryBuilder()
-      .size(20)
-      .sort(defaultSortField)
-      .mustMatch('entityType', 'artwork')
-      .shouldMatch('label', `${label}`);
-    return this.performQuery<Artwork>(query);
-  }
+  public getHasPartMovements(topMovementId: string): Promise<Movement[]> {}
 
-  /**
-   * Find an artwork by movement
-   * @param movement label of movement
-   */
-  public findArtworksByMovement(movement: string): Promise<Artwork[]> {
-    const query = new QueryBuilder()
-      .size(5)
-      .sort(defaultSortField)
-      .mustMatch('entityType', 'artwork')
-      .mustMatch('movements', `${movement}`);
-    return this.performQuery<Artwork>(query);
-  }
+  public getPartOfMovements(subMovementId: string): Promise<Movement[]> {}
 
-  /**
-   * Returns the artworks that contain all the given arguments.
-   * @param searchObj the arguments to search for.
-   * @param keywords the list of words to search for.
-   *
-   */
-  public searchArtworks(searchObj: ArtSearch, keywords: string[] = []): Promise<Artwork[]> {
-    const query = new QueryBuilder()
-      .size(400)
-      .sort(defaultSortField)
-      .mustMatch('entityType', 'artwork');
+  public findArtworksByLabel(label: string): Promise<Artwork[]> {}
 
-    _.each(searchObj, (arr, key) => {
-      if (Array.isArray(arr)) {
-        arr.forEach(val => query.mustMatch(key, val));
-      }
-    });
+  public findArtworksByMovement(movement: string): Promise<Artwork[]> {}
 
-    keywords.forEach(keyword =>
-      query.mustShouldMatch([
-        { key: 'label', value: keyword },
-        { key: 'description', value: keyword }
-      ])
-    );
-    return this.performQuery(query);
-  }
+  public searchArtworks(searchObj: ArtSearch, keywords: string[] = []): Promise<Artwork[]> {}
 
-  public async getEntityItems<T>(type: EntityType, count = 20, from = 0): Promise<T[]> {
-    const query = new QueryBuilder()
-      .mustMatch('entityType', type)
-      .sort(defaultSortField)
-      .size(count)
-      .from(from);
-    return this.performQuery<T>(query);
-  }
+  public async getEntityItems<T>(type: EntityType, count = 20, from = 0): Promise<T[]> {}
 
-  public async countEntityItems<T>(type: EntityType) {
-    const response: any = await this.http
-      .get('https://openartbrowser.org/' + elasticEnvironment.serverURI + '/' + (this.ISO_639_1_LOCALE || 'en') + '/_count?q=type:' + type)
-      .toPromise();
-    return response && response.count ? response.count : undefined;
-  }
+  public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {}
 
-  public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {
-    const query = new QueryBuilder()
-      .mustMatch('entityType', 'artwork')
-      .mustPrefix('image', 'http')
-      .sort(defaultSortField)
-      .size(count);
-    return this.performQuery<T>(query);
-  }
+  public findByLabel(label: string): Promise<any[]> {}
 
-  /**
-   * Find any obejct in the index by the field label with the given label
-   * @param label object label
-   */
-  public findByLabel(label: string): Promise<any[]> {
-    const query = new QueryBuilder()
-      .shouldMatch('label', `${label}`)
-      .shouldWildcard('label', `${label}`)
-      .sort(defaultSortField)
-      .size(200);
-    return this.performQuery(query);
-  }
-
-  /**
-   * Return 20 items for an specific category.
-   * @param type category type
-   * @param count size of return set
-   */
-  public async getCategoryItems<T>(type: EntityType, count = 20): Promise<T[]> {
-    const query = new QueryBuilder()
-      .mustMatch('entityType', type)
-      // .mustPrefix('image', 'http')
-      .sort(defaultSortField)
-      .size(count);
-    return this.performQuery<T>(query);
-  }
-
-  /**
-   * Retrieves IconclassData from the iconclass.org web-service
-   * @see http://www.iconclass.org/help/lod for the documentation
-   * @param iconclasses an Array of Iconclasses to retrieve
-   * @returns an Array containing the iconclassData to the respective Iconclass
-   */
-  public async getIconclassData(iconclasses: Array<Iconclass>): Promise<any> {
-    const iconclassData = await Promise.all(
-      iconclasses.map(async (key: Iconclass) => {
-        try {
-          return await this.http.get(`https://openartbrowser.org/api/iconclass/${key}.json`).toPromise();
-        } catch (error) {
-          console.warn(error);
-          return null;
-        }
-      })
-    );
-    return iconclassData.filter(entry => entry !== null);
-  }
-
-  /**
-   * Perform an ajax request and filter response
-   * @param query elasticsearch query as body
-   * @param url endpoint
-   * @param type type to filter for
-   */
-  private async performQuery<T>(query: QueryBuilder, url: string = this.baseUrl, type?: EntityType) {
-    const response = await this.http.post<T>(url, query.build()).toPromise();
-    const entities = this.filterData<T>(response, type);
-    // set type specific attributes
-    entities.forEach(entity => DataService.setTypes(entity));
-
-    if (!entities.length) {
-      console.warn(NoResultsWarning(query));
-    }
-
-    return entities;
-  }
+  public async getCategoryItems<T>(type: EntityType, count = 20): Promise<T[]> {}
 
   /**
    * filters the data that is fetched from the server
@@ -245,41 +103,7 @@ export class DataService {
     return entities;
   }
 
-  /**
-   * fills entity fields imageSmall and imageMedium
-   * @param entity entity for which thumbnails should be added
-   */
   private addThumbnails(entity: Entity) {
-    const prefix = 'http://www.bildindex.de/bilder/';
-    if (entity.entityType === EntityType.ARTWORK) {
-      const e = entity as Artwork;
-      const link = e.resources[0].linkResource;
-      const imageID = link.substr(link.lastIndexOf('/') + 1);
-      entity.image = prefix + 'd/' + imageID;
-      entity.imageMedium = prefix + 'm/' + imageID;
-      entity.imageSmall = prefix + 't/' + imageID;
-      console.log(link, link.replace(link.split('/').join(), 'm'));
-    } else {
-      /** fetch 20 artworks to choose from */
-      this.findArtworksByType(entity.entityType, [entity.id], 20).then(result => {
-        if (result.length) {
-          const link = result[0].resources[0].linkResource;
-          const imageID = link.substr(link.lastIndexOf('/') + 1);
-          entity.image = prefix + 'd/' + imageID;
-          entity.imageMedium = prefix + 'm/' + imageID;
-          entity.imageSmall = prefix + 't/' + imageID;
-        }
-      });
-    }
-
     return entity;
   }
 }
-
-const NoResultsWarning = query => `
-The performed es-query did not yield any results. This might result in strange behavior in the application.
-
-If you encounter any such issues please consider opening a bug report: https://github.com/hochschule-darmstadt/openartbrowser/issues/new?assignees=&labels=&template=bug_report.md&title=
-
-Query: ${query.toString()}
-`;

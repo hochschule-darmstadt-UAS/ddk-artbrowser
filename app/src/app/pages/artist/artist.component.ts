@@ -39,7 +39,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
       const artistId = params.get('artistId');
       /** Use data service to fetch entity from database */
-      this.artist = await this.dataService.findById<Artist>(artistId, EntityType.ARTIST);
+      this.artist = await this.dataService.findById<Artist>(artistId);
 
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => (this.sliderItems = shuffle(artworks)));

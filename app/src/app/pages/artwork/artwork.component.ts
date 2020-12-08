@@ -223,6 +223,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       EntityType.ICONOGRAPHY,
       this.artwork.iconographies.map(value => value.label)
     );
+    console.log(this.artwork.iconographies);
 
     const tab = {
       active: false,
