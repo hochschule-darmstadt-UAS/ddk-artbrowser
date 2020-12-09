@@ -5,6 +5,7 @@ import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 's
 import { elasticEnvironment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
 import { usePlural } from '../../../shared/models/entity.interface';
+import { image, imageMedium, imageSmall } from '../../../shared/models/utils';
 
 const defaultSortField = 'rank';
 
@@ -116,7 +117,7 @@ export class DataService {
     keywords.forEach((keyword) =>
       query.mustShouldMatch([
         { key: 'label', value: keyword },
-        { key: 'description', value: keyword },
+        { key: 'description', value: keyword }
       ])
     );
     return this.performQuery(query);
@@ -210,7 +211,7 @@ export class DataService {
     const entities: T[] = [];
     _.each(
       data.hits.hits,
-      function (val) {
+      function(val) {
         if (val._index === this.indexName && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
           entities.push(this.addThumbnails(val._source));
         }
@@ -224,27 +225,27 @@ export class DataService {
    * @param entity entity for which thumbnails should be added
    */
   private addThumbnails(entity: Entity) {
-    const prefix = 'http://www.bildindex.de/bilder/';
+    let e;
     if (entity.entityType === EntityType.ARTWORK) {
-      const e = entity as Artwork;
-      const link = e.resources[0].linkResource;
-      const imageID = link.substr(link.lastIndexOf('/') + 1);
-      entity.image = prefix + 'd/' + imageID;
-      entity.imageMedium = prefix + 'm/' + imageID;
-      entity.imageSmall = prefix + 't/' + imageID;
+      e = entity as Artwork;
+      (entity as Artwork).resources.map(res => {
+        res.image = image(res.linkResource);
+        res.imageMedium = imageMedium(res.linkResource);
+        res.imageSmall = imageSmall(res.linkResource);
+      });
     } else {
-      /** fetch 20 artworks to choose from */
       this.findArtworksByType(entity.entityType, [entity.id], 20).then((result) => {
         if (result.length) {
-          const link = result[0].resources[0].linkResource;
-          const imageID = link.substr(link.lastIndexOf('/') + 1);
-          entity.image = prefix + 'd/' + imageID;
-          entity.imageMedium = prefix + 'm/' + imageID;
-          entity.imageSmall = prefix + 't/' + imageID;
+          e = result[0];
         }
       });
     }
-
+    if (!e) {
+      return entity;
+    }
+    entity.image = e.resources[0].image;
+    entity.imageMedium = e.resources[0].imageMedium;
+    entity.imageSmall = e.resources[0].imageSmall;
     return entity;
   }
 }

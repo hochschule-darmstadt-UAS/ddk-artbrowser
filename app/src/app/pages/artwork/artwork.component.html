@@ -1,9 +1,21 @@
 <div class="container entity artwork">
-  <div class="row pb-5 border-bottom" *ngIf="!imageHidden && (artwork?.resources)[0].linkResource">
-    <div class="img-container mx-auto d-block" (click)="showModal()">
-      <img class="img-fluid d-block" id="image-main" (error)="hideImage()" src="{{ (artwork?.resources)[0].linkResource }}" alt="" />
-      <div class="enlarge">
-        <i class="fas fa-expand" (click)="showModal()"></i>
+  <div class="col pb-5 border-bottom" *ngIf="!imageHidden && artwork?.resources[imageIndex].image">
+    <div class="row pb-2">
+      <div class="img-container mx-auto d-block" (click)="showModal()">
+        <img class="img-fluid d-block" id="image-main" (error)="hideImage()" src="{{ artwork?.resources[imageIndex].image }}"
+             alt="" />
+        <div class="enlarge">
+          <i class="fas fa-expand" (click)="showModal()"></i>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="thumbnails?.length > 1" class="row justify-content-md-center">
+      <div class="col col-lg-6">
+        <ng-image-slider [showArrow]="thumbnails?.length > 3" [infinite]="true"
+                         [imageSize]="{width: 100, height: 60, space: 3}" [animationSpeed]="0.3"
+                         [imagePopup]="false"
+                         (imageClick)="thumbnailClicked($event)" [manageImageRatio]="true"
+                         [images]="thumbnails"></ng-image-slider>
       </div>
     </div>
   </div>
@@ -11,29 +23,25 @@
   <div class="row pt-3 pb-3 border-bottom" *ngIf="artwork">
     <div class="col-sm-12">
       <app-title [entity]="artwork"></app-title>
-
       <app-information i18n-label="Artist label@@artist" label="Artist" [values]="artwork?.artists"></app-information>
-
-      <app-information i18n-label="Location label@@location" label="Location" [values]="[artwork?.location]"></app-information>
-
-      <app-information i18n-label="Inception label@@inception" label="Inception" [value]="artwork?.inception"></app-information>
-
+      <app-information i18n-label="Location label@@location" label="Location"
+                       [values]="[artwork?.location]"></app-information>
+      <app-information i18n-label="Inception label@@inception" label="Inception"
+                       [value]="artwork?.inception"></app-information>
       <!--
         Check the length of attributes "genres", "materials" or "types", if one of them not empty
         show the collapse element
       -->
-      <div *ngIf="artwork?.genres?.length || artwork?.materials?.length || artwork?.types?.length || artwork?.measurements">
+      <div
+        *ngIf="artwork?.genres?.length || artwork?.materials?.length || artwork?.types?.length || artwork?.measurements">
         <app-collapse>
           <app-abstract [entity]="artwork"></app-abstract>
-
           <app-information i18n-label="Genres label@@genre" label="Genre" [values]="artwork?.genres"></app-information>
-
-          <app-information i18n-label="Materials label@@material" label="Material" [values]="artwork?.materials"></app-information>
-
+          <app-information i18n-label="Materials label@@material" label="Material"
+                           [values]="artwork?.materials"></app-information>
           <app-information i18n-label="Types label@@type" label="Types" [values]="artwork?.types"></app-information>
-
-          <app-iconclass i18n-label="Iconography label@@iconography" [iconclasses]="artwork?.iconographies" label="Iconography"></app-iconclass>
-
+          <app-iconclass i18n-label="Iconography label@@iconography" [iconclasses]="artwork?.iconographies"
+                         label="Iconography"></app-iconclass>
           <app-dimensions *ngIf="artwork" [artwork]="artwork"></app-dimensions>
         </app-collapse>
       </div>
@@ -54,7 +62,7 @@
               <i class="mr-1 fa fa-{{ tab.icon }}"></i>
               <ng-container i18n="Entity Type Labels@@entity_labels" *ngIf="tab.type; let type">
                 {type, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography
-                {Iconography}}
+                  {Iconography}}
               </ng-container>
             </a>
           </li>
@@ -66,7 +74,8 @@
         set tab as active
       -->
       <div class="tab-content">
-        <div *ngFor="let tab of artworkTabs" class="tab-pane fade" [ngClass]="{ 'show active': tab.active }" id="{{ tab.type }}_tab">
+        <div *ngFor="let tab of artworkTabs" class="tab-pane fade" [ngClass]="{ 'show active': tab.active }"
+             id="{{ tab.type }}_tab">
           <!--
             Listen for an event and assign the attribute "hoveredArtwork" to the hovered artwork.
           -->
@@ -79,13 +88,17 @@
             [attr.aria-expanded]="!commonTagsCollapsed"
             (click)="commonTagsCollapsed = !commonTagsCollapsed"
           >
-            <ng-container i18n="Related Artworks headline text before tab name @@related_artworks_headline_prev"> Common </ng-container>
+            <ng-container i18n="Related Artworks headline text before tab name @@related_artworks_headline_prev">
+              Common
+            </ng-container>
             <span *ngIf="tab != 'all'">
               <ng-container i18n="Related Artworks headline text tab name@@related_artworks_headline_tab_name">
                 {tab, select, all {all} artist {artist} location {location} genre {genre} material {material} iconography {iconography}}
               </ng-container>
             </span>
-            <ng-container i18n="Related Artworks headline text after tab name @@related_artworks_headline_after"> tags with artwork </ng-container>
+            <ng-container i18n="Related Artworks headline text after tab name @@related_artworks_headline_after"> tags
+              with artwork
+            </ng-container>
             <span>"{{ artwork?.label?.length > 35 ? (artwork?.label | slice: 0:35) + '...' : artwork?.label }}"</span>
             <i *ngIf="commonTagsCollapsed" class="ml-2 fas fa-chevron-down"></i>
             <i *ngIf="!commonTagsCollapsed" class="ml-2 fas fa-chevron-up"></i>
@@ -95,7 +108,9 @@
             <p class="mb-4 mt-0">
               <em>
                 (
-                <ng-container i18n="Related Artworks hint text@@related_artworks_hint"> move the mouse over an artwork to display common tags </ng-container>
+                <ng-container i18n="Related Artworks hint text@@related_artworks_hint"> move the mouse over an artwork
+                  to display common tags
+                </ng-container>
                 )
               </em>
             </p>
@@ -108,23 +123,28 @@
               the chip.
             -->
             <span *ngIf="artwork?.types?.length && (tab.type == 'type' || tab.type == 'all')" class="mb-1">
-              <app-badge *ngFor="let type of artwork?.types" [entity]="type" [isHoverBadge]="true" [hoveredArtwork]="hoveredArtwork"> </app-badge>
+              <app-badge *ngFor="let type of artwork?.types" [entity]="type" [isHoverBadge]="true"
+                         [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
 
             <span *ngIf="artwork?.artists?.length && (tab.type == 'artist' || tab.type == 'all')" class="mb-1">
-              <app-badge *ngFor="let artist of artwork?.artists" [entity]="artist" [isHoverBadge]="true" [hoveredArtwork]="hoveredArtwork"> </app-badge>
+              <app-badge *ngFor="let artist of artwork?.artists" [entity]="artist" [isHoverBadge]="true"
+                         [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
 
             <span *ngIf="artwork?.genres?.length && (tab.type == 'genre' || tab.type == 'all')" class="mb-1">
-              <app-badge *ngFor="let genre of artwork?.genres" [entity]="genre" [isHoverBadge]="true" [hoveredArtwork]="hoveredArtwork"> </app-badge>
+              <app-badge *ngFor="let genre of artwork?.genres" [entity]="genre" [isHoverBadge]="true"
+                         [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
 
             <span *ngIf="artwork?.materials?.length && (tab.type == 'material' || tab.type == 'all')" class="mb-1">
-              <app-badge *ngFor="let material of artwork?.materials" [entity]="material" [isHoverBadge]="true" [hoveredArtwork]="hoveredArtwork"> </app-badge>
+              <app-badge *ngFor="let material of artwork?.materials" [entity]="material" [isHoverBadge]="true"
+                         [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
 
             <span *ngIf="artwork?.location && (tab.type == 'location' || tab.type == 'all')" class="mb-1">
-              <app-badge [entity]="artwork?.location" [isHoverBadge]="true" [hoveredArtwork]="hoveredArtwork"> </app-badge>
+              <app-badge [entity]="artwork?.location" [isHoverBadge]="true"
+                         [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
           </div>
         </div>

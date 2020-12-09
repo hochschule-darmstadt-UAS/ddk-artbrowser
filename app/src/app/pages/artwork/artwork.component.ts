@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
-import { usePlural, usePluralAttributes } from 'src/app/shared/models/entity.interface';
+import { usePluralAttributes } from 'src/app/shared/models/entity.interface';
 
 /** interface for the tabs */
 interface ArtworkTab {
@@ -18,7 +18,7 @@ interface ArtworkTab {
 @Component({
   selector: 'app-artwork',
   templateUrl: './artwork.component.html',
-  styleUrls: ['./artwork.component.scss'],
+  styleUrls: ['./artwork.component.scss']
 })
 export class ArtworkComponent implements OnInit, OnDestroy {
   /* TODO:REVIEW
@@ -47,7 +47,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   commonTagsCollapsed = false;
 
   /**
-   * @descriptionwhether artwork image viewer is active or not
+   * @description whether artwork image viewer is active or not
    */
   modalIsVisible = false;
 
@@ -62,11 +62,20 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   artworkTabs: ArtworkTab[] = [];
 
   /**
+   * @description image array for thumbnails
+   */
+  thumbnails: Array<object> = [];
+
+  /** Index of current Image in artwork.resources array */
+  imageIndex = 0;
+
+  /**
    * @description use this to end subscription to url parameter in ngOnDestroy
    */
   private ngUnsubscribe = new Subject();
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {}
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  }
 
   /**
    * @description hook that is executed at component initialization
@@ -107,6 +116,28 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         /* load tabs content */
         this.loadTabs();
       }
+
+      // --- TODO: REMOVE THIS SAMPLE ---
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1563345',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563345'
+      });
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1563251',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563251'
+      });
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1563245',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563245'
+      });
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1522245',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1522245'
+      });
+      // ------------------------------
+
+      this.artwork.resources.forEach(res => this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall }));
+      console.log(this.thumbnails);
     });
   }
 
@@ -201,7 +232,13 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       active,
       icon: EntityIcon[type.toUpperCase()],
       type,
-      items: [],
+      items: []
     });
+  }
+
+  thumbnailClicked($event) {
+    if (this.artwork.resources.length > $event) {
+      this.imageIndex = $event;
+    }
   }
 }
