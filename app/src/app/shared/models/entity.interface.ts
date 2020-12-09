@@ -3,6 +3,7 @@ import { SourceID } from './utils';
 export interface Entity {
   id: string;
   label?: string;
+  altLabels?: string[];
   image?: string;
   imageSmall?: string;
   imageMedium?: string;

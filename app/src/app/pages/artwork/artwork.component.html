@@ -2,7 +2,8 @@
   <div class="col pb-5 border-bottom" *ngIf="!imageHidden && artwork?.resources[imageIndex].image">
     <div class="row pb-2">
       <div class="img-container mx-auto d-block" (click)="showModal()">
-        <img class="img-fluid d-block" id="image-main" (error)="hideImage()" src="{{ artwork?.resources[imageIndex].image }}"
+        <img class="img-fluid d-block" id="image-main" (error)="hideImage()"
+             src="{{ artwork?.resources[imageIndex].image }}"
              alt="" />
         <div class="enlarge">
           <i class="fas fa-expand" (click)="showModal()"></i>
@@ -160,7 +161,7 @@
     <!-- Zoom in and out functionality, see package ngx-image-viewer -->
     <div class="modal-content my-auto">
       <ngx-image-viewer
-        [src]="[artwork?.image]"
+        [src]="[artwork?.resources[imageIndex].image]"
         [config]="{
           allowFullscreen: false,
           zoomFactor: 0.1,
