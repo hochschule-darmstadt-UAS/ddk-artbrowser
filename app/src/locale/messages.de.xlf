@@ -12,12 +12,24 @@
         <note priority="1" from="description">Entity Type Labels</note>
       </trans-unit>
       <trans-unit id="480d33207a8003c4e3d38902d7769ac338138974" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}}</source>
-        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}}</target>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}</target>
       </trans-unit>
       <trans-unit id="50df1cb87526ad73fdc267424b35afb5de63af93" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}}</source>
-        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}}</target>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}</target>
+      </trans-unit>
+      <trans-unit id="715dbc9686914ef3a4f8b91498b67bba7e0dcf39" datatype="html">
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}</target>
+      </trans-unit>
+      <trans-unit id="42cbae2008511aac207bbd3713f98dd226d17a05" datatype="html">
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}</target>
+      </trans-unit>
+      <trans-unit id="94e109b1590a4875a82ab81e5bdaad8aa86fe3b1" datatype="html">
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}</source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}</target>
       </trans-unit>
       <trans-unit id="entities_labels" datatype="html">
         <source>{type, select, artwork {...} type {...} artist {...} location {...} genre {...} material {...}}</source>

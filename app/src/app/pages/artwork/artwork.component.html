@@ -36,14 +36,15 @@
       <div
         *ngIf="artwork?.genres?.length || artwork?.materials?.length || artwork?.types?.length || artwork?.measurements">
         <app-collapse>
-          <app-abstract [entity]="artwork"></app-abstract>
           <app-information i18n-label="Genres label@@genre" label="Genre" [values]="artwork?.genres"></app-information>
           <app-information i18n-label="Materials label@@material" label="Material"
                            [values]="artwork?.materials"></app-information>
           <app-information i18n-label="Types label@@type" label="Types" [values]="artwork?.types"></app-information>
           <app-iconclass i18n-label="Iconography label@@iconography" [iconclasses]="artwork?.iconographies"
                          label="Iconography"></app-iconclass>
-          <app-dimensions *ngIf="artwork" [artwork]="artwork"></app-dimensions>
+          <app-information *ngIf="artwork?.measurements?.length" i18n-label="Dimensions label@@dimension"
+                           label="Dimension" [value]="artwork?.measurements[0].displayName"></app-information>
+          <!-- TODO: implement dimensions <app-dimensions *ngIf="artwork" [artwork]="artwork"></app-dimensions>-->
         </app-collapse>
       </div>
     </div>

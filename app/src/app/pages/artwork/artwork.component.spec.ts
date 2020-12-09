@@ -11,7 +11,6 @@ import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { BadgeComponent } from 'src/app/shared/components/badge/badge.component';
 import { CollapseComponent } from 'src/app/shared/components/collapse/collapse.component';
 import { InformationComponent } from '../../shared/components/information/information.component';
-import { AbstractComponent } from 'src/app/shared/components/abstract/abstract.component';
 import { TitleComponent } from 'src/app/shared/components/title/title.component';
 import { IconclassComponent } from 'src/app/shared/components/iconclass/iconclass.component';
 import { DimensionsComponent } from 'src/app/shared/components/dimensions/dimensions.component';
@@ -28,7 +27,6 @@ describe('ArtworkComponent', () => {
         SlideComponent,
         BadgeComponent,
         CarouselComponent,
-        AbstractComponent,
         TitleComponent,
         InformationComponent,
         DimensionsComponent,
