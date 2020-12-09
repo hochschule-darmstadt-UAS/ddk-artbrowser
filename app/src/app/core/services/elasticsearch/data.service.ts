@@ -50,7 +50,8 @@ export class DataService {
     const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
-    entities.forEach((entity) => DataService.setTypes(entity));
+    entities.forEach(entity => DataService.setTypes(entity));
+    console.log(entities);
     return !entities.length ? null : entities[0];
   }
 
@@ -60,12 +61,12 @@ export class DataService {
    * @param type if specified, it is assured that the returned entities have this entityType
    */
   public async findMultipleById<T>(ids: string[], type?: EntityType): Promise<T[]> {
-    const copyids = ids && ids.filter((id) => !!id);
+    const copyids = ids && ids.filter(id => !!id);
     if (!copyids || copyids.length === 0) {
       return [];
     }
     const query = new QueryBuilder().size(400);
-    copyids.forEach((id) => query.shouldMatch('id', `${id}`));
+    copyids.forEach(id => query.shouldMatch('id', `${id}`));
     return this.performQuery<T>(query, this.baseUrl, type);
   }
 
@@ -76,8 +77,12 @@ export class DataService {
    * @param count the number of fetched artworks, which can be chosen from
    */
   public findArtworksByType(type: EntityType, ids: string[], count = 200): Promise<Artwork[]> {
-    const query = new QueryBuilder().size(count).sort(defaultSortField).minimumShouldMatch(1).mustTerm('entityType', EntityType.ARTWORK);
-    ids.forEach((id) => query.shouldMatch(type !== EntityType.LOCATION ? usePlural(type) : type, `${id}`));
+    const query = new QueryBuilder()
+      .size(count)
+      .sort(defaultSortField)
+      .minimumShouldMatch(1)
+      .mustTerm("entityType", EntityType.ARTWORK)
+    ids.forEach(id => query.shouldMatch(type !== EntityType.LOCATION ? usePlural(type) : type, `${id}`));
     return this.performQuery<Artwork>(query);
   }
 
@@ -86,7 +91,11 @@ export class DataService {
    * @param label artwork label
    */
   public findArtworksByLabel(label: string): Promise<Artwork[]> {
-    const query = new QueryBuilder().size(20).sort(defaultSortField).mustMatch('entityType', 'artwork').shouldMatch('label', `${label}`);
+    const query = new QueryBuilder()
+      .size(20)
+      .sort(defaultSortField)
+      .mustMatch('entityType', 'artwork')
+      .shouldMatch('label', `${label}`);
     return this.performQuery<Artwork>(query);
   }
 
@@ -95,7 +104,11 @@ export class DataService {
    * @param movement label of movement
    */
   public findArtworksByMovement(movement: string): Promise<Artwork[]> {
-    const query = new QueryBuilder().size(5).sort(defaultSortField).mustMatch('entityType', 'artwork').mustMatch('movements', `${movement}`);
+    const query = new QueryBuilder()
+      .size(5)
+      .sort(defaultSortField)
+      .mustMatch('entityType', 'artwork')
+      .mustMatch('movements', `${movement}`);
     return this.performQuery<Artwork>(query);
   }
 
@@ -106,15 +119,18 @@ export class DataService {
    *
    */
   public searchArtworks(searchObj: ArtSearch, keywords: string[] = []): Promise<Artwork[]> {
-    const query = new QueryBuilder().size(400).sort(defaultSortField).mustMatch('entityType', 'artwork');
+    const query = new QueryBuilder()
+      .size(400)
+      .sort(defaultSortField)
+      .mustMatch('entityType', 'artwork');
 
     _.each(searchObj, (arr, key) => {
       if (Array.isArray(arr)) {
-        arr.forEach((val) => query.mustMatch(key, val));
+        arr.forEach(val => query.mustMatch(key, val));
       }
     });
 
-    keywords.forEach((keyword) =>
+    keywords.forEach(keyword =>
       query.mustShouldMatch([
         { key: 'label', value: keyword },
         { key: 'description', value: keyword }
@@ -124,7 +140,11 @@ export class DataService {
   }
 
   public async getEntityItems<T>(type: EntityType, count = 20, from = 0): Promise<T[]> {
-    const query = new QueryBuilder().mustMatch('entityType', type).sort(defaultSortField).size(count).from(from);
+    const query = new QueryBuilder()
+      .mustMatch('entityType', type)
+      .sort(defaultSortField)
+      .size(count)
+      .from(from);
     return this.performQuery<T>(query);
   }
 
@@ -136,7 +156,11 @@ export class DataService {
   }
 
   public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {
-    const query = new QueryBuilder().mustMatch('entityType', 'artwork').mustPrefix('image', 'http').sort(defaultSortField).size(count);
+    const query = new QueryBuilder()
+      .mustMatch('entityType', 'artwork')
+      .mustPrefix('image', 'http')
+      .sort(defaultSortField)
+      .size(count);
     return this.performQuery<T>(query);
   }
 
@@ -145,7 +169,11 @@ export class DataService {
    * @param label object label
    */
   public findByLabel(label: string): Promise<any[]> {
-    const query = new QueryBuilder().shouldMatch('label', `${label}`).shouldWildcard('label', `${label}`).sort(defaultSortField).size(200);
+    const query = new QueryBuilder()
+      .shouldMatch('label', `${label}`)
+      .shouldWildcard('label', `${label}`)
+      .sort(defaultSortField)
+      .size(200);
     return this.performQuery(query);
   }
 
@@ -180,7 +208,7 @@ export class DataService {
         }
       })
     );
-    return iconclassData.filter((entry) => entry !== null);
+    return iconclassData.filter(entry => entry !== null);
   }
 
   /**
@@ -193,7 +221,7 @@ export class DataService {
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
-    entities.forEach((entity) => DataService.setTypes(entity));
+    entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
       console.warn(NoResultsWarning(query));
@@ -250,7 +278,7 @@ export class DataService {
   }
 }
 
-const NoResultsWarning = (query) => `
+const NoResultsWarning = query => `
 The performed es-query did not yield any results. This might result in strange behavior in the application.
 
 If you encounter any such issues please consider opening a bug report: https://github.com/hochschule-darmstadt/openartbrowser/issues/new?assignees=&labels=&template=bug_report.md&title=
