@@ -45,6 +45,7 @@ export class DataService {
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
     const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
+    console.log(response);
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
