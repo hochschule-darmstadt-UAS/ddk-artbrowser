@@ -1,6 +1,7 @@
 from xpaths import paths
 
 from etl.xml_importer.entities.type import Type
+from etl.xml_importer.entities.location import Location
 from etl.xml_importer.xpaths import namespace
 
 artists = dict()
@@ -19,7 +20,7 @@ class Artwork():
         self.inscriptions = self._parse_inscription()
         self.types = self._parse_types()
         # self.genres = _parse_genres()
-        # self.location = _parse_location()
+        self.location = self._parse_location()
         # self.artists = _parse_artists()
         # self.iconographies = _parse_iconographies()
         # self.materials = _parse_materials()
@@ -52,19 +53,15 @@ class Artwork():
 
     def _parse_types(self):
         typeIDs = []
-
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
 
             typeIDs.append(type_.id)
-            print(type_.id)
+            #print(type_.id)
 
             if type_.id not in types:
                 type_.parse()
                 types[type_.id] = type_
-
-
-        print(types)
 
         return typeIDs
 
@@ -78,14 +75,20 @@ class Artwork():
 
         return genres
 
-    def _parse_location(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
-        locations = []
-        allLocations = lido.findall(paths["Artwork_Location_Path"], namespace)
-        for currentLocation in allLocations:
-            location = currentLocation.text
-            locations.append(location)
+    def _parse_location(self):
+        locationIDs = []
+        # TODO: alle Locations fuer das uebergebene lido heraussuchen oder nur eine Location
+        for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
+            location_ = Location(locationRoot)
+            locationIDs.append(location_.id)
 
-        return locations
+            if location_.id not in locations:
+                location_.parse()
+                locations[location_.id] = location_
+
+        #print(locationIDs)
+        #print(locations)
+        return locationIDs[0]
 
     def _parse_artists(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
         artists = []
