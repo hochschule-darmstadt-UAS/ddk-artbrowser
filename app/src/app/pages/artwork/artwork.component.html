@@ -10,6 +10,11 @@
         </div>
       </div>
     </div>
+    <div *ngIf="thumbnails?.length > 1" class="row pb-2 justify-content-md-center text-muted">
+      <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
+      <span class="ml-1" *ngIf="photographyInformation?.length"
+            i18n="Photography descriptor@@photography">Photography:</span><span class="ml-1 mr-1">{{ photographyInformation }}</span>
+    </div>
     <div *ngIf="thumbnails?.length > 1" class="row justify-content-md-center">
       <div class="col col-lg-6">
         <ng-image-slider [showArrow]="thumbnails?.length > 3" [infinite]="true"

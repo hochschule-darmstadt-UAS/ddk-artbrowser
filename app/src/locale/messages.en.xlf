@@ -318,6 +318,10 @@
         <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} main_type {Main Type} }</source>
         <target state="final">{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} main_type {Main Type} }</target>
       </trans-unit>
+      <trans-unit id="photography" datatype="html">
+        <source>Photography: </source>
+        <target state="final">Photography: </target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

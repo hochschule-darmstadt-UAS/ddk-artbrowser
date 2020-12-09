@@ -73,6 +73,8 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    * @description use this to end subscription to url parameter in ngOnDestroy
    */
   private ngUnsubscribe = new Subject();
+  imageSubtitle: string;
+  photographyInformation: string;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
@@ -137,6 +139,8 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       // ------------------------------
 
       this.artwork.resources.forEach(res => this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall }));
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+
       console.log(this.thumbnails);
     });
   }
@@ -239,6 +243,22 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   thumbnailClicked($event) {
     if (this.artwork.resources.length > $event) {
       this.imageIndex = $event;
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     }
+  }
+
+  makeImageSubtitle(res) {
+    this.imageSubtitle = (res.description ? res.description : '') +
+      (res.resourceID && res.resourceID[0] ? res.resourceID[0].id : '')
+      + ' © ' +
+      (res.rights && res.rights.rightsHolder ?
+        (res.rights.rightsHolder.term ? res.rights.rightsHolder.term :
+          (res.rights.rightsHolder.id ? res.rights.rightsHolder.id : ''))
+        : '');
+
+    this.photographyInformation = (!!res.photographer ? res.photographer : '') +
+      (!!res.photographer && !!res.dateTaken ? '` ' : '') + (!!res.dateTaken ? res.dateTaken : '');
+
+
   }
 }

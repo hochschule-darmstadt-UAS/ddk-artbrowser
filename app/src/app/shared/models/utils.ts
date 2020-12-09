@@ -13,6 +13,7 @@ export interface Resource {
   resourceID: SourceID[];
   resourceType: string;
   rights: Rights;
+  description: string;
   photographer: string;
   dateTaken: string;
   linkResource: string;
