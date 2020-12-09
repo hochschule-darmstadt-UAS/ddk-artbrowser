@@ -22,7 +22,16 @@ paths = {
     #altNames
 
     #GENRE
-    "Artwork_Genres_ID_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification/lido:conceptID[@lido:source]',
+    "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
+    "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
+    "Genre_Name_Path": 'lido:classification[@lido:type="Objektklassifikation"]/lido:term',
+    "Genre_ClassificationType": 'lido:classification[@lido:type="Objektklassifikation"]',
+                                #'lido:classification[lido:type="Art"' |
+                                #'lido:classification[lido:type="Literaturgattung"' |
+                                #'lido:classification[lido:type="Stilepoche"' |
+                                #'lido:classification[lido:type="Stilepoche"',
+
+
     #id
     #type
     #name

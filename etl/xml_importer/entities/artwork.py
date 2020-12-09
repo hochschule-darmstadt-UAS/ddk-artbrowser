@@ -1,5 +1,6 @@
 from xpaths import paths
 
+from etl.xml_importer.entities.genre import Genre
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
 from etl.xml_importer.xpaths import namespace
@@ -19,7 +20,7 @@ class Artwork():
         self.name = self._parse_name()
         self.inscriptions = self._parse_inscription()
         self.types = self._parse_types()
-        # self.genres = _parse_genres()
+        self.genres = self._parse_genres()
         self.location = self._parse_location()
         # self.artists = _parse_artists()
         # self.iconographies = _parse_iconographies()
@@ -55,25 +56,26 @@ class Artwork():
         typeIDs = []
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
-
             typeIDs.append(type_.id)
             #print(type_.id)
 
             if type_.id not in types:
                 type_.parse()
                 types[type_.id] = type_
-
         return typeIDs
 
-    def _parse_genres(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
-        genres = []
-        #TODO: Prio1: getty, Prio2: gnd, Prio3: term
-        allGenres = lido.findall(paths["Artwork_Genres_Path"], namespace)
-        for currentGenre in allGenres:
-            genre = currentGenre.text.split('/')[-1]
-            genres.append(genre)
+    def _parse_genres(self):
+        genreIDs = []
+        for genreRoot in self.lido.findall(paths["Artwork_Genre_Path"], namespace):
+            genre_ = Genre(genreRoot)
+            genreIDs.append(genre_.id)
 
-        return genres
+            if genre_.id not in genres:
+                genre_.parse()
+            genres[genre_.id] = genre_
+        #print(genreIDs)
+        #print(genres)
+        return genreIDs
 
     def _parse_location(self):
         locationIDs = []
