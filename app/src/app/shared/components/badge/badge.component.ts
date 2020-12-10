@@ -1,19 +1,18 @@
 import { Component, ViewEncapsulation, Input, OnInit, OnChanges } from '@angular/core';
 import { Entity, Artwork } from '../../models/models';
-import { usePlural } from '../../models/entity.interface';
+import { usePlural, usePluralAttributes } from '../../models/entity.interface';
 
 @Component({
   selector: 'app-badge',
   templateUrl: './badge.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./badge.component.scss']
+  styleUrls: ['./badge.component.scss'],
 })
 export class BadgeComponent implements OnInit, OnChanges {
   @Input() entity: Entity;
   @Input() isHoverBadge: boolean;
   @Input() hoveredArtwork: Artwork;
 
-  icon: string;
   label: string;
   redirectUrl: string;
   tooltip: string;
@@ -29,7 +28,6 @@ export class BadgeComponent implements OnInit, OnChanges {
    */
   ngOnInit() {
     if (this.entity) {
-      this.icon = icons[this.entity.entityType] || 'fa-user';
       this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
       this.label = this.entity.label || '';
 
@@ -64,18 +62,8 @@ export class BadgeComponent implements OnInit, OnChanges {
     if (this.isHoverBadge) {
       this.highlight = false;
       if (this.hoveredArtwork) {
-        this.highlight = this.hoveredArtwork[usePlural(this.entity.entityType)].includes(this.entity.id);
+        this.highlight = this.hoveredArtwork[usePluralAttributes(this.entity.entityType)].includes(this.entity.id);
       }
     }
   }
-}
-
-enum icons {
-  artist = 'fa-user',
-  artwork = 'fa-image',
-  movement = 'fa-wind',
-  location = 'fa-archway',
-  motif = 'fa-image',
-  genre = 'fa-tag',
-  material = 'fa-scroll'
 }
