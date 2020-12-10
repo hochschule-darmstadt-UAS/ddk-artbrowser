@@ -420,6 +420,21 @@
         <source>Photography: </source>
         <target state="final">Foto: </target>
       </trans-unit>
+      <trans-unit id="links" datatype="html">
+        <source>Links</source>
+        <target state="final">Links</target>
+        <note priority="1" from="description">Links label</note>
+      </trans-unit>
+      <trans-unit id="nationality" datatype="html">
+        <source>Nationality</source>
+        <target state="final">Nationalität</target>
+        <note priority="1" from="description">Nationality label</note>
+      </trans-unit>
+      <trans-unit id="roles" datatype="html">
+        <source>Roles</source>
+        <target state="final">Rollen</target>
+        <note priority="1" from="description">Roles label</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

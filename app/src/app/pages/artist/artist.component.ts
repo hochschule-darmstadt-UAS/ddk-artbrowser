@@ -41,8 +41,8 @@ export class ArtistComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       this.artist = await this.dataService.findById<Artist>(artistId, EntityType.ARTIST);
       
-      this.artist.birth = this.formatDate(this.artist.birth);
-      this.artist.death = this.formatDate(this.artist.death);
+      this.artist.dateOfBirth = this.formatDate(this.artist.dateOfBirth);
+      this.artist.dateOfDeath = this.formatDate(this.artist.dateOfDeath);
 
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
