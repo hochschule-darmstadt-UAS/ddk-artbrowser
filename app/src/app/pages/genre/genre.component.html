@@ -3,7 +3,7 @@
     <div class="col-sm-7" *ngIf="genre">
       <app-title [entity]="genre"></app-title>
 
-      <app-information label="Links" [sourceID]="genre?.sourceID"></app-information>
+      <app-information i18n-label="Links label@@links" label="Links" [sourceID]="genre?.sourceID"></app-information>
     </div>
 
     <div class="col-sm-5 img" *ngIf="genre?.imageMedium">
