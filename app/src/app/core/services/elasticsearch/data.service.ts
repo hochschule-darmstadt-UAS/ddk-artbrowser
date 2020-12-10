@@ -5,6 +5,7 @@ import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 's
 import { elasticEnvironment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
 import { usePlural } from '../../../shared/models/entity.interface';
+import { image, imageMedium, imageSmall } from '../../../shared/models/utils';
 
 const defaultSortField = 'rank';
 
@@ -16,6 +17,7 @@ export class DataService {
   /** base url of elasticSearch server */
   private readonly baseUrl: string;
   private readonly ISO_639_1_LOCALE: string;
+  private indexName: string;
 
   /**
    * Constructor
@@ -24,6 +26,7 @@ export class DataService {
     // build backend api url with specific index by localeId
     this.ISO_639_1_LOCALE = localeId.substr(0, 2);
     this.baseUrl = elasticEnvironment.serverURI + '/_search';
+    this.indexName = 'ddk_artbrowser';
   }
 
   /**
@@ -45,7 +48,6 @@ export class DataService {
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
     const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
-    console.log(response);
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
@@ -238,7 +240,7 @@ export class DataService {
     _.each(
       data.hits.hits,
       function(val) {
-        if (!filterBy || (filterBy && val._source.entityType === filterBy)) {
+        if (val._index === this.indexName && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
           entities.push(this.addThumbnails(val._source));
         }
       }.bind(this)
@@ -251,28 +253,27 @@ export class DataService {
    * @param entity entity for which thumbnails should be added
    */
   private addThumbnails(entity: Entity) {
-    const prefix = 'http://www.bildindex.de/bilder/';
+    let e;
     if (entity.entityType === EntityType.ARTWORK) {
-      const e = entity as Artwork;
-      const link = e.resources[0].linkResource;
-      const imageID = link.substr(link.lastIndexOf('/') + 1);
-      entity.image = prefix + 'd/' + imageID;
-      entity.imageMedium = prefix + 'm/' + imageID;
-      entity.imageSmall = prefix + 't/' + imageID;
-      console.log(link, link.replace(link.split('/').join(), 'm'));
+      e = entity as Artwork;
+      (entity as Artwork).resources.map(res => {
+        res.image = image(res.linkResource);
+        res.imageMedium = imageMedium(res.linkResource);
+        res.imageSmall = imageSmall(res.linkResource);
+      });
     } else {
-      /** fetch 20 artworks to choose from */
-      this.findArtworksByType(entity.entityType, [entity.id], 20).then(result => {
+      this.findArtworksByType(entity.entityType, [entity.id], 20).then((result) => {
         if (result.length) {
-          const link = result[0].resources[0].linkResource;
-          const imageID = link.substr(link.lastIndexOf('/') + 1);
-          entity.image = prefix + 'd/' + imageID;
-          entity.imageMedium = prefix + 'm/' + imageID;
-          entity.imageSmall = prefix + 't/' + imageID;
+          e = result[0];
         }
       });
     }
-
+    if (!e) {
+      return entity;
+    }
+    entity.image = e.resources[0].image;
+    entity.imageMedium = e.resources[0].imageMedium;
+    entity.imageSmall = e.resources[0].imageSmall;
     return entity;
   }
 }

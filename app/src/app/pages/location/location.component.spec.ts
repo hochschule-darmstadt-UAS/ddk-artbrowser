@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { CollapseComponent } from 'src/app/shared/components/collapse/collapse.component';
-import { AbstractComponent } from 'src/app/shared/components/abstract/abstract.component';
 import { InformationComponent } from 'src/app/shared/components/information/information.component';
 import { TitleComponent } from 'src/app/shared/components/title/title.component';
 import { BadgeComponent } from 'src/app/shared/components/badge/badge.component';
@@ -26,7 +25,6 @@ describe('LocationComponent', () => {
         CarouselComponent,
         CollapseComponent,
         BadgeComponent,
-        AbstractComponent,
         TitleComponent,
         InformationComponent
       ],
