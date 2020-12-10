@@ -315,6 +315,8 @@ class DDKElasticsearchClient:
             index_name_current=DDK_INDEX_KEY,
             index_name_old=DDK_INDEX_KEY + "_old",
         )
+        # close the old index to avoid overhead. The index can be reopened any time.
+        es.indices.close(DDK_INDEX_KEY + "_old")
 
     def swap_to_backup_for_each_language(self, delete_non_working_indices: Optional[bool] = True) -> None:
         """Can be used if the current index is not working
