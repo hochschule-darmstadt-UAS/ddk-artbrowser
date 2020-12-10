@@ -8,12 +8,11 @@ class Location():
         self.id = self._parse_id()
         self.type = 'location'
         self.name = self._parse_id()
-        # self.altNames = self._parse_altNames() # #TODO: prio3
-        # self.inventoryNumber = self._parse_inventoryNumber() # #TODO: prio2
+        # self.altNames = self._parse_altNames() # #TODO: methode definieren(prio3)
+        # self.inventoryNumber = self._parse_inventoryNumber() # #TODO: methode definieren(prio2)
         self.placeID = self.sourceID() ##enthält source,id,term
         self.placeName = self.placeName()
-        # self.placeAltNames = self.placeAltNames() # #TODO: prio3
-
+        # self.placeAltNames = self.placeAltNames() # #TODO: methode definieren(prio3)
 
     def _parse_id(self):
         id = self.root.findall(paths["Location_ID_Path"], namespace)[0]

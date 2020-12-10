@@ -2,6 +2,7 @@ from xpaths import paths
 
 from etl.xml_importer.entities.artist import Artist
 from etl.xml_importer.entities.genre import Genre
+from etl.xml_importer.entities.iconography import Iconography
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
 from etl.xml_importer.xpaths import namespace
@@ -24,7 +25,7 @@ class Artwork():
         self.genres = self._parse_genres()
         self.location = self._parse_location()
         self.artists = self._parse_artists()
-        # self.iconographies = _parse_iconographies()
+        self.iconographies = self._parse_iconographies()
         # self.materials = _parse_materials()
         # self.measurements = _parse_measurements()
         # self.recordLegal = _parse_recordLegal()
@@ -104,18 +105,20 @@ class Artwork():
                 artist_.parse()
                 artists[artist_.id] = artist_
 
-        print(artists)
-
         return artistIDs
 
-    def _parse_iconographies(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben
-        iconographies = []
-        allIconographies = lido.findall(paths["Artwork_Iconographies_Path"], namespace)
-        for currentIconography in allIconographies:
-            iconography = currentIconography.text.split('/')[-1]
-            iconographies.append(iconography)
+    def _parse_iconographies(self): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben
+        iconographyIDs = []
+        for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
+            iconography_ = Iconography(iconographyRoot)
+            iconographyIDs.append(iconography_.id)
 
-        return iconographies
+            if iconography_.id not in iconographys:
+                iconography_.parse()
+                iconographys[iconography_.id] = iconography_
+        #print(iconographyIDs)
+        #print(iconographys)
+        return iconographyIDs
 
     def _parse_materials(lido):
         materials = []
