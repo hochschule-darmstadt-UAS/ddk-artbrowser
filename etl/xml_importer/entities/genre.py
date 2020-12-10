@@ -9,7 +9,7 @@ class Genre():
         self.id = self._parse_id()
         self.type = 'genre'
         self.name = self._parse_name()
-        #self.classificationType = self._parse_classificationType() ##muss noch erklaeret werden
+        self.classificationType = self._parse_classificationType() ##muss noch erklaeret werden
         self.sourceID = self._parse_sourceID()
 
     def _parse_id(self):
@@ -27,8 +27,8 @@ class Genre():
 
     def _parse_classificationType(self):
         classificationType = self.root.findall(paths["Genre_ClassificationType"], namespace)
-        #print(classificationType[0].attrib.values())
-        return classificationType[0].attrib.values()
+        #print(classificationType[0].attrib.get)
+        #return classificationType[0].attrib.values()
 
     def _parse_sourceID(self):
         pass

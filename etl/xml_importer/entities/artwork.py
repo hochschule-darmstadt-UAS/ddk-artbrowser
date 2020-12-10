@@ -1,5 +1,6 @@
 from xpaths import paths
 
+from etl.xml_importer.entities.artist import Artist
 from etl.xml_importer.entities.genre import Genre
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
@@ -22,7 +23,7 @@ class Artwork():
         self.types = self._parse_types()
         self.genres = self._parse_genres()
         self.location = self._parse_location()
-        # self.artists = _parse_artists()
+        self.artists = self._parse_artists()
         # self.iconographies = _parse_iconographies()
         # self.materials = _parse_materials()
         # self.measurements = _parse_measurements()
@@ -92,34 +93,20 @@ class Artwork():
         #print(locations)
         return locationIDs[0]
 
-    def _parse_artists(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste aller gefundenen IDs zurueck geben
-        artists = []
-        allArtists = lido.findall(paths["Artwork_Artists_Path"], namespace)
-        for currentArtist in allArtists:
-            artist = "ARTIST" #currentArtist #TODO: noch nicht fertig, s. Code von Ahmad
-            artists.append(artist)
+    def _parse_artists(self):
+        artistIDs = []
+        for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
+            artist_ = Artist(artistRoot)
+            artistIDs.append(artist_.id)
+            #print(artist_.actorId)
 
-        return artists
+            if artist_.id not in artists:
+                artist_.parse()
+                artists[artist_.id] = artist_
 
-        #Artwork_Artists = self.root.findall(paths["Artwork_Artists_Path"], namespace)
-        #Artists = []
-        #for actor in Artwork_Artists:
-            #für jede Actor find alle Actor_Ids
-           # ids = actor.findall('lido:actorInRole/lido:actor/lido:actorID', namespace)
-            #for id in ids:
-               # if 'getty' in id.text:
-                    #print(id.text)
-                #    Artists.append(id.text.split('/')[-1])
-                #    break
-                #elif 'gnd' in id.text:
-                 #   Artists.append(id.text.split('/')[-1])
-                 #   break
-                #elif 'term' in id.text:
-                 #   Artists.append(id.text.split('/')[-1])
-                  #  break
-               # else:
-                 #   pass
-        #self.artwork["artists"] = Artists
+        print(artists)
+
+        return artistIDs
 
     def _parse_iconographies(lido): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben
         iconographies = []

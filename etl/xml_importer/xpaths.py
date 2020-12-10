@@ -25,11 +25,8 @@ paths = {
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
     "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
     "Genre_Name_Path": 'lido:classification[@lido:type="Objektklassifikation"]/lido:term',
-    "Genre_ClassificationType": 'lido:classification[@lido:type="Objektklassifikation"]',
-                                #'lido:classification[lido:type="Art"' |
-                                #'lido:classification[lido:type="Literaturgattung"' |
-                                #'lido:classification[lido:type="Stilepoche"' |
-                                #'lido:classification[lido:type="Stilepoche"',
+    "Genre_ClassificationType": 'lido:classification[@lido:type]',
+                                
 
 
     #id
@@ -62,7 +59,11 @@ paths = {
     #altNames
 
     #ARTIST
-    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
+    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor/lido:actorInRole/lido:actor',
+    "Artist_ID_Path": 'lido:actorID[@lido:source]',
+    "Artist_Name_Path": 'lido:nameActorSet/lido:appellationValue[@lido:pref="preferred"]',
+    "Artist_Birth_Path": 'lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
+    "Artist_Death_Path": 'lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
     #id
     #entityType
     #actorID

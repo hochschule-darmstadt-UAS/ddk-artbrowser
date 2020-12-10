@@ -1,7 +1,53 @@
+from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.xpaths import paths, namespace
+
+
 class Artist():
 
-    def __init__(self):
-        self
+    def __init__(self, root):
+        self.root = root
+        self.id = self._parse_id()
+        self.type = 'artist'
+        self.actorId = self._parse_actorID()
+        self.name = self._parse_name()
+        self.birth = self._parse_birth()
+        self.death = self._parse_death()
+
+    def _parse_id(self):
+        allArtistIDs = self.root.findall(paths["Artist_ID_Path"], namespace)
+        id = get_id_by_prio(allArtistIDs)
+
+        return id
+
+    def _parse_actorID(self):
+        allactorIDs = []
+        for actorID in self.root.findall(paths["Artist_ID_Path"], namespace):
+            actor_source = actorID.attrib.get('{http://www.lido-schema.org}source')
+            actor_id = actorID.text
+            actor_dic = {'source': actor_source, 'id': actor_id}
+            allactorIDs.append(actor_dic)
+
+        return allactorIDs
+
+    def _parse_name(self):
+        return self.root.findall(paths["Artist_Name_Path"], namespace)[0].text
+
+    def _parse_birth(self):
+        birthDate = self.root.findall(paths["Artist_Birth_Path"], namespace)
+        if len(birthDate) > 0:
+            return birthDate[0].text
+        else:
+            return ''
+
+    def _parse_death(self):
+        deathDate = self.root.findall(paths["Artist_Death_Path"], namespace)
+        if len(deathDate) > 0:
+            return deathDate[0].text
+        else:
+            return ''
+
+    def parse(self):
+        pass
 
 #id
 #entityType string
