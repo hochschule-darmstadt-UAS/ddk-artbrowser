@@ -140,8 +140,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
 
       this.artwork.resources.forEach(res => this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall }));
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
-
-      console.log(this.thumbnails);
     });
   }
 
@@ -257,8 +255,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         : '');
 
     this.photographyInformation = (!!res.photographer ? res.photographer : '') +
-      (!!res.photographer && !!res.dateTaken ? '` ' : '') + (!!res.dateTaken ? res.dateTaken : '');
-
-
+      (!!res.photographer && !!res.dateTaken ? ', ' : '') + (!!res.dateTaken ? res.dateTaken : '');
   }
 }
