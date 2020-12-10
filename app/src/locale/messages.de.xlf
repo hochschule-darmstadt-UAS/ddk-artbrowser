@@ -422,7 +422,7 @@
       </trans-unit>
       <trans-unit id="links" datatype="html">
         <source>Links</source>
-        <target state="final">Links deutsch</target>
+        <target state="final">Links</target>
         <note priority="1" from="description">Links label</note>
       </trans-unit>
     </body>
