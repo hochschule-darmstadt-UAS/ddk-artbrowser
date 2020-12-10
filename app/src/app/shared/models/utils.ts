@@ -13,9 +13,13 @@ export interface Resource {
   resourceID: SourceID[];
   resourceType: string;
   rights: Rights;
+  description: string;
   photographer: string;
   dateTaken: string;
   linkResource: string;
+  imageSmall: string;
+  imageMedium: string;
+  image: string;
 }
 
 export interface RecordLegal {
@@ -40,3 +44,18 @@ export interface Measurement {
   length?: string; // util
   diameter?: string; // util
 }
+
+const prefix = 'http://www.bildindex.de/bilder/';
+export const image = (linkResource) => {
+  const imageID = linkResource.substr(linkResource.lastIndexOf('/') + 1);
+  return linkResource ? prefix + 'd/' + imageID : null;
+};
+export const imageMedium = (linkResource) => {
+  const imageID = linkResource.substr(linkResource.lastIndexOf('/') + 1);
+  return linkResource ? prefix + 'm/' + imageID : null;
+};
+export const imageSmall = (linkResource) => {
+  const imageID = linkResource.substr(linkResource.lastIndexOf('/') + 1);
+  return linkResource ? prefix + 't/' + imageID : null;
+};
+
