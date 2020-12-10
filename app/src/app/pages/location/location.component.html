@@ -3,12 +3,12 @@
     <div class="col-sm-7" *ngIf="location">
       <app-title [entity]="location"></app-title>
       
-      <app-information label="Inventar Nr" [value]="location?.inventoryNumber"></app-information>
+      <app-information i18n-label="Inventory Nr label@@inventorynr" label="Inventory Nr" [value]="location?.inventoryNumber"></app-information>
       
-      <div>
-        <app-information label="Ort" [value]="location?.placeName"></app-information>
+      <div>  
         <app-collapse>
-          <app-information label="Links" [sourceID]="location?.placeID"></app-information>
+          <app-information i18n-label="Location label@@location" label="Location" [value]="location?.placeLabel"></app-information>
+          <app-information i18n-label="Links label@@links" label="Links" [sourceID]="location?.sourceID"></app-information>
         </app-collapse>
       </div>
     </div>

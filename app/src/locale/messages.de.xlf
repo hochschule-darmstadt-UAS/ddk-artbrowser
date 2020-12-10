@@ -420,6 +420,16 @@
         <source>Photography: </source>
         <target state="final">Foto: </target>
       </trans-unit>
+      <trans-unit id="links" datatype="html">
+        <source>Links</source>
+        <target state="final">Links</target>
+        <note priority="1" from="description">Links label</note>
+      </trans-unit>
+      <trans-unit id="inventorynr" datatype="html">
+        <source>Inventory Nr</source>
+        <target state="final">Inventar Nr</target>
+        <note priority="1" from="description">Inventory Nr label</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
