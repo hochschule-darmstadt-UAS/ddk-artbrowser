@@ -1,9 +1,9 @@
 [
   {
-    "id": "ddk-location-Hessische Landesbibliothek Fulda (Fulda)",
+    "id": "ddk-location-Hessische_Landesbibliothek_Fulda_Fulda",
     "entityType": "location",
     "label": "Hessische Landesbibliothek Fulda (Fulda)",
-    "altLabels": ["Bibliothek Fulda"],
+    "altLabels": ["Bibliothek Fulda", "Haus mit Büchern drinne in Fulda"],
     "sourceID": {
       "source": "http://vocab.getty.edu/tgn",
       "id": "http://vocab.getty.edu/tgn/7005294",

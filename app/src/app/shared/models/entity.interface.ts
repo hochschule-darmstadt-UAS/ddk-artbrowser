@@ -3,6 +3,7 @@ import { SourceID } from './utils';
 export interface Entity {
   id: string;
   label?: string;
+  altLabels?: string[];
   image?: string;
   imageSmall?: string;
   imageMedium?: string;
@@ -26,10 +27,12 @@ export enum EntityType {
   MOVEMENT = 'movement',
   MOTIF = 'motif',
   ICONOGRAPHY = 'iconography',
-  TYPE = 'type'
+  TYPE = 'type',
 }
 
-export const usePlural = (type: EntityType) => (type === 'all' ? type : type + 's');
+export const usePlural = (type: EntityType) => (type === 'all' ? type : type === EntityType.ICONOGRAPHY ? 'iconographies' : type + 's');
+export const usePluralAttributes = (type: EntityType) =>
+  type === 'all' ? type : type === EntityType.ICONOGRAPHY ? 'iconographies' : type === EntityType.LOCATION ? 'location' : type + 's';
 
 export enum EntityIcon {
   ALL = 'fa-list-ul',
@@ -39,5 +42,5 @@ export enum EntityIcon {
   GENRE = 'fa-tag',
   TYPE = 'fa-tag',
   MATERIAL = 'fa-scroll',
-  ICONOGRAPHY = 'fa-fingerprint'
+  ICONOGRAPHY = 'fa-fingerprint',
 }
