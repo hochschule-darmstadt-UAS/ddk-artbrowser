@@ -21,7 +21,7 @@ class Location():
     def sourceID(self):
         sourceIdRoot = self.root.findall(paths["Location_SourceID_Path"], namespace)[0]# repositoryLocation
         # print(sourceid)
-        return SourceID(sourceIdRoot)
+        #return SourceID(sourceIdRoot)
 
     def placeName(self):
         placeName = self.root.findall(paths["Location_PlaceName_Path"], namespace)
