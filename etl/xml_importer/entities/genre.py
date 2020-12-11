@@ -12,7 +12,7 @@ class Genre():
         self.name = self._parse_name()[0]
         self.altname = self._parse_name()[1:]
         self.classificationType = self._parse_classificationType() ##ToDo:muss erklaeret werden, Liste oder eine rausziehen
-        self.sourceID = self._parse_sourceID()
+        self.conceptID = self._parse_sourceID()
 
     def _parse_id(self):
         allGenreIDs = self.root.findall(paths["Genre_ID_Path"], namespace)
@@ -31,8 +31,10 @@ class Genre():
         return classificationType
 
     def _parse_sourceID(self):
-        sourceId = self.root.find(paths["Genre_ID_Path"], namespace)
-        return SourceID(sourceId)
+        allSourceIDs = []
+        for sourceId in self.root.findall(paths["Genre_ID_Path"], namespace):
+            allSourceIDs.append(SourceID(sourceId))
+        return allSourceIDs
 
     def parse(self):
         pass

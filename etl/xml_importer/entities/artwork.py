@@ -81,7 +81,6 @@ class Artwork():
 
     def _parse_location(self):
         locations = []
-        # TODO: alle Locations fuer das uebergebene lido heraussuchen oder nur eine Location
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location_ = Location(locationRoot)
             locations.append(location_.id)
@@ -104,7 +103,6 @@ class Artwork():
             if artist_.id not in artists:
                 artist_.parse()
                 artists[artist_.id] = artist_
-
         return artistIDs
 
     def _parse_iconographies(self): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben

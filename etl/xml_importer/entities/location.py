@@ -18,8 +18,10 @@ class Location():
         return self.root.findall(paths["Location_ID_Path"], namespace)[0]
 
     def sourceID(self):
-        sourceIdRoot = self.root.find(paths["Location_SourceID_Path"], namespace)
-        return SourceID(sourceIdRoot)
+        allLocations = []
+        for location in self.root.findall(paths["Location_SourceID_Path"], namespace):
+            allLocations.append(SourceID(location))
+        return allLocations
 
     def placeName(self):
         return self.root.findall(paths["Location_PlaceName_Path"], namespace)[0]
