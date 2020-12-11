@@ -1,3 +1,8 @@
+from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.utils.sourceId import SourceID
+from etl.xml_importer.xpaths import paths, namespace
+
+
 class Material():
 
     def __init__(self, root):
@@ -8,12 +13,19 @@ class Material():
         self.name = self._parse_name()
 
     def _parse_id(self):
-        pass
+        allMaterilIDs = self.root.findall(paths["Material_ID_Path"], namespace)
+        id = get_id_by_prio(allMaterilIDs)
 
     def _parse_conceptID(self):
-        pass
+        allMaterials = []
+        for material in self.root.findall(paths["Material_ID_Path"], namespace):
+            allMaterials.append(SourceID(material))
+        return allMaterials
 
     def _parse_name(self):
+        return self.root.findall(paths["Material_name_Path"], namespace)[0].text
+
+    def parse(self):
         pass
 
 #id

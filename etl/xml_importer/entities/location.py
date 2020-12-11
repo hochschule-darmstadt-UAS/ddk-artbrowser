@@ -20,11 +20,12 @@ class Location():
     def sourceID(self):
         allLocations = []
         for location in self.root.findall(paths["Location_SourceID_Path"], namespace):
-            allLocations.append(SourceID(location))
+            allLocations.append(SourceID(location)) #ToDo: kann eine Artwork keine lido:placeID[@lido:source] haben.Control in SourceID.Wenn leer gib leere Dict Zurueck
+        print(allLocations)
         return allLocations
 
     def placeName(self):
-        return self.root.findall(paths["Location_PlaceName_Path"], namespace)[0]
+        return self.root.findall(paths["Location_PlaceName_Path"], namespace)[0].text
 
     def parse(self):
         pass

@@ -27,7 +27,7 @@ class Artwork():
         self.location = self._parse_location()
         self.artists = self._parse_artists()
         self.iconographies = self._parse_iconographies()
-        # self.materials = _parse_materials()
+        self.materials = self._parse_materials()
         # self.measurements = _parse_measurements()
         # self.recordLegal = _parse_recordLegal()
         # self.resources = _parse_resource()
@@ -119,12 +119,12 @@ class Artwork():
 
     def _parse_materials(self):
         materialIDs = []
-        for material in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
+        for material in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
             material_ = Material(material)
             materialIDs.append(material_.id)
 
             if material_.id not in materials:
-                materials.parse()
+                material_.parse()
                 materials[material_.id] = material_
         return materialIDs
 
