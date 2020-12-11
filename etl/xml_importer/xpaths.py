@@ -78,6 +78,9 @@ paths = {
     #roles  2
 
     #MATERIAL
+    "Artwork_Materials_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventMaterialsTech',
+    "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
+    "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
     #id
     #entityType
     #conceptID

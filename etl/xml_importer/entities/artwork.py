@@ -3,6 +3,7 @@ from xpaths import paths
 from etl.xml_importer.entities.artist import Artist
 from etl.xml_importer.entities.genre import Genre
 from etl.xml_importer.entities.iconography import Iconography
+from etl.xml_importer.entities.material import Material
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
 from etl.xml_importer.xpaths import namespace
@@ -114,19 +115,18 @@ class Artwork():
             if iconography_.id not in iconographys:
                 iconography_.parse()
                 iconographys[iconography_.id] = iconography_
-        #print(iconographyIDs)
-        #print(iconographys)
         return iconographyIDs
 
-    def _parse_materials(lido):
-        materials = []
-        #TODO: alle Materials fuer das uebergebene lido heraussuchen
-        allMaterials = lido.findall(paths[""], namespace)
-        for currentMaterial in allMaterials:
-            material = "MATERIAL" #currentMaterial
-            materials.append(material)
+    def _parse_materials(self):
+        materialIDs = []
+        for material in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
+            material_ = Material(material)
+            materialIDs.append(material_.id)
 
-        return materials
+            if material_.id not in materials:
+                materials.parse()
+                materials[material_.id] = material_
+        return materialIDs
 
 
     ####################################################################################
