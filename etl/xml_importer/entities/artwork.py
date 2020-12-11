@@ -105,7 +105,7 @@ class Artwork():
                 artists[artist_.id] = artist_
         return artistIDs
 
-    def _parse_iconographies(self): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben
+    def _parse_iconographies(self):
         iconographyIDs = []
         for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
             iconography_ = Iconography(iconographyRoot)
