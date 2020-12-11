@@ -15,17 +15,14 @@ class Location():
         # self.placeAltNames = self.placeAltNames() # #TODO: methode definieren(prio3)
 
     def _parse_id(self):
-        id = self.root.findall(paths["Location_ID_Path"], namespace)[0]
-        return id.text
+        return self.root.findall(paths["Location_ID_Path"], namespace)[0]
 
     def sourceID(self):
-        sourceIdRoot = self.root.findall(paths["Location_SourceID_Path"], namespace)[0]# repositoryLocation
-        # print(sourceid)
-        #return SourceID(sourceIdRoot)
+        sourceIdRoot = self.root.find(paths["Location_SourceID_Path"], namespace)
+        return SourceID(sourceIdRoot)
 
     def placeName(self):
-        placeName = self.root.findall(paths["Location_PlaceName_Path"], namespace)
-        return placeName[0]
+        return self.root.findall(paths["Location_PlaceName_Path"], namespace)[0]
 
     def parse(self):
         pass

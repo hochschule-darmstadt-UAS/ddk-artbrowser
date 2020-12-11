@@ -80,11 +80,11 @@ class Artwork():
         return genreIDs
 
     def _parse_location(self):
-        locationIDs = []
+        locations = []
         # TODO: alle Locations fuer das uebergebene lido heraussuchen oder nur eine Location
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location_ = Location(locationRoot)
-            locationIDs.append(location_.id)
+            locations.append(location_.id)
 
             if location_.id not in locations:
                 location_.parse()
@@ -92,7 +92,7 @@ class Artwork():
 
         #print(locationIDs)
         #print(locations)
-        return locationIDs[0]
+        return locations[0]
 
     def _parse_artists(self):
         artistIDs = []

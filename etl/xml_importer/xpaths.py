@@ -42,9 +42,7 @@ paths = {
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_ID_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
     "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
-    "Location_SourceID_Path": 'lido:repositoryLocation',
-    "SourceID_Source_Path": 'lido:placeID[@lido:source]',
-    "SourceID_Term_Path": 'lido:namePlaceSet/lido:appellationValue',
+    "Location_SourceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     #id
     #entityType
     #name
