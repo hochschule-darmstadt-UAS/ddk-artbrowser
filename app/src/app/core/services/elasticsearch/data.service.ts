@@ -80,7 +80,7 @@ export class DataService {
       .size(count)
       .sort(defaultSortField)
       .minimumShouldMatch(1)
-      .mustTerm("entityType", EntityType.ARTWORK)
+      .mustTerm('entityType', EntityType.ARTWORK);
     ids.forEach(id => query.shouldMatch(type !== EntityType.LOCATION ? usePlural(type) : type, `${id}`));
     return this.performQuery<Artwork>(query);
   }
@@ -115,7 +115,6 @@ export class DataService {
    * Returns the artworks that contain all the given arguments.
    * @param searchObj the arguments to search for.
    * @param keywords the list of words to search for.
-   *
    */
   public searchArtworks(searchObj: ArtSearch, keywords: string[] = []): Promise<Artwork[]> {
     const query = new QueryBuilder()
@@ -132,7 +131,7 @@ export class DataService {
     keywords.forEach(keyword =>
       query.mustShouldMatch([
         { key: 'label', value: keyword },
-        { key: 'description', value: keyword }
+        // { key: 'description', value: keyword }
       ])
     );
     return this.performQuery(query);
