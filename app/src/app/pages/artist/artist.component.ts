@@ -41,20 +41,9 @@ export class ArtistComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       this.artist = await this.dataService.findById<Artist>(artistId, EntityType.ARTIST);
       
-      this.artist.dateOfBirth = this.formatDate(this.artist.dateOfBirth);
-      this.artist.dateOfDeath = this.formatDate(this.artist.dateOfDeath);
-
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
-  }
-
-  formatDate(date: string) {
-    const datePart = date.match(/\d+/g),
-    year = datePart[0],
-    month = datePart[1], 
-    day = datePart[2];
-    return day+'.'+month+'.'+year;
   }
 
   ngOnDestroy() {
