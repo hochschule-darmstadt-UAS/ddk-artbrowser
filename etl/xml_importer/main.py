@@ -5,7 +5,7 @@ from etl.xml_importer.entities.artwork import Artwork
 
 artworks = []
 
-def _printArtworks(artworks):
+def _print_artworks(artworks):
     i = 0
     for artwork in artworks:
         print(i, ". Artwork")
@@ -24,7 +24,6 @@ def _printArtworks(artworks):
         print()
         i += 1
 
-
 if __name__ == '__main__':
     lidoFile = 'merged.xml'
     root = xml.parse(lidoFile).getroot()
@@ -36,7 +35,7 @@ if __name__ == '__main__':
         artwork = Artwork(lido)
         artworks.append(artwork)
 
-    #_printArtworks(artworks)
+    _print_artworks(artworks)
 
 
 

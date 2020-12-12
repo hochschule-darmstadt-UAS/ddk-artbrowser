@@ -33,7 +33,6 @@ class Artwork():
         # self.recordLegal = _parse_recordLegal()
         self.resources = self._parse_resource()
 
-
     #TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
     # artwork.altName string[] 2
     # artwork.inscriptions string[] 2
@@ -61,11 +60,11 @@ class Artwork():
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
             typeIDs.append(type_.id)
-            #print(type_.id)
 
             if type_.id not in types:
                 type_.parse()
                 types[type_.id] = type_
+
         return typeIDs
 
     def _parse_genres(self):
