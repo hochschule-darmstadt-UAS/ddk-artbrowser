@@ -12,9 +12,9 @@
         <a *ngIf="entity && entity?.id" class="item-link" [routerLink]="['/' + type, entity?.id]">
           <div class="img-wrapper">
             <img
-              *ngIf="entity?.imageSmall"
+              *ngIf="entity?.imageMedium"
               class="bd-highlight img-self"
-              src="{{ entity?.imageSmall }}"
+              src="{{ entity?.imageMedium }}"
               alt="{{ entity?.label }}"
               (error)="onLoadingError(entity)"
             />
