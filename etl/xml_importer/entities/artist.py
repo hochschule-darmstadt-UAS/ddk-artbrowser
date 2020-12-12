@@ -1,4 +1,5 @@
 from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 
 
@@ -16,21 +17,16 @@ class Artist():
     def _parse_id(self):
         allArtistIDs = self.root.findall(paths["Artist_ID_Path"], namespace)
         id = get_id_by_prio(allArtistIDs)
-
         return id
 
     def _parse_actorID(self):
         allactorIDs = []
         for actorID in self.root.findall(paths["Artist_ID_Path"], namespace):
-            actor_source = actorID.attrib.get('{http://www.lido-schema.org}source')
-            actor_id = actorID.text
-            actor_dic = {'source': actor_source, 'id': actor_id}
-            allactorIDs.append(actor_dic)
-
+            allactorIDs.append(SourceID(actorID))
         return allactorIDs
 
     def _parse_name(self):
-        return self.root.findall(paths["Artist_Name_Path"], namespace)[0].text
+        return self.root.find(paths["Artist_Name_Path"], namespace).text
 
     def _parse_birth(self):
         birthDate = self.root.findall(paths["Artist_Birth_Path"], namespace)
@@ -40,11 +36,11 @@ class Artist():
             return ''
 
     def _parse_death(self):
-        deathDate = self.root.findall(paths["Artist_Death_Path"], namespace)
-        if len(deathDate) > 0:
-            return deathDate[0].text
-        else:
+        deathDate = self.root.find(paths["Artist_Death_Path"], namespace)
+        if deathDate == None:
             return ''
+        else:
+            return deathDate.text
 
     def parse(self):
         pass

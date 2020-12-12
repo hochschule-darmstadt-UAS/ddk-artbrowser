@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lido:lidoWrap xmlns:html="http://www.w3.org/1999/xhtml"
-      xmlns:stx="http://www.startext.de/stxmap"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xmlns:xs="http://www.w3.org/2001/XMLSchema"
-      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-      xmlns:lido="http://www.lido-schema.org"
-      xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+               xmlns:stx="http://www.startext.de/stxmap"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+               xmlns:lido="http://www.lido-schema.org"
+               xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
 
    <lido:lido>
     <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"

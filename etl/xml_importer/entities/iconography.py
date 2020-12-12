@@ -1,4 +1,5 @@
 from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 
 
@@ -17,8 +18,10 @@ class Iconography():
         return allIconographiesIDs.text.split('/')[-1]
 
     def _parse_conceptID(self):
-        conceptID = self.root.find(paths["Icongraphy_Id_Path"], namespace)
-        return {'source': conceptID.attrib.get('{http://www.lido-schema.org}source'), 'id': conceptID.text}
+        allConceptIDs = []
+        for conceptID in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
+            allConceptIDs.append(SourceID(conceptID))
+        return allConceptIDs
 
     def _parse_name(self):
         return self.root.find(paths["Icongraphy_Name_Path"], namespace).text

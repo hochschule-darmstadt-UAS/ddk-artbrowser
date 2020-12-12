@@ -3,8 +3,10 @@ from xpaths import paths
 from etl.xml_importer.entities.artist import Artist
 from etl.xml_importer.entities.genre import Genre
 from etl.xml_importer.entities.iconography import Iconography
+from etl.xml_importer.entities.material import Material
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
+from etl.xml_importer.utils.resource import Resource
 from etl.xml_importer.xpaths import namespace
 
 artists = dict()
@@ -26,10 +28,10 @@ class Artwork():
         self.location = self._parse_location()
         self.artists = self._parse_artists()
         self.iconographies = self._parse_iconographies()
-        # self.materials = _parse_materials()
+        self.materials = self._parse_materials()
         # self.measurements = _parse_measurements()
         # self.recordLegal = _parse_recordLegal()
-        # self.resources = _parse_resource()
+        self.resources = self._parse_resource()
 
 
     #TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
@@ -80,11 +82,10 @@ class Artwork():
         return genreIDs
 
     def _parse_location(self):
-        locationIDs = []
-        # TODO: alle Locations fuer das uebergebene lido heraussuchen oder nur eine Location
+        locations = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location_ = Location(locationRoot)
-            locationIDs.append(location_.id)
+            locations.append(location_.id)
 
             if location_.id not in locations:
                 location_.parse()
@@ -92,7 +93,7 @@ class Artwork():
 
         #print(locationIDs)
         #print(locations)
-        return locationIDs[0]
+        return locations[0]
 
     def _parse_artists(self):
         artistIDs = []
@@ -104,10 +105,9 @@ class Artwork():
             if artist_.id not in artists:
                 artist_.parse()
                 artists[artist_.id] = artist_
-
         return artistIDs
 
-    def _parse_iconographies(self): #TODO: hier ein Objekt des Typs erstellen und eine Liste der IDs zurueck geben
+    def _parse_iconographies(self):
         iconographyIDs = []
         for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
             iconography_ = Iconography(iconographyRoot)
@@ -116,19 +116,18 @@ class Artwork():
             if iconography_.id not in iconographys:
                 iconography_.parse()
                 iconographys[iconography_.id] = iconography_
-        #print(iconographyIDs)
-        #print(iconographys)
         return iconographyIDs
 
-    def _parse_materials(lido):
-        materials = []
-        #TODO: alle Materials fuer das uebergebene lido heraussuchen
-        allMaterials = lido.findall(paths[""], namespace)
-        for currentMaterial in allMaterials:
-            material = "MATERIAL" #currentMaterial
-            materials.append(material)
+    def _parse_materials(self):
+        materialIDs = []
+        for material in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
+            material_ = Material(material)
+            materialIDs.append(material_.id)
 
-        return materials
+            if material_.id not in materials:
+                material_.parse()
+                materials[material_.id] = material_
+        return materialIDs
 
 
     ####################################################################################
@@ -158,13 +157,13 @@ class Artwork():
        #for recordLegal in recordLegal_List:
             #self.artwork["recordLegal"] = RecordLegal(recordLegal).get_recordLegal()
 
-    def _parse_resource(lido):
-        resources = []
-        #TODO: alle resources fuer das uebergebene lido heraussuchen
-        resource = lido.resource
-        resources.append(resource)
+    def _parse_resource(self):
+        allresources = []
 
-        return resources
+        for resource in self.root.findall(paths["Artwork_Resource_Path"], namespace):
+            allresources.append(Resource(resource))
+
+        return allresources
         #resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
         #if (len(resourceLegal_List) > 0):
            # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()

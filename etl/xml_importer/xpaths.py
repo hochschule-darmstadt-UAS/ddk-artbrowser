@@ -42,9 +42,7 @@ paths = {
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_ID_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
     "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
-    "Location_SourceID_Path": 'lido:repositoryLocation',
-    "SourceID_Source_Path": 'lido:placeID[@lido:source]',
-    "SourceID_Term_Path": 'lido:namePlaceSet/lido:appellationValue',
+    "Location_SourceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     #id
     #entityType
     #name
@@ -59,11 +57,11 @@ paths = {
     #altNames
 
     #ARTIST
-    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor/lido:actorInRole/lido:actor',
-    "Artist_ID_Path": 'lido:actorID[@lido:source]',
-    "Artist_Name_Path": 'lido:nameActorSet/lido:appellationValue[@lido:pref="preferred"]',
-    "Artist_Birth_Path": 'lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
-    "Artist_Death_Path": 'lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
+    "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
+    "Artist_ID_Path": 'lido:actorInRole/lido:actor/lido:actorID[@lido:source]',
+    "Artist_Name_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[@lido:pref="preferred"]',
+    "Artist_Birth_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
+    "Artist_Death_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
     #id
     #entityType
     #actorID
@@ -80,6 +78,9 @@ paths = {
     #roles  2
 
     #MATERIAL
+    "Artwork_Materials_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventMaterialsTech',
+    "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
+    "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
     #id
     #entityType
     #conceptID
@@ -89,9 +90,9 @@ paths = {
     #altNames
 
     #ICONOGRAPHY
-    "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept',
-    "Icongraphy_Id_Path": 'lido:conceptID[@lido:source]',
-    "Icongraphy_Name_Path": 'lido:term[@lido:pref="preferred"]',
+    "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
+    "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
+    "Icongraphy_Name_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
 
     #id
     #entityType
