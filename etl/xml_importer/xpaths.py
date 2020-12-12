@@ -14,9 +14,13 @@ paths = {
     #TYPE
     "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType',
     "Type_ID_Path": 'lido:conceptID[@lido:source]',
-    #entityType
+    "Type_EntityType_Path": '',
     "Type_Name_Path": 'lido:term',
-    #conceptId
+    "Type_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
+    #"Type_Source_Path": 'same path like 'Artwork_Type_Path''
+    #"Type_Source_Id_Path": 'same path like 'Type_ID_Path''
+    #"Type_Source_Source_Path": 'same path like 'Type_ID_Path''
+    #"Type_Source_Term_Path": 'same path like 'Type_Name_Path''
 
     ##Prio 2
     #altNames
