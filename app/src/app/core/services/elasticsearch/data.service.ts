@@ -51,7 +51,6 @@ export class DataService {
     const entities = this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
-    console.log(entities);
     return !entities.length ? null : entities[0];
   }
 

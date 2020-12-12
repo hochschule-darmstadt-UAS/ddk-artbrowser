@@ -287,11 +287,6 @@
         <target state="final">Geschlecht</target>
         <note priority="1" from="description">Artist gender label</note>
       </trans-unit>
-      <trans-unit id="citizenship" datatype="html">
-        <source>Citizenship</source>
-        <target state="final">Land</target>
-        <note priority="1" from="description">Artist citizenship label</note>
-      </trans-unit>
       <trans-unit id="influenced_by" datatype="html">
         <source>Influenced by</source>
         <target state="final">Beeinflusst von</target>
@@ -424,6 +419,16 @@
         <source>Links</source>
         <target state="final">Links</target>
         <note priority="1" from="description">Links label</note>
+      </trans-unit>
+      <trans-unit id="nationality" datatype="html">
+        <source>Nationality</source>
+        <target state="final">Nationalität</target>
+        <note priority="1" from="description">Nationality label</note>
+      </trans-unit>
+      <trans-unit id="roles" datatype="html">
+        <source>Roles</source>
+        <target state="final">Rollen</target>
+        <note priority="1" from="description">Roles label</note>
       </trans-unit>
     </body>
   </file>

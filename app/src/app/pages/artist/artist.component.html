@@ -3,41 +3,20 @@
     <div class="col-sm-7" *ngIf="artist">
       <app-title [entity]="artist"></app-title>
 
-      <table class="table-fit">
-        <tbody>
-          <tr *ngIf="artist?.dateOfBirth">
-            <td class="text-muted"><ng-container i18n="Born infos @@born">Born</ng-container>:</td>
-            <td>{{ artist?.dateOfBirth }}</td>
-          </tr>
+      <app-information i18n-label="Born infos label@@born" label="Born" [value]="artist?.dateOfBirth"></app-information>
+      <app-information i18n-label="Died infos label@@died" label="Died" [value]="artist?.dateOfDeath"></app-information>
 
-          <tr *ngIf="artist?.dateOfDeath">
-            <td class="text-muted"><span i18n="Died infos label@@died">Died</span>:</td>
-            <td>{{ artist?.dateOfDeath }}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div *ngIf="artist?.gender || artist?.nationality">
+      <div>
         <app-collapse>
-
-          <table class="table-fit">
-            <tbody>
-              <tr *ngIf="artist?.gender">
-                <td class="text-muted"><ng-container i18n="Artist gender label@@gender">Gender</ng-container>:</td>
-                <td>{{ artist?.gender }}</td>
-              </tr>
-
-              <tr *ngIf="artist?.nationality">
-                <td class="text-muted"><ng-container i18n="Artist citizenship label@@citizenship">Citizenship</ng-container>:</td>
-                <td>{{ artist?.nationality }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <app-information i18n-label="Artist gender label@@gender" label="Gender" [value]="artist?.gender"></app-information>
+          <app-information i18n-label="Nationality label@@nationality" label="Nationality" [value]="artist?.nationality"></app-information>
+          <app-information i18n-label="Roles label@@roles" label="Roles" [value]="artist.roles.join(', ')"></app-information>
+          <app-information i18n-label="Links label@@links" label="Links" [sourceID]="artist?.sourceID"></app-information>
         </app-collapse>
       </div>
     </div>
-    <div class="col-sm-5 img" *ngIf="artist?.image">
-      <img class="img-fluid rounded-circle" src="{{ artist?.imageSmall }}" alt="" />
+    <div class="col-sm-5 img" *ngIf="artist?.imageMedium">
+      <img class="img-fluid rounded-circle" src="{{ artist?.imageMedium }}" alt="" />
     </div>
   </div>
 
