@@ -420,6 +420,11 @@
         <source>Photography: </source>
         <target state="final">Foto: </target>
       </trans-unit>
+      <trans-unit id="links" datatype="html">
+        <source>Links</source>
+        <target state="final">Links</target>
+        <note priority="1" from="description">Links label</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
