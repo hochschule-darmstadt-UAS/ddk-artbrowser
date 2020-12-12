@@ -6,6 +6,7 @@ from etl.xml_importer.entities.iconography import Iconography
 from etl.xml_importer.entities.material import Material
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
+from etl.xml_importer.utils.resource import Resource
 from etl.xml_importer.xpaths import namespace
 
 artists = dict()
@@ -30,7 +31,7 @@ class Artwork():
         self.materials = self._parse_materials()
         # self.measurements = _parse_measurements()
         # self.recordLegal = _parse_recordLegal()
-        # self.resources = _parse_resource()
+        self.resources = self._parse_resource()
 
 
     #TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
@@ -156,13 +157,13 @@ class Artwork():
        #for recordLegal in recordLegal_List:
             #self.artwork["recordLegal"] = RecordLegal(recordLegal).get_recordLegal()
 
-    def _parse_resource(lido):
-        resources = []
-        #TODO: alle resources fuer das uebergebene lido heraussuchen
-        resource = lido.resource
-        resources.append(resource)
+    def _parse_resource(self):
+        allresources = []
 
-        return resources
+        for resource in self.root.findall(paths["Artwork_Resource_Path"], namespace):
+            allresources.append(Resource(resource))
+
+        return allresources
         #resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
         #if (len(resourceLegal_List) > 0):
            # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()
