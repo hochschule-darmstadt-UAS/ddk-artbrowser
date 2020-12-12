@@ -1,4 +1,5 @@
 from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 
 
@@ -8,9 +9,10 @@ class Genre():
         self.root = root
         self.id = self._parse_id()
         self.type = 'genre'
-        self.name = self._parse_name()
-        #self.classificationType = self._parse_classificationType() ##muss noch erklaeret werden
-        self.sourceID = self._parse_sourceID()
+        self.name = self._parse_name()[0]
+        self.altname = self._parse_name()[1:]
+        self.classificationType = self._parse_classificationType() ##ToDo:muss erklaeret werden, Liste oder eine rausziehen
+        self.conceptID = self._parse_sourceID()
 
     def _parse_id(self):
         allGenreIDs = self.root.findall(paths["Genre_ID_Path"], namespace)
@@ -22,16 +24,17 @@ class Genre():
         root = self.root.findall(paths["Genre_Name_Path"], namespace)
         for name in root:
             allGenreNames.append(name.text)
-        #print(allGenreNames)
-
+        return allGenreNames
 
     def _parse_classificationType(self):
         classificationType = self.root.findall(paths["Genre_ClassificationType"], namespace)
-        #print(classificationType[0].attrib.values())
-        return classificationType[0].attrib.values()
+        return classificationType
 
     def _parse_sourceID(self):
-        pass
+        allSourceIDs = []
+        for sourceId in self.root.findall(paths["Genre_ID_Path"], namespace):
+            allSourceIDs.append(SourceID(sourceId))
+        return allSourceIDs
 
     def parse(self):
         pass

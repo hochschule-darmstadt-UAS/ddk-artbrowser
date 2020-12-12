@@ -1,7 +1,8 @@
 def sanitize(id): #TODO: ID-Format definieren, da auch mal Leerzeichen vorkommen können
-    # Folgende Zeichen ersetzen: Leerzeichen, Klammern, &
-    # Sonderzeichenliste definieren
-    # Sonderzeichen ersetzen durch -
+    spec_char = ["(", ")"] #Special character list, you can add new char's
+    for char in spec_char:
+        id.replace(char, "-")
+
     return id
 
 def get_id_by_prio(all_ids):

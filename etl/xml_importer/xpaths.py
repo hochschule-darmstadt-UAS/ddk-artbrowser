@@ -14,9 +14,13 @@ paths = {
     #TYPE
     "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType',
     "Type_ID_Path": 'lido:conceptID[@lido:source]',
-    #entityType
+    "Type_EntityType_Path": '',
     "Type_Name_Path": 'lido:term',
-    #conceptId
+    "Type_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
+    #"Type_Source_Path": 'same path like 'Artwork_Type_Path''
+    #"Type_Source_Id_Path": 'same path like 'Type_ID_Path''
+    #"Type_Source_Source_Path": 'same path like 'Type_ID_Path''
+    #"Type_Source_Term_Path": 'same path like 'Type_Name_Path''
 
     ##Prio 2
     #altNames
@@ -25,11 +29,8 @@ paths = {
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
     "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
     "Genre_Name_Path": 'lido:classification[@lido:type="Objektklassifikation"]/lido:term',
-    "Genre_ClassificationType": 'lido:classification[@lido:type="Objektklassifikation"]',
-                                #'lido:classification[lido:type="Art"' |
-                                #'lido:classification[lido:type="Literaturgattung"' |
-                                #'lido:classification[lido:type="Stilepoche"' |
-                                #'lido:classification[lido:type="Stilepoche"',
+    "Genre_ClassificationType": 'lido:classification[@lido:type]',
+                                
 
 
     #id
@@ -45,9 +46,7 @@ paths = {
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_ID_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
     "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
-    "Location_SourceID_Path": 'lido:repositoryLocation',
-    "SourceID_Source_Path": 'lido:placeID[@lido:source]',
-    "SourceID_Term_Path": 'lido:namePlaceSet/lido:appellationValue',
+    "Location_SourceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     #id
     #entityType
     #name
@@ -63,6 +62,10 @@ paths = {
 
     #ARTIST
     "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
+    "Artist_ID_Path": 'lido:actorInRole/lido:actor/lido:actorID[@lido:source]',
+    "Artist_Name_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[@lido:pref="preferred"]',
+    "Artist_Birth_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
+    "Artist_Death_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
     #id
     #entityType
     #actorID
@@ -79,6 +82,9 @@ paths = {
     #roles  2
 
     #MATERIAL
+    "Artwork_Materials_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventMaterialsTech',
+    "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
+    "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
     #id
     #entityType
     #conceptID
@@ -88,7 +94,10 @@ paths = {
     #altNames
 
     #ICONOGRAPHY
-    "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
+    "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
+    "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
+    "Icongraphy_Name_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
+
     #id
     #entityType
     #conceptID

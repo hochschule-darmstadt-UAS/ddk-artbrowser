@@ -1,20 +1,33 @@
 #TODO: noch ueberarbeiten
 
 class Resource:
-    def __init__(self, resourceIDs, resourceType,
-                 rights, photographer, dateTaken,
-                 linkResource
-                 #resourceLegal
-                 ):
-        #self.root = resourceLegal
-        self.resourceIDs = resourceIDs
-        self.resourceType = resourceType
-        self.rights = rights
-        self.photographer = photographer
-        self.dateTaken = dateTaken
-        self.linkResource = linkResource
-        #self.parse()
-        #self.getresourceLegal()
+    def __init__(self, root):
+        self.root = root
+        self.resourceIDs = self._parse_resourceID()
+        self.resourceType = self._parse_resourceType()
+        self.rights = self._parse_rights()
+        self.resourceDateTaken = self._parse_resourceDateTaken()
+        self.linkResource = self._parse_linkResource()
+        self.photographer = self._parse_photographer()
+
+    def _parse_resourceID(self):
+        pass
+
+    def _parse_resourceType(self):
+        pass
+
+    def _parse_rights(self):
+        pass
+
+    def _parse_resourceDateTaken(self):
+        pass
+
+    def _parse_linkResource(self):
+        pass
+
+    def _parse_photographer(self):
+        pass
+
 
     def parse(self):
        # self.resourceID = self.root[0].findall(paths["Artwork_ResourceLegal_resourceID_Path"], namespace)[0]
