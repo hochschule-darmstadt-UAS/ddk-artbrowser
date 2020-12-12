@@ -80,8 +80,8 @@ export class DataService {
       .size(count)
       .sort(defaultSortField)
       .minimumShouldMatch(1)
-      .mustTerm("entityType", EntityType.ARTWORK)
-    ids.forEach(id => query.shouldMatch(type !== EntityType.LOCATION ? usePlural(type) : type, `${id}`));
+      .mustTerm('entityType', EntityType.ARTWORK);
+    ids.forEach(id => query.shouldMatch(usePlural(type), `${id}`));
     return this.performQuery<Artwork>(query);
   }
 
@@ -239,7 +239,7 @@ export class DataService {
     _.each(
       data.hits.hits,
       function(val) {
-        if (val._index === this.indexName && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
+        if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
           entities.push(this.addThumbnails(val._source));
         }
       }.bind(this)
@@ -260,19 +260,19 @@ export class DataService {
         res.imageMedium = imageMedium(res.linkResource);
         res.imageSmall = imageSmall(res.linkResource);
       });
+      entity.image = e.resources[0].image;
+      entity.imageMedium = e.resources[0].imageMedium;
+      entity.imageSmall = e.resources[0].imageSmall;
     } else {
-      this.findArtworksByType(entity.entityType, [entity.id], 20).then((result) => {
+      this.findArtworksByType(entity.entityType, [entity.id], 1).then((result) => {
         if (result.length) {
           e = result[0];
+          entity.image = e.resources[0].image;
+          entity.imageMedium = e.resources[0].imageMedium;
+          entity.imageSmall = e.resources[0].imageSmall;
         }
       });
     }
-    if (!e) {
-      return entity;
-    }
-    entity.image = e.resources[0].image;
-    entity.imageMedium = e.resources[0].imageMedium;
-    entity.imageSmall = e.resources[0].imageSmall;
     return entity;
   }
 }
