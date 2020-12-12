@@ -287,11 +287,6 @@
         <target state="final">Geschlecht</target>
         <note priority="1" from="description">Artist gender label</note>
       </trans-unit>
-      <trans-unit id="citizenship" datatype="html">
-        <source>Citizenship</source>
-        <target state="final">Land</target>
-        <note priority="1" from="description">Artist citizenship label</note>
-      </trans-unit>
       <trans-unit id="influenced_by" datatype="html">
         <source>Influenced by</source>
         <target state="final">Beeinflusst von</target>
