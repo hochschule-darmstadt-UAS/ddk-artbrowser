@@ -15,4 +15,4 @@ class SourceID():
         self.name = path.find(paths[pathName], namespace).text
 
         for tmp in path.findall(paths[pathAltname], namespace):
-            self.altname = tmp.text
+            self.altname.append(tmp.text)
