@@ -28,7 +28,8 @@ paths = {
     #GENRE
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
     "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
-    "Genre_Name_Path": 'lido:classification[@lido:type="Objektklassifikation"]/lido:term',
+    "Genre_Name_Path": 'lido:classification/lido:term',
+    "Genre_Altname_Path": 'lido:classification/lido:term[@lido:addedSearchTerm="yes"]',
     "Genre_ClassificationType": 'lido:classification[@lido:type]',
 
     #LOCATION

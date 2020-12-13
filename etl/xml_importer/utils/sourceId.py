@@ -13,7 +13,7 @@ class SourceID():
 
     def _parse_term(self, path, pathName, pathAltname):
         self.name = path.find(paths[pathName], namespace).text
-        self.altname = []
+        self.altnames = []
 
         for tmp in path.findall(paths[pathAltname], namespace):
-            self.altname.append(tmp.text)
+            self.altnames.append(tmp.text)
