@@ -30,23 +30,16 @@ paths = {
     "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
     "Genre_Name_Path": 'lido:classification[@lido:type="Objektklassifikation"]/lido:term',
     "Genre_ClassificationType": 'lido:classification[@lido:type]',
-                                
-
-
-    #id
-    #type
-    #name
-    #conceptID
-    #classificationType
-
-    ##Prio 2
-    #altNames
 
     #LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_ID_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
-    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+    "Location_EntityType_Path": '',
     "Location_SourceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
+    "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+    "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+
     #id
     #entityType
     #name

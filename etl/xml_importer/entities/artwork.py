@@ -31,7 +31,7 @@ class Artwork():
         self.materials = self._parse_materials()
         # self.measurements = _parse_measurements()
         # self.recordLegal = _parse_recordLegal()
-        self.resources = self._parse_resource()
+        #self.resources = self._parse_resource()
 
     #TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
     # artwork.altName string[] 2
