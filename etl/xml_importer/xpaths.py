@@ -28,25 +28,19 @@ paths = {
     #GENRE
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
     "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
-    "Genre_Name_Path": 'lido:classification[@lido:type="Objektklassifikation"]/lido:term',
+    "Genre_Name_Path": 'lido:classification/lido:term',
+    "Genre_Altname_Path": 'lido:classification/lido:term[@lido:addedSearchTerm="yes"]',
     "Genre_ClassificationType": 'lido:classification[@lido:type]',
-                                
-
-
-    #id
-    #type
-    #name
-    #conceptID
-    #classificationType
-
-    ##Prio 2
-    #altNames
 
     #LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_ID_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
-    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+    "Location_EntityType_Path": '',
     "Location_SourceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
+    "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+    "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+
     #id
     #entityType
     #name
@@ -64,6 +58,7 @@ paths = {
     "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
     "Artist_ID_Path": 'lido:actorInRole/lido:actor/lido:actorID[@lido:source]',
     "Artist_Name_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[@lido:pref="preferred"]',
+    "Artist_Altname_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[@lido:pref="alternative"]',
     "Artist_Birth_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
     "Artist_Death_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
     #id
@@ -85,6 +80,7 @@ paths = {
     "Artwork_Materials_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventMaterialsTech',
     "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
     "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
+    "Material_Altname_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term[@lido:addedSearchTerm="yes"]',
     #id
     #entityType
     #conceptID

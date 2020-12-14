@@ -8,43 +8,39 @@ class Artist():
     def __init__(self, root):
         self.root = root
         self.id = self._parse_id()
-        self.type = 'artist'
-        self.actorId = self._parse_actorID()
-        self.name = self._parse_name()
-        self.birth = self._parse_birth()
-        self.death = self._parse_death()
 
     def _parse_id(self):
         allArtistIDs = self.root.findall(paths["Artist_ID_Path"], namespace)
         id = get_id_by_prio(allArtistIDs)
         return id
 
-    def _parse_actorID(self):
-        allactorIDs = []
-        for actorID in self.root.findall(paths["Artist_ID_Path"], namespace):
-            allactorIDs.append(SourceID(actorID))
-        return allactorIDs
+    def parse(self):
+        self.entity_type = 'Artist'
+        self.concepts = []
+        self.name = self.root.find(paths["Artist_Name_Path"], namespace).text
 
-    def _parse_name(self):
-        return self.root.find(paths["Artist_Name_Path"], namespace).text
+        for source_id in self.root.findall(paths["Artist_ID_Path"], namespace):
+            concept = SourceID(source_id.text)
+            concept._parse_source()
+            concept._parse_term(self.root, "Artist_Name_Path", "Artist_Altname_Path")
+            self.concepts.append(concept)
+
+        self.birth = self._parse_birth()
+        self.death = self._parse_death()
 
     def _parse_birth(self):
-        birthDate = self.root.findall(paths["Artist_Birth_Path"], namespace)
-        if len(birthDate) > 0:
-            return birthDate[0].text
+        birthDate = self.root.find(paths["Artist_Birth_Path"], namespace)
+        if birthDate != None:  #Kann ein Artist kein Geburtsdatum haben
+            return birthDate.text
         else:
             return ''
 
     def _parse_death(self):
         deathDate = self.root.find(paths["Artist_Death_Path"], namespace)
-        if deathDate == None:
-            return ''
-        else:
+        if deathDate != None:
             return deathDate.text
-
-    def parse(self):
-        pass
-
+        else:
+            return ''
 #id
 #entityType string
 #actorID SourceID[]

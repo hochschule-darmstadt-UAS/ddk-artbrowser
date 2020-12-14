@@ -35,7 +35,7 @@ if __name__ == '__main__':
         artwork = Artwork(lido)
         artworks.append(artwork)
 
-    _print_artworks(artworks)
+    #_print_artworks(artworks)
 
 
 

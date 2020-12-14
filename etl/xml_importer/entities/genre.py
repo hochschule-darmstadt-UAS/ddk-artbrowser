@@ -8,36 +8,32 @@ class Genre():
     def __init__(self, root):
         self.root = root
         self.id = self._parse_id()
-        self.type = 'genre'
-        self.name = self._parse_name()[0]
-        self.altname = self._parse_name()[1:]
-        self.classificationType = self._parse_classificationType() ##ToDo:muss erklaeret werden, Liste oder eine rausziehen
-        self.conceptID = self._parse_sourceID()
 
     def _parse_id(self):
         allGenreIDs = self.root.findall(paths["Genre_ID_Path"], namespace)
         id = get_id_by_prio(allGenreIDs)
+
         return id
 
-    def _parse_name(self):
-        allGenreNames = []
-        root = self.root.findall(paths["Genre_Name_Path"], namespace)
-        for name in root:
-            allGenreNames.append(name.text)
-        return allGenreNames
-
-    def _parse_classificationType(self):
-        classificationType = self.root.findall(paths["Genre_ClassificationType"], namespace)
-        return classificationType
-
-    def _parse_sourceID(self):
-        allSourceIDs = []
-        for sourceId in self.root.findall(paths["Genre_ID_Path"], namespace):
-            allSourceIDs.append(SourceID(sourceId))
-        return allSourceIDs
 
     def parse(self):
-        pass
+        self.entity_type = 'Genre'
+        self.name = []
+        self.concepts = []
+        self.classifications = []
+        for tmp in self.root.findall(paths["Genre_Name_Path"], namespace):
+            self.name.append(tmp.text)
+
+        for source_id in self.root.findall(paths["Genre_ID_Path"], namespace):
+            concept = SourceID(source_id.text)
+            concept._parse_source()
+            concept._parse_term(self.root, "Genre_Name_Path", "Genre_Altname_Path")
+            self.concepts.append(concept)
+
+        for tmp in self.root.findall(paths["Genre_ClassificationType"], namespace):
+            self.classifications.append(tmp.attrib['{http://www.lido-schema.org}type'])
+
+
 #id string
 #type string
 #name string[]
