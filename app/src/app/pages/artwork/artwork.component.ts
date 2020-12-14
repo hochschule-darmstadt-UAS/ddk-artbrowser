@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
-import { usePluralAttributes } from 'src/app/shared/models/entity.interface';
+import { usePlural } from 'src/app/shared/models/entity.interface';
 
 /** interface for the tabs */
 interface ArtworkTab {
@@ -203,7 +203,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
           return;
         }
 
-        const types = usePluralAttributes(tab.type);
+        const types = usePlural(tab.type);
 
         // load entities
         this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type).then((artists) => {

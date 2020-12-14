@@ -283,6 +283,9 @@
       <trans-unit id="photography" datatype="html">
         <source>Photography: </source>
       </trans-unit>
+      <trans-unit id="links" datatype="html">
+        <source>Links</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

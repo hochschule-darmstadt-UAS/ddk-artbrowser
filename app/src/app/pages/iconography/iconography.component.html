@@ -5,7 +5,7 @@
       <span class="subtitle mb-3 text-muted">{{ iconclassData.text[this.ISO_639_1_LOCALE || 'de'] }}</span>
 
       <app-information #appInfo i18n-label="hierarchy label@@iconclass_hierarchy" label="Iconclass Hierarchy" [values]="hierarchy"></app-information>
-      <app-collapse *ngIf="children" class="children" i18n-label="hierarchy children collapse@@iconclass_children" heading="Children">
+      <app-collapse *ngIf="children?.length" class="children" i18n-label="hierarchy children collapse@@iconclass_children" heading="Children">
         <app-information [values]="children"></app-information>
       </app-collapse>
       <app-information
