@@ -31,7 +31,7 @@
       <app-title [entity]="artwork"></app-title>
       <app-information i18n-label="Artist label@@artist" label="Artist" [values]="artwork?.artists"></app-information>
       <app-information i18n-label="Location label@@location" label="Location"
-                       [values]="[artwork?.location]"></app-information>
+                       [values]="artwork?.locations"></app-information>
       <app-information i18n-label="Inception label@@inception" label="Inception"
                        [value]="artwork?.inception"></app-information>
       <!--
@@ -149,8 +149,8 @@
                          [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
 
-            <span *ngIf="artwork?.location && (tab.type == 'location' || tab.type == 'all')" class="mb-1">
-              <app-badge [entity]="artwork?.location" [isHoverBadge]="true"
+            <span *ngIf="artwork?.locations && (tab.type == 'location' || tab.type == 'all')" class="mb-1">
+              <app-badge [entity]="artwork?.locations" [isHoverBadge]="true"
                          [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
           </div>

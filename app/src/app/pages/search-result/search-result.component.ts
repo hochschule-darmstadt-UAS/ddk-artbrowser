@@ -63,6 +63,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       if (params.material) {
         this.searchResults.push(await this.getSearchResults(params.material, EntityType.MATERIAL, EntityIcon.MATERIAL));
       }
+      if (params.iconography) {
+        this.searchResults.push(await this.getSearchResults(params.iconography, EntityType.ICONOGRAPHY, EntityIcon.ICONOGRAPHY));
+      }
       this.sliderItems = await this.getSliderItems(this.searchResults, this.searchTerms);
 
       this.angulartics2.eventTrack.next({
