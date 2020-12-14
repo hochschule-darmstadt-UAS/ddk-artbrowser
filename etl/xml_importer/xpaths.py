@@ -58,6 +58,7 @@ paths = {
     "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
     "Artist_ID_Path": 'lido:actorInRole/lido:actor/lido:actorID[@lido:source]',
     "Artist_Name_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[@lido:pref="preferred"]',
+    "Artist_Altname_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[@lido:pref="alternative"]',
     "Artist_Birth_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
     "Artist_Death_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
     #id

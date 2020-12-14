@@ -99,7 +99,6 @@ class Artwork():
         for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
             artist_ = Artist(artistRoot)
             artistIDs.append(artist_.id)
-            #print(artist_.actorId)
 
             if artist_.id not in artists:
                 artist_.parse()
