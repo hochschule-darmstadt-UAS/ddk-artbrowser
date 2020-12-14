@@ -35,13 +35,14 @@ export class DimensionsComponent implements OnInit {
 
   measurement: Measurement;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
     this.measurement = this.artwork.measurements.find(m => {
-      return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') || m.displayName.includes('Tiefe')) && m.displayName.includes(':');
+      return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') ||
+        m.displayName.includes('Tiefe')) && m.displayName.includes(':');
     });
-    console.log(this.measurement);
     if (this.artwork) {
       this.setDimensions();
       this.setIllustrationDimensions();
@@ -95,10 +96,10 @@ export class DimensionsComponent implements OnInit {
           (this.measurement.height
             ? this.measurement.unit
             : this.measurement.width
-            ? this.measurement.unit
-            : this.measurement.length
-            ? this.measurement.unit
-            : 'cm');
+              ? this.measurement.unit
+              : this.measurement.length
+                ? this.measurement.unit
+                : 'cm');
       }
     }
   }
@@ -107,7 +108,8 @@ export class DimensionsComponent implements OnInit {
     // TODO: Refactor
     this.measurement.type = this.measurement.displayName.split(':')[0];
     this.measurement.unit = this.measurement.displayName.split(' ')[-1];
-    this.measurement.value = this.measurement.displayName.substr(this.measurement.displayName.match('[dsx]*').index, this.measurement.unit.length);
+    this.measurement.value = this.measurement.displayName.substr(this.measurement.displayName.match('[dsx]*').index,
+      this.measurement.unit.length);
     this.measurement.height = this.measurement.value.split('x')[0];
     this.measurement.width = this.measurement.value.split('x')[1];
     this.illustrationHeight = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.height);

@@ -38,7 +38,7 @@ export enum EntityIcon {
   ARTWORK = 'fa-image',
   LOCATION = 'fa-archway',
   GENRE = 'fa-tag',
-  TYPE = 'fa-tag',
+  TYPE = 'fa-shapes',
   MATERIAL = 'fa-scroll',
   ICONOGRAPHY = 'fa-fingerprint',
 }
