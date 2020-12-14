@@ -15,7 +15,7 @@ class Artist():
         return id
 
     def parse(self):
-        self.entity_type = 'artist'
+        self.entity_type = 'Artist'
         self.concepts = []
         self.name = self.root.find(paths["Artist_Name_Path"], namespace).text
 

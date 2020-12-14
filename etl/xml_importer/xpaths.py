@@ -80,6 +80,7 @@ paths = {
     "Artwork_Materials_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventMaterialsTech',
     "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
     "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
+    "Material_Altname_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term[@lido:addedSearchTerm="yes"]',
     #id
     #entityType
     #conceptID
