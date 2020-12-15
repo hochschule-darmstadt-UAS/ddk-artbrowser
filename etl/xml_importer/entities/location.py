@@ -8,18 +8,15 @@ class Location():
         self.id = self._parse_id()
 
     def _parse_id(self):
-        return self.root.findall(paths["Location_ID_Path"], namespace)[0].text
+        return self.root.find(paths["Location_ID_Name_Path"], namespace).text
 
     def parse(self):
         self.entity_type = 'Location'
-        self.name = []
+        self.name = self.root.find(paths["Location_ID_Name_Path"], namespace).text
         self.concepts = []
-        self.placeName = self.root.findall(paths["Location_PlaceName_Path"], namespace)[0].text
+        self.placeName = self.root.find(paths["Location_PlaceName_Path"], namespace).text
 
-        for tmp in self.root.findall(paths["Location_ID_Path"], namespace):
-            self.name.append(tmp.text)
-
-        for source_id in self.root.findall(paths["Location_SourceID_Path"], namespace):##ToDo:kann ein Objekt kein lido:placeID haben.Soll es in SourceID kontrolliert werden
+        for source_id in self.root.findall(paths["Location_ID_Path"], namespace):##ToDo:kann ein Objekt kein lido:placeID haben.Soll es in SourceID kontrolliert werden
             concept = SourceID(source_id.text)
             concept._parse_source()
             concept._parse_term(self.root, "Location_Name_Path", "Location_Altname_Path")##ToDo:beide haben gleichen Path.SourceID soll erklaert werden

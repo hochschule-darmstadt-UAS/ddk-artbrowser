@@ -25,6 +25,17 @@ paths = {
     ##Prio 2
     #altNames
 
+    # LOCATION
+    "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
+    "Location_ID_Name_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
+    "Location_EntityType_Path": '',
+
+    "Location_ID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
+    "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Name und alte_Name haben gleuchen Path
+    "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
+
+    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
+
     #GENRE
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
     "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
@@ -32,14 +43,6 @@ paths = {
     "Genre_Altname_Path": 'lido:classification/lido:term[@lido:addedSearchTerm="yes"]',
     "Genre_ClassificationType": 'lido:classification[@lido:type]',
 
-    #LOCATION
-    "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
-    "Location_ID_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
-    "Location_EntityType_Path": '',
-    "Location_SourceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
-    "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
-    "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
-    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
 
     #id
     #entityType
