@@ -48,7 +48,7 @@ export class DataService {
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
     const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
-    const entities = this.filterData<T>(response, type);
+    const entities = await this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
     return !entities.length ? null : entities[0];
@@ -217,14 +217,13 @@ export class DataService {
    */
   private async performQuery<T>(query: QueryBuilder, url: string = this.baseUrl, type?: EntityType) {
     const response = await this.http.post<T>(url, query.build()).toPromise();
-    const entities = this.filterData<T>(response, type);
+    const entities = await this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
       console.warn(NoResultsWarning(query));
     }
-
     return entities;
   }
 
@@ -233,13 +232,13 @@ export class DataService {
    * @param data Elasticsearch Data
    * @param filterBy optional: type of entities that should be filtered
    */
-  private filterData<T>(data: any, filterBy?: EntityType): T[] {
+  private async filterData<T>(data: any, filterBy?: EntityType): Promise<T[]> {
     const entities: T[] = [];
     _.each(
       data.hits.hits,
-      function(val) {
+      await async function(val) {
         if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
-          entities.push(this.addThumbnails(val._source));
+          entities.push(await this.addThumbnails(val._source));
         }
       }.bind(this)
     );
@@ -250,7 +249,7 @@ export class DataService {
    * fills entity fields imageSmall and imageMedium
    * @param entity entity for which thumbnails should be added
    */
-  private addThumbnails(entity: Entity) {
+  private async addThumbnails(entity: Entity) {
     let e;
     if (entity.entityType === EntityType.ARTWORK) {
       e = entity as Artwork;
@@ -263,7 +262,7 @@ export class DataService {
       entity.imageMedium = e.resources[0].imageMedium;
       entity.imageSmall = e.resources[0].imageSmall;
     } else {
-      this.findArtworksByType(entity.entityType, [entity.id], 1).then((result) => {
+      await this.findArtworksByType(entity.entityType, [entity.id], 1).then((result) => {
         if (result.length) {
           e = result[0];
           entity.image = e.resources[0].image;
