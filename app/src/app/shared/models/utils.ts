@@ -2,6 +2,7 @@ export interface SourceID {
   source: string;
   id: string;
   term?: string;
+  label?: string;
 }
 
 export interface Rights {
@@ -59,3 +60,10 @@ export const imageSmall = (linkResource) => {
   return linkResource ? prefix + 't/' + imageID : null;
 };
 
+export enum SourceToLabel {
+  'http://vocab.getty.edu/ulan' = 'Union List of Artist Names ID',
+  'http://vocab.getty.edu/tgn' = 'Getty Thesaurus of Geographic Names ID',
+  'http://vocab.getty.edu/aat' = 'Art & Architecture Thesaurus ID',
+  'ISIL (ISO 15511)' = 'International Standard Identifier for Libraries and Related Organizations (ISIL)',
+  'http://d-nb.info/gnd' = 'German National Library ID'
+}

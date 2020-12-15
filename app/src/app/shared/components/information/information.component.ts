@@ -1,13 +1,13 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Entity } from '../../models/models';
-import { SourceID } from '../../models/utils';
+import { SourceID, SourceToLabel } from '../../models/utils';
 
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
   styleUrls: ['./information.component.scss']
 })
-export class InformationComponent {
+export class InformationComponent implements OnChanges {
   @Input()
   label: string;
 
@@ -25,10 +25,11 @@ export class InformationComponent {
 
   sourceIDObject: any;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(changes.sourceID) {
+    if (changes.sourceID) {
       this.handleSourceIDArray(changes.sourceID.currentValue);
     }
     this.checkRequiredFields();
@@ -40,19 +41,8 @@ export class InformationComponent {
    * the key to getty or dnb. These keys are checked inside
    * the html-template
    */
-  handleSourceIDArray(sID: SourceID[]) {
-    this.sourceIDObject = { ...sID };
-    for (let key in this.sourceIDObject) {
-      if(this.sourceIDObject[key].source.includes("vocab.getty.edu")) {
-        this.sourceIDObject['getty'] = this.sourceIDObject[key];
-        delete this.sourceIDObject[key];
-      } else {
-        if(this.sourceIDObject[key].source.includes("d-nb.info")) {
-          this.sourceIDObject['dnb'] = this.sourceIDObject[key];
-          delete this.sourceIDObject[key];
-        }
-      }
-    }
+  handleSourceIDArray(sIDs: SourceID[]) {
+    sIDs.filter(sID => Object.keys(SourceToLabel).includes(sID.source)).map(sID => sID.label = SourceToLabel[sID.source]);
   }
 
   /**
@@ -61,7 +51,7 @@ export class InformationComponent {
    */
   private checkRequiredFields() {
     if (this.label === null) {
-      throw new TypeError("Attribute 'label' is required");
+      throw new TypeError('Attribute \'label\' is required');
     }
   }
 }

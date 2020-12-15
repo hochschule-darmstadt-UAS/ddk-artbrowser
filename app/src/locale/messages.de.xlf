@@ -424,6 +424,7 @@
         <source>Inventory Nr</source>
         <target state="final">Inventar Nr</target>
         <note priority="1" from="description">Inventory Nr label</note>
+      </trans-unit>
       <trans-unit id="nationality" datatype="html">
         <source>Nationality</source>
         <target state="final">Nationalität</target>
