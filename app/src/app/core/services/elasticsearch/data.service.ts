@@ -233,16 +233,13 @@ export class DataService {
    * @param filterBy optional: type of entities that should be filtered
    */
   private async filterData<T>(data: any, filterBy?: EntityType): Promise<T[]> {
-    const entities: T[] = [];
-    _.each(
-      data.hits.hits,
-      await async function(val) {
-        if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
-          entities.push(await this.addThumbnails(val._source));
-        }
-      }.bind(this)
-    );
-    return entities;
+    const entities: any = [];
+    data.hits.hits.forEach((val) => {
+      if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
+        entities.push(this.addThumbnails(val._source));
+      }
+    });
+    return await Promise.all(entities);
   }
 
   /**
