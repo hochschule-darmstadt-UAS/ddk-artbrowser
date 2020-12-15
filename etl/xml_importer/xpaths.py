@@ -93,6 +93,7 @@ paths = {
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
     "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
     "Icongraphy_Name_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
+    "Icongraphy_Altname_Path":'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
 
     #id
     #entityType
