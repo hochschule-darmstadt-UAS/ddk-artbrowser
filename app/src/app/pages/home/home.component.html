@@ -14,7 +14,7 @@
 
   <div class="d-flex justify-content-center row pt-4 mb-4">
     <div class="mb-4 container-category" *ngFor="let category of categories; let i = index"
-         [ngClass]="i < 2 ? 'col-lg-6' : 'col-lg-3'">
+         [ngClass]="'col-lg-4'">
       <div class="carousel-wrapper">
         <ngb-carousel>
           <div *ngFor="let item of category.items">
