@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Entity } from '../../models/models';
-import { SourceID, SourceToLabel } from '../../models/utils';
+import { SourceID } from '../../models/inlineInterfaces';
+import { SourceToLabel } from '../../../core/services/ddk.service';
 
 @Component({
   selector: 'app-information',
