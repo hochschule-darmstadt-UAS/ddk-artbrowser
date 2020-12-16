@@ -14,8 +14,7 @@
     </p>
 
     <p *ngIf="sourceID" class="mb-1 add-padding sourceid notchip">
-      <a href="{{ sourceID[0].id }}" target="_blank">Getty</a>
-      <a href="{{ sourceID[1].id }}" target="_blank">DNB</a>
+      <a *ngFor="let sID of sourceID" href="{{ sID.id }}" target="_blank">{{ sID.label }}</a>
     </p>
   </div>
 </div>
