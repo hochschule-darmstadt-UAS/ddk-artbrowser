@@ -25,7 +25,7 @@ class Genre():
             self.name.append(tmp.text)
 
         for source_id in self.root.findall(paths["Genre_ID_Path"], namespace):
-            concept = SourceID(source_id.text)
+            concept = SourceID(source_id)
             concept._parse_source()
             concept._parse_term(self.root, "Genre_Name_Path", "Genre_Altname_Path")
             self.concepts.append(concept)
