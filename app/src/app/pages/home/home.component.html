@@ -12,8 +12,9 @@
     </div>
   </div>
 
-  <div class="row pt-4 mb-4">
-    <div class="mb-4 container-category" *ngFor="let category of categories; let i = index" [ngClass]="categories.length / 2 > i + 1 ? 'col-lg-4' : 'col-lg-3'">
+  <div class="d-flex justify-content-center row pt-4 mb-4">
+    <div class="mb-4 container-category" *ngFor="let category of categories; let i = index"
+         [ngClass]="i < 2 ? 'col-lg-6' : 'col-lg-3'">
       <div class="carousel-wrapper">
         <ngb-carousel>
           <div *ngFor="let item of category.items">
@@ -25,7 +26,8 @@
                 angularticsAction="Home tiles"
                 angularticsCategory="Navigation"
               >
-                <img class="image" (error)="onLoadingError(category, item)" src="{{ item?.imageMedium }}" alt="{{ item?.label }}" />
+                <img class="image" (error)="onLoadingError(category, item)" src="{{ item?.imageMedium }}"
+                     alt="{{ item?.label }}" />
                 <div class="overlay">
                   <span class="type badge badge-secondary badge-pill chip">
                     <i class="fas {{ category.icon }}"></i>
@@ -42,7 +44,7 @@
 
         <a class="entities-link" [routerLink]="['/' + category.type + 's']">
           <span class="entities-caption">
-            <span i18n="All@@all">all</span>
+            <span i18n="All@@all">All</span>
             <span class="ml-1 mr-1" i18n="Entities Type Labels@@entities_labels" *ngIf="category.type; let type">
               {type, select, artwork {Artworks} type {Types} artist {Artists} location {Locations} genre {Genres} material {Materials}}
             </span>
