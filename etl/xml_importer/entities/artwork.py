@@ -6,6 +6,7 @@ from etl.xml_importer.entities.iconography import Iconography
 from etl.xml_importer.entities.material import Material
 from etl.xml_importer.entities.type import Type
 from etl.xml_importer.entities.location import Location
+from etl.xml_importer.utils.recordLegal import RecordLegal
 from etl.xml_importer.utils.resource import Resource
 from etl.xml_importer.xpaths import namespace
 
@@ -29,8 +30,8 @@ class Artwork():
         self.artists = self._parse_artists()
         self.iconographies = self._parse_iconographies()
         self.materials = self._parse_materials()
-        # self.measurements = _parse_measurements()
-        # self.recordLegal = _parse_recordLegal()
+        #self.measurements = _parse_measurements()
+        self.recordLegal = self._parse_record_legal()
         #self.resources = self._parse_resource()
 
     #TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
@@ -148,15 +149,11 @@ class Artwork():
         #else:
            # pass
 
-    def _parse_recordLegal(lido):
-        #TODO: recordLegal fuer das uebergebene lido heraussuchen
-        recordLegal = lido.recordLegal #Typ RecordLegal
+    def _parse_record_legal(self):
+        record_legal_root = self.lido.find(paths["Artwork_RecordLegal_Path"], namespace)
+        record_legal = RecordLegal(record_legal_root)
 
-        return recordLegal
-
-        #recordLegal_List = self.root.findall(paths["Artwork_RecordLegal_Path"], namespace)
-       #for recordLegal in recordLegal_List:
-            #self.artwork["recordLegal"] = RecordLegal(recordLegal).get_recordLegal()
+        return record_legal
 
     def _parse_resource(self):
         allresources = []
@@ -183,66 +180,3 @@ class Artwork():
         #else:
         #    pass
         #self.artwork["altName"] = altenames
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##################################################################################################################
-
-#self, id, entityType, name, #altName,
-#                 inception, measurements,
-#                 recordLegal, resources,
-#                 #inscriptions,
-#                 types, genres,
-#                 location, artists, iconographies,
-#                 materials, root):
-#        #self.root = root
-#        self.id = id
-#        self.entityType = entityType
-#        self.name = name
-#        #self.altName = altName
-#        self.inception = inception
-#        self.measurements = measurements
-#        self.recordLegal = recordLegal
-#        self.resources = resources
-#        #self.inscriptions = inscriptions
-#        self.types = types
-#        self.genres = genres
-#        self.location = location
-#        self.artists = artists
-#        self.iconographies = iconographies
-#        self.materials = materials
-
-#id
-#entityType string
-#name string
-#altName string[] 2
-#inception
-#measurements Measurement[]
-
-#recordLegal RecordLegal
-#resources Resource[]
-
-#inscriptions string[] 2
-
-#types string[]
-#genres string[]
-#location string[]
-#artists string[]
-#iconographies string[]
-#materials string[]
