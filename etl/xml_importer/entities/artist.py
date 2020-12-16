@@ -20,7 +20,7 @@ class Artist():
         self.name = self.root.find(paths["Artist_Name_Path"], namespace).text
 
         for source_id in self.root.findall(paths["Artist_ID_Path"], namespace):
-            concept = SourceID(source_id.text)
+            concept = SourceID(source_id)
             concept._parse_source()
             concept._parse_term(self.root, "Artist_Name_Path", "Artist_Altname_Path")
             self.concepts.append(concept)

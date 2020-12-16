@@ -14,7 +14,7 @@ paths = {
     #TYPE
     "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType',
     "Type_ID_Path": 'lido:conceptID[@lido:source]',
-    "Type_EntityType_Path": '',
+    #"Type_EntityType_Path": 'is a simple string named "type"',
     "Type_Name_Path": 'lido:term',
     "Type_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
     #"Type_Source_Path": 'same path like 'Artwork_Type_Path''
@@ -126,11 +126,11 @@ paths = {
 
     #RECORDLEGAL
     "Artwork_RecordLegal_Path": 'lido:administrativeMetadata/lido:recordWrap',
-    "Artwork_RecordLegal_RecordID_Path": 'lido:recordID[@lido:source]',
-    "Artwork_RecordLegal_RecordType_Path": 'lido:recordType',
-    "Artwork_RecordLegal_RecordSource_Path": 'lido:recordSource',
-    "Artwork_RecordLegal_Rights_Path": 'lido:recordRights',
-    "Artwork_RecordLegal_RecordInfoLink_Path": 'lido:recordInfoSet/lido:recordInfoLink',
+    "RecordLegal_RecordID_Path": 'lido:recordID[@lido:source]',
+    "RecordType_ID_Path": 'lido:recordType/lido:conceptID',
+    "RecordType_Term_Path": 'lido:recordType/lido:term',
+    "RecordLegal_Source_Path": 'lido:recordSource/lido:legalBodyName/lido:appellationValue',
+    "RecordLegal_RecordInfoLink_Path": 'lido:recordInfoSet/lido:recordInfoLink',
 
     #RESOURCE
     "Artwork_Resource_Path": 'lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet',

@@ -20,7 +20,7 @@ class Material():
         self.name = self.root.findall(paths["Material_name_Path"], namespace)[0].text
         self.concepts = []
         for source_id in self.root.findall(paths["Material_ID_Path"], namespace):
-            concept = SourceID(source_id.text)
+            concept = SourceID(source_id)
             concept._parse_source()
             concept._parse_term(self.root, "Material_name_Path", "Material_Altname_Path")
             self.concepts.append(concept)
