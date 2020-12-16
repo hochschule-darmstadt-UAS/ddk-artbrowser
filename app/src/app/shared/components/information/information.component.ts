@@ -23,8 +23,6 @@ export class InformationComponent implements OnChanges {
   @Input()
   sourceID: SourceID[];
 
-  sourceIDObject: any;
-
   constructor() {
   }
 
@@ -36,10 +34,7 @@ export class InformationComponent implements OnChanges {
   }
 
   /**
-   * This Method converts sourceID Array to an object and checks
-   * if the element is a getty- or dnb-element and 'renames'
-   * the key to getty or dnb. These keys are checked inside
-   * the html-template
+   * This Method sets the label of sourceID
    */
   handleSourceIDArray(sIDs: SourceID[]) {
     sIDs.filter(sID => Object.keys(SourceToLabel).includes(sID.source)).map(sID => sID.label = SourceToLabel[sID.source]);
