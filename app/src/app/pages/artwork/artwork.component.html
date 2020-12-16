@@ -45,8 +45,8 @@
           <app-information i18n-label="Materials label@@material" label="Material"
                            [values]="artwork?.materials"></app-information>
           <app-information i18n-label="Types label@@type" label="Types" [values]="artwork?.types"></app-information>
-          <app-iconclass i18n-label="Iconography label@@iconography" [iconclasses]="artwork?.iconographies"
-                         label="Iconography"></app-iconclass>
+          <app-information i18n-label="Iconography label@@iconography" [values]="artwork?.iconographies"
+                         label="Iconography"></app-information>
           <app-information *ngIf="artwork?.measurements?.length" i18n-label="Dimensions label@@dimension"
                            label="Dimension" [value]="artwork?.measurements[0].displayName"></app-information>
           <!-- TODO: implement dimensions <app-dimensions *ngIf="artwork" [artwork]="artwork"></app-dimensions>-->
