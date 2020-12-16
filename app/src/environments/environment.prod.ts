@@ -20,3 +20,7 @@ export const analyticsEnvironment =
         url: '/api/analytics/',
         propertyId: '1'
       };
+
+export const iconclassEnvironment = {
+  apiURI: 'http://iconclass.org/json'
+};
