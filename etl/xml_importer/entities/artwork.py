@@ -39,12 +39,15 @@ class Artwork():
 
 
     def _parse_id(self):
-        id = self.lido.find(paths["Artwork_Id_Path"], namespace)
-        return id.text.replace("/", "-").replace(",", "-")
+        # TODO: Was soll ich hier nur lido herausnehmen?: DE - Mb112 - lido - t3 - 000230
+        #         88 - T - 001 - T - 065
+        id = self.lido.find(paths["Artwork_Id_Path"], namespace). text
+        id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
+        return id
 
-    def _parse_name(self): #TODO: Format DE-Mb112-00000000001
-        name = self.lido.find(paths["Artwork_Name_Path"], namespace)
-        return name.text
+    def _parse_name(self):
+        name = self.lido.find(paths["Artwork_Name_Path"], namespace).text
+        return name
 
     def _parse_inscription(self):
         inscriptions = []
