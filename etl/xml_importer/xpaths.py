@@ -138,9 +138,11 @@ paths = {
     "Artwork_Resource_resourceID_Path": 'lido:resourceID',
     "Artwork_Resource_resourceType_Path": 'lido:resourceType/lido:term',
     "Artwork_Resource_Rights_Path": 'lido:rightsResource',
-    #photographer
     "Artwork_Resource_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
     "Artwork_Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
+    "Artwork_Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
+
+
 
     #RIGHTS
     #rightsType
