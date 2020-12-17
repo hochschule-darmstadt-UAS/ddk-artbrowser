@@ -37,11 +37,11 @@ paths = {
     "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
 
     #GENRE
-    "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
-    "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
-    "Genre_Name_Path": 'lido:classification/lido:term',
-    "Genre_Altname_Path": 'lido:classification/lido:term[@lido:addedSearchTerm="yes"]',
-    "Genre_ClassificationType": 'lido:classification[@lido:type]',
+    "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification',
+    "Genre_ID_Path": 'lido:conceptID[@lido:source]',
+    "Genre_Label_Path": 'lido:term',
+    "Genre_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
+    "Genre_ClassificationType": '[@lido:type]',
 
 
     #id

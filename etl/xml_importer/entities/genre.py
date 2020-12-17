@@ -10,28 +10,28 @@ class Genre():
         self.id = self._parse_id()
 
     def _parse_id(self):
-        allGenreIDs = self.root.findall(paths["Genre_ID_Path"], namespace)
-        id = get_id_by_prio(allGenreIDs)
-
+        genre_id = self.root.findall(paths["Genre_ID_Path"], namespace)
+        if len(genre_id) > 0:
+            id = get_id_by_prio(genre_id)
+        else:
+            id = self.root.find(paths["Genre_Label_Path"], namespace).text
         return id
 
 
     def parse(self):
         self.entity_type = 'Genre'
-        self.name = []
+        self.name = self.root.find(paths["Genre_Label_Path"], namespace).text
         self.concepts = []
-        self.classifications = []
-        for tmp in self.root.findall(paths["Genre_Name_Path"], namespace):
-            self.name.append(tmp.text)
+        self.classificationType = self.root.attrib['{http://www.lido-schema.org}type']
 
+'''
         for source_id in self.root.findall(paths["Genre_ID_Path"], namespace):
             concept = SourceID(source_id)
             concept._parse_source()
-            concept._parse_term(self.root, "Genre_Name_Path", "Genre_Altname_Path")
+            concept._parse_term(self.root, "Genre_Label_Path", "Genre_Altname_Path")
             self.concepts.append(concept)
+'''
 
-        for tmp in self.root.findall(paths["Genre_ClassificationType"], namespace):
-            self.classifications.append(tmp.attrib['{http://www.lido-schema.org}type'])
 
 
 #id string
