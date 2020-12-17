@@ -1,6 +1,10 @@
 {
-  "/api": {
-    "target": "https://cai-artbrowserstaging.fbi.h-da.de/",
+  "/api/*": {
+    "target": "https://cai-ddk-art-browser-staging.fbi.h-da.de",
+    "secure": false
+  },
+  "/api/analytics/matomo.js": {
+    "target": "https://cai-ddk-art-browser-staging.fbi.h-da.de",
     "secure": false
   }
 }

@@ -1,5 +1,7 @@
-import { Entity, EntityType } from './entity.interface';
+import { Entity, EntityIcon, EntityType } from './entity.interface';
 
 export interface Genre extends Entity {
-  type: EntityType.GENRE;
+  classificationType?: string;
+  entityType: EntityType.GENRE;
+  icon: EntityIcon.GENRE;
 }

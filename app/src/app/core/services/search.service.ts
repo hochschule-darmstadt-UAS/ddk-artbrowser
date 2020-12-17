@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 export interface TagItem {
   label: string;
-  type?: string;
+  entityType?: string;
   id?: string;
 }
 
@@ -22,11 +22,11 @@ export class SearchService {
    * @param tag TagItem that should be added
    */
   public addSearchTag(tag: TagItem) {
-    const existingTag = this.searchItems.filter(i => i.id === tag.id && i.type === tag.type && i.label === tag.label);
+    const existingTag = this.searchItems.filter(i => i.id === tag.id && i.entityType === tag.entityType && i.label === tag.label);
     if (existingTag.length === 0) {
       this.searchItems.push({
         label: tag.label,
-        type: tag.type,
+        entityType: tag.entityType,
         id: tag.id
       });
       this.$searchItems.next(this.searchItems);
@@ -38,7 +38,7 @@ export class SearchService {
    * @param tag TagItem that should be removed
    */
   public removeSearchTag(tag: TagItem) {
-    this.searchItems = this.searchItems.filter(i => i.id !== tag.id || i.type !== tag.type || i.label !== tag.label);
+    this.searchItems = this.searchItems.filter(i => i.id !== tag.id || i.entityType !== tag.entityType || i.label !== tag.label);
     this.$searchItems.next(this.searchItems);
   }
 

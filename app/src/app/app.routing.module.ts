@@ -19,11 +19,10 @@ const routes: Routes = [
     loadChildren: './pages/data-protection/data-protection.routing.module#DataProtectionRoutingModule'
   },
   { path: 'about', loadChildren: './pages/about/about.routing.module#AboutRoutingModule' },
-  { path: 'movements', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'artists', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'artworks', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'genres', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
-  { path: 'motifs', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
+  { path: 'types', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'locations', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'materials', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'artist/:artistId', loadChildren: './pages/artist/artist.routing.module#ArtistRoutingModule' },
@@ -31,8 +30,8 @@ const routes: Routes = [
   { path: 'genre/:genreId', loadChildren: './pages/genre/genre.routing.module#GenreRoutingModule' },
   { path: 'location/:locationId', loadChildren: './pages/location/location.routing.module#LocationRoutingModule' },
   { path: 'material/:materialId', loadChildren: './pages/material/material.routing.module#MaterialRoutingModule' },
-  { path: 'movement/:movementId', loadChildren: './pages/movement/movement.routing.module#MovementRoutingModule' },
-  { path: 'motif/:motifId', loadChildren: './pages/motif/motif.routing.module#MotifRoutingModule' },
+  { path: 'type/:typeId', loadChildren: './pages/type/type.routing.module#TypeRoutingModule' },
+  { path: 'iconography/:notation', loadChildren: './pages/iconography/iconography.routing.module#IconographyRoutingModule' },
   { path: 'search', loadChildren: './pages/search-result/search-result.routing.module#SearchResultRoutingModule' },
   { path: '**', redirectTo: '' }
 ];
@@ -50,5 +49,4 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

@@ -15,7 +15,7 @@ export class TitleComponent implements OnInit {
     this.checkRequiredFields();
   }
 
-  ngOnChanges(changes) {
+  ngOnChanges() {
     this.checkRequiredFields();
   }
 

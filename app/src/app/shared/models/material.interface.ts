@@ -1,5 +1,6 @@
-import { Entity, EntityType } from './entity.interface';
+import { Entity, EntityIcon, EntityType } from './entity.interface';
 
 export interface Material extends Entity {
-  type: EntityType.MATERIAL;
+  entityType: EntityType.MATERIAL;
+  icon: EntityIcon.MATERIAL;
 }
