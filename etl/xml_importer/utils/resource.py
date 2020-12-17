@@ -1,4 +1,8 @@
 #TODO: noch ueberarbeiten
+from etl.xml_importer.utils.rights import Rights
+from etl.xml_importer.utils.sourceId import SourceID
+from etl.xml_importer.xpaths import paths, namespace
+
 
 class Resource:
     def __init__(self, root):
@@ -11,16 +15,23 @@ class Resource:
         self.photographer = self._parse_photographer()
 
     def _parse_resourceID(self):
-        pass
+        id_root = self.root.find(paths["Artwork_Resource_resourceID_Path"], namespace)
+        return SourceID(id_root)
 
     def _parse_resourceType(self):
-        pass
+        return self.root.find(paths["Artwork_Resource_resourceType_Path"], namespace)
 
-    def _parse_rights(self):
-        pass
+    def _parse_rights(self):#Todo
+        right_root = self.root.find(paths["Artwork_Resource_Rights_Path"], namespace)
+        rights = Rights(right_root)
+        return rights
+
 
     def _parse_resourceDateTaken(self):
-        pass
+        resource_dateTaken_root = self.root.find(paths["Artwork_Resource_ResourceDateTaken_Path"], namespace)
+        if resource_dateTaken_root != None:
+            #print(resource_dateTaken_root.text)
+            return resource_dateTaken_root.text
 
     def _parse_linkResource(self):
         pass

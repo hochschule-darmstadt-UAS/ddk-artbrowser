@@ -26,7 +26,7 @@ class RecordLegal:
         record_types = []
         for type_root in self.root.findall(paths["RecordType_ID_Path"], namespace):
             record_type = SourceID(type_root)
-            record_type._parse_term(self.root, "RecordType_Term_Path", "0")
+            record_type._parse_term(self.root, "RecordType_Term_Path", None)
 
         return record_types
 
