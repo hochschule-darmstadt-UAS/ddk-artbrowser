@@ -5,7 +5,7 @@ import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 's
 import { elasticEnvironment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
 import { usePlural } from '../../../shared/models/entity.interface';
-import { image, imageMedium, imageSmall } from '../../../shared/models/utils';
+import { image, imageMedium, imageSmall } from '../ddk.service';
 
 const defaultSortField = 'rank';
 

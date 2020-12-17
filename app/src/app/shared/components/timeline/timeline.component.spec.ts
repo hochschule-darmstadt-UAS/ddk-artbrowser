@@ -41,7 +41,8 @@ describe('SliderComponent', () => {
         route: '',
         count: 37,
         rank: 0.9795063116489386,
-        date: 1300
+        date: 1300,
+        description: 'test'
       },
       {
         id: 'Q549172',
@@ -51,7 +52,8 @@ describe('SliderComponent', () => {
         route: '',
         count: 46,
         rank: 0.9944890206318238,
-        date: 1305
+        date: 1305,
+        description: 'test'
       },
       {
         id: 'Q979440',
@@ -61,7 +63,8 @@ describe('SliderComponent', () => {
         route: '',
         count: 36,
         rank: 0.9762525340301427,
-        date: 1333
+        date: 1333,
+        description: 'test'
       },
       {
         id: 'Q3815314',
@@ -71,7 +74,8 @@ describe('SliderComponent', () => {
         route: '',
         count: 21,
         rank: 0.22987683344390347,
-        date: 1352
+        date: 1352,
+        description: 'test'
       }
     ];
     expect(component).toBeTruthy();
