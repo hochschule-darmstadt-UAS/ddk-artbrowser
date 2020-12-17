@@ -3,15 +3,21 @@
     <div class="col-sm-7" *ngIf="artist">
       <app-title [entity]="artist"></app-title>
 
-      <app-information i18n-label="Born infos label@@born" label="Born" [value]="artist?.dateOfBirth"></app-information>
-      <app-information i18n-label="Died infos label@@died" label="Died" [value]="artist?.dateOfDeath"></app-information>
+      <app-information *ngIf="artist?.dateOfBirth" i18n-label="Born infos label@@born" label="Born"
+                       [value]="artist?.dateOfBirth"></app-information>
+      <app-information *ngIf="artist?.dateOfDeath" i18n-label="Died infos label@@died" label="Died"
+                       [value]="artist?.dateOfDeath"></app-information>
 
       <div>
         <app-collapse>
-          <app-information i18n-label="Artist gender label@@gender" label="Gender" [value]="artist?.gender"></app-information>
-          <app-information i18n-label="Nationality label@@nationality" label="Nationality" [value]="artist?.nationality"></app-information>
-          <app-information i18n-label="Roles label@@roles" label="Roles" [value]="artist.roles.join(', ')"></app-information>
-          <app-information i18n-label="Links label@@links" label="Links" [sourceID]="artist?.sourceID"></app-information>
+          <app-information *ngIf="artist?.gender" i18n-label="Artist gender label@@gender" label="Gender"
+                           [value]="artist?.gender"></app-information>
+          <app-information *ngIf="artist?.nationality" i18n-label="Nationality label@@nationality" label="Nationality"
+                           [value]="artist?.nationality"></app-information>
+          <app-information *ngIf="artist?.roles?.length" i18n-label="Roles label@@roles" label="Roles"
+                           [value]="artist.roles.join(', ')"></app-information>
+          <app-information *ngIf="artist?.sourceID?.length" i18n-label="Links label@@links" label="Links"
+                           [sourceID]="artist?.sourceID"></app-information>
         </app-collapse>
       </div>
     </div>
