@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import { interval, Observable, Subject } from 'rxjs';
 import { SearchService, TagItem } from 'src/app/core/services/search.service';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
@@ -48,7 +57,8 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private cdRef: ChangeDetectorRef,
     private angulartics2: Angulartics2
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.searchService.$searchItems.pipe(takeUntil(this.ngUnsubscribe)).subscribe(items => {
@@ -59,7 +69,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
     this.placeholderArray.unshift(this.inputRef.nativeElement.placeholder);
     const inv = interval(8000);
-    inv.pipe(takeUntil(this.ngUnsubscribe)).subscribe(val => this.changePlaceholdertext());
+    inv.pipe(takeUntil(this.ngUnsubscribe)).subscribe(() => this.changePlaceholdertext());
     this.cdRef.detectChanges();
   }
 
@@ -118,13 +128,13 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
             }
           });
         }
-
         return this.searchInput ? entities : [];
       })
-    );
+    )
 
   /** sort search items by rank and whether results starts with search term
    * @param entities results which should be sorted
+   * @param term the searched term
    */
   sortSearchResultsByRank(entities: Entity[], term: string): Entity[] {
     return entities.sort((left, right): any => {
@@ -143,11 +153,11 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     const artists = [];
     const materials = [];
     const genre = [];
-    const motifs = [];
-    const movements = [];
     const locations = [];
+    const types = [];
+    const iconographies = [];
     for (const ent of entities) {
-      switch (ent.type) {
+      switch (ent.entityType) {
         case EntityType.ARTWORK: {
           artworks.push(ent);
           break;
@@ -164,16 +174,16 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           genre.push(ent);
           break;
         }
-        case EntityType.MOTIF: {
-          motifs.push(ent);
-          break;
-        }
-        case EntityType.MOVEMENT: {
-          movements.push(ent);
-          break;
-        }
         case EntityType.LOCATION: {
           locations.push(ent);
+          break;
+        }
+        case EntityType.TYPE: {
+          types.push(ent);
+          break;
+        }
+        case EntityType.ICONOGRAPHY: {
+          iconographies.push(ent);
           break;
         }
       }
@@ -184,9 +194,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       .concat(artists.splice(0, 3))
       .concat(materials.splice(0, 2))
       .concat(genre.splice(0, 2))
-      .concat(motifs.splice(0, 2))
-      .concat(movements.splice(0, 2))
-      .concat(locations.splice(0, 2));
+      .concat(locations.splice(0, 2))
+      .concat(types.splice(0, 2))
+      .concat(iconographies.splice(0, 2));
 
     let restItems = [];
     for (let i = 0; i < 10; ++i) {
@@ -195,9 +205,9 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         .concat(artists.splice(0, 1))
         .concat(materials.splice(0, 1))
         .concat(genre.splice(0, 1))
-        .concat(motifs.splice(0, 1))
-        .concat(movements.splice(0, 1))
-        .concat(locations.splice(0, 1));
+        .concat(locations.splice(0, 1))
+        .concat(types.splice(0, 1))
+        .concat(iconographies.splice(0, 1));
     }
     return newEntities.concat(restItems).splice(0, 10);
   }
@@ -206,17 +216,17 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
    * @param entities results which should be resorted
    */
   groupSearchResultsByType(entities: Entity[]): Entity[] {
-    let types = [];
-    entities.forEach(function(entity) {
-      if (!types.includes(entity.type)) {
-        types.push(entity.type);
+    const types = [];
+    entities.forEach(entity => {
+      if (!types.includes(entity.entityType)) {
+        types.push(entity.entityType);
       }
     });
 
-    let entitiesResorted = [];
-    types.forEach(function(type) {
-      entities.forEach(function(entity) {
-        if (entity.type == type) {
+    const entitiesResorted = [];
+    types.forEach(type => {
+      entities.forEach(entity => {
+        if (entity.entityType === type) {
           entitiesResorted.push(entity);
         }
       });
@@ -229,20 +239,20 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     const params = {
       term: [],
       artist: [],
-      motif: [],
-      movement: [],
+      iconographies: [],
       genre: [],
       material: [],
-      location: []
+      location: [],
+      type: []
     };
     for (const item of this.searchItems) {
-      switch (item.type) {
+      switch (item.entityType) {
         case EntityType.ARTIST: {
           params.artist.push(item.id);
           break;
         }
-        case EntityType.MOVEMENT: {
-          params.movement.push(item.id);
+        case EntityType.ICONOGRAPHY: {
+          params.iconographies.push(item.id);
           break;
         }
         case EntityType.GENRE: {
@@ -253,12 +263,12 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
           params.material.push(item.id);
           break;
         }
-        case EntityType.MOTIF: {
-          params.motif.push(item.id);
-          break;
-        }
         case EntityType.LOCATION: {
           params.location.push(item.id);
+          break;
+        }
+        case EntityType.TYPE: {
+          params.type.push(item.id);
           break;
         }
         case null:
@@ -309,7 +319,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     } else {
       this.searchService.addSearchTag({
         label: $event.item.label,
-        type: $event.item.type,
+        entityType: $event.item.entityType,
         id: $event.item.id
       });
       $event.preventDefault();
@@ -326,13 +336,15 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
       return;
     }
     const item = this.searchItems[0];
-    if (this.searchItems.length === 1 && item.type) {
-      const url = `/${item.type}/${item.id}`;
-      this.router.navigate([url]).then(() => {});
+    if (this.searchItems.length === 1 && item.entityType) {
+      const url = `/${item.entityType}/${item.id}`;
+      this.router.navigate([url]).then(() => {
+      });
       return;
     }
 
-    this.router.navigate(['/search'], { queryParams: this.buildQueryParams() }).then(() => {});
+    this.router.navigate(['/search'], { queryParams: this.buildQueryParams() }).then(() => {
+    });
     return;
   }
 
@@ -348,7 +360,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.searchInput) {
       this.searchService.addSearchTag({
         label: this.searchInput,
-        type: null,
+        entityType: null,
         id: null
       });
     }

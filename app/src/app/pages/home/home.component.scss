@@ -145,7 +145,7 @@ $color1: #00bc8c;
       text-align: center;
 
       &:hover {
-        transform: translateY(25%) ;
+        transform: translateY(25%);
         transition: 0.3s ease;
       }
     }
@@ -170,10 +170,11 @@ $color1: #00bc8c;
   }
 
   .overlay {
+    position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
     width: 100%;
     height: 100%;
@@ -188,7 +189,6 @@ $color1: #00bc8c;
 
   ngb-carousel {
     pointer-events: auto;
-
     box-shadow: 0 0 30px 1px black;
     transition: all 0.5s ease;
     border-radius: 15px;
@@ -206,13 +206,19 @@ $color1: #00bc8c;
       box-shadow: 0 0 20px 1px black;
     }
 
-    &:hover > .overlay {
-      transition: all 0.2s ease;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.8);
-      border-radius: 15px;
+    &:hover {
+      .overlay {
+        transition: all 0.2s ease;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .label {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+      }
     }
   }
 
@@ -242,6 +248,10 @@ $color1: #00bc8c;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     text-align: center;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(1px)
+
   }
 
   .type {
@@ -266,21 +276,26 @@ $color1: #00bc8c;
 }
 
 /** Style for generated ngbcarousel **/
-::ng-deep .container-category .carousel-control-prev,
-::ng-deep .container-category .carousel-control-next {
-  width: 10%;
-  padding: 0 2%;
-  opacity: 0.4;
+
+::ng-deep .carousel-control-prev,
+::ng-deep .carousel-control-next {
+  width: 2.2rem;
+  padding: 0 .5rem;
+  opacity: .4;
+  border-radius: 15px;
+  transition: all 0.3s ease;
 }
 
-::ng-deep .container-category .carousel-control-prev:hover {
+::ng-deep .carousel-control-prev:hover {
   border-radius: 15px 0 0 15px;
-  background: linear-gradient(90deg, #000000, #44444400);
+  background: linear-gradient(90deg, #000000A0, #44444400);
+  opacity: 1;
 }
 
-::ng-deep .container-category .carousel-control-next:hover {
+::ng-deep .carousel-control-next:hover {
   border-radius: 0 15px 15px 0;
-  background: linear-gradient(270deg, #000000, #44444400);
+  background: linear-gradient(270deg, #000000A0, #44444400);
+  opacity: 1;
 }
 
 

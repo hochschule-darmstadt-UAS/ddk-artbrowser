@@ -13,7 +13,7 @@ import { shuffle } from 'src/app/core/services/utils.service';
 })
 export class LocationComponent implements OnInit, OnDestroy {
   /* TODO:REVIEW
-   Similiarities in every page-Component:
+   Similarities in every page-Component:
    - variables: ngUnsubscribe, collapse, sliderItems, dataService, route
    - ngOnDestroy, calculateCollapseState, ngOnInit
 

@@ -1,12 +1,15 @@
 [
   {
     "id": "DE-Mb112-lido-t3-00023088-T-001-T-065",
-    "type": "artwork",
-    "name": "Sequentiar, Graduale und Sakramentar — ---, Folio 107Buchseite",
+    "entityType": "artwork",
+    "label": "Sequentiar, Graduale und Sakramentar — ---, Folio 107Buchseite",
+    "altLabel": ["Foo Bar"],
+    "count": 62,
+    "rank": 0.9993051398719951,
     "measurements": [
       {
         "displayName": "Höhe x Breite: 32 x 21 cm",
-        "type": "Höhe x Breite",
+        "measurementsType": "Höhe x Breite",
         "unit": "cm",
         "value": "32 x 21",
         "extend": "gesamt"
@@ -35,7 +38,7 @@
       },
       "recordSource": "Bildarchiv Foto Marburg",
       "rights": {
-        "type": {
+        "rightsType": {
           "id": "http://creativecommons.org/publicdomain/zero/1.0/",
           "term": "CC0 1.0 Public Domain Dedication"
         },
@@ -47,42 +50,55 @@
       },
       "recordInfoLink": "http://www.bildindex.de/document/obj00023088?part=67"
     },
-    "resourceLegal": {
-      "resourceID": {
-        "id": "LA 2.118/33"
-      },
-      "resourceType": "Digitales Bild (retrodigitalisiert)",
-      "rights": {
-        "type": {
-          "id": "http://creativecommons.org/publicdomain/zero/1.0/",
-          "term": "CC0 1.0 Public Domain Dedication"
+    "resources": [
+      {
+        "resourceID": {
+          "id": "LA 2.118/33"
         },
-        "rightsHolder": {
-          "source": "ISIL (ISO 15511)",
-          "id": "http://ld.zdb-services.de/resource/organisations/DE-Mb112",
-          "term": "Bildarchiv Foto Marburg"
-        }
+        "resourceType": "Digitales Bild (retrodigitalisiert)",
+        "rights": {
+          "rightsType": {
+            "id": "http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/",
+            "term": "http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"
+          },
+          "rightsHolder": {
+            "source": "ISIL (ISO 15511)",
+            "id": "http://ld.zdb-services.de/resource/organisations/DE-Mb112",
+            "term": "Bildarchiv Foto Marburg"
+          }
+        },
+        "dateTaken": "1971/1976?",
+        "photographer": "Köllner, Herbert",
+        "linkResource": "http://www.bildindex.de/bilder/d/mi00649c07"
       },
-      "resourceDateTaken": "1971/1976?",
-      "linkResource": "http://www.bildindex.de/bilder/d/mi00649c07"
-    },
-    "types": [
-      "300194222"
+      {
+        "resourceID": {
+          "id": "85.845"
+        },
+        "resourceType": "Digitales Bild (retrodigitalisiert)",
+        "rights": {
+          "rightsType": {
+            "id": "http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/",
+            "term": "http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/"
+          },
+          "rightsHolder": {
+            "source": "ISIL (ISO 15511)",
+            "id": "http://ld.zdb-services.de/resource/organisations/DE-Mb112",
+            "term": "Bildarchiv Foto Marburg"
+          }
+        },
+        "description": "Außenaufnahme - Schrägansicht von Südwesten",
+        "dateTaken": "vor 1938/1939",
+        "linkResource": "http://www.bildindex.de/bilder/d/mi00889e03"
+      }
     ],
-    "genres": [
-      "300180362"
-    ],
-    "locations": ["Hessische Landesbibliothek Fulda (Fulda)"],
-    "artists": [
-      "500095236"
-    ],
-    "iconographies": [
-      "11D121",
-      "48A98311"
-    ],
-    "inscription": "Inschrift: Rückseite — John Brogden",
-    "altName": ["Foo Bar"],
-    "count": 62,
-    "rank": 0.9993051398719951
+    "types": ["getty-300194222"],
+    "genres": ["getty-300180362", "IMAGE", "liturgischer Text"],
+    "locations": ["ddk-location-Hessische_Landesbibliothek_Fulda_Fulda"],
+    "artists": ["getty-500095236"],
+    "materials": ["getty-300010797"],
+    "iconographies": ["11D121", "48A98311"],
+    "inscriptions": ["Inschrift: Rückseite — John Brogden"],
+    "inception": "um 1120/1130"
   }
 ]
