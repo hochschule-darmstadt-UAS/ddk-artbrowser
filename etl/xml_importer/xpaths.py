@@ -27,14 +27,14 @@ paths = {
 
     # LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
-    "Location_ID_Name_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
+    "Location_Label_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
     "Location_EntityType_Path": '',
 
-    "Location_ID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
+    "Location_PlaceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Name und alte_Name haben gleuchen Path
     "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
 
-    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
+    "Location_PlaceLabel_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
 
     #GENRE
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification',
