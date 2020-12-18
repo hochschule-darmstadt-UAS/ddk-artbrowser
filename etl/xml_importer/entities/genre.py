@@ -20,8 +20,8 @@ class Genre():
 
     def parse(self):
         self.entity_type = 'Genre'
-        self.name = self.root.find(paths["Genre_Label_Path"], namespace).text
-        self.concepts = []
+        self.label = self.root.find(paths["Genre_Label_Path"], namespace).text
+        #self.concepts = []
         self.classificationType = self.root.attrib['{http://www.lido-schema.org}type']
 
 '''
