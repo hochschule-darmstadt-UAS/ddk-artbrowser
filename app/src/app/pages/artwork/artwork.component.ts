@@ -76,6 +76,8 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   imageSubtitle: string;
   photographyInformation: string;
 
+  infoVisible = false;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
 
@@ -170,6 +172,13 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    */
   closeModal() {
     this.modalIsVisible = false;
+  }
+
+  handleInfoEvent() {
+    this.infoVisible = true;
+    setTimeout(() => {
+      this.infoVisible = false;
+    }, 3000);
   }
 
   /**

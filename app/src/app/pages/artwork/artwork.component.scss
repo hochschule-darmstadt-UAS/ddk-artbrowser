@@ -1,3 +1,22 @@
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 100; /* Add a z-index if needed */
+  left: 50%;
+  bottom: 2em; /* 30px from the bottom */
+}
+
+.modalZ {
+  z-index: 99 !important;
+}
+
 #image-main {
   max-width: 100%;
   max-height: 70vh;
@@ -125,3 +144,5 @@
     max-height: 30vh;
   }
 }
+
+

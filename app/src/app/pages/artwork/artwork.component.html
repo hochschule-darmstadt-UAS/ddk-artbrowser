@@ -162,12 +162,12 @@
   <!--
     Modal for page overlay when enlarging image, shown when "modalIsVisible" is set to true
   -->
-  <div class="modal" *ngIf="modalIsVisible" id="img-modal">
+  <div class="modal modalZ" *ngIf="modalIsVisible" id="img-modal">
     <span class="close" (click)="closeModal()">&times;</span>
     <!-- Zoom in and out functionality, see package ngx-image-viewer -->
     <div class="modal-content my-auto">
       <ngx-image-viewer
-        [src]="[artwork?.resources[imageIndex].image]"
+      [src]="[artwork?.resources[imageIndex].image, artwork?.resources[imageIndex+1].image]"
         [config]="{
           allowFullscreen: false,
           zoomFactor: 0.1,
@@ -178,11 +178,16 @@
             zoomOut: true,
             rotateClockwise: false,
             rotateCounterClockwise: false,
-            next: false,
-            prev: false
-          }
+            next: true,
+            prev: true
+          },
+          customBtns:[{name: 'link', icon: 'fa fa-info'}]
         }"
+        [(index)]="imageIndex"
+        (customEvent)="handleInfoEvent($event)"
       ></ngx-image-viewer>
     </div>
   </div>
 </div>
+
+<div id="snackbar" *ngIf="infoVisible">{{ photographyInformation }} {{imageSubtitle}}</div>
