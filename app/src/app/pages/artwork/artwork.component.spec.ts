@@ -12,7 +12,6 @@ import { BadgeComponent } from 'src/app/shared/components/badge/badge.component'
 import { CollapseComponent } from 'src/app/shared/components/collapse/collapse.component';
 import { InformationComponent } from '../../shared/components/information/information.component';
 import { TitleComponent } from 'src/app/shared/components/title/title.component';
-import { IconclassComponent } from 'src/app/shared/components/iconclass/iconclass.component';
 import { DimensionsComponent } from 'src/app/shared/components/dimensions/dimensions.component';
 
 describe('ArtworkComponent', () => {
@@ -31,7 +30,6 @@ describe('ArtworkComponent', () => {
         InformationComponent,
         DimensionsComponent,
         CollapseComponent,
-        IconclassComponent
       ],
       providers: [DataService]
     }).compileComponents();

@@ -137,7 +137,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         imageSmall: 'http://previous.bildindex.de/bilder/t/fm1522245'
       });
       // ------------------------------
-
       this.artwork.resources.forEach(res => this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall }));
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     });

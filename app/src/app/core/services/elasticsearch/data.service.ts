@@ -193,26 +193,6 @@ export class DataService {
   }
 
   /**
-   * Retrieves IconclassData from the iconclass.org web-service
-   * @see http://www.iconclass.org/help/lod for the documentation
-   * @param iconclasses an Array of Iconclasses to retrieve
-   * @returns an Array containing the iconclassData to the respective Iconclass
-   */
-  public async getIconclassData(iconclasses: Array<Iconclass>): Promise<any> {
-    const iconclassData = await Promise.all(
-      iconclasses.map(async (key: Iconclass) => {
-        try {
-          return await this.http.get(environment.iconclassBase + '${key}.json').toPromise();
-        } catch (error) {
-          console.warn(error);
-          return null;
-        }
-      })
-    );
-    return iconclassData.filter(entry => entry !== null);
-  }
-
-  /**
    * Perform an ajax request and filter response
    * @param query elasticsearch query as body
    * @param url endpoint
