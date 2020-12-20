@@ -38,7 +38,10 @@ export class InformationComponent implements OnChanges {
    * This Method sets the label of sourceID
    */
   handleSourceIDArray(sIDs: SourceID[]) {
-    sIDs.filter(sID => Object.keys(SourceToLabel).includes(sID.source)).map(sID => sID.label = SourceToLabel[sID.source]);
+    if (sIDs) {
+      sIDs.filter(sID => Object.keys(SourceToLabel).includes(sID.source))
+        .map(sID => sID.label = SourceToLabel[sID.source]);
+    }
   }
 
   /**

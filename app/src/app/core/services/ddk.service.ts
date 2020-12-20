@@ -17,6 +17,8 @@
  * @param dateString: date in random string format
  * @returns number of minimal year in dateString
  */
+import { environment } from '../../../environments/environment';
+
 export const getYearFromString = (dateString: string): number | string => {
   const splitDate = dateString.split(' ');
   if (dateString.match('\\d+\\. Jahrhundert')) {
@@ -49,18 +51,17 @@ export const getYearFromString = (dateString: string): number | string => {
   return dateString.match('\\d+') ? parseInt(dateString.match('\\d+')[0], 10) : dateString;
 };
 
-const prefix = 'http://www.bildindex.de/bilder/';
 export const image = (linkResource) => {
   const imageID = linkResource.substr(linkResource.lastIndexOf('/') + 1);
-  return linkResource ? prefix + 'd/' + imageID : null;
+  return linkResource ? environment.imagesBase + '/d/' + imageID : null;
 };
 export const imageMedium = (linkResource) => {
   const imageID = linkResource.substr(linkResource.lastIndexOf('/') + 1);
-  return linkResource ? prefix + 'm/' + imageID : null;
+  return linkResource ? environment.imagesBase + '/m/' + imageID : null;
 };
 export const imageSmall = (linkResource) => {
   const imageID = linkResource.substr(linkResource.lastIndexOf('/') + 1);
-  return linkResource ? prefix + 't/' + imageID : null;
+  return linkResource ? environment.imagesBase + '/t/' + imageID : null;
 };
 
 export enum SourceToLabel {

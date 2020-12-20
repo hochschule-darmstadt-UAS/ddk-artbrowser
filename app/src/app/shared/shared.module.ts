@@ -8,7 +8,6 @@ import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { InformationComponent } from './components/information/information.component';
 import { TitleComponent } from './components/title/title.component';
-import { IconclassComponent } from './components/iconclass/iconclass.component';
 import { BadgeComponent } from './components/badge/badge.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { CollapseComponent } from './components/collapse/collapse.component';
@@ -28,7 +27,6 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     BadgeComponent,
     TitleComponent,
     InformationComponent,
-    IconclassComponent,
     CollapseComponent,
     DimensionsComponent,
     InfiniteScrollComponent,
@@ -43,7 +41,6 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     NgbModule,
     TitleComponent,
     InformationComponent,
-    IconclassComponent,
     CollapseComponent,
     DimensionsComponent,
     CollapseComponent,
