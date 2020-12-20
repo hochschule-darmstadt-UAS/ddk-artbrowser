@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   elasticBase: '/api',
-  iconclassBase: '/api/iconclass',
+  iconclassBase: '/api/iconclass/json',
   imagesBase: '/api/images',
   analytics: window.location.host === 'https://cai-ddk-art-browser-staging.fbi.h-da.de'
     ? {
