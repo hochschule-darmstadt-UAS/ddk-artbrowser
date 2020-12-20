@@ -1,3 +1,3 @@
-export const elasticEnvironment = {
-  serverURI: 'http://localhost:9200'
+export const environment = {
+  elasticBase: 'http://localhost:9200'
 };

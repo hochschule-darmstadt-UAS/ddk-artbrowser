@@ -1,7 +1,8 @@
 <div class="container">
   <h2>
-    <span i18n="All@@all">All {{ queryCount }}</span>
-    <span class="ml-2" i18n="Entities Type Labels@@entities_labels" *ngIf="type; let type">
+    <span i18n="All@@all">All</span>
+    {{ queryCount }}
+    <span i18n="Entities Type Labels@@entities_labels" *ngIf="type; let type">
       {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials}}
     </span>
   </h2>

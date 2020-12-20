@@ -8,7 +8,7 @@ import { Type } from './type.interface';
 
 export interface Artwork extends Entity {
   artists: Partial<Artist>[];
-  locations: Partial<Location>;
+  locations: Partial<Location>[];
   genres: Partial<Genre>[];
   types: Partial<Type>[];
   iconographies: Partial<Iconography>[];

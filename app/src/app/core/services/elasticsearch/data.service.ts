@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 'src/app/shared/models/models';
-import { elasticEnvironment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
 import QueryBuilder from './query.builder';
 import { usePlural } from '../../../shared/models/entity.interface';
 import { image, imageMedium, imageSmall } from '../ddk.service';
@@ -15,7 +15,8 @@ const defaultSortField = 'rank';
 @Injectable()
 export class DataService {
   /** base url of elasticSearch server */
-  private readonly baseUrl: string;
+  private readonly searchEndPoint: string;
+  private readonly countEndPoint: string;
   private readonly ISO_639_1_LOCALE: string;
   private indexName: string;
 
@@ -25,7 +26,8 @@ export class DataService {
   constructor(private http: HttpClient, @Inject(LOCALE_ID) localeId: string) {
     // build backend api url with specific index by localeId
     this.ISO_639_1_LOCALE = localeId.substr(0, 2);
-    this.baseUrl = elasticEnvironment.serverURI + '/_search';
+    this.searchEndPoint = environment.elasticBase + '/_search';
+    this.countEndPoint = environment.elasticBase + '/_count';
     this.indexName = 'ddk_artbrowser';
   }
 
@@ -47,7 +49,7 @@ export class DataService {
    * @param type if specified, it is assured that the returned entity has this entityType
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
-    const response = await this.http.get<T>(this.baseUrl + '?q=id:' + id).toPromise();
+    const response = await this.http.get<T>(this.searchEndPoint + '?q=id:' + id).toPromise();
     const entities = await this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
@@ -66,7 +68,7 @@ export class DataService {
     }
     const query = new QueryBuilder().size(400);
     copyids.forEach(id => query.shouldMatch('id', `${id}`));
-    return this.performQuery<T>(query, this.baseUrl, type);
+    return this.performQuery<T>(query, this.searchEndPoint, type);
   }
 
   /**
@@ -130,7 +132,7 @@ export class DataService {
 
     keywords.forEach(keyword =>
       query.mustShouldMatch([
-        { key: 'label', value: keyword },
+        { key: 'label', value: keyword }
         // { key: 'description', value: keyword }
       ])
     );
@@ -148,9 +150,10 @@ export class DataService {
 
   public async countEntityItems<T>(type: EntityType) {
     const response: any = await this.http
-      .get('https://openartbrowser.org/' + elasticEnvironment.serverURI + '/' + (this.ISO_639_1_LOCALE || 'en') + '/_count?q=type:' + type)
+      .get(this.countEndPoint + '?q=entityType:' + type)
       .toPromise();
-    return response && response.count ? response.count : undefined;
+    console.log((response && response.count), response, type);
+    return response.count;
   }
 
   public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {
@@ -190,32 +193,12 @@ export class DataService {
   }
 
   /**
-   * Retrieves IconclassData from the iconclass.org web-service
-   * @see http://www.iconclass.org/help/lod for the documentation
-   * @param iconclasses an Array of Iconclasses to retrieve
-   * @returns an Array containing the iconclassData to the respective Iconclass
-   */
-  public async getIconclassData(iconclasses: Array<Iconclass>): Promise<any> {
-    const iconclassData = await Promise.all(
-      iconclasses.map(async (key: Iconclass) => {
-        try {
-          return await this.http.get(`https://openartbrowser.org/api/iconclass/${key}.json`).toPromise();
-        } catch (error) {
-          console.warn(error);
-          return null;
-        }
-      })
-    );
-    return iconclassData.filter(entry => entry !== null);
-  }
-
-  /**
    * Perform an ajax request and filter response
    * @param query elasticsearch query as body
    * @param url endpoint
    * @param type type to filter for
    */
-  private async performQuery<T>(query: QueryBuilder, url: string = this.baseUrl, type?: EntityType) {
+  private async performQuery<T>(query: QueryBuilder, url: string = this.searchEndPoint, type?: EntityType) {
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = await this.filterData<T>(response, type);
     // set type specific attributes
