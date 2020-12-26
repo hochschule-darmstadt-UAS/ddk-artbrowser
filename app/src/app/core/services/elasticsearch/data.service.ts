@@ -87,6 +87,27 @@ export class DataService {
     return this.performQuery<Artwork>(query);
   }
 
+    /**
+   * Fetches all child artworks of a specified iconclass
+   * Returns null if not found
+   * @param iconlass with '*' to fetch all artworks which start with the specified iconclass
+   * @param type if specified, it is assured that the returned entity has this entityType
+   */
+  public async findChildArtworksByIconography(iconclass: string, type?: EntityType): Promise<Artwork[]> {
+    const response = await this.http.get(this.searchEndPoint + '?q=iconographies:' + iconclass + '*').toPromise();
+    let entities = await this.filterData<Artwork>(response, type);
+    entities.forEach(entity => DataService.setTypes(entity));
+
+    /** Remove artwork if it belongs to the current iconclass - only return child iconclass-artworks*/
+    entities = entities.filter(artwork => { 
+      for (let iconography of artwork.iconographies) {
+        if(iconography === iconclass) { return false; }
+      }
+      return true;
+    });
+    return entities;
+  }
+
   /**
    * Find an artwork by label
    * @param label artwork label

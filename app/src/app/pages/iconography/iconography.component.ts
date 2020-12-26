@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -64,11 +64,11 @@ export class IconographyComponent implements OnInit {
           this.children = res;
         });
       });
+      
       /** load current page iconography slider items */
       await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItemsCurrentIconography = shuffle(artworks)));
-
       /** load child iconography slider items */
-      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItemsChildrenIconography = shuffle(artworks)));
+      await this.dataService.findChildArtworksByIconography(this.notation, EntityType.ARTWORK).then(artworks => this.sliderItemsChildrenIconography = shuffle(artworks));
     });
   }
 
