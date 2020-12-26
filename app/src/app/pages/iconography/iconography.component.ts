@@ -23,7 +23,9 @@ export class IconographyComponent implements OnInit {
   parents: Iconography[] = [];
 
   /** Related artworks */
-  sliderItems: Artwork[] = [];
+  sliderItemsCurrentIconography: Artwork[] = [];
+
+  sliderItemsChildrenIconography: Artwork[] = [];
 
   private appInfoRef: ElementRef;
   /**
@@ -31,6 +33,8 @@ export class IconographyComponent implements OnInit {
    */
   private ngUnsubscribe = new Subject();
   private readonly ISO_639_1_LOCALE: string;
+
+  showCurrentIconographyArtworks = true;
 
   constructor(
     private dataService: DataService,
@@ -60,8 +64,11 @@ export class IconographyComponent implements OnInit {
           this.children = res;
         });
       });
-      /** load slider items */
-      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItems = shuffle(artworks)));
+      /** load current page iconography slider items */
+      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItemsCurrentIconography = shuffle(artworks)));
+
+      /** load child iconography slider items */
+      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItemsChildrenIconography = shuffle(artworks)));
     });
   }
 
