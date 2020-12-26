@@ -18,6 +18,7 @@ export class IconographyComponent implements OnInit {
   notation: string;
   iconclassData: Iconography;
   hierarchy: Entity[];
+  hasIconographyChildren = false;
 
   children: Iconography[] = [];
   parents: Iconography[] = [];
@@ -62,7 +63,10 @@ export class IconographyComponent implements OnInit {
         });
         this.iconclassService.getIconclassListByNotation(this.iconclassData.children.map(value => value + '')).subscribe(async res => {
           this.children = res;
-        });
+          this.hasIconographyChildren = this.children.length > 0;
+        }, (() => {
+          this.hasIconographyChildren = false;
+        }));
       });
       
       /** load current page iconography slider items */
