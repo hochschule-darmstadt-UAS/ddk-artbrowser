@@ -7,7 +7,7 @@ export const elasticEnvironment = {
 };
 
 export const analyticsEnvironment =
-  window.location.host === 'cai-artbrowserstaging.fbi.h-da.de'
+  window.location.host === 'https://cai-ddk-art-browser-staging.fbi.h-da.de'
     ? {
         // staging
         enabled: true,
@@ -20,3 +20,7 @@ export const analyticsEnvironment =
         url: '/api/analytics/',
         propertyId: '1'
       };
+
+export const iconclassEnvironment = {
+  apiURI: 'http://iconclass.org/json'
+};

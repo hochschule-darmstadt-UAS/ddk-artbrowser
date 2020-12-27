@@ -19,6 +19,6 @@ class SourceID():
         self.name = path.find(paths[pathName], namespace).text
         self.altnames = []
 
-        if pathAltname != "0":
+        if pathAltname is not None:
             for tmp in path.findall(paths[pathAltname], namespace):
                 self.altnames.append(tmp.text)

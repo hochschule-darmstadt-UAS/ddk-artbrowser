@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MotifComponent } from './motif.component';
+import { TypeComponent } from './type.component';
 import { SharedModule } from '../../shared/shared.module';
 
 const motifRoutes: Routes = [
   {
     path: '',
-    component: MotifComponent
+    component: TypeComponent
   }
 ];
 
 @NgModule({
-  declarations: [MotifComponent],
+  declarations: [TypeComponent],
   imports: [CommonModule, SharedModule, RouterModule.forChild(motifRoutes)],
-  exports: [MotifComponent]
+  exports: [TypeComponent]
 })
-export class MotifRoutingModule {}
+export class TypeRoutingModule {}

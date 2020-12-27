@@ -1,14 +1,13 @@
-import { Entity, EntityType } from './entity.interface';
-import { Movement } from './movement.interface';
+import { Entity, EntityIcon, EntityType } from './entity.interface';
 
 export interface Artist extends Entity {
   gender?: 'male' | 'female';
-  date_of_birth?: number;
-  date_of_death?: number;
-  place_of_birth?: string;
-  place_of_death?: string;
-  citizenship?: string;
-  movements: Partial<Movement>[];
-  influenced_by: Partial<Artist>[];
-  type: EntityType.ARTIST;
+  dateOfBirth?: string;
+  dateOfDeath?: string;
+  evidenceFirst?: string;
+  evidenceLast?: string;
+  nationality?: string;
+  roles: string[];
+  entityType: EntityType.ARTIST;
+  icon: EntityIcon.ARTIST;
 }

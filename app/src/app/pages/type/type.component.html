@@ -1,0 +1,16 @@
+<div class="container entity motif">
+  <div class="row mb-5 border-bottom pb-5">
+    <div class="col-sm-7" *ngIf="type">
+      <app-title [entity]="type"></app-title>
+
+      <app-information i18n-label="Links label@@links" label="Links" [sourceID]="type?.sourceID"></app-information>
+    </div>
+
+    <div class="col-sm-5 img" *ngIf="type?.imageMedium">
+      <img class="img-fluid rounded-circle" src="{{ type?.imageMedium }}" alt="" />
+    </div>
+  </div>
+  <span class="artworks-amount">{{ type?.count }}</span>
+  <span class="ml-1 slider-heading" i18n="Artworks label@@artworks">Artworks</span>
+  <app-slider [items]="sliderItems"></app-slider>
+</div>

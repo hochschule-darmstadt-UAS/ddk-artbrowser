@@ -32,7 +32,7 @@ class Artwork():
         self.materials = self._parse_materials()
         #self.measurements = _parse_measurements()
         self.recordLegal = self._parse_record_legal()
-        #self.resources = self._parse_resource()
+        self.resources = self._parse_resource()
 
     #TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
     # artwork.altName string[] 2
@@ -85,18 +85,16 @@ class Artwork():
         return genreIDs
 
     def _parse_location(self):
-        locations = []
+        locationIDs = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location_ = Location(locationRoot)
-            locations.append(location_.id)
+            locationIDs.append(location_.id)
 
             if location_.id not in locations:
                 location_.parse()
                 locations[location_.id] = location_
 
-        #print(locationIDs)
-        #print(locations)
-        return locations[0]
+        return locationIDs
 
     def _parse_artists(self):
         artistIDs = []
@@ -158,7 +156,7 @@ class Artwork():
     def _parse_resource(self):
         allresources = []
 
-        for resource in self.root.findall(paths["Artwork_Resource_Path"], namespace):
+        for resource in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
             allresources.append(Resource(resource))
 
         return allresources

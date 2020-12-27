@@ -24,6 +24,7 @@ class Iconography():
         self.entity_type= 'Iconography'
         self.concepts = []
         self.name = self.root.find(paths["Icongraphy_Name_Path"], namespace).text
+        self.iconclass = self.root.find(paths["Icongraphy_Iconclass_Path"], namespace).text
 
         for source_id in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
             concept = SourceID(source_id)

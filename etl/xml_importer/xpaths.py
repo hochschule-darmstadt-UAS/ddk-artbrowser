@@ -27,21 +27,21 @@ paths = {
 
     # LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
-    "Location_ID_Name_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
+    "Location_Label_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
     "Location_EntityType_Path": '',
 
-    "Location_ID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
+    "Location_PlaceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Name und alte_Name haben gleuchen Path
     "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
 
-    "Location_PlaceName_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
+    "Location_PlaceLabel_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
 
     #GENRE
-    "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap',
-    "Genre_ID_Path": 'lido:classification/lido:conceptID[@lido:source]',
-    "Genre_Name_Path": 'lido:classification/lido:term',
-    "Genre_Altname_Path": 'lido:classification/lido:term[@lido:addedSearchTerm="yes"]',
-    "Genre_ClassificationType": 'lido:classification[@lido:type]',
+    "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification',
+    "Genre_ID_Path": 'lido:conceptID[@lido:source]',
+    "Genre_Label_Path": 'lido:term',
+    "Genre_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
+    "Genre_ClassificationType": '[@lido:type]',
 
 
     #id
@@ -96,7 +96,8 @@ paths = {
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
     "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
     "Icongraphy_Name_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
-    "Icongraphy_Altname_Path":'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
+    "Icongraphy_Altname_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
+    "Icongraphy_Iconclass_Path": 'lido:subject/lido:subjectConcept/lido:term[last()]',
 
     #id
     #entityType
@@ -137,9 +138,11 @@ paths = {
     "Artwork_Resource_resourceID_Path": 'lido:resourceID',
     "Artwork_Resource_resourceType_Path": 'lido:resourceType/lido:term',
     "Artwork_Resource_Rights_Path": 'lido:rightsResource',
-    #photographer
     "Artwork_Resource_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
     "Artwork_Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
+    "Artwork_Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
+
+
 
     #RIGHTS
     #rightsType
