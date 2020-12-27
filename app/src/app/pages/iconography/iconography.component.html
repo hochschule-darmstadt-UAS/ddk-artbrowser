@@ -21,13 +21,13 @@
     <li class="nav-item">
       <a class="nav-link" [ngClass]="{ active: showCurrentIconographyArtworks }" data-toggle="tab" href="#current_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
-        <ng-container>Current Artworks</ng-container>
+        <ng-container>{{notation}}</ng-container>
       </a>
     </li>
     <li class="nav-item"> 
       <a class="nav-link"[ngClass]="{ active: !showCurrentIconographyArtworks }" data-toggle="tab" href="#child_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
-        <ng-container>Child Artworks</ng-container>
+        <ng-container i18n="Children description@@iconclass_children">Children</ng-container>
       </a>
     </li>
   </ul>
