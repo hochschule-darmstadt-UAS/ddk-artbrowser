@@ -109,7 +109,7 @@ paths = {
 
     #MEASUREMENT
     "Artwork_Measurements_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:objectMeasurementsWrap/lido:objectMeasurementsSet',
-    "Artwork_Measurments_DisplaySize_Path": 'lido:displayObjectMeasurements',
+    "Measurement_DisplayName_Path": 'lido:displayObjectMeasurements',
 
     ##Prio 2
     "Artwork_Measurments_Type_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementType',
@@ -128,6 +128,7 @@ paths = {
     #RECORDLEGAL
     "Artwork_RecordLegal_Path": 'lido:administrativeMetadata/lido:recordWrap',
     "RecordLegal_RecordID_Path": 'lido:recordID[@lido:source]',
+    "RecordLegal_Rights_Path": 'lido:recordRights',
     "RecordType_ID_Path": 'lido:recordType/lido:conceptID',
     "RecordType_Term_Path": 'lido:recordType/lido:term',
     "RecordLegal_Source_Path": 'lido:recordSource/lido:legalBodyName/lido:appellationValue',
@@ -145,7 +146,8 @@ paths = {
 
 
     #RIGHTS
-    #rightsType
+    "Rights_Type_Path": "lido:rightsType/lido:conceptID",
+    "Rights_Holder_Path": "lido:rightsHolder/lido:legalBodyID",
     #rightsHolder
 
     #ENTITY
