@@ -1,28 +1,9 @@
-#import entities
-import xml.etree.ElementTree as xml
-from xpaths import paths
+from lxml import etree as xml
 from etl.xml_importer.entities.artwork import Artwork
+import json
+from etl.xml_importer.encoding import ComplexJSONEncoder
 
 artworks = []
-
-def _print_artworks(artworks):
-    i = 0
-    for artwork in artworks:
-        print(i, ". Artwork")
-        print("ID: ", artwork.id)
-        print("Name: ", artwork.name)
-        print("Inscriptions: ", artwork.inscriptions)
-        print(artwork.types)
-        # print(artwork.genres)
-        # print(artwork.location)
-        # print(artwork.artists)
-        # print(artwork.iconographies)
-        # print(artwork.materials)
-        # print(artwork.measurements)
-        # print(artwork.recordLegal)
-        # print(artwork.resources)
-        print()
-        i += 1
 
 if __name__ == '__main__':
     lidoFile = 'merged.xml'
@@ -35,7 +16,10 @@ if __name__ == '__main__':
         artwork = Artwork(lido)
         artworks.append(artwork)
 
-    #_print_artworks(artworks)
+    for artwork in artworks:
+        print(json.dumps(artwork, cls=ComplexJSONEncoder, indent=4))
+
+    #_print_artworks(artworks[0:1])
 
 
 
