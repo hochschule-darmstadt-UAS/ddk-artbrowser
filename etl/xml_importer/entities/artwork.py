@@ -27,6 +27,7 @@ class Artwork():
 
         self.id = self._parse_id()
         self.label = self._parse_label()
+        self.inception = self._parse_inception()
         self.inscriptions = self._parse_inscription()
         self.types = self._parse_types()
         self.genres = self._parse_genres()
@@ -51,7 +52,17 @@ class Artwork():
 
     def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
-        return label.text
+        if label is not None:
+            return label.text
+        else:
+            return ""
+
+    def _parse_inception(self):
+        event_display_date = self.lido.find(paths['Artwork_Inception_Path'], namespace)
+        if event_display_date is not None:
+            return event_display_date.text
+        else:
+            return ""
 
     def _parse_inscription(self):
         inscriptions = []
@@ -189,4 +200,10 @@ class Artwork():
             "measurements": self.measurements,
             "recordLegal": self.recordLegal,
             "resources": self.resources,
+            "types": self.types,
+            "genres": self.genres,
+            "locations": self.location,
+            "iconographies": self.iconographies,
+            "inscriptions": self.inscriptions,
+            "inceptions": self.inception,
         }

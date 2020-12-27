@@ -4,6 +4,7 @@ paths = {
     #ARTWORK
     "Artwork_Id_Path": 'lido:lidoRecID[@lido:source]',
     "Artwork_Name_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:titleWrap/lido:titleSet/lido:appellationValue[@lido:pref="preferred"][1]',
+    "Artwork_Inception_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventDate/lido:displayDate',
     #entityTape?
     #inception?
 
