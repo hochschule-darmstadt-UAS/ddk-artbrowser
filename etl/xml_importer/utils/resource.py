@@ -39,3 +39,12 @@ class Resource:
         resource_photographer_root = self.root.find(paths["Artwork_Resource_Photographer_Path"], namespace)
         if resource_photographer_root is not None:
             return resource_photographer_root.text
+
+    def __json_repr__(self):
+        return {
+            "resourceID": self.resourceIDs,
+            "rights": self.rights,
+            "dateTaken": self.resourceDateTaken,
+            "photographer": self.photographer,
+            "linkResource": self.linkResource,
+        }
