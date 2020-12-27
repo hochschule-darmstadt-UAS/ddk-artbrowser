@@ -20,8 +20,6 @@ class Location():
 
         for source_id in self.root.findall(paths["Location_PlaceID_Path"], namespace):
             concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Location_Name_Path", "Location_Altname_Path")##ToDo:beide haben gleichen Path.SourceID soll erklaert werden
             self.concepts.append(concept)
 
 

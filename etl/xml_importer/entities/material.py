@@ -7,23 +7,33 @@ class Material():
 
     def __init__(self, root):
         self.root = root
+        self.entity_type = 'Material'
+        self.name = ""
+        self.concept_ids = []
+
         self.id = self._parse_id()
 
+    def parse(self):
+        self.name = self._parse_name()
+        self.concept_ids = self._parse_sourceIDs()
+
     def _parse_id(self):
-        allMaterilIDs = self.root.findall(paths["Material_ID_Path"], namespace)
-        id = get_id_by_prio(allMaterilIDs)
+        all_material_ids = self.root.findall(paths["Material_ID_Path"], namespace)
+        id = get_id_by_prio(all_material_ids)
 
         return id
 
-    def parse(self):
-        self.entity_type = 'Material'
-        self.name = self.root.findall(paths["Material_name_Path"], namespace)[0].text
-        self.concepts = []
+    def _parse_name(self):
+        return self.root.findall(paths["Material_name_Path"], namespace)[0].text
+
+    def _parse_sourceIDs(self):
+        concept_ids = []
         for source_id in self.root.findall(paths["Material_ID_Path"], namespace):
             concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Material_name_Path", "Material_Altname_Path")
-            self.concepts.append(concept)
+            concept_ids.append(concept)
+
+        return concept_ids
+
 
 
 #id

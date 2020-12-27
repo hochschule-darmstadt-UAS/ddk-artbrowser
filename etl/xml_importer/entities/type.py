@@ -24,8 +24,6 @@ class Type():
 
         for source_id in self.root.findall(paths["Type_ID_Path"], namespace):
             concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Type_Name_Path", "Type_Altname_Path")
             self.concepts.append(concept)
 
 

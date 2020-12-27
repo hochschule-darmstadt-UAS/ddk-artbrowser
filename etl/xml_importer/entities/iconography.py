@@ -28,8 +28,6 @@ class Iconography():
 
         for source_id in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
             concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Icongraphy_Name_Path", "Icongraphy_Altname_Path")
             self.concepts.append(concept)
 
 #id
