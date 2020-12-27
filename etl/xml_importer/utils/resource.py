@@ -33,7 +33,11 @@ class Resource:
             return resource_dateTaken_root.text
 
     def _parse_linkResource(self):
-        return self.root.find(paths["Artwork_Resource_LinkResource_Path"], namespace).text
+        link_resource_root = self.root.find(paths["Artwork_Resource_LinkResource_Path"], namespace)
+        if link_resource_root is not None:
+            return link_resource_root.text
+        else:
+            return ""
 
     def _parse_photographer(self):
         resource_photographer_root = self.root.find(paths["Artwork_Resource_Photographer_Path"], namespace)
