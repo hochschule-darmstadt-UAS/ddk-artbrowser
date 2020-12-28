@@ -16,8 +16,8 @@ paths = {
     "Artwork_Type_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:objectWorkTypeWrap/lido:objectWorkType',
     "Type_ID_Path": 'lido:conceptID[@lido:source]',
     #"Type_EntityType_Path": 'is a simple string named "type"',
-    "Type_Name_Path": 'lido:term',
-    "Type_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
+    "Type_Label_Path": 'lido:term[not(@lido:addedSearchTerm)]',
+    "Type_AltLabel_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
     #"Type_Source_Path": 'same path like 'Artwork_Type_Path''
     #"Type_Source_Id_Path": 'same path like 'Type_ID_Path''
     #"Type_Source_Source_Path": 'same path like 'Type_ID_Path''
@@ -96,7 +96,7 @@ paths = {
     #ICONOGRAPHY
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
     "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
-    "Icongraphy_Name_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
+    "Icongraphy_Label_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
     "Icongraphy_Altname_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
     "Icongraphy_Iconclass_Path": 'lido:subject/lido:subjectConcept/lido:term[last()]',
 

@@ -17,7 +17,7 @@ class Artist():
     def parse(self):
         self.entity_type = 'Artist'
         self.concepts = []
-        self.name = self.root.find(paths["Artist_Name_Path"], namespace).text
+        self.label = self.root.find(paths["Artist_Name_Path"], namespace).text
 
         for source_id in self.root.findall(paths["Artist_ID_Path"], namespace):
             concept = SourceID(source_id)
@@ -39,6 +39,17 @@ class Artist():
             return deathDate.text
         else:
             return ''
+
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.concepts,
+            "dateOfBirth": self.birth,
+            "dateOfDeath": self.death,
+        }
+
 #id
 #entityType string
 #actorID SourceID[]

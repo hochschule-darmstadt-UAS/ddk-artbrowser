@@ -25,18 +25,14 @@ class Iconography():
 
     def parse(self):
         self.entity_type= 'Iconography'
-        self.concepts = []
-        self.name = self._parse_name()
+        self.source_ids = self._parse_source_ids()
+        self.label = self._parse_label()
         self.iconclass = self._parse_iconclass()
 
-        for source_id in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
-            concept = SourceID(source_id)
-            self.concepts.append(concept)
-
-    def _parse_name(self):
-        name_root = self.root.find(paths["Icongraphy_Name_Path"], namespace)
-        if name_root is not None:
-            return name_root.text
+    def _parse_label(self):
+        label_root = self.root.find(paths["Icongraphy_Label_Path"], namespace)
+        if label_root is not None:
+            return label_root.text
         else:
             return ""
 
@@ -46,3 +42,19 @@ class Iconography():
             return iconclass_root.text
         else:
             return ""
+
+    def _parse_source_ids(self):
+        source_ids = []
+        for source_id in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
+            concept = SourceID(source_id)
+            source_ids.append(concept)
+
+        return source_ids
+
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.source_ids,
+        }

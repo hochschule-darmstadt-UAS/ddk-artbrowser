@@ -15,14 +15,21 @@ class Location():
     def parse(self):
         self.entity_type = 'Location'
         self.label= self.root.find(paths["Location_Label_Path"], namespace).text
-        self.concepts = []
+        self.source_ids = []
         self.placeLabel = self.root.find(paths["Location_PlaceLabel_Path"], namespace).text
 
-        for source_id in self.root.findall(paths["Location_PlaceID_Path"], namespace):
-            concept = SourceID(source_id)
-            self.concepts.append(concept)
+        for source_id_root in self.root.findall(paths["Location_PlaceID_Path"], namespace):
+            source_id = SourceID(source_id_root)
+            self.source_ids.append(source_id)
 
-
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.source_ids,
+            "placeLabel": self.placeLabel,
+        }
 
 #id
 #entityType string
