@@ -66,92 +66,91 @@ class Artwork():
 
     def _parse_inscription(self):
         inscriptions = []
-        allInscriptions = self.lido.findall(paths["Artwork_Inscription_Path"], namespace)
-        for currentInscription in allInscriptions:
-            inscription = currentInscription.text
-            inscriptions.append(inscription)
+        all_inscriptions = self.lido.findall(paths["Artwork_Inscription_Path"], namespace)
+        for inscription in all_inscriptions:
+            inscriptions.append(inscription.text)
 
         return inscriptions
 
     def _parse_types(self):
-        typeIDs = []
+        type_ids = []
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
-            typeIDs.append(type_.id)
+            type_ids.append(type_.id)
 
             if type_.id not in types:
                 type_.parse()
                 types[type_.id] = type_
 
-        return typeIDs
+        return type_ids
 
     def _parse_genres(self):
-        genreIDs = []
+        genre_ids = []
         for genreRoot in self.lido.findall(paths["Artwork_Genre_Path"], namespace):
-            genre_ = Genre(genreRoot)
-            genreIDs.append(genre_.id)
+            genre = Genre(genreRoot)
+            genre_ids.append(genre.id)
 
-            if genre_.id not in genres:
-                genre_.parse()
-            genres[genre_.id] = genre_
-        # print(genreIDs)
-        # print(genres)
-        return genreIDs
+            if genre.id not in genres:
+                genre.parse()
+                genres[genre.id] = genre
+
+        return genre_ids
 
     def _parse_location(self):
-        locationIDs = []
+        location_ids = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
-            location_ = Location(locationRoot)
-            locationIDs.append(location_.id)
+            location = Location(locationRoot)
+            location_ids.append(location.id)
 
-            if location_.id not in locations:
-                location_.parse()
-                locations[location_.id] = location_
+            if location.id not in locations:
+                location.parse()
+                locations[location.id] = location
 
-        return locationIDs
+        return location_ids
 
     def _parse_artists(self):
-        artistIDs = []
+        artist_ids = []
         for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
-            artist_ = Artist(artistRoot)
-            artistIDs.append(artist_.id)
+            artist = Artist(artistRoot)
+            artist_ids.append(artist.id)
 
-            if artist_.id not in artists:
-                artist_.parse()
-                artists[artist_.id] = artist_
-        return artistIDs
+            if artist.id not in artists:
+                artist.parse()
+                artists[artist.id] = artist
+        return artist_ids
 
     def _parse_iconographies(self):
-        iconographyIDs = []
+        iconography_ids = []
         for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
-            iconography_ = Iconography(iconographyRoot)
-            iconographyIDs.append(iconography_.id)
+            iconography = Iconography(iconographyRoot)
+            iconography_ids.append(iconography.id)
 
-            if iconography_.id not in iconographys:
-                iconography_.parse()
-                iconographys[iconography_.id] = iconography_
-        return iconographyIDs
+            if iconography.id not in iconographys:
+                iconography.parse()
+                iconographys[iconography.id] = iconography
+
+        return iconography_ids
 
     def _parse_materials(self):
-        materialIDs = []
-        for material in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
-            material_ = Material(material)
-            materialIDs.append(material_.id)
+        material_ids = []
+        for material_root in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
+            material = Material(material_root)
+            material_ids.append(material.id)
 
-            if material_.id not in materials:
-                material_.parse()
-                materials[material_.id] = material_
-        return materialIDs
+            if material.id not in materials:
+                material.parse()
+                materials[material.id] = material
+
+        return material_ids
 
     ####################################################################################
 
     def _parse_measurements(self):
         measurements = []
-        # TODO: alle measurements fuer das uebergebene lido heraussuchen
 
-        measurments_sets = self.lido.findall(paths["Artwork_Measurements_Path"], namespace)
-        for measurment_root in measurments_sets:
-            measurements.append(Measurement(measurment_root))
+        measurements_sets = self.lido.findall(paths["Artwork_Measurements_Path"], namespace)
+        for measurement_root in measurements_sets:
+            measurements.append(Measurement(measurement_root))
 
         return measurements
 
@@ -161,10 +160,6 @@ class Artwork():
             return RecordLegal(recordLegal_root)
         else:
             return None
-
-
-    # for recordLegal in recordLegal_List:
-    # self.artwork["recordLegal"] = RecordLegal(recordLegal).get_recordLegal()
 
     def _parse_resource(self):
         allresources = []
