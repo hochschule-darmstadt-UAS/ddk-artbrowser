@@ -1,4 +1,4 @@
-from xpaths import paths, namespace
+from etl.xml_importer.xpaths import paths, namespace
 
 
 class Measurement:
@@ -12,7 +12,7 @@ class Measurement:
 
     def _parse_displayName(self):
         displayName = self.root.find(paths["Measurement_DisplayName_Path"], namespace)
-        if displayName != None:
+        if displayName is not None:
             return displayName.text
 
         return ""

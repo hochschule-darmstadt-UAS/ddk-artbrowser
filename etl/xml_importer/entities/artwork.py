@@ -1,4 +1,4 @@
-from xpaths import paths
+from etl.xml_importer.xpaths import paths
 
 from etl.xml_importer.entities.artist import Artist
 from etl.xml_importer.entities.genre import Genre
@@ -11,15 +11,19 @@ from etl.xml_importer.utils.resource import Resource
 from etl.xml_importer.utils.measurement import Measurement
 from etl.xml_importer.xpaths import namespace
 
+from etl.xml_importer.parseLido import sanitize_id, sanitize
+
+from etl.xml_importer.encoding import JSONEncodable
+
 artists = dict()
 genres = dict()
 locations = dict()
 materials = dict()
-iconographys = dict()
+iconographies = dict()
 types = dict()
 
 
-class Artwork():
+class Artwork(JSONEncodable):
 
     def __init__(self, lido):
         self.lido = lido
@@ -46,14 +50,15 @@ class Artwork():
     def _parse_id(self):
         # TODO: Was soll ich hier nur lido herausnehmen?: DE - Mb112 - lido - t3 - 000230
         #         88 - T - 001 - T - 065
-        id = self.lido.find(paths["Artwork_Id_Path"], namespace). text
+        id = self.lido.find(paths["Artwork_Id_Path"], namespace).text
+        id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
         return id
 
     def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
         if label is not None:
-            return label.text
+            return sanitize(label.text)
         else:
             return ""
 
@@ -125,9 +130,9 @@ class Artwork():
             iconography = Iconography(iconographyRoot)
             iconography_ids.append(iconography.id)
 
-            if iconography.id not in iconographys:
+            if iconography.id not in iconographies:
                 iconography.parse()
-                iconographys[iconography.id] = iconography
+                iconographies[iconography.id] = iconography
 
         return iconography_ids
 
@@ -150,7 +155,10 @@ class Artwork():
 
         measurements_sets = self.lido.findall(paths["Artwork_Measurements_Path"], namespace)
         for measurement_root in measurements_sets:
-            measurements.append(Measurement(measurement_root))
+            measurement = Measurement(measurement_root)
+            # for now only append if the measurement has a display text (to prevent empty measurements)
+            if measurement.displayName != "":
+                measurements.append(measurement)
 
         return measurements
 
@@ -173,10 +181,8 @@ class Artwork():
         # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()
 
     def _parse_altName(lido):
-        # TODO: altName fuer das uebergebene lido heraussuchen
-        altName = lido.altName
-
-        return altName
+        # TODO
+        raise NotImplementedError
 
         # altenames_List = self.root.findall(paths["Artwork_Altename_Path"], namespace)
         # altenames = []

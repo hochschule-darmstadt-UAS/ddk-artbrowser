@@ -1,13 +1,14 @@
 from etl.xml_importer.parseLido import get_id_by_prio
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
+from etl.xml_importer.encoding import JSONEncodable
 
 
-class Material():
+class Material(JSONEncodable):
 
     def __init__(self, root):
         self.root = root
-        self.entity_type = 'Material'
+        self.entity_type = 'material'
         self.label = ""
         self.source_ids = []
 
@@ -41,10 +42,3 @@ class Material():
             "label": self.label,
             "sourceID": self.source_ids,
         }
-
-
-#id
-#entityType string
-#conceptID SourceID[]
-#name string
-#altNames string[] 2

@@ -1,4 +1,4 @@
-from etl.xml_importer.lidoObject import namespace
+from etl.xml_importer.xpaths import namespace
 from etl.xml_importer.utils.rights import Rights
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths

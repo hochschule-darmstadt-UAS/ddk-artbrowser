@@ -1,7 +1,7 @@
-#TODO: noch ueberarbeiten
 from etl.xml_importer.utils.rights import Rights
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
+from etl.xml_importer.parseLido import sanitize
 
 
 class Resource:
@@ -19,7 +19,8 @@ class Resource:
         return SourceID(id_root)
 
     def _parse_resourceType(self):
-        return self.root.find(paths["Artwork_Resource_resourceType_Path"], namespace)
+        resource_type_root = self.root.find(paths["Artwork_Resource_resourceType_Path"], namespace)
+        return sanitize(resource_type_root.text)
 
     def _parse_rights(self):#Todo
         right_root = self.root.find(paths["Artwork_Resource_Rights_Path"], namespace)
@@ -50,5 +51,6 @@ class Resource:
             "rights": self.rights,
             "dateTaken": self.resourceDateTaken,
             "photographer": self.photographer,
+            "resourceType": self.resourceType,
             "linkResource": self.linkResource,
         }

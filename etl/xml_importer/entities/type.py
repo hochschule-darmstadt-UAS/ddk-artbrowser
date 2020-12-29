@@ -1,13 +1,14 @@
-from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.parseLido import get_id_by_prio, sanitize_id, sanitize
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import namespace, paths
+from etl.xml_importer.encoding import JSONEncodable
 
 
-class Type():
+class Type(JSONEncodable):
 
     def __init__(self, root):
         self.root = root
-        self.entity_type = "Type"
+        self.entity_type = "type"
         self.id = self._parse_id()
 
         self.label = ""
@@ -15,10 +16,10 @@ class Type():
         self.source_ids = []
 
     def _parse_id(self):
-        allTypeIDs = self.root.findall(paths["Type_ID_Path"], namespace)
-        id = get_id_by_prio(allTypeIDs)
+        all_type_ids = self.root.findall(paths["Type_ID_Path"], namespace)
+        id = get_id_by_prio(all_type_ids)
 
-        return id
+        return sanitize_id(id)
 
     def parse(self):
         self.label = self._parse_label()
@@ -30,7 +31,7 @@ class Type():
         # (see 'Type_Label_Path' in xpaths.py). This seems not to be supported by the find/findall function.
         label_root = self.root.xpath(paths["Type_Label_Path"], namespaces=namespace)
         if len(label_root) > 0:
-            return label_root[0].text
+            return sanitize(label_root[0].text)
         else:
             return ""
 
@@ -57,6 +58,3 @@ class Type():
             "altLabels": self.alt_labels,
             "sourceID": self.source_ids,
         }
-
-
-#altNames string[] 2

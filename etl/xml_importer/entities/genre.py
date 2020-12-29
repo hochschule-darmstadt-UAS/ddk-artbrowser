@@ -1,13 +1,14 @@
 from etl.xml_importer.parseLido import get_id_by_prio
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
+from etl.xml_importer.encoding import JSONEncodable
 
 
-class Genre():
+class Genre(JSONEncodable):
 
     def __init__(self, root):
         self.root = root
-        self.entity_type = 'Genre'
+        self.entity_type = 'genre'
         self.id = self._parse_id()
 
         self.label = ""
@@ -43,16 +44,3 @@ class Genre():
             "sourceID": self.source_ids,
             "classificationType": self.classificationType,
         }
-
-'''
-        
-'''
-
-
-
-#id string
-#type string
-#name string[]
-#altNames string[] 2
-#conceptID SourceID[]
-#classificationType string

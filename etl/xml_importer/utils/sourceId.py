@@ -1,4 +1,5 @@
-from etl.xml_importer.xpaths import namespace, paths
+from etl.xml_importer.xpaths import namespace
+from etl.xml_importer.parseLido import sanitize_id, sanitize
 
 
 class SourceID:
@@ -15,7 +16,8 @@ class SourceID:
         self.terms = self._parse_terms()
 
     def _parse_id(self):
-        return self.root.text
+        id = sanitize_id(self.root.text)
+        return id
 
     def _parse_source(self):
         attributes = self.root.attrib
@@ -30,7 +32,8 @@ class SourceID:
         terms = []
         term_roots = self.root.getparent().findall(self.term_path, namespace)
         for term_root in term_roots:
-            terms.append(term_root.text)
+            term = sanitize(term_root.text)
+            terms.append(term)
 
         return terms
 
