@@ -7,31 +7,47 @@ class Genre():
 
     def __init__(self, root):
         self.root = root
+        self.entity_type = 'Genre'
         self.id = self._parse_id()
 
-    def _parse_id(self):
-        allGenreIDs = self.root.findall(paths["Genre_ID_Path"], namespace)
-        id = get_id_by_prio(allGenreIDs)
+        self.label = ""
+        self.source_ids = []
+        self.classificationType = ""
 
+    def _parse_id(self):
+        genre_id = self.root.findall(paths["Genre_ID_Path"], namespace)
+        if len(genre_id) > 0:
+            id = get_id_by_prio(genre_id)
+        else:
+            id = self.root.find(paths["Genre_Label_Path"], namespace).text
         return id
 
-
     def parse(self):
-        self.entity_type = 'Genre'
-        self.name = []
-        self.concepts = []
-        self.classifications = []
-        for tmp in self.root.findall(paths["Genre_Name_Path"], namespace):
-            self.name.append(tmp.text)
+        self.label = self.root.find(paths["Genre_Label_Path"], namespace).text
+        self.source_ids = self._parse_source_ids()
+        self.classificationType = self.root.attrib['{http://www.lido-schema.org}type']
 
-        for source_id in self.root.findall(paths["Genre_ID_Path"], namespace):
-            concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Genre_Name_Path", "Genre_Altname_Path")
-            self.concepts.append(concept)
+    def _parse_source_ids(self):
+        source_ids = []
+        for source_id_root in self.root.findall(paths["Genre_ID_Path"], namespace):
+            source_id = SourceID(source_id_root)
+            source_ids.append(source_id)
 
-        for tmp in self.root.findall(paths["Genre_ClassificationType"], namespace):
-            self.classifications.append(tmp.attrib['{http://www.lido-schema.org}type'])
+        return source_ids
+
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.source_ids,
+            "classificationType": self.classificationType,
+        }
+
+'''
+        
+'''
+
 
 
 #id string

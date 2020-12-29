@@ -1,24 +1,42 @@
 from etl.xml_importer.xpaths import namespace, paths
 
 
-class SourceID():
+class SourceID:
 
-    def __init__(self, root):
-        self.id = root.text
+    def __init__(self, root, term_path='lido:term'):
         self.root = root
+        self.term_path = term_path
+
+        self.source = ""
+
+        self.id = self._parse_id()
+        if self.id is not None:
+            self.source = self._parse_source()
+        self.terms = self._parse_terms()
+
+    def _parse_id(self):
+        return self.root.text
 
     def _parse_source(self):
-        #print(self.root.get('lido:recordID'))
-        #print(self.root.attrib.get("lido:recordID"))
+        attributes = self.root.attrib
+        if attributes.get('lido:source', namespace):
+            source_attribute_key = '{' + namespace['lido'] + '}source'
+            source = self.root.attrib.get(source_attribute_key)
+            return source
+        else:
+            return None
 
-        tmp = self.id.split('/')[-1]
-        #TODO: source als Attribute heraulesen, damit tmp-Variable nicht gebraucht wird
-        self.source = self.id.split(tmp)[0]
+    def _parse_terms(self):
+        terms = []
+        term_roots = self.root.getparent().findall(self.term_path, namespace)
+        for term_root in term_roots:
+            terms.append(term_root.text)
 
-    def _parse_term(self, path, pathName, pathAltname):
-        self.name = path.find(paths[pathName], namespace).text
-        self.altnames = []
+        return terms
 
-        if pathAltname != "0":
-            for tmp in path.findall(paths[pathAltname], namespace):
-                self.altnames.append(tmp.text)
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "source": self.source,
+            "terms": self.terms
+        }

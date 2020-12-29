@@ -7,23 +7,40 @@ class Material():
 
     def __init__(self, root):
         self.root = root
+        self.entity_type = 'Material'
+        self.label = ""
+        self.source_ids = []
+
         self.id = self._parse_id()
 
+    def parse(self):
+        self.label = self._parse_label()
+        self.source_ids = self._parse_sourceIDs()
+
     def _parse_id(self):
-        allMaterilIDs = self.root.findall(paths["Material_ID_Path"], namespace)
-        id = get_id_by_prio(allMaterilIDs)
+        all_material_ids = self.root.findall(paths["Material_ID_Path"], namespace)
+        id = get_id_by_prio(all_material_ids)
 
         return id
 
-    def parse(self):
-        self.entity_type = 'Material'
-        self.name = self.root.findall(paths["Material_name_Path"], namespace)[0].text
-        self.concepts = []
+    def _parse_label(self):
+        return self.root.findall(paths["Material_name_Path"], namespace)[0].text
+
+    def _parse_sourceIDs(self):
+        source_ids = []
         for source_id in self.root.findall(paths["Material_ID_Path"], namespace):
             concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Material_name_Path", "Material_Altname_Path")
-            self.concepts.append(concept)
+            source_ids.append(concept)
+
+        return source_ids
+
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.source_ids,
+        }
 
 
 #id

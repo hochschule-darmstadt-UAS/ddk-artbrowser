@@ -1,3 +1,4 @@
+from etl.xml_importer.parseLido import sanitize_location
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import namespace, paths
 
@@ -8,21 +9,27 @@ class Location():
         self.id = self._parse_id()
 
     def _parse_id(self):
-        return self.root.find(paths["Location_ID_Name_Path"], namespace).text
+        location_id = self.root.find(paths["Location_Label_Path"], namespace).text
+        return sanitize_location(location_id)
 
     def parse(self):
         self.entity_type = 'Location'
-        self.name = self.root.find(paths["Location_ID_Name_Path"], namespace).text
-        self.concepts = []
-        self.placeName = self.root.find(paths["Location_PlaceName_Path"], namespace).text
+        self.label= self.root.find(paths["Location_Label_Path"], namespace).text
+        self.source_ids = []
+        self.placeLabel = self.root.find(paths["Location_PlaceLabel_Path"], namespace).text
 
-        for source_id in self.root.findall(paths["Location_ID_Path"], namespace):##ToDo:kann ein Objekt kein lido:placeID haben.Soll es in SourceID kontrolliert werden
-            concept = SourceID(source_id.text)
-            concept._parse_source()
-            concept._parse_term(self.root, "Location_Name_Path", "Location_Altname_Path")##ToDo:beide haben gleichen Path.SourceID soll erklaert werden
-            self.concepts.append(concept)
+        for source_id_root in self.root.findall(paths["Location_PlaceID_Path"], namespace):
+            source_id = SourceID(source_id_root)
+            self.source_ids.append(source_id)
 
-
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.source_ids,
+            "placeLabel": self.placeLabel,
+        }
 
 #id
 #entityType string

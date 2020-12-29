@@ -9,11 +9,14 @@ class Iconography():
         self.id = self._parse_id()
 
     def _parse_id(self):##Todo:sanitize id
-        id = self.root.find(paths["Icongraphy_Id_Path"], namespace).text.split('/')[-1]
-        integer = id.find(')')
-        if integer > 0:
-            id = id[:integer+1]
-        return id
+        id_root = self.root.find(paths["Icongraphy_Id_Path"], namespace)
+        if id_root is not None:
+            id = id_root.text.split('/')[-1]
+            integer = id.find(')')
+            if integer > 0:
+                id = id[:integer+1]
+            return id
+        return ""
     #11H(Francis)344(+3) -->11H(Francis)
     #98B(Antiochus%20I)61 -->98B(Antiochus%20I)
     #98B(Nero)52 -->98B(Nero)
@@ -22,17 +25,36 @@ class Iconography():
 
     def parse(self):
         self.entity_type= 'Iconography'
-        self.concepts = []
-        self.name = self.root.find(paths["Icongraphy_Name_Path"], namespace).text
+        self.source_ids = self._parse_source_ids()
+        self.label = self._parse_label()
+        self.iconclass = self._parse_iconclass()
 
+    def _parse_label(self):
+        label_root = self.root.find(paths["Icongraphy_Label_Path"], namespace)
+        if label_root is not None:
+            return label_root.text
+        else:
+            return ""
+
+    def _parse_iconclass(self):
+        iconclass_root = self.root.find(paths["Icongraphy_Iconclass_Path"], namespace)
+        if iconclass_root is not None:
+            return iconclass_root.text
+        else:
+            return ""
+
+    def _parse_source_ids(self):
+        source_ids = []
         for source_id in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
             concept = SourceID(source_id)
-            concept._parse_source()
-            concept._parse_term(self.root, "Icongraphy_Name_Path", "Icongraphy_Altname_Path")
-            self.concepts.append(concept)
+            source_ids.append(concept)
 
-#id
-#entityType string
-#conceptID SourceID[]
-#name string
-#altNames string[] 2
+        return source_ids
+
+    def __json_repr__(self):
+        return {
+            "id": self.id,
+            "entityType": self.entity_type,
+            "label": self.label,
+            "sourceID": self.source_ids,
+        }

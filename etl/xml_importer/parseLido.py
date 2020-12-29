@@ -20,3 +20,14 @@ def get_id_by_prio(all_ids):
             break
 
     return sanitize(id)
+
+def sanitize_location(location): ##TODO: Method besser definieren
+    spec_char = [" — ", " / ", " "]
+    spec_char2 = ["(", ")"]
+    for char in spec_char:
+        location = location.replace(char, "-")
+    for char2 in spec_char2:
+        location = location.replace(char2, "")
+    return location
+
+
