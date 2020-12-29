@@ -2,7 +2,7 @@ from lxml import etree as xml
 from etl.xml_importer.entities.artwork import Artwork
 import json
 from etl.xml_importer.encoding import ComplexJSONEncoder
-from etl.xml_importer.entities.artwork import artists, locations, genres, types, materials, iconographys
+from etl.xml_importer.entities.artwork import artists, locations, genres, types, materials, iconographies
 
 artworks = []
 
@@ -21,7 +21,7 @@ def write_to_json(entities, json_filename):
 
 
 if __name__ == '__main__':
-    lidoFile = 'merged_lido_1.xml'
+    lidoFile = '../data_samples/object.xml'
     root = xml.parse(lidoFile).getroot()
     # print(root.tag)
     namespace = {'lido': 'http://www.lido-schema.org'}
@@ -31,10 +31,10 @@ if __name__ == '__main__':
         artwork = Artwork(lido)
         artworks.append(artwork)
 
-    write_to_json(artworks, "/tmp/artworks.json")
-    write_to_json(artists, "/tmp/artists.json")
-    write_to_json(genres, "/tmp/genres.json")
-    write_to_json(iconographys, "/tmp/iconographys.json")
-    write_to_json(locations, "/tmp/locations.json")
-    write_to_json(materials, "/tmp/materials.json")
-    write_to_json(types, "/tmp/types.json")
+    write_to_json(artworks, "./output/artworks.json")
+    write_to_json(artists, "./output/artists.json")
+    write_to_json(genres, "./output/genres.json")
+    write_to_json(iconographies, "./output/iconographies.json")
+    write_to_json(locations, "./output/locations.json")
+    write_to_json(materials, "./output/materials.json")
+    write_to_json(types, "./output/types.json")
