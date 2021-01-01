@@ -66,6 +66,11 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    */
   thumbnails: Array<object> = [];
 
+  /**
+   * @description image array for full screen modal
+   */
+  largeImages: Array<string> = [];
+
   /** Index of current Image in artwork.resources array */
   imageIndex = 0;
 
@@ -75,6 +80,8 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
   imageSubtitle: string;
   photographyInformation: string;
+
+  infoVisible = false;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
@@ -137,7 +144,12 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         imageSmall: 'http://previous.bildindex.de/bilder/t/fm1522245'
       });
       // ------------------------------
-      this.artwork.resources.forEach(res => this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall }));
+
+      this.artwork.resources.forEach(res => {
+        this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
+        this.largeImages.push(res.image);
+      });
+      
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     });
   }
@@ -169,6 +181,14 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    */
   closeModal() {
     this.modalIsVisible = false;
+  }
+
+  handleInfoEvent(event: CustomEvent) {
+    this.infoVisible = !this.infoVisible;
+  }
+
+  imageChangedHandler() {
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex])
   }
 
   /**
@@ -247,12 +267,11 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   makeImageSubtitle(res) {
     this.imageSubtitle = (res.description ? res.description : '') +
       (res.resourceID && res.resourceID[0] ? res.resourceID[0].id : '')
-      + ' © ' +
-      (res.rights && res.rights.rightsHolder ?
+      + (res.rights && res.rights.rightsHolder ? ' © ' +
         (res.rights.rightsHolder.term ? res.rights.rightsHolder.term :
           (res.rights.rightsHolder.id ? res.rights.rightsHolder.id : ''))
         : '');
-
+    this.imageSubtitle = this.imageSubtitle.length > 0 ? this.imageSubtitle : this.artwork.label;
     this.photographyInformation = (!!res.photographer ? res.photographer : '') +
       (!!res.photographer && !!res.dateTaken ? ', ' : '') + (!!res.dateTaken ? res.dateTaken : '');
   }
