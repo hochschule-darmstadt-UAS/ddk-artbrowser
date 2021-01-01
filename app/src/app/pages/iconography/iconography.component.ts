@@ -28,7 +28,6 @@ export class IconographyComponent implements OnInit {
 
   sliderItemsChildrenIconography: Artwork[] = [];
 
-  private appInfoRef: ElementRef;
   /**
    * @description use this to end subscription to url parameter in ngOnDestroy
    */
