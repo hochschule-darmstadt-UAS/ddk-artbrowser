@@ -99,11 +99,8 @@ export class DataService {
     entities.forEach(entity => DataService.setTypes(entity));
 
     /** Remove artwork if it belongs to the current iconclass - only return child iconclass-artworks*/
-    entities = entities.filter(artwork => { 
-      for (let iconography of artwork.iconographies) {
-        if(iconography === iconclass) { return false; }
-      }
-      return true;
+    entities = entities.filter(artwork => {
+      return !artwork.iconographies.find(iconography => iconography === iconclass);
     });
     return entities;
   }
