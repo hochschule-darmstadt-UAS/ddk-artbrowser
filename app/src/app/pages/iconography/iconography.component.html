@@ -21,12 +21,14 @@
     <li class="nav-item" *ngIf="sliderItemsCurrentIconography?.length">
       <a class="nav-link" [ngClass]="{ active: showCurrentIconographyArtworks }" data-toggle="tab" href="#current_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
+        <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsCurrentIconography?.length }}</span>
         <ng-container>{{notation}}</ng-container>
       </a>
     </li>
     <li class="nav-item" *ngIf="sliderItemsChildrenIconography?.length"> 
       <a class="nav-link"[ngClass]="{ active: !showCurrentIconographyArtworks }" data-toggle="tab" href="#child_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
+        <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsChildrenIconography?.length }}</span>
         <ng-container i18n="Children description@@iconclass_children">Children</ng-container>
       </a>
     </li>
