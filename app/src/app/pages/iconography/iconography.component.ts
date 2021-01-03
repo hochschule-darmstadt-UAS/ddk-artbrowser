@@ -69,18 +69,17 @@ export class IconographyComponent implements OnInit {
       });
       
       /** load current page iconography slider items */
-      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => {
-        if(artworks.length > 0) {     
-          this.sliderItemsCurrentIconography = shuffle(artworks);
-        } else {
-          this.showCurrentIconographyArtworks = false;
-        }
-      });
+      this.sliderItemsCurrentIconography = await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]);
+      if(this.sliderItemsCurrentIconography.length > 0) {
+        this.sliderItemsCurrentIconography = shuffle(this.sliderItemsCurrentIconography);
+        this.showCurrentIconographyArtworks = true;
+      } else {
+        this.showCurrentIconographyArtworks = false;
+      }
       
       /** load child iconography slider items */
-      await this.dataService.findChildArtworksByIconography(this.notation, EntityType.ARTWORK).then(artworks => {
-        this.sliderItemsChildrenIconography = shuffle(artworks);
-      });
+      this.sliderItemsChildrenIconography = await this.dataService.findChildArtworksByIconography(this.notation, EntityType.ARTWORK);
+      this.sliderItemsChildrenIconography = shuffle(this.sliderItemsChildrenIconography);
     });
   }
 
