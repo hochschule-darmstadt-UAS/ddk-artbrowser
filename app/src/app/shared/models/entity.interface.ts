@@ -1,4 +1,4 @@
-import { SourceID } from './utils';
+import { SourceID } from './inlineInterfaces';
 
 export interface Entity {
   id: string;

@@ -1,8 +1,10 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, OnChanges } from '@angular/core';
 import { Artist, Artwork, Entity, EntityType } from 'src/app/shared/models/models';
 import { CustomStepDefinition, Options } from '@angular-slider/ngx-slider';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
+import * as _ from 'lodash';
+import { getYearFromString } from 'src/app/core/services/ddk.service';
 
 interface TimelineItem extends Entity {
   description: string;
@@ -28,7 +30,7 @@ interface TimelineItem extends Entity {
     ])
   ]
 })
-export class TimelineComponent {
+export class TimelineComponent implements OnChanges {
   /** Artworks that should be displayed in this slider */
   @Input() artworks: Artwork[] = [];
   /** Decide whether artists should be displayed */
@@ -109,6 +111,7 @@ export class TimelineComponent {
 
   ngOnChanges() {
     if (typeof this.artworks !== 'undefined' && this.artworks.length > 0) {
+
       /** Clear items */
       this.items = [];
       this.buildTimelineItemsFromArtworks();
@@ -122,10 +125,13 @@ export class TimelineComponent {
       }
       this.sortItems();
       this.items = this.items.filter(item => item.date);
-      const beginOfTimeline = this.items[0].date - (this.items[0].date % this.periodSpan);
-      const endOfTimeline = this.items[this.items.length - 1].date - (this.items[this.items.length - 1].date % this.periodSpan) + this.periodSpan;
+      this.onResize();
+
+      const beginOfTimeline = +this.items[0].date - (this.items[0].date % this.periodSpan);
+      const endOfTimeline = +this.items[this.items.length - 1].date -
+        (this.items[this.items.length - 1].date % this.periodSpan) + this.periodSpan;
       // Set the slider of the timeline to the middle!
-      this.value = (beginOfTimeline + endOfTimeline) / 2;
+      this.value = +(beginOfTimeline + endOfTimeline) / 2;
       this.previousValue = this.value;
       this.refreshComponent();
     }
@@ -156,7 +162,8 @@ export class TimelineComponent {
     const reasonablePeriodDistance = 5;
     const minimumPeriodDistance = 1;
     /** Example:  30/7 = 4,28 ; 4,28 / 5 = 0,85 ; Math.max( Math.round(0.85)*5, 1) = 5 */
-    this.periodSpan = Math.max(Math.round(dateSpan / this.averagePeriodCount / reasonablePeriodDistance) * reasonablePeriodDistance, minimumPeriodDistance);
+    this.periodSpan = Math.max(Math.round(dateSpan / this.averagePeriodCount /
+      reasonablePeriodDistance) * reasonablePeriodDistance, minimumPeriodDistance);
 
     /** get the biggest multiple of periodSpan that is less than firstDate / same for lastDate */
     const firstPeriod = firstDate - (firstDate % this.periodSpan);
@@ -175,22 +182,28 @@ export class TimelineComponent {
     } else {
       /** if timeDifference bigger than maxSliderSteps, use the date values of the items */
       sliderSteps = this.items.map((item, index) => {
-        const step = {
-          value: item.date,
-          legend: ''
-        };
-        if (index % Math.floor(this.items.length / this.averagePeriodCount) === 0) {
+        const step = { value: +item.date, legend: '' };
+        if (index % Math.floor(this.items.length / this.averagePeriodCount) === 0 || this.items.length < this.averagePeriodCount) {
           step.legend = item.date.toString();
         }
         return step;
+      });
+      sliderSteps = _.uniqBy(sliderSteps, 'value');
+      sliderSteps.unshift({
+        value: firstPeriod,
+        legend: firstPeriod + ''
+      });
+      sliderSteps.push({
+        value: lastPeriod,
+        legend: lastPeriod + ''
       });
     }
 
     /** Set slider options */
     const newOptions: Options = Object.assign({}, this.options);
     newOptions.stepsArray = sliderSteps;
-    newOptions.minLimit = firstDate - firstPeriod;
-    newOptions.maxLimit = lastDate - firstPeriod;
+    newOptions.minLimit = timeDifference <= this.maxSliderSteps ? firstDate - firstPeriod : 1;
+    newOptions.maxLimit = timeDifference <= this.maxSliderSteps ? lastDate - firstPeriod : sliderSteps.length - 2;
     this.options = newOptions;
   }
 
@@ -294,15 +307,17 @@ export class TimelineComponent {
       this.items.push({
         id: artwork.id,
         label: artwork.label,
-        image: artwork.resources[0].linkResource,
-        imageSmall: artwork.resources[0].linkResource,
-        imageMedium: artwork.resources[0].linkResource,
+        image: this.artworks[0].image,
+        imageSmall: this.artworks[0].imageMedium,
+        imageMedium: this.artworks[0].imageSmall,
         entityType: artwork.entityType,
         count: artwork.count,
         rank: artwork.rank,
-        date: artwork.inception || 1234 // TODO
-      } as TimelineItem);
+        description: artwork.inception,
+        date: getYearFromString(artwork.inception + '')
+      } as unknown as TimelineItem);
     });
+    this.items = this.items.filter(item => !isNaN(item.date));
   }
 
   /** This adds artists to the timeline according to the displayed artworks. The artists get placed at their birth date */
