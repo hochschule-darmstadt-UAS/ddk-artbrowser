@@ -1,11 +1,11 @@
 import * as _ from 'lodash';
-import {HttpClient} from '@angular/common/http';
-import {Inject, Injectable, LOCALE_ID} from '@angular/core';
-import {ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass, Movement} from 'src/app/shared/models/models';
-import {elasticEnvironment} from 'src/environments/environment';
-import {usePlural} from 'src/app/shared/models/entity.interface';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, LOCALE_ID } from '@angular/core';
+import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 'src/app/shared/models/models';
+import { elasticEnvironment } from 'src/environments/environment';
+import { usePlural } from 'src/app/shared/models/entity.interface';
 import * as bodyBuilder from 'bodybuilder';
-import {Bodybuilder} from 'bodybuilder';
+import { Bodybuilder } from 'bodybuilder';
 
 const defaultSortField = 'rank';
 
@@ -35,8 +35,8 @@ export class DataService {
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
     const body = bodyBuilder()
-      .query('match', 'id', id)
-    const entities = await this.performQuery<T>(body, this.baseUrl, type)
+      .query('match', 'id', id);
+    const entities = await this.performQuery<T>(body, this.baseUrl, type);
     return !entities.length ? null : entities[0];
   }
 
@@ -50,7 +50,7 @@ export class DataService {
     if (!copyids || copyids.length === 0) {
       return [];
     }
-    const body = bodyBuilder()
+    const body = bodyBuilder();
     _.each(ids, id => body.orQuery('match', 'id', id));
     return this.performQuery<T>(body, this.baseUrl, type);
   }
@@ -66,33 +66,9 @@ export class DataService {
       .size(count)
       .sort(defaultSortField, 'desc')
       .queryMinimumShouldMatch(1, true)
-      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('match', 'entityType', EntityType.ARTWORK);
     _.each(ids, id => body.orQuery('match', usePlural(type), id));
     return this.performQuery<Artwork>(body);
-  }
-
-  /**
-   * Find all movements which are part of topMovement and have start_time and end_time set
-   * @param topMovementId Id of 'parent' movement
-   */
-  public getHasPartMovements(topMovementId: string): Promise<Movement[]> {
-    return this.findById<Movement>(topMovementId, EntityType.MOVEMENT).then(topMovement => {
-      return this.findMultipleById<Movement>(topMovement.has_part, EntityType.MOVEMENT).then(hasPartMovements => {
-        return hasPartMovements.filter(m => m.start_time && m.end_time);
-      });
-    });
-  }
-
-  /**
-   * Find all movements which movement is part of and have start_time and end_time set
-   * @param subMovementId Id of 'sub' movement
-   */
-  public getPartOfMovements(subMovementId: string): Promise<Movement[]> {
-    return this.findById<Movement>(subMovementId, EntityType.MOVEMENT).then(subMovement => {
-      return this.findMultipleById<Movement>(subMovement.part_of, EntityType.MOVEMENT).then(partOfMovements => {
-        return partOfMovements.filter(m => m.start_time && m.end_time);
-      });
-    });
   }
 
   /**
@@ -117,7 +93,7 @@ export class DataService {
       .size(5)
       .sort(defaultSortField, 'desc')
       .query('match', 'entityType', EntityType.ARTWORK)
-      .query('match', usePlural(EntityType.MOVEMENT), movement)
+      .query('match', usePlural(EntityType.MOVEMENT), movement);
     return this.performQuery<Artwork>(body);
   }
 
@@ -130,7 +106,7 @@ export class DataService {
   public searchArtworks(searchObj: ArtSearch, keywords: string[] = []): Promise<Artwork[]> {
     const body = bodyBuilder()
       .size(400)
-      .sort(defaultSortField, 'desc')
+      .sort(defaultSortField, 'desc');
     _.each(searchObj, (arr, key) => {
       if (Array.isArray(arr)) {
         _.each(arr, val => body.query('match', key, val));
@@ -139,7 +115,7 @@ export class DataService {
     _.each(keywords, keyword =>
       body.query('bool', (q) => {
         return q.orQuery('match', 'label', keyword)
-          .orQuery('match', 'description', keyword)
+          .orQuery('match', 'description', keyword);
       })
     );
     return this.performQuery(body);
@@ -150,7 +126,7 @@ export class DataService {
       .query('match', 'entityType', type)
       .sort(defaultSortField, 'desc')
       .size(count)
-      .from(from)
+      .from(from);
     return this.performQuery<T>(body);
   }
 
@@ -159,15 +135,6 @@ export class DataService {
       .get('https://openartbrowser.org/' + elasticEnvironment.serverURI + '/' + (this.ISO_639_1_LOCALE || 'en') + '/_count?q=type:' + type)
       .toPromise();
     return response && response.count ? response.count : undefined;
-  }
-
-  public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {
-    const body = bodyBuilder()
-      .query('match', 'entityType', EntityType.ARTWORK)
-      .query('prefix', 'image', 'http')
-      .sort(defaultSortField, 'desc')
-      .size(count)
-    return this.performQuery<T>(body);
   }
 
   /**
@@ -179,7 +146,7 @@ export class DataService {
       .orQuery('match', 'label', label)
       .orQuery('wildcard', 'label', '*' + label + '*')
       .sort(defaultSortField, 'desc')
-      .size(200)
+      .size(200);
     return this.performQuery(body);
   }
 
@@ -193,7 +160,7 @@ export class DataService {
       .query('match', 'type', type)
       .query('prefix', 'image', 'http')
       .sort(defaultSortField, 'desc')
-      .size(count)
+      .size(count);
     return this.performQuery(body);
   }
 
@@ -245,7 +212,7 @@ export class DataService {
     const entities: T[] = [];
     _.each(
       data.hits.hits,
-      function (val) {
+      function(val) {
         if (!filterBy || (filterBy && val._source.type === filterBy)) {
           entities.push(this.addThumbnails(val._source));
         }
@@ -261,14 +228,18 @@ export class DataService {
   private addThumbnails(entity: Entity) {
     const prefix = 'https://upload.wikimedia.org/wikipedia/commons/';
     if (entity.image && !entity.image.endsWith('.tif') && !entity.image.endsWith('.tiff')) {
-      entity.imageSmall = entity.image.replace(prefix, prefix + 'thumb/') + '/256px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1);
-      entity.imageMedium = entity.image.replace(prefix, prefix + 'thumb/') + '/512px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1);
+      entity.imageSmall = entity.image.replace(prefix, prefix + 'thumb/') + '/256px-' +
+        entity.image.substring(entity.image.lastIndexOf('/') + 1);
+      entity.imageMedium = entity.image.replace(prefix, prefix + 'thumb/') + '/512px-' +
+        entity.image.substring(entity.image.lastIndexOf('/') + 1);
     } else {
       // There can only be loaded 4 images at once https://phabricator.wikimedia.org/T255854 so HTTP 429 error may occur.
       entity.imageSmall =
-        entity.image.replace(prefix, prefix + 'thumb/') + '/lossy-page1-256px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1) + '.jpg';
+        entity.image.replace(prefix, prefix + 'thumb/') + '/lossy-page1-256px-' +
+        entity.image.substring(entity.image.lastIndexOf('/') + 1) + '.jpg';
       entity.image = entity.imageMedium =
-        entity.image.replace(prefix, prefix + 'thumb/') + '/lossy-page1-512px-' + entity.image.substring(entity.image.lastIndexOf('/') + 1) + '.jpg';
+        entity.image.replace(prefix, prefix + 'thumb/') + '/lossy-page1-512px-' +
+        entity.image.substring(entity.image.lastIndexOf('/') + 1) + '.jpg';
     }
     return entity;
   }
