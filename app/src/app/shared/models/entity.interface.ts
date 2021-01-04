@@ -1,8 +1,9 @@
-import { SourceID } from './utils';
+import { SourceID } from './inlineInterfaces';
 
 export interface Entity {
   id: string;
   label?: string;
+  altLabels?: string[];
   image?: string;
   imageSmall?: string;
   imageMedium?: string;
@@ -11,7 +12,7 @@ export interface Entity {
   count: number;
   rank: number;
   route: string;
-  sourceID?: Partial<SourceID>;
+  sourceID?: Partial<SourceID>[];
 }
 
 export type Iconclass = string;
@@ -26,10 +27,10 @@ export enum EntityType {
   MOVEMENT = 'movement',
   MOTIF = 'motif',
   ICONOGRAPHY = 'iconography',
-  TYPE = 'type'
+  TYPE = 'type',
 }
 
-export const usePlural = (type: EntityType) => (type === 'all' ? type : type + 's');
+export const usePlural = (type: EntityType) => (type === 'all' ? type : type === EntityType.ICONOGRAPHY ? 'iconographies' : type + 's');
 
 export enum EntityIcon {
   ALL = 'fa-list-ul',
@@ -37,7 +38,7 @@ export enum EntityIcon {
   ARTWORK = 'fa-image',
   LOCATION = 'fa-archway',
   GENRE = 'fa-tag',
-  TYPE = 'fa-tag',
+  TYPE = 'fa-shapes',
   MATERIAL = 'fa-scroll',
-  ICONOGRAPHY = 'fa-fingerprint'
+  ICONOGRAPHY = 'fa-fingerprint',
 }

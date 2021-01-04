@@ -64,7 +64,8 @@
         <source>Last</source>
       </trans-unit>
       <trans-unit id="ngb.progressbar.value" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</source>
+        <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%
+        </source>
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
         <source>Increment hours</source>
@@ -103,26 +104,34 @@
         <source>Decrement seconds</source>
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ i18n.getAfternoonPeriod() }}"/></source>
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ i18n.getAfternoonPeriod() }}"/>
+        </source>
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{ i18n.getMorningPeriod() }}"/></source>
+        <source>
+          <x id="INTERPOLATION" equiv-text="{{ i18n.getMorningPeriod() }}"/>
+        </source>
       </trans-unit>
       <trans-unit id="ngb.toast.close-aria" datatype="html">
         <source>Close</source>
       </trans-unit>
       <trans-unit id="entity_labels" datatype="html">
         <source>
-        <x id="ICU" equiv-text="{type, select, all {...} artwork {...} motif {...} artist {...} location {...} genre {...} movement {...} material {...}}"/>
-      </source>
+          <x id="ICU"
+             equiv-text="{type, select, all {...} artwork {...} motif {...} artist {...} location {...} genre {...} movement {...} material {...}}"/>
+        </source>
         <note priority="1" from="description">Entity Type Labels</note>
       </trans-unit>
       <trans-unit id="480d33207a8003c4e3d38902d7769ac338138974" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Artwork} motif {Motif} artist {Artist} location {Location} genre {Genre} movement {Movement} material {Material} }</source>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} motif {Motif} artist {Artist} location {Location} genre
+          {Genre} movement {Movement} material {Material} }
+        </source>
       </trans-unit>
       <trans-unit id="entities_labels" datatype="html">
         <source>
-          <x id="ICU" equiv-text="{type, select, all {...} artworks {...} motifs {...} artists {...} locations {...} genres {...} movements {...} materials {...}}"/>
+          <x id="ICU"
+             equiv-text="{type, select, all {...} artworks {...} motifs {...} artists {...} locations {...} genres {...} movements {...} materials {...}}"/>
         </source>
         <note priority="1" from="description">Entities Type Labels</note>
       </trans-unit>
@@ -165,8 +174,8 @@
         <note priority="1" from="description">Movement label</note>
       </trans-unit>
       <trans-unit id="period" datatype="html">
-         <source>Period</source>
-         <note priority="1" from="description">Period label</note>
+        <source>Period</source>
+        <note priority="1" from="description">Period label</note>
       </trans-unit>
       <trans-unit id="influenced_by" datatype="html">
         <source>Influenced by</source>
@@ -232,30 +241,27 @@
         <note priority="1" from="description">Related Artworks label</note>
       </trans-unit>
       <trans-unit id="related_artworks_headline_prev" datatype="html">
-        <source>
-              Common
-            </source>
-        <note priority="1" from="description">Related Artworks headline text before tab name </note>
+        <source>Common</source>
+        <note priority="1" from="description">Related Artworks headline text before tab name</note>
       </trans-unit>
       <trans-unit id="related_artworks_headline_tab_name" datatype="html">
         <source>
-                <x id="ICU" equiv-text="{tab, select, all {...} motif {...} artist {...} location {...} genre {...} movement {...} material {...}}"/>
-              </source>
+          <x id="ICU"
+             equiv-text="{tab, select, all {...} motif {...} artist {...} location {...} genre {...} movement {...} material {...}}"/>
+        </source>
         <note priority="1" from="description">Related Artworks headline text tab name</note>
       </trans-unit>
       <trans-unit id="2894531d7a06d45b9e13ff93785def69b5963e57" datatype="html">
-        <source>{VAR_SELECT, select, all {all} motif {motif} artist {artist} location {location} genre {genre} movement {movement} material {material} }</source>
+        <source>{VAR_SELECT, select, all {all} motif {motif} artist {artist} location {location} genre {genre} movement
+          {movement} material {material} }
+        </source>
       </trans-unit>
       <trans-unit id="related_artworks_headline_after" datatype="html">
-        <source>
-              tags with artwork
-            </source>
-        <note priority="1" from="description">Related Artworks headline text after tab name </note>
+        <source>tags with artwork</source>
+        <note priority="1" from="description">Related Artworks headline text after tab name</note>
       </trans-unit>
       <trans-unit id="related_artworks_hint" datatype="html">
-        <source>
-                  move the mouse over an artwork to display common tags
-                </source>
+        <source>move the mouse over an artwork to display common tags</source>
         <note priority="1" from="description">Related Artworks hint text</note>
       </trans-unit>
       <trans-unit id="artworks" datatype="html">
@@ -273,6 +279,12 @@
       <trans-unit id="iconography" datatype="html">
         <source>Iconography</source>
         <note priority="1" from="description">Iconography</note>
+      </trans-unit>
+      <trans-unit id="photography" datatype="html">
+        <source>Photography: </source>
+      </trans-unit>
+      <trans-unit id="links" datatype="html">
+        <source>Links</source>
       </trans-unit>
     </body>
   </file>

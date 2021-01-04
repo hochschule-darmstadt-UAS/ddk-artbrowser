@@ -3,21 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
-
-export const elasticEnvironment = {
-  serverURI: '/api'
-};
-
-export const analyticsEnvironment = {
-  enabled: false,
-  url: 'https://openartbrowser.org/api/analytics/',
-  propertyId: '2'
-};
-
-export const iconclassEnvironment = {
-  apiURI: 'http://iconclass.org/json'
+  production: false,
+  elasticBase: '/api',
+  iconclassBase: '/api/iconclass/json',
+  imagesBase: '/api/images',
+  analytics: {
+    enabled: false,
+    url: 'https://openartbrowser.org/api/analytics/',
+    propertyId: '2'
+  }
 };
 
 /*

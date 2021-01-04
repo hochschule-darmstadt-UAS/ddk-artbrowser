@@ -3,12 +3,12 @@ import { Artist } from './artist.interface';
 import { Genre } from './genre.interface';
 import { Material } from './material.interface';
 import { Iconography } from './iconography.interface';
-import { Measurement, RecordLegal, Resource } from './utils';
+import { Measurement, RecordLegal, Resource } from './inlineInterfaces';
 import { Type } from './type.interface';
 
 export interface Artwork extends Entity {
   artists: Partial<Artist>[];
-  location: Partial<Location>;
+  locations: Partial<Location>[];
   genres: Partial<Genre>[];
   types: Partial<Type>[];
   iconographies: Partial<Iconography>[];

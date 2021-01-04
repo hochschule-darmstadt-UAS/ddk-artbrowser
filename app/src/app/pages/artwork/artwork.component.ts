@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Artwork, EntityType, EntityIcon } from 'src/app/shared/models/models';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Artwork, EntityIcon, EntityType } from 'src/app/shared/models/models';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -47,7 +47,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   commonTagsCollapsed = false;
 
   /**
-   * @descriptionwhether artwork image viewer is active or not
+   * @description whether artwork image viewer is active or not
    */
   modalIsVisible = false;
 
@@ -62,16 +62,29 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   artworkTabs: ArtworkTab[] = [];
 
   /**
+   * @description image array for thumbnails
+   */
+  thumbnails: Array<object> = [];
+
+  /**
+   * @description image array for full screen modal
+   */
+  largeImages: Array<string> = [];
+
+  /** Index of current Image in artwork.resources array */
+  imageIndex = 0;
+
+  /**
    * @description use this to end subscription to url parameter in ngOnDestroy
    */
   private ngUnsubscribe = new Subject();
+  imageSubtitle: string;
+  photographyInformation: string;
 
-  /** a video was found */
-  videoExists = false;
-  /* List of unique Videos */
-  uniqueVideos: string[] = [];
+  infoVisible = false;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {}
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  }
 
   /**
    * @description hook that is executed at component initialization
@@ -80,19 +93,17 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     // define tabs if not set
     if (!this.artworkTabs || !this.artworkTabs.length) {
       this.addTab(EntityType.ALL, true);
-      this.addTab(EntityType.MOTIF);
+      this.addTab(EntityType.ICONOGRAPHY);
+      this.addTab(EntityType.TYPE);
       this.addTab(EntityType.ARTIST);
       this.addTab(EntityType.LOCATION);
       this.addTab(EntityType.GENRE);
-      this.addTab(EntityType.MOVEMENT);
       this.addTab(EntityType.MATERIAL);
     }
 
     /** Extract the id of entity from URL params. */
-    this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
+    this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (params) => {
       /* reset properties */
-      this.uniqueVideos = [];
-      this.videoExists = false;
       this.artwork = this.hoveredArtwork = this.hoveredArtwork = null;
       this.imageHidden = this.modalIsVisible = this.commonTagsCollapsed = false;
       // clears items of all artwork tabs
@@ -103,19 +114,43 @@ export class ArtworkComponent implements OnInit, OnDestroy {
           }
           return { ...tab, items: [] };
         })
-        .filter(tab => tab !== null);
+        .filter((tab) => tab !== null);
 
       /** Use data service to fetch entity from database */
       const artworkId = params.get('artworkId');
       this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
-
+      this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
       if (this.artwork) {
         await this.resolveIds('main_subjects');
-        await this.insertIconographiesTab();
-
         /* load tabs content */
         this.loadTabs();
       }
+
+      // --- TODO: REMOVE THIS SAMPLE ---
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1563345',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563345'
+      });
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1563251',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563251'
+      });
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1563245',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563245'
+      });
+      this.artwork.resources.push({
+        image: 'http://previous.bildindex.de/bilder/d/fm1522245',
+        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1522245'
+      });
+      // ------------------------------
+
+      this.artwork.resources.forEach(res => {
+        this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
+        this.largeImages.push(res.image);
+      });
+
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     });
   }
 
@@ -146,6 +181,14 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    */
   closeModal() {
     this.modalIsVisible = false;
+  }
+
+  handleInfoEvent(event: CustomEvent) {
+    this.infoVisible = !this.infoVisible;
+  }
+
+  imageChangedHandler() {
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex])
   }
 
   /**
@@ -182,13 +225,13 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         const types = usePlural(tab.type);
 
         // load entities
-        this.dataService.findMultipleById(this.artwork[types] as any, tab.type).then(artists => {
+        this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type).then((artists) => {
           this.artwork[types] = artists;
         });
         // load related artworks by type
-        return await this.dataService.findArtworksByType(tab.type, this.artwork[types] as any).then(artworks => {
+        return await this.dataService.findArtworksByType(tab.type, [].concat(this.artwork[types] as any)).then((artworks) => {
           // filters and shuffles main artwork out of tab items,
-          tab.items = shuffle(artworks.filter(artwork => artwork.id !== this.artwork.id));
+          tab.items = shuffle(artworks).filter((artwork) => artwork.id !== this.artwork.id);
           // put items into 'all' tab
           allTab.items.push(...tab.items.slice(0, 10));
         });
@@ -214,24 +257,22 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     });
   }
 
-  /**
-   * inserts a custom tab that displays related artworks by main motifs.
-   * since main motifs are of type motif and not a new entity type, this custom tab logic exists
-   */
-  async insertIconographiesTab() {
-    const items = await this.dataService.findArtworksByType(
-      EntityType.ICONOGRAPHY,
-      this.artwork.iconographies.map(value => value.label)
-    );
-    console.log(this.artwork.iconographies);
+  thumbnailClicked($event) {
+    if (this.artwork.resources.length > $event) {
+      this.imageIndex = $event;
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+    }
+  }
 
-    const tab = {
-      active: false,
-      icon: EntityIcon.ICONOGRAPHY,
-      type: EntityType.ICONOGRAPHY,
-      items
-    };
-
-    this.artworkTabs.splice(1, 0, tab); // insert after first element (All, Main Motif, ...rest)
+  makeImageSubtitle(res) {
+    this.imageSubtitle = (res.description ? res.description : '') +
+      (res.resourceID && res.resourceID[0] ? res.resourceID[0].id : '')
+      + (res.rights && res.rights.rightsHolder ? ' © ' +
+        (res.rights.rightsHolder.term ? res.rights.rightsHolder.term :
+          (res.rights.rightsHolder.id ? res.rights.rightsHolder.id : ''))
+        : '');
+    this.imageSubtitle = this.imageSubtitle.length > 0 ? this.imageSubtitle : this.artwork.label;
+    this.photographyInformation = (!!res.photographer ? res.photographer : '') +
+      (!!res.photographer && !!res.dateTaken ? ', ' : '') + (!!res.dateTaken ? res.dateTaken : '');
   }
 }

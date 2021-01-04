@@ -6,14 +6,13 @@ import { usePlural } from '../../models/entity.interface';
   selector: 'app-badge',
   templateUrl: './badge.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./badge.component.scss']
+  styleUrls: ['./badge.component.scss'],
 })
 export class BadgeComponent implements OnInit, OnChanges {
   @Input() entity: Entity;
   @Input() isHoverBadge: boolean;
   @Input() hoveredArtwork: Artwork;
 
-  icon: string;
   label: string;
   redirectUrl: string;
   tooltip: string;
@@ -30,7 +29,6 @@ export class BadgeComponent implements OnInit, OnChanges {
   ngOnInit() {
     console.log(this.entity);
     if (this.entity) {
-      this.icon = icons[this.entity.entityType] || 'fa-user';
       this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
       this.label = this.entity.label || '';
 
@@ -69,14 +67,4 @@ export class BadgeComponent implements OnInit, OnChanges {
       }
     }
   }
-}
-
-enum icons {
-  artist = 'fa-user',
-  artwork = 'fa-image',
-  movement = 'fa-wind',
-  location = 'fa-archway',
-  motif = 'fa-image',
-  genre = 'fa-tag',
-  material = 'fa-scroll'
 }

@@ -1,3 +1,3 @@
-export const elasticEnvironment = {
-  serverURI: 'http://openartbrowser.org/api'
+export const environment = {
+  elasticBase: 'http://openartbrowser.org/api'
 };

@@ -1,6 +1,6 @@
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { iconclassEnvironment } from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { Iconography } from '../../../shared/models/iconography.interface';
 import 'rxjs/add/operator/map';
@@ -33,9 +33,7 @@ export class IconclassService {
 
   public getIconclassListByNotation(notations: string[]): Observable<Iconography[]> {
     notations = notations.map(notation => encodeURI(notation));
-    console.log(notations);
-    const uri = iconclassEnvironment.apiURI + '/?notation=' + notations.join('&notation=');
-    console.log(uri);
+    const uri = environment.iconclassBase + '/?notation=' + notations.join('&notation=');
     return this.http.get(uri).map((response: Array<any>) => {
       if (!response.length) {
         throw throwError('Response was empty!');
@@ -65,7 +63,8 @@ export class IconclassService {
       iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'];
     }
     iconography.label = iconography.label.length > 50 ? iconography.label.substr(0, 50) + '...' : iconography.label;
-    iconography.text[this.ISO_639_1_LOCALE || 'de'] = IconclassService.capitalizeFirstLetter(iconography.text[this.ISO_639_1_LOCALE || 'de']);
+    iconography.text[this.ISO_639_1_LOCALE || 'de'] =
+      IconclassService.capitalizeFirstLetter(iconography.text[this.ISO_639_1_LOCALE || 'de']);
     return iconography;
   }
 }

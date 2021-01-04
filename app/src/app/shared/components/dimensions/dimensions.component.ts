@@ -35,51 +35,17 @@ export class DimensionsComponent implements OnInit {
 
   measurement: Measurement;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
+    this.measurement = this.artwork.measurements.find(m => {
+      return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') ||
+        m.displayName.includes('Tiefe')) && m.displayName.includes(':');
+    });
     if (this.artwork) {
       this.setDimensions();
       this.setIllustrationDimensions();
-    }
-  }
-
-  setIllustrationDimensions() {
-    // TODO: Refactor
-    this.measurement = this.artwork.measurements.find(m => {
-      return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') || m.displayName.includes('Tiefe')) && m.displayName.includes(':');
-    });
-    this.measurement.type = this.measurement.displayName.split(':')[0];
-    this.measurement.unit = this.measurement.displayName.split(' ')[-1];
-    this.measurement.value = this.measurement.displayName.substr(this.measurement.displayName.match('[dsx]*').index, this.measurement.unit.length);
-    this.measurement.height = this.measurement.value.split('x')[0];
-    this.measurement.width = this.measurement.value.split('x')[1];
-    this.illustrationHeight = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.height);
-    this.illustrationWidth = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.width);
-    // Hide Dimension Illustration if Artwork is smaller than 9cm x 9cm or bigger than 35m
-    if (this.illustrationHeight > 1855 || (this.illustrationHeight < 5 && this.illustrationWidth < 5)) {
-      this.hideIllustration = true;
-    }
-  }
-
-  calculateIllustrationDimension(dimensionUnit, dimension) {
-    if (!dimension) {
-      return 0;
-    }
-    const scalingFactor = 0.53;
-    switch (dimensionUnit) {
-      case 'ft':
-        return scalingFactor * 30.48 * dimension;
-      case 'm':
-        return scalingFactor * 100 * dimension;
-      case 'cm':
-        return scalingFactor * dimension;
-      case 'mm':
-        return (scalingFactor / 10) * dimension;
-      case 'in':
-        return scalingFactor * dimension * 2.54;
-      default:
-        return 0;
     }
   }
 
@@ -130,11 +96,48 @@ export class DimensionsComponent implements OnInit {
           (this.measurement.height
             ? this.measurement.unit
             : this.measurement.width
-            ? this.measurement.unit
-            : this.measurement.length
-            ? this.measurement.unit
-            : 'cm');
+              ? this.measurement.unit
+              : this.measurement.length
+                ? this.measurement.unit
+                : 'cm');
       }
+    }
+  }
+
+  setIllustrationDimensions() {
+    // TODO: Refactor
+    this.measurement.type = this.measurement.displayName.split(':')[0];
+    this.measurement.unit = this.measurement.displayName.split(' ')[-1];
+    this.measurement.value = this.measurement.displayName.substr(this.measurement.displayName.match('[dsx]*').index,
+      this.measurement.unit.length);
+    this.measurement.height = this.measurement.value.split('x')[0];
+    this.measurement.width = this.measurement.value.split('x')[1];
+    this.illustrationHeight = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.height);
+    this.illustrationWidth = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.width);
+    // Hide Dimension Illustration if Artwork is smaller than 9cm x 9cm or bigger than 35m
+    if (this.illustrationHeight > 1855 || (this.illustrationHeight < 5 && this.illustrationWidth < 5)) {
+      this.hideIllustration = true;
+    }
+  }
+
+  calculateIllustrationDimension(dimensionUnit, dimension) {
+    if (!dimension) {
+      return 0;
+    }
+    const scalingFactor = 0.53;
+    switch (dimensionUnit) {
+      case 'ft':
+        return scalingFactor * 30.48 * dimension;
+      case 'm':
+        return scalingFactor * 100 * dimension;
+      case 'cm':
+        return scalingFactor * dimension;
+      case 'mm':
+        return (scalingFactor / 10) * dimension;
+      case 'in':
+        return scalingFactor * dimension * 2.54;
+      default:
+        return 0;
     }
   }
 }

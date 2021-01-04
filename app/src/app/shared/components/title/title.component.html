@@ -8,3 +8,4 @@
 </div>
 
 <h2 class="mb-3 first-letter">{{ entity?.label }}</h2>
+<span *ngIf="entity?.altLabels?.length" class="subtitle mb-3 text-muted">{{ entity?.altLabels.join(', ') }}</span>

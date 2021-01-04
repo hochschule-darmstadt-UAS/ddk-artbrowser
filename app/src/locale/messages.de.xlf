@@ -4,24 +4,60 @@
     <body>
       <trans-unit id="entity_labels" datatype="html">
         <source>
-          <x id="ICU" equiv-text="{type, select, all {...} artwork {...} type {...} artist {...} location {...} genre {...} material {...} iconography {...}}"/>
+          <x id="ICU"
+             equiv-text="{type, select, all {...} artwork {...} type {...} artist {...} location {...} genre {...} material {...} iconography {...}}"/>
         </source>
         <target state="final">
-          <x id="ICU" equiv-text="{type, select, all {...} artwork {...} type {...} artist {...} location {...} genre {...} material {...} iconography {...}}"/>
+          <x id="ICU"
+             equiv-text="{type, select, all {...} artwork {...} type {...} artist {...} location {...} genre {...} material {...} iconography {...}}"/>
         </target>
         <note priority="1" from="description">Entity Type Labels</note>
       </trans-unit>
       <trans-unit id="480d33207a8003c4e3d38902d7769ac338138974" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Kunstwerk} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {...}}}</source>
-        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}}</target>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre
+          {Genre} material {Material} iconography {Iconography}}
+        </source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location
+          {Standort} genre {Genre} material {Material} iconography {Ikonographie}}
+        </target>
       </trans-unit>
       <trans-unit id="50df1cb87526ad73fdc267424b35afb5de63af93" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Kunstwerk} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {...}}}</source>
-        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location {Standort} genre {Genre} material {Material} iconography {Ikonographie}}}</target>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre
+          {Genre} material {Material} iconography {Iconography}}
+        </source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location
+          {Standort} genre {Genre} material {Material} iconography {Ikonographie}}
+        </target>
+      </trans-unit>
+      <trans-unit id="715dbc9686914ef3a4f8b91498b67bba7e0dcf39" datatype="html">
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre
+          {Genre} material {Material} iconography {Iconography}}
+        </source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location
+          {Standort} genre {Genre} material {Material} iconography {Ikonographie}}
+        </target>
+      </trans-unit>
+      <trans-unit id="42cbae2008511aac207bbd3713f98dd226d17a05" datatype="html">
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre
+          {Genre} material {Material} iconography {Iconography}}
+        </source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location
+          {Standort} genre {Genre} material {Material} iconography {Ikonographie}}
+        </target>
+      </trans-unit>
+      <trans-unit id="94e109b1590a4875a82ab81e5bdaad8aa86fe3b1" datatype="html">
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre
+          {Genre} material {Material} iconography {Iconography}}
+        </source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Typ} artist {Künstler} location
+          {Standort} genre {Genre} material {Material} iconography {Ikonographie}}
+        </target>
       </trans-unit>
       <trans-unit id="entities_labels" datatype="html">
         <source>{type, select, artwork {...} type {...} artist {...} location {...} genre {...} material {...}}</source>
-        <target state="final">{type, select, artwork {Kunstwerke} type {Typen} artist {Künstler} location {Standorte} genre {Genres} material {Materialien}}</target>
+        <target state="final">{type, select, artwork {Kunstwerke} type {Typen} artist {Künstler} location {Standorte}
+          genre {Genres} material {Materialien}}
+        </target>
         <note priority="1" from="description">Entities Type Labels</note>
       </trans-unit>
       <trans-unit id="all" datatype="html">
@@ -30,15 +66,18 @@
         <note priority="1" from="description">All</note>
       </trans-unit>
       <trans-unit id="menuHome" datatype="html">
-        <source>Home</source><target state="final">Hauptseite</target>
+        <source>Home</source>
+        <target state="final">Hauptseite</target>
         <note priority="1" from="description">Menu Home item label</note>
       </trans-unit>
       <trans-unit id="menuAbout" datatype="html">
-        <source>About</source><target state="final">Über Uns</target>
+        <source>About</source>
+        <target state="final">Über Uns</target>
         <note priority="1" from="description">Menu About item label</note>
       </trans-unit>
       <trans-unit id="menuLegalNotice" datatype="html">
-        <source>Legal Notice</source><target state="final">Impressum</target>
+        <source>Legal Notice</source>
+        <target state="final">Impressum</target>
         <note priority="1" from="description">Menu Legal Notice item label</note>
       </trans-unit>
       <trans-unit id="menuDataProtection" datatype="html">
@@ -46,236 +85,306 @@
         <target state="final">Datenschutzerklärung</target>
         <note priority="1" from="description">Menu Data Protection Declaration item label</note>
       </trans-unit>
-       <trans-unit id="search_placeholder" datatype="html">
-        <source>Search for something...</source><target state="final">Suche nach etwas...</target>
+      <trans-unit id="search_placeholder" datatype="html">
+        <source>Search for something...</source>
+        <target state="final">Suche nach etwas...</target>
         <note priority="1" from="description">Searchbar Placeholder</note>
       </trans-unit>
       <trans-unit id="ngb.alert.close" datatype="html">
-        <source>Close</source><target state="final">Schließen</target>
+        <source>Close</source>
+        <target state="final">Schließen</target>
       </trans-unit>
       <trans-unit id="ngb.carousel.previous" datatype="html">
-        <source>Previous</source><target state="final">Zurück</target>
+        <source>Previous</source>
+        <target state="final">Zurück</target>
       </trans-unit>
       <trans-unit id="ngb.carousel.next" datatype="html">
-        <source>Next</source><target state="final">Weiter</target>
+        <source>Next</source>
+        <target state="final">Weiter</target>
       </trans-unit>
       <trans-unit id="ngb.datepicker.previous-month" datatype="html">
-        <source>Previous month</source><target state="final">Voriger Monat</target>
+        <source>Previous month</source>
+        <target state="final">Voriger Monat</target>
       </trans-unit>
       <trans-unit id="ngb.datepicker.next-month" datatype="html">
-        <source>Next month</source><target state="final">Nächster Monat</target>
+        <source>Next month</source>
+        <target state="final">Nächster Monat</target>
       </trans-unit>
       <trans-unit id="ngb.datepicker.select-month" datatype="html">
-        <source>Select month</source><target state="final">Monat auswählen</target>
+        <source>Select month</source>
+        <target state="final">Monat auswählen</target>
       </trans-unit>
       <trans-unit id="ngb.datepicker.select-year" datatype="html">
-        <source>Select year</source><target state="final">Jahr auswählen</target>
+        <source>Select year</source>
+        <target state="final">Jahr auswählen</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.first" datatype="html">
-        <source>««</source><target state="final">««</target>
+        <source>««</source>
+        <target state="final">««</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.previous" datatype="html">
-        <source>«</source><target state="final">«</target>
+        <source>«</source>
+        <target state="final">«</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.next" datatype="html">
-        <source>»</source><target state="final">»</target>
+        <source>»</source>
+        <target state="final">»</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.last" datatype="html">
-        <source>»»</source><target state="final">»»</target>
+        <source>»»</source>
+        <target state="final">»»</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.first-aria" datatype="html">
-        <source>First</source><target state="final">Erster</target>
+        <source>First</source>
+        <target state="final">Erster</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.previous-aria" datatype="html">
-        <source>Previous</source><target state="final">Voriger</target>
+        <source>Previous</source>
+        <target state="final">Voriger</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.next-aria" datatype="html">
-        <source>Next</source><target state="final">Nächster</target>
+        <source>Next</source>
+        <target state="final">Nächster</target>
       </trans-unit>
       <trans-unit id="ngb.pagination.last-aria" datatype="html">
-        <source>Last</source><target state="final">Letzter</target>
+        <source>Last</source>
+        <target state="final">Letzter</target>
       </trans-unit>
       <trans-unit id="ngb.progressbar.value" datatype="html">
-        <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%</source><target state="final"><x id="INTERPOLATION"/>%</target>
+        <source><x id="INTERPOLATION" equiv-text="{{getPercentValue()}}"/>%
+        </source>
+        <target state="final"><x id="INTERPOLATION"/>%
+        </target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-hours" datatype="html">
-        <source>Increment hours</source><target state="final">Stunden erhöhen</target>
+        <source>Increment hours</source>
+        <target state="final">Stunden erhöhen</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.HH" datatype="html">
-        <source>HH</source><target state="final">HH</target>
+        <source>HH</source>
+        <target state="final">HH</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.hours" datatype="html">
-        <source>Hours</source><target state="final">Stunden</target>
+        <source>Hours</source>
+        <target state="final">Stunden</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-hours" datatype="html">
-        <source>Decrement hours</source><target state="final">Stunden verringern</target>
+        <source>Decrement hours</source>
+        <target state="final">Stunden verringern</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-minutes" datatype="html">
-        <source>Increment minutes</source><target state="final">Minuten erhöhen</target>
+        <source>Increment minutes</source>
+        <target state="final">Minuten erhöhen</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.MM" datatype="html">
-        <source>MM</source><target state="final">MM</target>
+        <source>MM</source>
+        <target state="final">MM</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.minutes" datatype="html">
-        <source>Minutes</source><target state="final">Minuten</target>
+        <source>Minutes</source>
+        <target state="final">Minuten</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-minutes" datatype="html">
-        <source>Decrement minutes</source><target state="final">Minuten verringern</target>
+        <source>Decrement minutes</source>
+        <target state="final">Minuten verringern</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.increment-seconds" datatype="html">
-        <source>Increment seconds</source><target state="final">Sekunden erhöhen</target>
+        <source>Increment seconds</source>
+        <target state="final">Sekunden erhöhen</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.SS" datatype="html">
-        <source>SS</source><target state="final">SS</target>
+        <source>SS</source>
+        <target state="final">SS</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.seconds" datatype="html">
-        <source>Seconds</source><target state="final">Sekunden</target>
+        <source>Seconds</source>
+        <target state="final">Sekunden</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.decrement-seconds" datatype="html">
-        <source>Decrement seconds</source><target state="final">Sekunden verringern</target>
+        <source>Decrement seconds</source>
+        <target state="final">Sekunden verringern</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.PM" datatype="html">
-        <source>PM</source><target state="final">PM</target>
+        <source>PM</source>
+        <target state="final">PM</target>
       </trans-unit>
       <trans-unit id="ngb.timepicker.AM" datatype="html">
-        <source>AM</source><target state="final">AM</target>
+        <source>AM</source>
+        <target state="final">AM</target>
       </trans-unit>
       <trans-unit id="search_result" datatype="html">
-        <source>Search result</source><target state="final">Suchergebnis</target>
+        <source>Search result</source>
+        <target state="final">Suchergebnis</target>
         <note priority="1" from="description">Search result label</note>
       </trans-unit>
       <trans-unit id="artist" datatype="html">
-        <source>Artist</source><target state="final">Künstler</target>
+        <source>Artist</source>
+        <target state="final">Künstler</target>
         <note priority="1" from="description">Artist label</note>
       </trans-unit>
       <trans-unit id="movement" datatype="html">
-        <source>Movement</source><target state="final">Stilrichtung</target>
+        <source>Movement</source>
+        <target state="final">Stilrichtung</target>
         <note priority="1" from="description">Movement label</note>
       </trans-unit>
       <trans-unit id="period" datatype="html">
-        <source>Period</source><target state="final">Periode</target>
+        <source>Period</source>
+        <target state="final">Periode</target>
         <note priority="1" from="description">Period label</note>
       </trans-unit>
       <trans-unit id="genre" datatype="html">
-        <source>Genre</source><target state="final">Genre</target>
+        <source>Genre</source>
+        <target state="final">Genre</target>
         <note priority="1" from="description">Genre label</note>
       </trans-unit>
       <trans-unit id="material" datatype="html">
-        <source>Material</source><target state="final">Material</target>
+        <source>Material</source>
+        <target state="final">Material</target>
         <note priority="1" from="description">Material label</note>
       </trans-unit>
       <trans-unit id="location" datatype="html">
-        <source>Location</source><target state="final">Ort</target>
+        <source>Location</source>
+        <target state="final">Ort</target>
         <note priority="1" from="description">Location label</note>
       </trans-unit>
       <trans-unit id="type" datatype="html">
-        <source>Types</source><target state="final">Typen</target>
+        <source>Types</source>
+        <target state="final">Typen</target>
         <note priority="1" from="description">Type label</note>
       </trans-unit>
       <trans-unit id="terms" datatype="html">
-        <source>Terms</source><target state="final">Begriffe</target>
+        <source>Terms</source>
+        <target state="final">Begriffe</target>
         <note priority="1" from="description">Search Terms label</note>
       </trans-unit>
       <trans-unit id="hits" datatype="html">
-        <source>Hits</source><target state="final">Treffer</target>
+        <source>Hits</source>
+        <target state="final">Treffer</target>
         <note priority="1" from="description">Search Hits label</note>
       </trans-unit>
       <trans-unit id="artworks" datatype="html">
-        <source>Artworks</source><target state="final">Kunstwerke</target>
+        <source>Artworks</source>
+        <target state="final">Kunstwerke</target>
         <note priority="1" from="description">Artworks label</note>
       </trans-unit>
       <trans-unit id="born" datatype="html">
-        <source>Born</source><target state="final">Geboren</target>
+        <source>Born</source>
+        <target state="final">Geboren</target>
         <note priority="1" from="description">Born infos label</note>
       </trans-unit>
       <trans-unit id="died" datatype="html">
-        <source>Died</source><target state="final">Gestorben</target>
+        <source>Died</source>
+        <target state="final">Gestorben</target>
         <note priority="1" from="description">Died infos label</note>
       </trans-unit>
       <trans-unit id="more" datatype="html">
-        <source>More</source><target state="final">Mehr</target>
+        <source>More</source>
+        <target state="final">Mehr</target>
         <note priority="1" from="description">Detail More label</note>
       </trans-unit>
       <trans-unit id="gender" datatype="html">
-        <source>Gender</source><target state="final">Geschlecht</target>
+        <source>Gender</source>
+        <target state="final">Geschlecht</target>
         <note priority="1" from="description">Artist gender label</note>
       </trans-unit>
-      <trans-unit id="citizenship" datatype="html">
-        <source>Citizenship</source><target state="final">Land</target>
-        <note priority="1" from="description">Artist citizenship label</note>
-      </trans-unit>
       <trans-unit id="influenced_by" datatype="html">
-        <source>Influenced by</source><target state="final">Beeinflusst von</target>
+        <source>Influenced by</source>
+        <target state="final">Beeinflusst von</target>
         <note priority="1" from="description">Influenced by label</note>
       </trans-unit>
       <trans-unit id="toggletimeline" datatype="html">
-        <source>Timeline</source><target state="final">Zeitstrahl</target>
+        <source>Timeline</source>
+        <target state="final">Zeitstrahl</target>
         <note priority="1" from="description">Timeline toggle label</note>
       </trans-unit>
       <trans-unit id="toggleartworks" datatype="html">
-        <source>Artworks</source><target state="final">Kunstwerke</target>
+        <source>Artworks</source>
+        <target state="final">Kunstwerke</target>
         <note priority="1" from="description">Artworks toggle label</note>
       </trans-unit>
       <trans-unit id="artwork" datatype="html">
-        <source>Artwork</source><target state="final">Kunstwerk</target>
+        <source>Artwork</source>
+        <target state="final">Kunstwerk</target>
         <note priority="1" from="description">Artwork label</note>
       </trans-unit>
       <trans-unit id="inception" datatype="html">
-        <source>Inception</source><target state="final">Begonnen</target>
+        <source>Inception</source>
+        <target state="final">Begonnen</target>
         <note priority="1" from="description">Inception label</note>
       </trans-unit>
       <trans-unit id="dimension" datatype="html">
-        <source>Dimension</source><target state="final">Abmessungen</target>
+        <source>Dimension</source>
+        <target state="final">Abmessungen</target>
         <note priority="1" from="description">Dimension label</note>
       </trans-unit>
       <trans-unit id="width" datatype="html">
-        <source>Width</source><target state="final">Breite</target>
+        <source>Width</source>
+        <target state="final">Breite</target>
         <note priority="1" from="description">Dimension-Width label</note>
       </trans-unit>
       <trans-unit id="length" datatype="html">
-        <source>Length</source><target state="final">Länge</target>
+        <source>Length</source>
+        <target state="final">Länge</target>
         <note priority="1" from="description">Dimension-Length label</note>
       </trans-unit>
       <trans-unit id="height" datatype="html">
-        <source>Height</source><target state="final">Höhe</target>
+        <source>Height</source>
+        <target state="final">Höhe</target>
         <note priority="1" from="description">Dimension-Height label</note>
       </trans-unit>
       <trans-unit id="diameter" datatype="html">
-        <source>Diameter</source><target state="final">Durchmesser</target>
+        <source>Diameter</source>
+        <target state="final">Durchmesser</target>
         <note priority="1" from="description">Dimension-Diameter label</note>
       </trans-unit>
       <trans-unit id="related_artworks" datatype="html">
-        <source>Related Artworks</source><target state="final">Verwandte Kunstwerke</target>
+        <source>Related Artworks</source>
+        <target state="final">Verwandte Kunstwerke</target>
         <note priority="1" from="description">Related Artworks label</note>
       </trans-unit>
 
       <trans-unit id="related_artworks_headline_prev" datatype="html">
-        <source>Common </source><target state="final">Gemeinsame </target>
-        <note priority="1" from="description">Related Artworks headline text before tab name </note>
+        <source>Common</source>
+        <target state="final">Gemeinsame</target>
+        <note priority="1" from="description">Related Artworks headline text before tab name</note>
       </trans-unit>
       <trans-unit id="related_artworks_headline_tab_name" datatype="html">
         <source>
-              <x id="ICU" equiv-text="{tab, select, all {...} type {...} artist {...} location {...} genre {...} material {...}}"/>
-              </source><target state="final"><x id="ICU" equiv-text="{tab, select, all {...} type {...} artist {...} location {...} genre {...} material {...}}"/></target>
+          <x id="ICU"
+             equiv-text="{tab, select, all {...} type {...} artist {...} location {...} genre {...} material {...}}"/>
+        </source>
+        <target state="final">
+          <x id="ICU"
+             equiv-text="{tab, select, all {...} type {...} artist {...} location {...} genre {...} material {...}}"/>
+        </target>
         <note priority="1" from="description">Related Artworks headline text tab name</note>
       </trans-unit>
       <trans-unit id="2894531d7a06d45b9e13ff93785def69b5963e57" datatype="html">
-        <source>{VAR_SELECT, select, all {all} type {type} artist {artist} location {location} genre {genre} material {material} }</source><target state="final">{VAR_SELECT, select, all {alle} type {Type } artist {Künstler } location {Standort } genre {Genre } material {Material } }</target>
+        <source>{VAR_SELECT, select, all {all} type {type} artist {artist} location {location} genre {genre} material
+          {material} }
+        </source>
+        <target state="final">{VAR_SELECT, select, all {alle} type {Type } artist {Künstler } location {Standort } genre
+          {Genre } material {Material } }
+        </target>
       </trans-unit>
       <trans-unit id="related_artworks_headline_after" datatype="html">
-        <source>tags with artwork</source><target state="final">Tags mit dem Kunstwerk </target>
-        <note priority="1" from="description">Related Artworks headline text after tab name </note>
+        <source>tags with artwork</source>
+        <target state="final">Tags mit dem Kunstwerk</target>
+        <note priority="1" from="description">Related Artworks headline text after tab name</note>
       </trans-unit>
       <trans-unit id="related_artworks_hint" datatype="html">
-        <source>move the mouse over an artwork to display common tags</source><target state="final">Bewege die Maus über ein Kunstwerk, um gemeinsame Tags angezeigt zu bekommen</target>
+        <source>move the mouse over an artwork to display common tags</source>
+        <target state="final">Bewege die Maus über ein Kunstwerk, um gemeinsame Tags angezeigt zu bekommen</target>
         <note priority="1" from="description">Related Artworks hint text</note>
       </trans-unit>
       <trans-unit id="country" datatype="html">
-        <source>Country</source><target state="final">Land</target>
+        <source>Country</source>
+        <target state="final">Land</target>
         <note priority="1" from="description">Country label</note>
       </trans-unit>
       <trans-unit id="official_page" datatype="html">
-        <source>Web</source><target state="final">Web</target>
+        <source>Web</source>
+        <target state="final">Web</target>
         <note priority="1" from="description">Official page label</note>
       </trans-unit>
       <trans-unit id="ngb.toast.close-aria" datatype="html">
@@ -295,8 +404,36 @@
         <target state="final">Unterklassen</target>
       </trans-unit>
       <trans-unit id="d92b19d3d60f5e8db9974b16602fe83c00d05b7c" datatype="html">
-        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} main_type {Main Type} }</source>
-        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Types} artist {Künstler} location {Standort} genre {Genre} material {Material} main_type {Haupttype} }</target>
+        <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre
+          {Genre} material {Material} main_type {Main Type} }
+        </source>
+        <target state="final">{VAR_SELECT, select, all {Alle} artwork {Kunstwerk} type {Types} artist {Künstler}
+          location {Standort} genre {Genre} material {Material} main_type {Haupttype} }
+        </target>
+      </trans-unit>
+      <trans-unit id="photography" datatype="html">
+        <source>Photography: </source>
+        <target state="final">Foto: </target>
+      </trans-unit>
+      <trans-unit id="links" datatype="html">
+        <source>Links</source>
+        <target state="final">Links</target>
+        <note priority="1" from="description">Links label</note>
+      </trans-unit>
+      <trans-unit id="inventorynr" datatype="html">
+        <source>Inventory Nr</source>
+        <target state="final">Inventar Nr</target>
+        <note priority="1" from="description">Inventory Nr label</note>
+      </trans-unit>
+      <trans-unit id="nationality" datatype="html">
+        <source>Nationality</source>
+        <target state="final">Nationalität</target>
+        <note priority="1" from="description">Nationality label</note>
+      </trans-unit>
+      <trans-unit id="roles" datatype="html">
+        <source>Roles</source>
+        <target state="final">Rollen</target>
+        <note priority="1" from="description">Roles label</note>
       </trans-unit>
     </body>
   </file>

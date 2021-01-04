@@ -2,6 +2,7 @@ export interface SourceID {
   source: string;
   id: string;
   term?: string;
+  label?: string;
 }
 
 export interface Rights {
@@ -13,9 +14,13 @@ export interface Resource {
   resourceID: SourceID[];
   resourceType: string;
   rights: Rights;
+  description: string;
   photographer: string;
   dateTaken: string;
   linkResource: string;
+  imageSmall: string;
+  imageMedium: string;
+  image: string;
 }
 
 export interface RecordLegal {

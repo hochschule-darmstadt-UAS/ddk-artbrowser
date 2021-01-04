@@ -1,6 +1,6 @@
 <div *ngIf="items?.length > 0" class="timeline-container">
   <div class="custom-slider">
-    <ng5-slider id="ng5slider" [(value)]="value" [options]="options" (valueChange)="onSliderMoved()"></ng5-slider>
+    <ngx-slider id="ng5slider" [(value)]="value" [options]="options" (valueChange)="onSliderMoved()"></ngx-slider>
   </div>
   <div class="carou">
     <div class="carou-control" (click)="prevClicked()">
@@ -29,7 +29,7 @@
           <!-- container for image and hover description -->
           <div class="overlay-container" [ngClass]="item?.date ? 'overlay-container-caption' : ''">
             <img
-              class=" img_self"
+              class="img_self"
               src="{{ item?.imageSmall }}"
               alt="{{ item?.label }}"
               (error)="onLoadingError(item)"
@@ -39,7 +39,7 @@
               <span class="img_description">{{ item?.label }}</span>
             </div>
           </div>
-          <div *ngIf="item?.date" [textContent]="item?.entityType === 'artist' ? item?.description : item?.date" class="center item-caption"></div>
+          <div *ngIf="item?.date" [textContent]="item?.description?.length ? item?.description : item?.date" class="center item-caption"></div>
         </a>
       </div>
     </div>
