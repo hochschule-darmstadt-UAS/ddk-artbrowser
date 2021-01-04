@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { usePlural } from 'src/app/shared/models/entity.interface';
 import * as bodyBuilder from 'bodybuilder';
 import { Bodybuilder } from 'bodybuilder';
+import { image, imageMedium, imageSmall } from '../ddk.service';
 
 const defaultSortField = 'rank';
 
@@ -129,7 +130,7 @@ export class DataService {
     _.each(keywords, keyword =>
       body.query('bool', (q) => {
         return q.orQuery('match', 'label', keyword);
-          // .orQuery('match', 'description', keyword);
+        // .orQuery('match', 'description', keyword);
       })
     );
     return this.performQuery(body);
@@ -148,7 +149,6 @@ export class DataService {
     const response: any = await this.http
       .get(this.countEndPoint + '?q=entityType:' + type)
       .toPromise();
-    console.log((response && response.count), response, type);
     return response.count;
   }
 
@@ -172,8 +172,7 @@ export class DataService {
    */
   public async getCategoryItems<T>(type: EntityType, count = 20): Promise<T[]> {
     const body = bodyBuilder()
-      .query('match', 'type', type)
-      .query('prefix', 'image', 'http')
+      .query('match', 'entityType', type)
       .sort(defaultSortField, 'desc')
       .size(count);
     return this.performQuery(body);
