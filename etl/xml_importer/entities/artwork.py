@@ -11,7 +11,7 @@ from etl.xml_importer.utils.resource import Resource
 from etl.xml_importer.utils.measurement import Measurement
 from etl.xml_importer.xpaths import namespace
 
-from etl.xml_importer.parseLido import sanitize_id, sanitize
+from etl.xml_importer.parseLido import sanitize_id, sanitize, filter_none
 
 from etl.xml_importer.encoding import JSONEncodable
 
@@ -194,13 +194,15 @@ class Artwork(JSONEncodable):
         # self.artwork["altName"] = altenames
 
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
             "measurements": self.measurements,
             "recordLegal": self.recordLegal,
             "resources": self.resources,
+            "artists": self.artists,
+            "materials": self.materials,
             "types": self.types,
             "genres": self.genres,
             "locations": self.location,
@@ -208,3 +210,4 @@ class Artwork(JSONEncodable):
             "inscriptions": self.inscriptions,
             "inceptions": self.inception,
         }
+        return filter_none(json)
