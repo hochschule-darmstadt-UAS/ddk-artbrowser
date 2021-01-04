@@ -1,4 +1,4 @@
-from etl.xml_importer.parseLido import sanitize_location
+from etl.xml_importer.parseLido import sanitize_location, filter_none
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import namespace, paths
 from etl.xml_importer.encoding import JSONEncodable
@@ -30,10 +30,11 @@ class Location(JSONEncodable):
             self.source_ids.append(source_id)
 
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
             "sourceID": self.source_ids,
             "placeLabel": self.placeLabel,
         }
+        return filter_none(json)

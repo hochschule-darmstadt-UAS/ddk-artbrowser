@@ -2,6 +2,7 @@ from etl.xml_importer.xpaths import namespace
 from etl.xml_importer.utils.rights import Rights
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths
+from etl.xml_importer.parseLido import filter_none
 
 
 class RecordLegal:
@@ -49,10 +50,11 @@ class RecordLegal:
         return record_info_links
 
     def __json_repr__(self):
-        return {
+        json = {
             "recordID": self.record_ids,
             "recordType": self.record_types,
             "recordSource": self.record_source,
             "rights": self.rights,
             "recordInfoLink": self.record_info_link
         }
+        return filter_none(json)

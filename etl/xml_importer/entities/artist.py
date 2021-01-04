@@ -1,4 +1,4 @@
-from etl.xml_importer.parseLido import get_id_by_prio, sanitize_id
+from etl.xml_importer.parseLido import get_id_by_prio, sanitize_id, filter_none
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 
@@ -55,7 +55,7 @@ class Artist(JSONEncodable):
             return ''
 
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
@@ -63,3 +63,4 @@ class Artist(JSONEncodable):
             "dateOfBirth": self.birth,
             "dateOfDeath": self.death,
         }
+        return filter_none(json)

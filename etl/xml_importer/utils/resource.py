@@ -1,7 +1,7 @@
 from etl.xml_importer.utils.rights import Rights
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
-from etl.xml_importer.parseLido import sanitize
+from etl.xml_importer.parseLido import sanitize, filter_none
 
 
 class Resource:
@@ -46,7 +46,7 @@ class Resource:
             return resource_photographer_root.text
 
     def __json_repr__(self):
-        return {
+        json = {
             "resourceID": self.resourceIDs,
             "rights": self.rights,
             "dateTaken": self.resourceDateTaken,
@@ -54,3 +54,4 @@ class Resource:
             "resourceType": self.resourceType,
             "linkResource": self.linkResource,
         }
+        return filter_none(json)

@@ -1,5 +1,5 @@
 from etl.xml_importer.xpaths import namespace
-from etl.xml_importer.parseLido import sanitize_id, sanitize
+from etl.xml_importer.parseLido import sanitize_id, sanitize, filter_none
 
 
 class SourceID:
@@ -38,8 +38,9 @@ class SourceID:
         return terms
 
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "source": self.source,
             "terms": self.terms
         }
+        return filter_none(json)

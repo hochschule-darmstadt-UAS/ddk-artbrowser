@@ -1,6 +1,6 @@
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
-from etl.xml_importer.parseLido import sanitize_id, sanitize
+from etl.xml_importer.parseLido import sanitize_id, sanitize, filter_none
 from etl.xml_importer.encoding import JSONEncodable
 
 
@@ -59,9 +59,10 @@ class Iconography(JSONEncodable):
         return source_ids
 
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
             "sourceID": self.source_ids,
         }
+        return filter_none(json)

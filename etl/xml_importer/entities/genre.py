@@ -1,4 +1,4 @@
-from etl.xml_importer.parseLido import get_id_by_prio
+from etl.xml_importer.parseLido import get_id_by_prio, filter_none
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.encoding import JSONEncodable
@@ -37,10 +37,11 @@ class Genre(JSONEncodable):
         return source_ids
 
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
             "sourceID": self.source_ids,
             "classificationType": self.classificationType,
         }
+        return filter_none(json)

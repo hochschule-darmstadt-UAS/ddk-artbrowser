@@ -1,4 +1,5 @@
 from etl.xml_importer.xpaths import paths, namespace
+from etl.xml_importer.parseLido import filter_none
 
 
 class Measurement:
@@ -18,6 +19,7 @@ class Measurement:
         return ""
 
     def __json_repr__(self):
-        return {
+        json = {
             "displayName": self.displayName,
         }
+        return filter_none(json)

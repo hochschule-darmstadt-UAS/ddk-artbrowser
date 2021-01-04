@@ -53,3 +53,7 @@ def sanitize_location(location): ##TODO: Method besser definieren
     return location
 
 
+def filter_none(json: dict):
+    return {k: v for k, v in json.items() if v is not None}
+
+
