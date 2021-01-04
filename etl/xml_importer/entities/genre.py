@@ -41,7 +41,7 @@ class Genre(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
-            "sourceID": self.source_ids,
+            "sourceIDs": self.source_ids,
             "classificationType": self.classificationType,
         }
         return filter_none(json)

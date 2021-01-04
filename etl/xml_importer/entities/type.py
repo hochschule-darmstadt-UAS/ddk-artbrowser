@@ -56,6 +56,6 @@ class Type(JSONEncodable):
             "entityType": self.entity_type,
             "label": self.label,
             "altLabels": self.alt_labels,
-            "sourceID": self.source_ids,
+            "sourceIDs": self.source_ids,
         }
         return filter_none(json)

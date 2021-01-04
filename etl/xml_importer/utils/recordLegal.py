@@ -51,7 +51,7 @@ class RecordLegal:
 
     def __json_repr__(self):
         json = {
-            "recordID": self.record_ids,
+            "recordIDs": self.record_ids,
             "recordType": self.record_types,
             "recordSource": self.record_source,
             "rights": self.rights,

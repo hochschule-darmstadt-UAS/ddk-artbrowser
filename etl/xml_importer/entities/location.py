@@ -34,7 +34,7 @@ class Location(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
-            "sourceID": self.source_ids,
+            "sourceIDs": self.source_ids,
             "placeLabel": self.placeLabel,
         }
         return filter_none(json)

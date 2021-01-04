@@ -59,7 +59,7 @@ class Artist(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
-            "sourceID": self.source_ids,
+            "sourceIDs": self.source_ids,
             "dateOfBirth": self.birth,
             "dateOfDeath": self.death,
         }

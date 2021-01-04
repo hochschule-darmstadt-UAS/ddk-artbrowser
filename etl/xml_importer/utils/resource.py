@@ -47,7 +47,7 @@ class Resource:
 
     def __json_repr__(self):
         json = {
-            "resourceID": self.resourceIDs,
+            "resourceIDs": self.resourceIDs,
             "rights": self.rights,
             "dateTaken": self.resourceDateTaken,
             "photographer": self.photographer,
