@@ -29,7 +29,6 @@ paths = {
     # LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_Label_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
-    "Location_EntityType_Path": '',
 
     "Location_PlaceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Name und alte_Name haben gleuchen Path
@@ -137,12 +136,12 @@ paths = {
 
     #RESOURCE
     "Artwork_Resource_Path": 'lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet',
-    "Artwork_Resource_resourceID_Path": 'lido:resourceID',
-    "Artwork_Resource_resourceType_Path": 'lido:resourceType/lido:term',
-    "Artwork_Resource_Rights_Path": 'lido:rightsResource',
-    "Artwork_Resource_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
-    "Artwork_Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
-    "Artwork_Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
+    "Resource_resourceID_Path": 'lido:resourceID',
+    "Resource_resourceType_Path": 'lido:resourceType/lido:term',
+    "Resource_Rights_Path": 'lido:rightsResource',
+    "Resource_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
+    "Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
+    "Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
 
 
 
