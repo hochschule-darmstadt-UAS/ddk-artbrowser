@@ -149,7 +149,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
         this.largeImages.push(res.image);
       });
-      
+
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     });
   }
