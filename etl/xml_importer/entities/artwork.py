@@ -28,20 +28,25 @@ class Artwork(JSONEncodable):
     def __init__(self, lido):
         self.lido = lido
         self.entity_type = "artwork"
+        self.count = 0
 
-        self.id = self._parse_id()
-        self.label = self._parse_label()
-        self.inception = self._parse_inception()
-        self.inscriptions = self._parse_inscription()
-        self.types = self._parse_types()
-        self.genres = self._parse_genres()
-        self.location = self._parse_location()
-        self.artists = self._parse_artists()
-        self.iconographies = self._parse_iconographies()
-        self.materials = self._parse_materials()
-        self.measurements = self._parse_measurements()
-        self.recordLegal = self._parse_recordLegal()
-        self.resources = self._parse_resource()
+        self._parse_id()
+        self._parse_label()
+        self._parse_inception()
+        self._parse_inscription()
+        self._parse_types()
+        self._parse_genres()
+        self._parse_location()
+        self._parse_artists()
+        self._parse_iconographies()
+        self._parse_materials()
+        self._parse_measurements()
+        self._parse_recordLegal()
+        self._parse_resource()
+
+        self.calc_count()
+
+        self.clear()
 
     # TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
     # artwork.altName string[] 2
@@ -53,129 +58,126 @@ class Artwork(JSONEncodable):
         id = self.lido.find(paths["Artwork_Id_Path"], namespace).text
         id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
-        return id
+
+        self.id = id
 
     def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
         if label is not None:
-            return sanitize(label.text)
+            self.label = sanitize(label.text)
         else:
-            return ""
+            self.label = None
 
     def _parse_inception(self):
         event_display_date = self.lido.find(paths['Artwork_Inception_Path'], namespace)
         if event_display_date is not None:
-            return event_display_date.text
+            self.inception = event_display_date.text
         else:
-            return ""
+            self.inception = None
 
     def _parse_inscription(self):
-        inscriptions = []
+        self.inscriptions = []
         all_inscriptions = self.lido.findall(paths["Artwork_Inscription_Path"], namespace)
         for inscription in all_inscriptions:
-            inscriptions.append(inscription.text)
-
-        return inscriptions
+            self.inscriptions.append(inscription.text)
 
     def _parse_types(self):
-        type_ids = []
+        self.types = []
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
-            type_ids.append(type_.id)
+            self.types.append(type_.id)
 
             if type_.id not in types:
                 type_.parse()
+                type_.clear()
                 types[type_.id] = type_
-
-        return type_ids
+                del type_
 
     def _parse_genres(self):
-        genre_ids = []
+        self.genres = []
         for genreRoot in self.lido.findall(paths["Artwork_Genre_Path"], namespace):
             genre = Genre(genreRoot)
-            genre_ids.append(genre.id)
+            self.genres.append(genre.id)
 
             if genre.id not in genres:
                 genre.parse()
+                genre.clear()
                 genres[genre.id] = genre
-
-        return genre_ids
+                del genre
 
     def _parse_location(self):
-        location_ids = []
+        self.locations = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location = Location(locationRoot)
-            location_ids.append(location.id)
+            self.locations.append(location.id)
 
             if location.id not in locations:
                 location.parse()
+                location.clear()
                 locations[location.id] = location
-
-        return location_ids
+                del location
 
     def _parse_artists(self):
-        artist_ids = []
+        self.artists = []
         for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
             artist = Artist(artistRoot)
-            artist_ids.append(artist.id)
+            self.artists.append(artist.id)
 
             if artist.id not in artists:
                 artist.parse()
+                artist.clear()
                 artists[artist.id] = artist
-        return artist_ids
+                del artist
 
     def _parse_iconographies(self):
-        iconography_ids = []
+        self.iconographies = []
         for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
             iconography = Iconography(iconographyRoot)
-            iconography_ids.append(iconography.id)
+            self.iconographies.append(iconography.id)
 
             if iconography.id not in iconographies:
                 iconography.parse()
+                iconography.clear()
                 iconographies[iconography.id] = iconography
-
-        return iconography_ids
+                del iconography
 
     def _parse_materials(self):
-        material_ids = []
+        self.materials = []
         for material_root in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
             material = Material(material_root)
-            material_ids.append(material.id)
+            self.materials.append(material.id)
 
             if material.id not in materials:
                 material.parse()
+                material.clear()
                 materials[material.id] = material
-
-        return material_ids
+                del material
 
     ####################################################################################
 
     def _parse_measurements(self):
-        measurements = []
+        self.measurements = []
 
         measurements_sets = self.lido.findall(paths["Artwork_Measurements_Path"], namespace)
         for measurement_root in measurements_sets:
             measurement = Measurement(measurement_root)
             # for now only append if the measurement has a display text (to prevent empty measurements)
             if measurement.displayName != "":
-                measurements.append(measurement)
-
-        return measurements
+                self.measurements.append(measurement)
 
     def _parse_recordLegal(self):
         recordLegal_root = self.lido.find(paths["Artwork_RecordLegal_Path"], namespace)
         if recordLegal_root is not None:
-            return RecordLegal(recordLegal_root)
+            self.recordLegal = RecordLegal(recordLegal_root)
         else:
-            return None
+            self.recordLegal = None
 
     def _parse_resource(self):
-        allresources = []
+        self.resources = []
 
         for resource in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
-            allresources.append(Resource(resource))
+            self.resources.append(Resource(resource))
 
-        return allresources
         # resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
         # if (len(resourceLegal_List) > 0):
         # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()
@@ -193,6 +195,19 @@ class Artwork(JSONEncodable):
         #    pass
         # self.artwork["altName"] = altenames
 
+    def calc_count(self):
+        self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(self.materials) + \
+            len(self.locations) + len(self.resources) + len(self.inscriptions)
+        if self.recordLegal:
+            self.count += 1
+        if self.label:
+            self.count += 1
+        if self.inception:
+            self.count += 1
+
+    def clear(self):
+        del self.lido
+
     def __json_repr__(self):
         json = {
             "id": self.id,
@@ -205,9 +220,10 @@ class Artwork(JSONEncodable):
             "materials": self.materials,
             "types": self.types,
             "genres": self.genres,
-            "locations": self.location,
+            "locations": self.locations,
             "iconographies": self.iconographies,
             "inscriptions": self.inscriptions,
             "inceptions": self.inception,
+            "count": self.count
         }
         return filter_none(json)

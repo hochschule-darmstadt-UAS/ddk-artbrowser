@@ -94,10 +94,10 @@ paths = {
 
     #ICONOGRAPHY
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
-    "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
-    "Icongraphy_Label_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
-    "Icongraphy_Altname_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
-    "Icongraphy_Iconclass_Path": 'lido:subject/lido:subjectConcept/lido:term[last()]',
+    "Iconography_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
+    "Iconography_Label_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
+    "Iconography_Altname_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
+    "Iconography_Iconclass_Path": 'lido:subject/lido:subjectConcept/lido:term[last()]',
 
     #id
     #entityType

@@ -7,16 +7,20 @@ class Measurement:
         self.root = root
         self.displayName = ""
         self.parse()
+        self.clear()
 
     def parse(self):
-        self.displayName = self._parse_displayName()
+        self._parse_displayName()
 
     def _parse_displayName(self):
         displayName = self.root.find(paths["Measurement_DisplayName_Path"], namespace)
         if displayName is not None:
-            return displayName.text
+            self.displayName = displayName.text
+        else:
+            self.displayName = ""
 
-        return ""
+    def clear(self):
+        del self.root
 
     def __json_repr__(self):
         json = {

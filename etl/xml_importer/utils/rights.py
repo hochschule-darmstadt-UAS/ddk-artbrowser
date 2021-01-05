@@ -9,6 +9,7 @@ class Rights:
         self.root = root
         self.types = self._parse_types()
         self.holders = self._parse_holders()
+        self.clear()
 
     def _parse_types(self):
         rights_type = self.root.find(paths['Rights_Type_Path'], namespace)
@@ -23,6 +24,9 @@ class Rights:
             return SourceID(rights_holder, term_path='lido:legalBodyName/lido:appellationValue')
         else:
             return None
+
+    def clear(self):
+        del self.root
 
     def __json_repr__(self):
         json = {

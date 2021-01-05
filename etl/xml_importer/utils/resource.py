@@ -13,6 +13,7 @@ class Resource:
         self.resourceDateTaken = self._parse_resourceDateTaken()
         self.linkResource = self._parse_linkResource()
         self.photographer = self._parse_photographer()
+        self.clear()
 
     def _parse_resourceID(self):
         id_root = self.root.find(paths["Resource_resourceID_Path"], namespace)
@@ -47,6 +48,9 @@ class Resource:
         resource_photographer_root = self.root.find(paths["Resource_Photographer_Path"], namespace)
         if resource_photographer_root is not None:
             return resource_photographer_root.text
+
+    def clear(self):
+        del self.root
 
     def __json_repr__(self):
         json = {

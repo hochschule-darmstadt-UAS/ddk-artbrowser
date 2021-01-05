@@ -9,7 +9,7 @@ class Iconography(JSONEncodable):
     def __init__(self, root):
         self.root = root
         self.entity_type = 'iconography'
-        self.id = self._parse_id()
+        self._parse_id()
 
         self.label = ""
         self.iconclass = ""
@@ -22,41 +22,43 @@ class Iconography(JSONEncodable):
         # 25H13 -->25H13
         # 61B2(...)11(+51) -->61B2(...)11(+51)
 
-        id_root = self.root.find(paths["Icongraphy_Id_Path"], namespace)
+        id_root = self.root.find(paths["Iconography_Id_Path"], namespace)
         if id_root is not None:
             id = id_root.text.split('/')[-1]
             integer = id.find(')')
             if integer > 0:
                 id = id[:integer+1]
-            return sanitize_id(id)
-        return ""
+            self.id = sanitize_id(id)
+        else:
+            self.id = ""
 
     def parse(self):
-        self.source_ids = self._parse_source_ids()
-        self.label = self._parse_label()
-        self.iconclass = self._parse_iconclass()
+        self._parse_source_ids()
+        self._parse_label()
+        self._parse_iconclass()
 
     def _parse_label(self):
-        label_root = self.root.find(paths["Icongraphy_Label_Path"], namespace)
+        label_root = self.root.find(paths["Iconography_Label_Path"], namespace)
         if label_root is not None:
-            return sanitize(label_root.text)
+            self.label = sanitize(label_root.text)
         else:
-            return ""
+            self.label = ""
 
     def _parse_iconclass(self):
-        iconclass_root = self.root.find(paths["Icongraphy_Iconclass_Path"], namespace)
+        iconclass_root = self.root.find(paths["Iconography_Iconclass_Path"], namespace)
         if iconclass_root is not None:
-            return iconclass_root.text
+            self.iconclass = iconclass_root.text
         else:
-            return ""
+            self.iconclass = ""
 
     def _parse_source_ids(self):
-        source_ids = []
-        for source_id in self.root.findall(paths["Icongraphy_Id_Path"], namespace):
+        self.source_ids = []
+        for source_id in self.root.findall(paths["Iconography_Id_Path"], namespace):
             concept = SourceID(source_id)
-            source_ids.append(concept)
+            self.source_ids.append(concept)
 
-        return source_ids
+    def clear(self):
+        del self.root
 
     def __json_repr__(self):
         json = {

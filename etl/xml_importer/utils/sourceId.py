@@ -15,6 +15,8 @@ class SourceID:
             self.source = self._parse_source()
         self.terms = self._parse_terms()
 
+        self.clear()
+
     def _parse_id(self):
         id = sanitize_id(self.root.text)
         return id
@@ -36,6 +38,9 @@ class SourceID:
             terms.append(term)
 
         return terms
+
+    def clear(self):
+        del self.root
 
     def __json_repr__(self):
         json = {
