@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     branches:
       - staging
-  #push:
-  #  branches:
-  #    - staging
+  push:
+    branches:
+      - staging
 
 jobs:
   deploy:
