@@ -27,5 +27,6 @@ jobs:
           path: app/dist/browser/de
           remote_path: ${{ secrets.DEPLOYMENT_PATH }}
           remote_host: ${{ secrets.DEPLOYMENT_SERVER_STAGING }}
+          remote_port: ${{ secrets.DEPLOYMENT_SERVER_STAGING_SSH_PORT }} 
           remote_user: ${{ secrets.DEPLOYMENT_USER }}
           remote_key: ${{ secrets.DEPLOYMENT_KEY }}
