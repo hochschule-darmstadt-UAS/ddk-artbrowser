@@ -94,9 +94,8 @@ export class DataService {
    * @param type if specified, it is assured that the returned entity has this entityType
    */
   public async findChildArtworksByIconography(iconclass: string, type?: EntityType): Promise<Artwork[]> {
-    const response = await this.http.get(this.searchEndPoint + '?q=iconographies:' + iconclass + '*').toPromise();
-    let entities = await this.filterData<Artwork>(response, type);
-    entities.forEach(entity => DataService.setTypes(entity));
+    const body = bodyBuilder().query('wildcard', 'iconographies', iconclass + '*');
+    let entities = await this.performQuery<Artwork>(body);
 
     /** Remove artwork if it belongs to the current iconclass - only return child iconclass-artworks*/
     entities = entities.filter(artwork => {
