@@ -70,11 +70,15 @@ export class IconographyComponent implements OnInit {
       
       /** load current page iconography slider items */
       this.sliderItemsCurrentIconography = await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]);
+      this.sliderItemsCurrentIconography = this.sliderItemsCurrentIconography.filter(artwork => {
+        return artwork.iconographies.find(iconography => iconography === this.notation);
+      });
+
       if(this.sliderItemsCurrentIconography.length > 0) {
         this.sliderItemsCurrentIconography = shuffle(this.sliderItemsCurrentIconography);
         this.showCurrentIconographyArtworks = true;
       } else {
-        this.showCurrentIconographyArtworks = false;
+        this.showCurrentIconographyArtworks = false;  
       }
       
       /** load child iconography slider items */
