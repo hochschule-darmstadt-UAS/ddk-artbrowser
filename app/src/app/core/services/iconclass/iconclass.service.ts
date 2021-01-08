@@ -1,6 +1,6 @@
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { iconclassEnvironment } from '../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { Iconography } from '../../../shared/models/iconography.interface';
 import 'rxjs/add/operator/map';
@@ -33,7 +33,7 @@ export class IconclassService {
 
   public getIconclassListByNotation(notations: string[]): Observable<Iconography[]> {
     notations = notations.map(notation => encodeURI(notation));
-    const uri = iconclassEnvironment.apiURI + '/?notation=' + notations.join('&notation=');
+    const uri = environment.iconclassBase + '/?notation=' + notations.join('&notation=');
     return this.http.get(uri).map((response: Array<any>) => {
       if (!response.length) {
         throw throwError('Response was empty!');

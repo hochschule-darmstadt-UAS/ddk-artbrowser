@@ -13,7 +13,7 @@
       <app-badge id="badge-{{ entity.id }}" *ngFor="let entity of values; index as i" [entity]="entity"></app-badge>
     </p>
 
-    <p *ngIf="sourceID" class="mb-1 add-padding sourceid notchip">
+    <p *ngIf="sourceID?.length" class="mb-1 add-padding sourceid notchip">
       <a *ngFor="let sID of sourceID" href="{{ sID.id }}" target="_blank">{{ sID.label }}</a>
     </p>
   </div>

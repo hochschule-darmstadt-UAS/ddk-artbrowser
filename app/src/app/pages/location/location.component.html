@@ -3,18 +3,21 @@
     <div class="col-sm-7" *ngIf="location">
       <app-title [entity]="location"></app-title>
 
-      <app-information i18n-label="Inventory Nr label@@inventorynr" label="Inventory Nr" [value]="location?.inventoryNumber"></app-information>
+      <app-information *ngIf="location?.inventoryNumber" i18n-label="Inventory Nr label@@inventorynr"
+                       label="Inventory Nr" [value]="location?.inventoryNumber"></app-information>
 
       <div>
         <app-collapse>
-          <app-information i18n-label="Location label@@location" label="Location" [value]="location?.placeLabel"></app-information>
-          <app-information i18n-label="Links label@@links" label="Links" [sourceID]="location?.sourceID"></app-information>
+          <app-information *ngIf="location?.placeLabel" i18n-label="Location label@@location" label="Location"
+                           [value]="location?.placeLabel"></app-information>
+          <app-information *ngIf="location?.sourceID?.length" i18n-label="Links label@@links" label="Links"
+                           [sourceID]="location?.sourceID"></app-information>
         </app-collapse>
       </div>
     </div>
 
-    <div class="col-sm-5 img" *ngIf="location?.image">
-      <img class="img-fluid rounded-circle" src="{{ location?.imageSmall }}" alt="" />
+    <div class="col-sm-5 img" *ngIf="location?.imageMedium">
+      <img class="img-fluid rounded-circle" src="{{ location?.imageMedium }}" alt="" />
     </div>
   </div>
   <span class="artworks-amount">{{ location?.count }}</span>

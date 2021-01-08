@@ -13,7 +13,8 @@
     <div *ngIf="thumbnails?.length > 1" class="row pb-2 justify-content-md-center text-muted">
       <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
       <span class="ml-1" *ngIf="photographyInformation?.length"
-            i18n="Photography descriptor@@photography">Photography:</span><span class="ml-1 mr-1">{{ photographyInformation }}</span>
+            i18n="Photography descriptor@@photography">Photography:</span><span
+      class="ml-1 mr-1">{{ photographyInformation }}</span>
     </div>
     <div *ngIf="thumbnails?.length > 1" class="row justify-content-md-center">
       <div class="col col-lg-6">
@@ -29,10 +30,11 @@
   <div class="row pt-3 pb-3 border-bottom" *ngIf="artwork">
     <div class="col-sm-12">
       <app-title [entity]="artwork"></app-title>
-      <app-information i18n-label="Artist label@@artist" label="Artist" [values]="artwork?.artists"></app-information>
-      <app-information i18n-label="Location label@@location" label="Location"
+      <app-information *ngIf="artwork?.artists?.length" i18n-label="Artist label@@artist" label="Artist"
+                       [values]="artwork?.artists"></app-information>
+      <app-information *ngIf="artwork?.locations?.length" i18n-label="Location label@@location" label="Location"
                        [values]="artwork?.locations"></app-information>
-      <app-information i18n-label="Inception label@@inception" label="Inception"
+      <app-information *ngIf="artwork?.inception" i18n-label="Inception label@@inception" label="Inception"
                        [value]="artwork?.inception"></app-information>
       <!--
         Check the length of attributes "genres", "materials" or "types", if one of them not empty
@@ -41,12 +43,15 @@
       <div
         *ngIf="artwork?.genres?.length || artwork?.materials?.length || artwork?.types?.length || artwork?.measurements">
         <app-collapse>
-          <app-information i18n-label="Genres label@@genre" label="Genre" [values]="artwork?.genres"></app-information>
-          <app-information i18n-label="Materials label@@material" label="Material"
+          <app-information *ngIf="artwork?.genres?.length" i18n-label="Genres label@@genre" label="Genre"
+                           [values]="artwork?.genres"></app-information>
+          <app-information *ngIf="artwork?.materials?.length" i18n-label="Materials label@@material" label="Material"
                            [values]="artwork?.materials"></app-information>
-          <app-information i18n-label="Types label@@type" label="Types" [values]="artwork?.types"></app-information>
-          <app-information i18n-label="Iconography label@@iconography" [values]="artwork?.iconographies"
-                         label="Iconography"></app-information>
+          <app-information *ngIf="artwork?.types?.length" i18n-label="Types label@@type" label="Types"
+                           [values]="artwork?.types"></app-information>
+          <app-information *ngIf="artwork?.iconographies?.length" i18n-label="Iconography label@@iconography"
+                           [values]="artwork?.iconographies"
+                           label="Iconography"></app-information>
           <app-information *ngIf="artwork?.measurements?.length" i18n-label="Dimensions label@@dimension"
                            label="Dimension" [value]="artwork?.measurements[0].displayName"></app-information>
           <!-- TODO: implement dimensions <app-dimensions *ngIf="artwork" [artwork]="artwork"></app-dimensions>-->
@@ -163,11 +168,11 @@
     Modal for page overlay when enlarging image, shown when "modalIsVisible" is set to true
   -->
   <div class="modal" *ngIf="modalIsVisible" id="img-modal">
-    <span class="close" (click)="closeModal()">&times;</span>
+    <button class="close" (click)="closeModal()"><span class="fas fa-times"></span></button>
     <!-- Zoom in and out functionality, see package ngx-image-viewer -->
     <div class="modal-content my-auto">
       <ngx-image-viewer
-        [src]="[artwork?.resources[imageIndex].image]"
+      [src]="largeImages"
         [config]="{
           allowFullscreen: false,
           zoomFactor: 0.1,
@@ -178,11 +183,21 @@
             zoomOut: true,
             rotateClockwise: false,
             rotateCounterClockwise: false,
-            next: false,
-            prev: false
-          }
+            next: largeImages?.length > 1,
+            prev: largeImages?.length > 1
+          },
+          customBtns:[{name: 'link', icon: 'fa fa-info'}]
         }"
+        [(index)]="imageIndex"
+        (customEvent)="handleInfoEvent($event)"
+        (indexChange)="imageChangedHandler()"
       ></ngx-image-viewer>
     </div>
+  </div>
+  
+  <div id="snackbar" *ngIf="infoVisible">
+    <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
+    <span class="ml-1" *ngIf="photographyInformation?.length"
+          i18n="Photography descriptor@@photography">Photography:</span><span class="ml-1 mr-1">{{ photographyInformation }}</span>
   </div>
 </div>

@@ -1,41 +1,64 @@
-from etl.xml_importer.parseLido import sanitize_location
+from etl.xml_importer.parseLido import sanitize_location, sanitize, filter_none
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import namespace, paths
+from etl.xml_importer.encoding import JSONEncodable
 
-class Location():
+
+class Location(JSONEncodable):
 
     def __init__(self, root):
         self.root = root
-        self.id = self._parse_id()
+        self.entity_type = 'location'
+        self._parse_id()
+
+        self.label = ""
+        self.source_ids = []
+        self.placeLabel = ""
 
     def _parse_id(self):
-        location_id = self.root.find(paths["Location_Label_Path"], namespace).text
-        return sanitize_location(location_id)
+        # The location id is either the label or the place label
+        self._parse_label()
+        if self.label == "":
+            self._parse_placeLabel()
+            location_id = self.placeLabel
+        else:
+            location_id = self.label
+
+        self.id = sanitize_location(location_id)
 
     def parse(self):
-        self.entity_type = 'Location'
-        self.label= self.root.find(paths["Location_Label_Path"], namespace).text
-        self.source_ids = []
-        self.placeLabel = self.root.find(paths["Location_PlaceLabel_Path"], namespace).text
+        self._parse_label()
+        self._parse_placeLabel()
+        self._parse_source_ids()
 
+    def _parse_label(self):
+        label_root = self.root.find(paths["Location_Label_Path"], namespace)
+        if label_root is not None:
+            self.label = sanitize_location(label_root.text)
+        else:
+            self.label = ""
+
+    def _parse_placeLabel(self):
+        place_label_root = self.root.find(paths["Location_PlaceLabel_Path"], namespace)
+        if place_label_root is not None:
+            self.placeLabel = sanitize(place_label_root.text)
+        else:
+            self.placeLabel = ""
+
+    def _parse_source_ids(self):
         for source_id_root in self.root.findall(paths["Location_PlaceID_Path"], namespace):
             source_id = SourceID(source_id_root)
             self.source_ids.append(source_id)
 
+    def clear(self):
+        del self.root
+
     def __json_repr__(self):
-        return {
+        json = {
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
-            "sourceID": self.source_ids,
+            "sourceIDs": self.source_ids,
             "placeLabel": self.placeLabel,
         }
-
-#id
-#entityType string
-#name string
-#altNames string[] 3
-#inventoryNumber string 2
-#placeID SourceID[]
-#placeName  string[]
-#placeAltNames string[] 3
+        return filter_none(json)

@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Entity } from '../../models/models';
-import { SourceID, SourceToLabel } from '../../models/utils';
+import { SourceID } from '../../models/inlineInterfaces';
+import { SourceToLabel } from '../../../core/services/ddk.service';
 
 @Component({
   selector: 'app-information',
@@ -37,7 +38,10 @@ export class InformationComponent implements OnChanges {
    * This Method sets the label of sourceID
    */
   handleSourceIDArray(sIDs: SourceID[]) {
-    sIDs.filter(sID => Object.keys(SourceToLabel).includes(sID.source)).map(sID => sID.label = SourceToLabel[sID.source]);
+    if (sIDs) {
+      sIDs.filter(sID => Object.keys(SourceToLabel).includes(sID.source))
+        .map(sID => sID.label = SourceToLabel[sID.source]);
+    }
   }
 
   /**

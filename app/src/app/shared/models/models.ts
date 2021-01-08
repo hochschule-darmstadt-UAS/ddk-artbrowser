@@ -7,4 +7,4 @@ export { Location } from './location.interface';
 export { Material } from './material.interface';
 export { Type } from './type.interface';
 export { Iconography } from './iconography.interface';
-export { Resource, RecordLegal, Measurement, Rights, SourceID } from './utils';
+export { Resource, RecordLegal, Measurement, Rights, SourceID } from './inlineInterfaces';

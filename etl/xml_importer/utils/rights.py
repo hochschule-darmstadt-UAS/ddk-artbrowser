@@ -1,5 +1,6 @@
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
+from etl.xml_importer.parseLido import filter_none
 
 
 class Rights:
@@ -8,6 +9,7 @@ class Rights:
         self.root = root
         self.types = self._parse_types()
         self.holders = self._parse_holders()
+        self.clear()
 
     def _parse_types(self):
         rights_type = self.root.find(paths['Rights_Type_Path'], namespace)
@@ -23,8 +25,12 @@ class Rights:
         else:
             return None
 
+    def clear(self):
+        del self.root
+
     def __json_repr__(self):
-        return {
+        json = {
             "rightsType": self.types,
             "rightsHolder": self.holders,
         }
+        return filter_none(json)

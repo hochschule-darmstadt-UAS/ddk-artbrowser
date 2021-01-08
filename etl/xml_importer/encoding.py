@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABCMeta
 import json
 
+
 # This interface should be implemented by all entity and utility classes
 class JSONEncodable:
     __metaclass__ = ABCMeta

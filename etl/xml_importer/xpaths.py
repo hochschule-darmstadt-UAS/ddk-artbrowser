@@ -29,7 +29,6 @@ paths = {
     # LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_Label_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
-    "Location_EntityType_Path": '',
 
     "Location_PlaceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
     "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Name und alte_Name haben gleuchen Path
@@ -95,10 +94,10 @@ paths = {
 
     #ICONOGRAPHY
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet',
-    "Icongraphy_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
-    "Icongraphy_Label_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
-    "Icongraphy_Altname_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
-    "Icongraphy_Iconclass_Path": 'lido:subject/lido:subjectConcept/lido:term[last()]',
+    "Iconography_Id_Path": 'lido:subject/lido:subjectConcept/lido:conceptID[@lido:source]',
+    "Iconography_Label_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:pref="preferred"]',
+    "Iconography_Altname_Path": 'lido:subject/lido:subjectConcept/lido:term[@lido:addedSearchTerm="yes"]',
+    "Iconography_Iconclass_Path": 'lido:subject/lido:subjectConcept/lido:term[last()]',
 
     #id
     #entityType
@@ -137,12 +136,12 @@ paths = {
 
     #RESOURCE
     "Artwork_Resource_Path": 'lido:administrativeMetadata/lido:resourceWrap/lido:resourceSet',
-    "Artwork_Resource_resourceID_Path": 'lido:resourceID',
-    "Artwork_Resource_resourceType_Path": 'lido:resourceType/lido:term',
-    "Artwork_Resource_Rights_Path": 'lido:rightsResource',
-    "Artwork_Resource_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
-    "Artwork_Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
-    "Artwork_Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
+    "Resource_resourceID_Path": 'lido:resourceID',
+    "Resource_resourceType_Path": 'lido:resourceType/lido:term',
+    "Resource_Rights_Path": 'lido:rightsResource',
+    "Resource_ResourceDateTaken_Path": 'lido:resourceDateTaken/lido:displayDate',
+    "Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
+    "Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
 
 
 

@@ -4,14 +4,15 @@
       <app-title [entity]="iconclassData"></app-title>
       <span class="subtitle mb-3 text-muted">{{ iconclassData.text[this.ISO_639_1_LOCALE || 'de'] }}</span>
 
-      <app-information #appInfo i18n-label="hierarchy label@@iconclass_hierarchy" label="Iconclass Hierarchy" [values]="hierarchy"></app-information>
-      <app-collapse *ngIf="children?.length" class="children" i18n-label="hierarchy children collapse@@iconclass_children" heading="Children">
+      <app-information *ngIf="hierarchy?.length" i18n-label="hierarchy label@@iconclass_hierarchy"
+                       label="Iconclass Hierarchy" [values]="hierarchy"></app-information>
+      <app-collapse *ngIf="children?.length" class="children"
+                    i18n-heading="hierarchy children collapse@@iconclass_children" heading="Children">
         <app-information [values]="children"></app-information>
       </app-collapse>
-      <app-information
-        i18n-label="Inception label@@inception"
-        label="Inception"
-        [value]="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en'].join(', ')"
+      <app-information *ngIf="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en']?.length"
+                       i18n-label="Inception label@@inception" label="Inception"
+                       [value]="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en'].join(', ')"
       ></app-information>
     </div>
   </div>
