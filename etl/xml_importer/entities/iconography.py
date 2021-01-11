@@ -25,10 +25,7 @@ class Iconography(JSONEncodable):
         id_root = self.root.find(paths["Iconography_Id_Path"], namespace)
         if id_root is not None:
             id = id_root.text.split('/')[-1]
-            integer = id.find(')')
-            if integer > 0:
-                id = id[:integer+1]
-            self.id = sanitize_id(id)
+            self.id = id
         else:
             self.id = ""
 
