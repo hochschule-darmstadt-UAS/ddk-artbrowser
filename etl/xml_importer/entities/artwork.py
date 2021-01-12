@@ -145,6 +145,10 @@ class Artwork(JSONEncodable):
         self.iconographies = []
         for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
             iconography = Iconography(iconographyRoot)
+            # ignore iconographies without id (e.g. merged_lido_1.xml, line 6118)
+            if iconography.id == "":
+                continue
+
             self.iconographies.append(iconography.id)
 
             if iconography.id not in iconographies:

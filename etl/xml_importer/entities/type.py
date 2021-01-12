@@ -20,9 +20,12 @@ class Type(JSONEncodable):
 
     def _parse_id(self):
         all_type_ids = self.root.findall(paths["Type_ID_Path"], namespace)
-        id = get_id_by_prio(all_type_ids)
-
-        self.id = sanitize_id(id)
+        if len(all_type_ids) > 0:
+            id = get_id_by_prio(all_type_ids)
+            self.id = sanitize_id(id)
+        else:
+            self._parse_label()
+            self.id = self.label
 
     def parse(self):
         self._parse_label()
