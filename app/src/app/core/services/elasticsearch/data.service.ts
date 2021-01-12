@@ -82,7 +82,8 @@ export class DataService {
       .size(count)
       .sort(defaultSortField, 'desc')
       .queryMinimumShouldMatch(1, true)
-      .query('match', 'entityType', EntityType.ARTWORK);
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('prefix', 'resources.linkResource', 'http');
     _.each(ids, id => body.orQuery('match', usePlural(type), id));
     return this.performQuery<Artwork>(body);
   }
@@ -204,7 +205,9 @@ export class DataService {
   private async filterData<T>(data: any, filterBy?: EntityType): Promise<T[]> {
     const entities: any = [];
     data.hits.hits.forEach((val) => {
-      if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
+      if ((!val._index || val._index === this.indexName)
+        && (!filterBy || (filterBy && val._source.entityType === filterBy))
+        && (val._source.entityType !== EntityType.ARTWORK || val._source.resources.length)) {
         entities.push(this.addThumbnails(val._source));
       }
     });
@@ -257,5 +260,5 @@ The performed es-query did not yield any results. This might result in strange b
 
 If you encounter any such issues please consider opening a bug report: https://github.com/hochschule-darmstadt/openartbrowser/issues/new?assignees=&labels=&template=bug_report.md&title=
 
-Query: ${query.toString()}
+Query: ${JSON.stringify(query.build())}
 `;

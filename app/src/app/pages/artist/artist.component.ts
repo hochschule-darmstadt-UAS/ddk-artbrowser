@@ -43,32 +43,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => {
         this.sliderItems = shuffle(artworks);
-        // --- TODO: REMOVE THIS SAMPLE ---
-        this.sliderItems.push({
-          ...this.sliderItems[0],
-          id: this.sliderItems[0].id + '1',
-          // @ts-ignore
-          inception: 'Ende 8. Jahrhundert'
-        });
-        this.sliderItems.push({
-          ...this.sliderItems[0],
-          id: this.sliderItems[0].id + '2',
-          // @ts-ignore
-          inception: '1253.09.06'
-        });
-        this.sliderItems.push({
-          ...this.sliderItems[0],
-          id: this.sliderItems[0].id + '3',
-          // @ts-ignore
-          inception: 'republikanisch'
-        });
-        this.sliderItems.push({
-          ...this.sliderItems[0],
-          id: this.sliderItems[0].id + '4',
-          // @ts-ignore
-          inception: 'letztes Viertel 12. Jahrhundert'
-        });
-        // --------------------------------
       });
     });
   }

@@ -12,7 +12,7 @@ export interface Entity {
   count: number;
   rank: number;
   route: string;
-  sourceID?: Partial<SourceID>[];
+  sourceIDs?: Partial<SourceID>[];
 }
 
 export type Iconclass = string;

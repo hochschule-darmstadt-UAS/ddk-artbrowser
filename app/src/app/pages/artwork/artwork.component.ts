@@ -126,25 +126,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         this.loadTabs();
       }
 
-      // --- TODO: REMOVE THIS SAMPLE ---
-      this.artwork.resources.push({
-        image: 'http://previous.bildindex.de/bilder/d/fm1563345',
-        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563345'
-      });
-      this.artwork.resources.push({
-        image: 'http://previous.bildindex.de/bilder/d/fm1563251',
-        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563251'
-      });
-      this.artwork.resources.push({
-        image: 'http://previous.bildindex.de/bilder/d/fm1563245',
-        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1563245'
-      });
-      this.artwork.resources.push({
-        image: 'http://previous.bildindex.de/bilder/d/fm1522245',
-        imageSmall: 'http://previous.bildindex.de/bilder/t/fm1522245'
-      });
-      // ------------------------------
-
       this.artwork.resources.forEach(res => {
         this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
         this.largeImages.push(res.image);

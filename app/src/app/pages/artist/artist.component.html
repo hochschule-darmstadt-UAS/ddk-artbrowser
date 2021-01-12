@@ -16,8 +16,8 @@
                            [value]="artist?.nationality"></app-information>
           <app-information *ngIf="artist?.roles?.length" i18n-label="Roles label@@roles" label="Roles"
                            [value]="artist.roles.join(', ')"></app-information>
-          <app-information *ngIf="artist?.sourceID?.length" i18n-label="Links label@@links" label="Links"
-                           [sourceID]="artist?.sourceID"></app-information>
+          <app-information *ngIf="artist?.sourceIDs?.length" i18n-label="Links label@@links" label="Links"
+                           [sourceID]="artist?.sourceIDs"></app-information>
         </app-collapse>
       </div>
     </div>
