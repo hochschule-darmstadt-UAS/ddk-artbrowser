@@ -18,8 +18,8 @@
     </div>
     <div *ngIf="thumbnails?.length > 1" class="row justify-content-md-center">
       <div class="col col-lg-6">
-        <ng-image-slider [showArrow]="thumbnails?.length > 3" [infinite]="true"
-                         [imageSize]="{width: 100, height: 60, space: 3}" [animationSpeed]="0.3"
+        <ng-image-slider [showArrow]="thumbnails?.length > 3" [infinite]="false"
+                         [imageSize]="{width: 100, height: 60, space: 3}" [animationSpeed]="0.1"
                          [imagePopup]="false"
                          (imageClick)="thumbnailClicked($event)" [manageImageRatio]="true"
                          [images]="thumbnails"></ng-image-slider>
@@ -194,7 +194,7 @@
       ></ngx-image-viewer>
     </div>
   </div>
-  
+
   <div id="snackbar" *ngIf="infoVisible">
     <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
     <span class="ml-1" *ngIf="photographyInformation?.length"

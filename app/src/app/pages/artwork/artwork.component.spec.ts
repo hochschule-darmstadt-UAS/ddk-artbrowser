@@ -13,6 +13,7 @@ import { CollapseComponent } from 'src/app/shared/components/collapse/collapse.c
 import { InformationComponent } from '../../shared/components/information/information.component';
 import { TitleComponent } from 'src/app/shared/components/title/title.component';
 import { DimensionsComponent } from 'src/app/shared/components/dimensions/dimensions.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 describe('ArtworkComponent', () => {
   let component: ArtworkComponent;
@@ -20,7 +21,11 @@ describe('ArtworkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NgbModule, HttpClientModule, ImageViewerModule.forRoot(), RouterModule.forRoot([])],
+      imports: [NgbModule,
+        HttpClientModule,
+        ImageViewerModule.forRoot(),
+        RouterModule.forRoot([]),
+        NgImageSliderModule],
       declarations: [
         ArtworkComponent,
         SlideComponent,
@@ -29,7 +34,7 @@ describe('ArtworkComponent', () => {
         TitleComponent,
         InformationComponent,
         DimensionsComponent,
-        CollapseComponent,
+        CollapseComponent
       ],
       providers: [DataService]
     }).compileComponents();
