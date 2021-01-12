@@ -68,7 +68,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
           // @ts-ignore
           inception: 'letztes Viertel 12. Jahrhundert'
         });
-        console.log(this.sliderItems);
         // --------------------------------
       });
     });
