@@ -1,4 +1,5 @@
 import os
+from operator import attrgetter
 import lxml.etree
 from etl.xml_importer.entities.artwork import Artwork
 import json
@@ -35,6 +36,12 @@ def rank_artworks(lim_i):
         os.remove('output/artworks_{}.temp.json'.format(i))
 
 
+def rank_entities(entities: dict):
+    max_count = max(entities.values(), key=attrgetter('count')).count
+    for id, entity in entities.items():
+        entity.rank = entity.count / max_count
+
+
 def fast_iter(context, func, *args, **kwargs):
     """
     http://lxml.de/parsing.html#modifying-the-tree
@@ -66,33 +73,43 @@ def parse_artwork(elem):
 if __name__ == '__main__':
     namespace = {'lido': 'http://www.lido-schema.org'}
 
-    num_of_files = 41
+    num_of_files = 1
     for i in range(1, num_of_files+1):
         print("Processing file ", i)
+        # TODO: Change base path of lidoFile
         lidoFile = '/home/yannick/Downloads/openArtBrowser-Projekt/ddb_20190606/merged_lido_{}.xml'.format(i)
         context = lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',))
         fast_iter(context, parse_artwork)
 
         # to save memory we write the artworks of a single xml file to one artwork_x.temp.json file
-        # these file will be used in the rank_artworks() function afterwards to create the final artwork json files
+        # these files will be used in the rank_artworks() function afterwards to create the final artwork json files
         write_to_json(artworks, "./output/artworks_{}.temp.json".format(i))
         artworks.clear()
 
-    rank_artworks(num_of_files+1)     # count is done in artwork class itself
-    # TODO: Implement count_and_rank_x()
-    # count_and_rank_artists()
-    # count_and_rank_genres()
-    # count_and_rank_iconographies()
-    # count_and_rank_location()
-    # count_and_rank_materials()
-    # count_and_rank_types()
-
+    rank_entities(artists)
     write_to_json(artists, "./output/artists.json")
-    write_to_json(genres, "./output/genres.json")
-    write_to_json(iconographies, "./output/iconographies.json")
-    write_to_json(locations, "./output/locations.json")
-    write_to_json(materials, "./output/materials.json")
-    write_to_json(types, "./output/types.json")
+    artists.clear()
 
+    rank_entities(genres)
+    write_to_json(genres, "./output/genres.json")
+    genres.clear()
+
+    rank_entities(iconographies)
+    write_to_json(iconographies, "./output/iconographies.json")
+    iconographies.clear()
+
+    rank_entities(locations)
+    write_to_json(locations, "./output/locations.json")
+    locations.clear()
+
+    rank_entities(materials)
+    write_to_json(materials, "./output/materials.json")
+    materials.clear()
+
+    rank_entities(types)
+    write_to_json(types, "./output/types.json")
+    types.clear()
+
+    rank_artworks(num_of_files + 1)  # count is done in artwork class itself
 
 

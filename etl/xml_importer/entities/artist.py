@@ -17,10 +17,18 @@ class Artist(JSONEncodable):
         self.birth = ""
         self.death = ""
 
+        self.count = 1
+        self.rank = 0
+
     def _parse_id(self):
         all_artist_ids = self.root.findall(paths["Artist_ID_Path"], namespace)
-        id = get_id_by_prio(all_artist_ids)
-        self.id = sanitize_id(id)
+
+        if len(all_artist_ids) > 0:
+            id = get_id_by_prio(all_artist_ids)
+            self.id = sanitize_id(id)
+        else:
+            self._parse_label()
+            self.id = self.label
 
     def parse(self):
         self._parse_source_ids()
@@ -46,14 +54,14 @@ class Artist(JSONEncodable):
         if birth_date_root is not None:  #Kann ein Artist kein Geburtsdatum haben
             self.birth = birth_date_root.text
         else:
-            self.birth = ''
+            self.birth = None
 
     def _parse_death(self):
         death_date_root = self.root.find(paths["Artist_Death_Path"], namespace)
         if death_date_root is not None:
             self.death = death_date_root.text
         else:
-            self.death = ''
+            self.death = None
 
     def clear(self):
         del self.root
@@ -66,5 +74,7 @@ class Artist(JSONEncodable):
             "sourceIDs": self.source_ids,
             "dateOfBirth": self.birth,
             "dateOfDeath": self.death,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)

@@ -17,7 +17,8 @@ SNAPSHOT_TIMEOUT = 40
 # Some attributes on the elasticsearch have to be explicitly typed
 # Otherwise the sort functionallity doesn't work (e. g. for long datatypes)
 # Each property not mentioned in this Dict will be automatically mapped by elasticsearch
-index_creation_body = {"mappings": {"properties": {"rank": {"type": "float"}}}}
+index_creation_body = {"mappings": {"properties": {"rank": {"type": "float"}, "dateOfBirth": {"type": "text"},
+                                                   "dateOfDeath": {"type": "text"}}}}
 
 
 class DDKElasticsearchClient:

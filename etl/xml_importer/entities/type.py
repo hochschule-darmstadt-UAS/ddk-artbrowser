@@ -15,6 +15,9 @@ class Type(JSONEncodable):
         self.alt_labels = []
         self.source_ids = []
 
+        self.count = 1
+        self.rank = 0
+
     def _parse_id(self):
         all_type_ids = self.root.findall(paths["Type_ID_Path"], namespace)
         id = get_id_by_prio(all_type_ids)
@@ -56,5 +59,7 @@ class Type(JSONEncodable):
             "label": self.label,
             "altLabels": self.alt_labels,
             "sourceIDs": self.source_ids,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)

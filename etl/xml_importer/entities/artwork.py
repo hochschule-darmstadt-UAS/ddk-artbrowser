@@ -92,6 +92,9 @@ class Artwork(JSONEncodable):
                 type_.clear()
                 types[type_.id] = type_
                 del type_
+            else:
+                # increase count
+                types[type_.id].count += 1
 
     def _parse_genres(self):
         self.genres = []
@@ -104,6 +107,9 @@ class Artwork(JSONEncodable):
                 genre.clear()
                 genres[genre.id] = genre
                 del genre
+            else:
+                # increase count
+                genres[genre.id].count += 1
 
     def _parse_location(self):
         self.locations = []
@@ -116,6 +122,9 @@ class Artwork(JSONEncodable):
                 location.clear()
                 locations[location.id] = location
                 del location
+            else:
+                # increase count
+                locations[location.id].count += 1
 
     def _parse_artists(self):
         self.artists = []
@@ -128,6 +137,9 @@ class Artwork(JSONEncodable):
                 artist.clear()
                 artists[artist.id] = artist
                 del artist
+            else:
+                # increase count
+                artists[artist.id].count += 1
 
     def _parse_iconographies(self):
         self.iconographies = []
@@ -140,6 +152,9 @@ class Artwork(JSONEncodable):
                 iconography.clear()
                 iconographies[iconography.id] = iconography
                 del iconography
+            else:
+                # increase count
+                iconographies[iconography.id].count += 1
 
     def _parse_materials(self):
         self.materials = []
@@ -152,6 +167,9 @@ class Artwork(JSONEncodable):
                 material.clear()
                 materials[material.id] = material
                 del material
+            else:
+                # increase count
+                materials[material.id].count += 1
 
     ####################################################################################
 

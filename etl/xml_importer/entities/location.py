@@ -15,6 +15,9 @@ class Location(JSONEncodable):
         self.source_ids = []
         self.placeLabel = ""
 
+        self.count = 1
+        self.rank = 0
+
     def _parse_id(self):
         # The location id is either the label or the place label
         self._parse_label()
@@ -60,5 +63,7 @@ class Location(JSONEncodable):
             "label": self.label,
             "sourceIDs": self.source_ids,
             "placeLabel": self.placeLabel,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)

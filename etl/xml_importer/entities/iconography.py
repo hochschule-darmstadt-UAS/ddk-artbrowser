@@ -15,6 +15,9 @@ class Iconography(JSONEncodable):
         self.iconclass = ""
         self.source_ids = []
 
+        self.count = 1
+        self.rank = 0
+
     def _parse_id(self):
         # 11H(Francis)344(+3) -->11H(Francis)
         # 98B(Antiochus%20I)61 -->98B(Antiochus%20I)
@@ -63,5 +66,7 @@ class Iconography(JSONEncodable):
             "entityType": self.entity_type,
             "label": self.label,
             "sourceIDs": self.source_ids,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)

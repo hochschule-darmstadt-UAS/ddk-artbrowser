@@ -14,13 +14,20 @@ class Material(JSONEncodable):
 
         self._parse_id()
 
+        self.count = 1
+        self.rank = 0
+
     def parse(self):
         self._parse_label()
         self._parse_sourceIDs()
 
     def _parse_id(self):
         all_material_ids = self.root.findall(paths["Material_ID_Path"], namespace)
-        self.id = get_id_by_prio(all_material_ids)
+        if len(all_material_ids) > 0:
+            self.id = get_id_by_prio(all_material_ids)
+        else:
+            self._parse_label()
+            self.id = self.label
 
     def _parse_label(self):
         self.label = self.root.findall(paths["Material_name_Path"], namespace)[0].text
@@ -39,5 +46,7 @@ class Material(JSONEncodable):
             "entityType": self.entity_type,
             "label": self.label,
             "sourceIDs": self.source_ids,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)

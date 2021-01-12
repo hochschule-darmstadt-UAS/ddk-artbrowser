@@ -15,6 +15,9 @@ class Genre(JSONEncodable):
         self.source_ids = []
         self.classificationType = ""
 
+        self.count = 1
+        self.rank = 0
+
 
     def _parse_id(self):
         genre_id = self.root.findall(paths["Genre_ID_Path"], namespace)
@@ -46,5 +49,7 @@ class Genre(JSONEncodable):
             "label": self.label,
             "sourceIDs": self.source_ids,
             "classificationType": self.classificationType,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)
