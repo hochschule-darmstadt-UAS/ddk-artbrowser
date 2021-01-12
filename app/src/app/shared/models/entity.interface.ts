@@ -25,7 +25,6 @@ export enum EntityType {
   LOCATION = 'location',
   MATERIAL = 'material',
   MOVEMENT = 'movement',
-  MOTIF = 'motif',
   ICONOGRAPHY = 'iconography',
   TYPE = 'type',
 }

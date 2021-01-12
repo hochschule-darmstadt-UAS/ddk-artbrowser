@@ -30,8 +30,10 @@ export class ArtistComponent implements OnInit, OnDestroy {
 
   /** Toggle bool for displaying either timeline or artworks carousel component */
   showTimelineNotArtworks = true;
+  showTimelineTab = true;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {}
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  }
 
   /** hook that is executed at component initialization */
   ngOnInit() {
@@ -43,6 +45,8 @@ export class ArtistComponent implements OnInit, OnDestroy {
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => {
         this.sliderItems = shuffle(artworks);
+        this.showTimelineTab = !!this.sliderItems.filter(item => item.inception).length;
+        this.showTimelineNotArtworks = this.showTimelineTab;
       });
     });
   }
