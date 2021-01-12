@@ -95,7 +95,15 @@ export class DataService {
    * @param type if specified, it is assured that the returned entity has this entityType
    */
   public async findChildArtworksByIconography(iconclass: string, type?: EntityType): Promise<Artwork[]> {
-    const body = bodyBuilder().query('wildcard', 'iconographies', iconclass + '*');
+    const body = bodyBuilder()
+      .size(400)
+      .sort(defaultSortField, 'desc')
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('regexp', 'iconographies', {
+        value: iconclass + '.*',
+        flags: 'ALL',
+        case_insensitive: true
+      });
     let entities = await this.performQuery<Artwork>(body);
 
     /** Remove artwork if it belongs to the current iconclass - only return child iconclass-artworks*/
