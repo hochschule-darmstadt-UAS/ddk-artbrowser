@@ -1,6 +1,6 @@
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
-from etl.xml_importer.parseLido import sanitize_id, sanitize, filter_none
+from etl.xml_importer.parseLido import sanitize, filter_none
 from etl.xml_importer.encoding import JSONEncodable
 
 
@@ -12,6 +12,7 @@ class Iconography(JSONEncodable):
         self._parse_id()
 
         self.label = ""
+        self.alt_labels = []
         self.iconclass = ""
         self.source_ids = []
 
@@ -38,6 +39,7 @@ class Iconography(JSONEncodable):
     def parse(self):
         self._parse_source_ids()
         self._parse_label()
+        self._parse_alt_labels()
         self._parse_iconclass()
 
     def _parse_label(self):
@@ -46,6 +48,11 @@ class Iconography(JSONEncodable):
             self.label = sanitize(label_root.text)
         else:
             self.label = ""
+
+    def _parse_alt_labels(self):
+        for alt_label_root in self.root.findall(paths['Iconography_Alt_Label_Path'], namespace):
+            alt_label = sanitize(alt_label_root.text)
+            self.alt_labels.append(alt_label)
 
     def _parse_iconclass(self):
         iconclass_root = self.root.find(paths["Iconography_Iconclass_Path"], namespace)
@@ -68,6 +75,7 @@ class Iconography(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
+            "altLabels": self.alt_labels,
             "sourceIDs": self.source_ids,
             "count": self.count,
             "rank": self.rank,
