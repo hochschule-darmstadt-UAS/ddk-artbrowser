@@ -42,44 +42,39 @@ def rank_entities(entities: dict):
         entity.rank = entity.count / max_count
 
 
-def fast_iter(context, func, *args, **kwargs):
-    """
+"""
     http://lxml.de/parsing.html#modifying-the-tree
     Based on Liza Daly's fast_iter
     http://www.ibm.com/developerworks/xml/library/x-hiperfparse/
     See also http://effbot.org/zone/element-iterparse.htm
-    """
-    for event, elem in context:
-        func(elem, *args, **kwargs)
-        # It's safe to call clear() here because no descendants will be
-        # accessed
-        elem.clear()
-        # Also eliminate now-empty references from the root node to elem
-        for ancestor in elem.xpath('ancestor-or-self::*'):
-            while ancestor.getprevious() is not None:
-                del ancestor.getparent()[0]
-    del context
-
-
-def parse_artwork(elem):
-    global artwork_max_count
-    artwork = Artwork(elem)
-    artworks.append(artwork)
-    if artwork.count > artwork_max_count:
-        artwork_max_count = artwork.count
-    del artwork
-
-
+"""
 if __name__ == '__main__':
     namespace = {'lido': 'http://www.lido-schema.org'}
 
-    num_of_files = 1
+    num_of_files = 2
     for i in range(1, num_of_files+1):
         print("Processing file ", i)
         # TODO: Change base path of lidoFile
         lidoFile = '/home/yannick/Downloads/openArtBrowser-Projekt/ddb_20190606/merged_lido_{}.xml'.format(i)
-        context = lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',))
-        fast_iter(context, parse_artwork)
+        for event, elem in lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',)):
+            artwork = Artwork(elem)
+
+            # filter artworks without linkResource (Link to actual picture)
+            linkResources = [r.linkResource for r in artwork.resources]
+            if "".join(linkResources) == "":
+                continue
+
+            artworks.append(artwork)
+            if artwork.count > artwork_max_count:
+                artwork_max_count = artwork.count
+            del artwork
+
+            # It's safe to call clear() here because no descendants will be accessed
+            elem.clear()
+            # Also eliminate now-empty references from the root node to elem
+            for ancestor in elem.xpath('ancestor-or-self::*'):
+                while ancestor.getprevious() is not None:
+                    del ancestor.getparent()[0]
 
         # to save memory we write the artworks of a single xml file to one artwork_x.temp.json file
         # these files will be used in the rank_artworks() function afterwards to create the final artwork json files
