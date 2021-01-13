@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="thumbnails?.length > 1" class="row pb-2 justify-content-md-center text-muted">
+    <div class="row pb-2 justify-content-md-center text-muted">
       <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
       <span class="ml-1" *ngIf="photographyInformation?.length"
             i18n="Photography descriptor@@photography">Photography:</span><span
@@ -154,8 +154,13 @@
                          [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
 
+            <span *ngIf="artwork?.iconographies && (tab.type == 'iconography' || tab.type == 'all')" class="mb-1">
+              <app-badge *ngFor="let iconography of artwork?.iconographies" [entity]="iconography" [isHoverBadge]="true"
+                         [hoveredArtwork]="hoveredArtwork"> </app-badge>
+            </span>
+
             <span *ngIf="artwork?.locations && (tab.type == 'location' || tab.type == 'all')" class="mb-1">
-              <app-badge [entity]="artwork?.locations" [isHoverBadge]="true"
+              <app-badge *ngFor="let location of artwork?.locations" [entity]="location" [isHoverBadge]="true"
                          [hoveredArtwork]="hoveredArtwork"> </app-badge>
             </span>
           </div>
@@ -172,7 +177,7 @@
     <!-- Zoom in and out functionality, see package ngx-image-viewer -->
     <div class="modal-content my-auto">
       <ngx-image-viewer
-      [src]="largeImages"
+        [src]="largeImages"
         [config]="{
           allowFullscreen: false,
           zoomFactor: 0.1,
@@ -198,6 +203,7 @@
   <div id="snackbar" *ngIf="infoVisible">
     <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
     <span class="ml-1" *ngIf="photographyInformation?.length"
-          i18n="Photography descriptor@@photography">Photography:</span><span class="ml-1 mr-1">{{ photographyInformation }}</span>
+          i18n="Photography descriptor@@photography">Photography:</span><span
+    class="ml-1 mr-1">{{ photographyInformation }}</span>
   </div>
 </div>
