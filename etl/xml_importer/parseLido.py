@@ -19,13 +19,13 @@ def sanitize(text: str):
 def sanitize_id(id: str): #TODO: ID-Format definieren, da auch mal Leerzeichen vorkommen können
     id = sanitize(id)
 
-    remove_chars = ["(", ")", ",", "?"]
+    remove_chars = ["(", ")", ";", "?"]
     for char in remove_chars:
         id = id.replace(char, "")
 
     id = id.strip()
 
-    replace_chars = [" "]
+    replace_chars = [" ", ","]
     for char in replace_chars:
         id = id.replace(char, "-")
 
