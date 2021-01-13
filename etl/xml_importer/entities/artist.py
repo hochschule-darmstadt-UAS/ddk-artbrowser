@@ -44,7 +44,7 @@ class Artist(JSONEncodable):
 
         if id is not None:
             # add entity type as id prefix to ensure uniqueness
-            self.id = sanitize_id(self.id)
+            id = sanitize_id(id)
             self.id = self.entity_type + "-" + id
         else:
             self.id = None
