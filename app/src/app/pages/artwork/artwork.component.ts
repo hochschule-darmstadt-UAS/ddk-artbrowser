@@ -104,14 +104,12 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async (params) => {
       /* reset properties */
-      this.artwork = this.hoveredArtwork = this.hoveredArtwork = null;
+      this.artwork = this.hoveredArtwork = null;
+      this.thumbnails = [];
       this.imageHidden = this.modalIsVisible = this.commonTagsCollapsed = false;
       // clears items of all artwork tabs
       this.artworkTabs = this.artworkTabs
         .map((tab: ArtworkTab) => {
-          if (tab.type === ('main_motif' as EntityType)) {
-            return null;
-          }
           return { ...tab, items: [] };
         })
         .filter((tab) => tab !== null);
@@ -121,7 +119,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
       this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
       if (this.artwork) {
-        await this.resolveIds('main_subjects');
         /* load tabs content */
         this.loadTabs();
       }
@@ -133,14 +130,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
 
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     });
-  }
-
-  /**
-   * resolves Ids to actual entities
-   * @param key attribute on this.artwork
-   */
-  async resolveIds(key: string) {
-    this.artwork[key] = await this.dataService.findMultipleById(this.artwork[key] as string[]);
   }
 
   /**
@@ -169,7 +158,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   }
 
   imageChangedHandler() {
-      this.makeImageSubtitle(this.artwork.resources[this.imageIndex])
+    this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
   }
 
   /**
@@ -199,23 +188,22 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     Promise.all(
       /** load related data for each tab  */
       this.artworkTabs.map(async (tab: ArtworkTab) => {
-        if (tab.type === EntityType.ALL || tab.type === ('main_motif' as EntityType)) {
+        if (tab.type === EntityType.ALL) {
           return;
         }
-
         const types = usePlural(tab.type);
 
-        // load entities
-        this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type).then((artists) => {
-          this.artwork[types] = artists;
-        });
+        // load entities / resolve references
+        this.dataService.findMultipleById([].concat(this.artwork[types] as any), tab.type)
+          .then(entities => this.artwork[types] = entities);
         // load related artworks by type
-        return await this.dataService.findArtworksByType(tab.type, [].concat(this.artwork[types] as any)).then((artworks) => {
-          // filters and shuffles main artwork out of tab items,
-          tab.items = shuffle(artworks).filter((artwork) => artwork.id !== this.artwork.id);
-          // put items into 'all' tab
-          allTab.items.push(...tab.items.slice(0, 10));
-        });
+        return await this.dataService.findArtworksByType(tab.type, [].concat(this.artwork[types] as any))
+          .then((artworks) => {
+            // filters and shuffles main artwork out of tab items
+            tab.items = shuffle(artworks).filter((artwork) => artwork.id !== this.artwork.id);
+            // put items into 'all' tab
+            allTab.items.push(...tab.items.slice(0, 10));
+          });
       })
     ).then(
       () =>
@@ -238,8 +226,24 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     });
   }
 
+  @HostListener('document:keyup', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'ArrowRight' && this.artwork.resources.length - 1 > this.imageIndex) {
+      this.imageIndex++;
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+    } else if (event.key === 'ArrowLeft' && this.imageIndex > 0) {
+      this.imageIndex--;
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+    }
+  }
+
+  // Gets triggered when either arrow key is pressed or clicked - therefore interferes with handleKeyboardEvent()
+  arrowClicked() {
+    return;
+  }
+
   thumbnailClicked($event) {
-    if (this.artwork.resources.length > $event) {
+    if (this.artwork.resources.length > $event && this.thumbnails[$event]["image"] !== null) {
       this.imageIndex = $event;
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     }

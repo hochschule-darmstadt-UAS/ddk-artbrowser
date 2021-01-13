@@ -20,7 +20,8 @@ export class EntitiesComponent implements OnInit {
   /** the max number of elements */
   queryCount: number;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {}
+  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     if (this.route.pathFromRoot[1]) {
@@ -71,10 +72,13 @@ export class EntitiesComponent implements OnInit {
   /** fetch new dataset, starting from offset x */
   private getEntities<T extends Entity>(offset: number) {
     this.offset += this.fetchSize;
-    const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+    const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str)
+      .replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     this.getAllEntities<T>(offset).then(entities => {
       entities.forEach(entity => {
-        entity.label = capitalize(entity.label);
+        if (entity.label) {
+          entity.label = capitalize(entity.label);
+        }
         /** If image link is missing, query for random image */
         if (!entity.image) {
           this.setRandomArtwork(entity);
@@ -140,8 +144,8 @@ export class EntitiesComponent implements OnInit {
     this.entities.splice(
       index
         ? this.entities.findIndex(i => {
-            return i ? i.id === item.id : true;
-          })
+          return i ? i.id === item.id : true;
+        })
         : index,
       1
     );

@@ -10,7 +10,8 @@
     </p>
 
     <p *ngIf="values?.length" class="mb-1 add-padding app-information-content-badges">
-      <app-badge id="badge-{{ entity.id }}" *ngFor="let entity of values; index as i" [entity]="entity"></app-badge>
+      <app-badge id="badge-{{ entity.id }}" [maxLabelLength]="badgeMaxLabelLength"
+                 *ngFor="let entity of values; index as i" [entity]="entity"></app-badge>
     </p>
 
     <p *ngIf="sourceID?.length" class="mb-1 add-padding sourceid notchip">

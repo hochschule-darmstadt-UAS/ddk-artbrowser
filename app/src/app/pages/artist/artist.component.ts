@@ -45,7 +45,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => {
         this.sliderItems = shuffle(artworks);
-        this.showTimelineTab = !!this.sliderItems.filter(item => item.inception).length;
+        this.showTimelineTab = !!this.sliderItems.filter(item => item.inception).length; // bool if there are items with inception
         this.showTimelineNotArtworks = this.showTimelineTab;
       });
     });

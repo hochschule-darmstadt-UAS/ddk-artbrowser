@@ -155,8 +155,8 @@ export class DataService {
     });
     _.each(keywords, keyword =>
       body.query('bool', (q) => {
-        return q.orQuery('match', 'label', keyword);
-        // .orQuery('match', 'description', keyword);
+        return q.orQuery('match', 'label', keyword)
+          .orQuery('match', 'altLabels', keyword);
       })
     );
     return this.performQuery(body);
@@ -183,9 +183,11 @@ export class DataService {
    * @param label object label
    */
   public findByLabel(label: string): Promise<any[]> {
+    // TODO: what if more then 200 entities of a single type are found?
     const body = bodyBuilder()
       .orQuery('match', 'label', label)
       .orQuery('wildcard', 'label', '*' + label + '*')
+      .orQuery('wildcard', 'altLabels', label + '*')
       .sort(defaultSortField, 'desc')
       .size(200);
     return this.performQuery(body);
@@ -214,10 +216,10 @@ export class DataService {
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = await this.filterData<T>(response, type);
     // set type specific attributes
-    entities.forEach(entity => this.setTypes(entity));
+    entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
-      console.warn(NoResultsWarning(query));
+      // console.warn(NoResultsWarning(query));
     }
     return entities;
   }
@@ -266,17 +268,6 @@ export class DataService {
       });
     }
     return entity;
-  }
-
-  /**
-   * set type specific attributes
-   * @param entity entity object
-   */
-  private setTypes(entity: any) {
-    if (entity.entityType && entity.id) {
-      entity.route = `/${entity.entityType}/${entity.id}`;
-      entity.icon = EntityIcon[entity.entityType.toUpperCase()];
-    }
   }
 }
 
