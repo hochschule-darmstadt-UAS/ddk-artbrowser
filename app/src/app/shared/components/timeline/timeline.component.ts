@@ -125,6 +125,9 @@ export class TimelineComponent implements OnChanges {
       }
       this.sortItems();
       this.items = this.items.filter(item => item.date);
+      if (!this.items.length) {
+        return;
+      }
       this.onResize();
 
       const beginOfTimeline = +this.items[0].date - (this.items[0].date % this.periodSpan);

@@ -9,20 +9,17 @@ import { SourceToLabel } from '../../../core/services/ddk.service';
   styleUrls: ['./information.component.scss']
 })
 export class InformationComponent implements OnChanges {
-  @Input()
-  label: string;
+  @Input() label: string;
 
-  @Input()
-  value: string;
+  @Input() value: string;
 
-  @Input()
-  isHref: boolean;
+  @Input() isHref: boolean;
 
-  @Input()
-  values: Entity[];
+  @Input() values: Entity[];
 
-  @Input()
-  sourceID: SourceID[];
+  @Input() sourceID: SourceID[];
+
+  @Input() badgeMaxLabelLength = 100;
 
   constructor() {
   }

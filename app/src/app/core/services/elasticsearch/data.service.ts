@@ -82,7 +82,8 @@ export class DataService {
       .size(count)
       .sort(defaultSortField, 'desc')
       .queryMinimumShouldMatch(1, true)
-      .query('match', 'entityType', EntityType.ARTWORK);
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('prefix', 'resources.linkResource', 'http');
     _.each(ids, id => body.orQuery('match', usePlural(type), id));
     return this.performQuery<Artwork>(body);
   }
@@ -129,8 +130,8 @@ export class DataService {
     });
     _.each(keywords, keyword =>
       body.query('bool', (q) => {
-        return q.orQuery('match', 'label', keyword);
-        // .orQuery('match', 'description', keyword);
+        return q.orQuery('match', 'label', keyword)
+          .orQuery('match', 'altLabels', keyword);
       })
     );
     return this.performQuery(body);
@@ -157,9 +158,11 @@ export class DataService {
    * @param label object label
    */
   public findByLabel(label: string): Promise<any[]> {
+    // TODO: what if more then 200 entities of a single type are found?
     const body = bodyBuilder()
       .orQuery('match', 'label', label)
       .orQuery('wildcard', 'label', '*' + label + '*')
+      .orQuery('wildcard', 'altLabels', label + '*')
       .sort(defaultSortField, 'desc')
       .size(200);
     return this.performQuery(body);
@@ -188,10 +191,10 @@ export class DataService {
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = await this.filterData<T>(response, type);
     // set type specific attributes
-    entities.forEach(entity => this.setTypes(entity));
+    entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
-      console.warn(NoResultsWarning(query));
+      // console.warn(NoResultsWarning(query));
     }
     return entities;
   }
@@ -204,7 +207,9 @@ export class DataService {
   private async filterData<T>(data: any, filterBy?: EntityType): Promise<T[]> {
     const entities: any = [];
     data.hits.hits.forEach((val) => {
-      if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
+      if ((!val._index || val._index === this.indexName)
+        && (!filterBy || (filterBy && val._source.entityType === filterBy))
+        && (val._source.entityType !== EntityType.ARTWORK || val._source.resources.length)) {
         entities.push(this.addThumbnails(val._source));
       }
     });
@@ -239,17 +244,6 @@ export class DataService {
     }
     return entity;
   }
-
-  /**
-   * set type specific attributes
-   * @param entity entity object
-   */
-  private setTypes(entity: any) {
-    if (entity.type && entity.id) {
-      entity.route = `/${entity.type}/${entity.id}`;
-      entity.icon = EntityIcon[entity.type.toUpperCase()];
-    }
-  }
 }
 
 const NoResultsWarning = query => `
@@ -257,5 +251,5 @@ The performed es-query did not yield any results. This might result in strange b
 
 If you encounter any such issues please consider opening a bug report: https://github.com/hochschule-darmstadt/openartbrowser/issues/new?assignees=&labels=&template=bug_report.md&title=
 
-Query: ${query.toString()}
+Query: ${JSON.stringify(query.build())}
 `;

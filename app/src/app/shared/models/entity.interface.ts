@@ -12,7 +12,7 @@ export interface Entity {
   count: number;
   rank: number;
   route: string;
-  sourceID?: Partial<SourceID>[];
+  sourceIDs?: Partial<SourceID>[];
 }
 
 export type Iconclass = string;
@@ -25,7 +25,6 @@ export enum EntityType {
   LOCATION = 'location',
   MATERIAL = 'material',
   MOVEMENT = 'movement',
-  MOTIF = 'motif',
   ICONOGRAPHY = 'iconography',
   TYPE = 'type',
 }
