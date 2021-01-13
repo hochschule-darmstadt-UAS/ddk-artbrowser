@@ -158,9 +158,11 @@ export class DataService {
    * @param label object label
    */
   public findByLabel(label: string): Promise<any[]> {
+    // TODO: what if more then 200 entities of a single type are found?
     const body = bodyBuilder()
       .orQuery('match', 'label', label)
       .orQuery('wildcard', 'label', '*' + label + '*')
+      .orQuery('wildcard', 'altLabels', label + '*')
       .sort(defaultSortField, 'desc')
       .size(200);
     return this.performQuery(body);
@@ -192,7 +194,7 @@ export class DataService {
     entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
-      console.warn(NoResultsWarning(query));
+      // console.warn(NoResultsWarning(query));
     }
     return entities;
   }

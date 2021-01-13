@@ -237,14 +237,9 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     }
   }
 
-  arrowClicked(event) {
-    if (event === 'next' && this.artwork.resources.length - 1 > this.imageIndex) {
-      this.imageIndex++;
-      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
-    } else if (event === 'previous' && this.imageIndex > 0) {
-      this.imageIndex--;
-      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
-    }
+  // Gets triggered when either arrow key is pressed or clicked - therefore interferes with handleKeyboardEvent()
+  arrowClicked() {
+    return;
   }
 
   thumbnailClicked($event) {

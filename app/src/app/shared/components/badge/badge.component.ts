@@ -29,7 +29,10 @@ export class BadgeComponent implements OnInit, OnChanges {
   ngOnInit() {
     if (this.entity) {
       this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
-      this.label = this.entity.label || '';
+      // shorten label
+      this.label = this.entity.label ?
+        this.entity.label.length > 120 ? this.entity.label.substr(0, 100) + '...' : this.entity.label
+        : '';
 
       this.tooltip = this.entity.label || null;
       if (this.tooltip) {
