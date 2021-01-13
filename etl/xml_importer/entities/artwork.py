@@ -211,8 +211,11 @@ class Artwork(JSONEncodable):
     def _parse_resource(self):
         self.resources = []
 
-        for resource in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
-            self.resources.append(Resource(resource))
+        for resource_root in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
+            resource = Resource(resource_root)
+            # skip resources without linkResource (actual link to image file)
+            if resource.linkResource != "":
+                self.resources.append(resource)
 
         # resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
         # if (len(resourceLegal_List) > 0):

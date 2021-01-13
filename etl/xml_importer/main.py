@@ -59,9 +59,8 @@ if __name__ == '__main__':
         for event, elem in lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',)):
             artwork = Artwork(elem)
 
-            # filter artworks without linkResource (Link to actual picture)
-            linkResources = [r.linkResource for r in artwork.resources]
-            if "".join(linkResources) == "":
+            # filter artworks without resources (Link to actual picture)
+            if not len(artwork.resources) > 0:
                 continue
 
             artworks.append(artwork)
