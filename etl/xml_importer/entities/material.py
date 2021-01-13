@@ -1,4 +1,4 @@
-from etl.xml_importer.parseLido import get_id_by_prio, filter_none
+from etl.xml_importer.parseLido import get_id_by_prio, filter_none, sanitize_id
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.encoding import JSONEncodable
@@ -28,6 +28,10 @@ class Material(JSONEncodable):
         else:
             self._parse_label()
             self.id = self.label
+
+        # add entity type as id prefix to ensure uniqueness
+        self.id = sanitize_id(self.id)
+        self.id = self.entity_type + "-" + self.id
 
     def _parse_label(self):
         self.label = self.root.findall(paths["Material_name_Path"], namespace)[0].text

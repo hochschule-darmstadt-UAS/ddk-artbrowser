@@ -32,6 +32,9 @@ class Iconography(JSONEncodable):
         else:
             self.id = ""
 
+        # add entity type as id prefix to ensure uniqueness
+        self.id = self.entity_type + "-" + self.id
+
     def parse(self):
         self._parse_source_ids()
         self._parse_label()

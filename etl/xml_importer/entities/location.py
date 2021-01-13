@@ -29,6 +29,9 @@ class Location(JSONEncodable):
 
         self.id = sanitize_location(location_id)
 
+        # add entity type as id prefix to ensure uniqueness
+        self.id = self.entity_type + "-" + self.id
+
     def parse(self):
         self._parse_label()
         self._parse_placeLabel()
@@ -37,7 +40,7 @@ class Location(JSONEncodable):
     def _parse_label(self):
         label_root = self.root.find(paths["Location_Label_Path"], namespace)
         if label_root is not None:
-            self.label = sanitize_location(label_root.text)
+            self.label = sanitize(label_root.text)
         else:
             self.label = ""
 

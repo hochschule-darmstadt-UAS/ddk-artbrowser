@@ -22,10 +22,14 @@ class Type(JSONEncodable):
         all_type_ids = self.root.findall(paths["Type_ID_Path"], namespace)
         if len(all_type_ids) > 0:
             id = get_id_by_prio(all_type_ids)
-            self.id = sanitize_id(id)
+            self.id = id
         else:
             self._parse_label()
             self.id = self.label
+
+        self.id = sanitize_id(self.id)
+        # add entity type as id prefix to ensure uniqueness
+        self.id = self.entity_type + "-" + self.id
 
     def parse(self):
         self._parse_label()
