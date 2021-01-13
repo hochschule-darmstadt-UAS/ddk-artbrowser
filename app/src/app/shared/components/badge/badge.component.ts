@@ -19,6 +19,7 @@ export class BadgeComponent implements OnInit, OnChanges {
   highlight: boolean;
 
   tooltipBreakLimit = 150;
+  @Input() maxLabelLength = 100;
 
   /**
    * When an Entity has been passed to the component
@@ -31,7 +32,7 @@ export class BadgeComponent implements OnInit, OnChanges {
       this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
       // shorten label
       this.label = this.entity.label ?
-        this.entity.label.length > 120 ? this.entity.label.substr(0, 100) + '...' : this.entity.label
+        this.entity.label.length > this.maxLabelLength ? this.entity.label.substr(0, this.maxLabelLength) + '...' : this.entity.label
         : '';
 
       this.tooltip = this.entity.label || null;
