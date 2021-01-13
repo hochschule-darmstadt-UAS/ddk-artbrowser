@@ -237,6 +237,16 @@ export class ArtworkComponent implements OnInit, OnDestroy {
     }
   }
 
+  arrowClicked(event) {
+    if (event === 'next' && this.artwork.resources.length - 1 > this.imageIndex) {
+      this.imageIndex++;
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+    } else if (event === 'previous' && this.imageIndex > 0) {
+      this.imageIndex--;
+      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+    }
+  }
+
   thumbnailClicked($event) {
     if (this.artwork.resources.length > $event) {
       this.imageIndex = $event;

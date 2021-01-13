@@ -20,8 +20,9 @@
       <div class="col col-lg-6">
         <ng-image-slider [showArrow]="thumbnails?.length > 3" [infinite]="false"
                          [imageSize]="{width: 100, height: 60, space: 3}" [animationSpeed]="0.1"
-                         [imagePopup]="false"
-                         (imageClick)="thumbnailClicked($event)" [manageImageRatio]="true"
+                         [imagePopup]="false" [manageImageRatio]="true"
+                         (imageClick)="thumbnailClicked($event)"
+                         (arrowClick)="arrowClicked($event)"
                          [images]="thumbnails"></ng-image-slider>
       </div>
     </div>
