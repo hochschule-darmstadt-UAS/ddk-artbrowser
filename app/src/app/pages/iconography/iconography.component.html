@@ -11,7 +11,7 @@
         <app-information [values]="children"></app-information>
       </app-collapse>
       <app-information *ngIf="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en']?.length"
-                       i18n-label="Inception label@@inception" label="Inception"
+                       i18n-label="Inception label@@iconclass_keywords" label="Keywords"
                        [value]="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en'].join(', ')"
       ></app-information>
     </div>
@@ -22,14 +22,14 @@
       <a class="nav-link" [ngClass]="{ active: showCurrentIconographyArtworks }" data-toggle="tab" href="#current_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
         <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsCurrentIconography?.length }}</span>
-        <ng-container>{{notation}}</ng-container>
+        <ng-container i18n="iconclass artworks@@artworks">artworks</ng-container>
       </a>
     </li>
-    <li class="nav-item" *ngIf="sliderItemsChildrenIconography?.length"> 
+    <li class="nav-item" *ngIf="sliderItemsChildrenIconography?.length">
       <a class="nav-link"[ngClass]="{ active: !showCurrentIconographyArtworks }" data-toggle="tab" href="#child_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
         <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsChildrenIconography?.length }}</span>
-        <ng-container i18n="Children description@@iconclass_children">Children</ng-container>
+        <ng-container i18n="Children description@@iconclass_children">artworks (including subclasses)</ng-container>
       </a>
     </li>
   </ul>
