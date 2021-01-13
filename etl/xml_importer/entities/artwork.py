@@ -59,7 +59,7 @@ class Artwork(JSONEncodable):
         id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
 
-        self.id = id
+        self.id = self.entity_type + "-" + id
 
     def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
@@ -85,6 +85,9 @@ class Artwork(JSONEncodable):
         self.types = []
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
+            if not type_.id:
+                continue
+
             self.types.append(type_.id)
 
             if type_.id not in types:
@@ -100,6 +103,9 @@ class Artwork(JSONEncodable):
         self.genres = []
         for genreRoot in self.lido.findall(paths["Artwork_Genre_Path"], namespace):
             genre = Genre(genreRoot)
+            if not genre.id:
+                continue
+
             self.genres.append(genre.id)
 
             if genre.id not in genres:
@@ -115,6 +121,9 @@ class Artwork(JSONEncodable):
         self.locations = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location = Location(locationRoot)
+            if not location.id:
+                continue
+
             self.locations.append(location.id)
 
             if location.id not in locations:
@@ -130,6 +139,9 @@ class Artwork(JSONEncodable):
         self.artists = []
         for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
             artist = Artist(artistRoot)
+            if not artist.id:
+                continue
+
             self.artists.append(artist.id)
 
             if artist.id not in artists:
@@ -164,6 +176,8 @@ class Artwork(JSONEncodable):
         self.materials = []
         for material_root in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
             material = Material(material_root)
+            if not material.id:
+                continue
             self.materials.append(material.id)
 
             if material.id not in materials:
