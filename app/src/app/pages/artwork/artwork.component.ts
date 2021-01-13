@@ -243,7 +243,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   }
 
   thumbnailClicked($event) {
-    if (this.artwork.resources.length > $event) {
+    if (this.artwork.resources.length > $event && this.thumbnails[$event]["image"] !== null) {
       this.imageIndex = $event;
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     }
