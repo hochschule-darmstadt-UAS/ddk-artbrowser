@@ -30,23 +30,10 @@ class Artwork(JSONEncodable):
         self.entity_type = "artwork"
         self.count = 0
 
-        # parse only all required fields in the constructor (id and resources)
-        # and call parse() explicitly from outside
-        # Artworks get filtered (e.g. we do not use artworks with no resources) in the main function.
-        # So it is important to not parse referenced entities (artists, locations, etc.) here, since we do not want
-        # to keep referenced entities or count changes of afterwards filtered artworks.
         self._parse_id()
-        self._parse_resource()
-
-        # TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
-        # artwork.altName string[] 2
-        # artwork.inscriptions string[] 2
-
-    def parse(self):
         self._parse_label()
         self._parse_inception()
         self._parse_inscription()
-
         self._parse_types()
         self._parse_genres()
         self._parse_location()
@@ -55,10 +42,15 @@ class Artwork(JSONEncodable):
         self._parse_materials()
         self._parse_measurements()
         self._parse_recordLegal()
+        self._parse_resource()
 
         self.calc_count()
 
         self.clear()
+
+    # TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
+    # artwork.altName string[] 2
+    # artwork.inscriptions string[] 2
 
     def _parse_id(self):
         # TODO: Was soll ich hier nur lido herausnehmen?: DE - Mb112 - lido - t3 - 000230
