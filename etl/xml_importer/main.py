@@ -59,13 +59,6 @@ if __name__ == '__main__':
         for event, elem in lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',)):
             artwork = Artwork(elem)
 
-            # filter artworks without resources (Link to actual picture)
-            if not len(artwork.resources) > 0:
-                continue
-
-            # call artwork.parse() so all other fields are parsed and the count of references entities gets increased
-            artwork.parse()
-
             artworks.append(artwork)
             if artwork.count > artwork_max_count:
                 artwork_max_count = artwork.count
