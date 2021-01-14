@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
       items,
       type: category,
       icon: EntityIcon[category.toUpperCase()],
-      allLink: '/' + usePlural(EntityType.ICONOGRAPHY)
+      allLink: '/' + usePlural(category)
     };
   }
 
