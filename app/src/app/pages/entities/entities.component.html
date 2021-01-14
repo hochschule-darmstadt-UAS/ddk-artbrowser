@@ -3,7 +3,7 @@
     <span i18n="All@@all">All</span>
     {{ queryCount }}
     <span i18n="Entities Type Labels@@entities_labels" *ngIf="type; let type">
-      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials}}
+      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials} iconography {Iconographies}}
     </span>
   </h2>
 
@@ -21,9 +21,13 @@
             />
           </div>
           <div class="item-caption">
-            <div class="ml-1">
+            <div *ngIf="type != 'iconography'" class="ml-1">
               <i class="mr-1 fas" [ngClass]="entity.icon"></i>
               <span>{{ entity.label }}</span>
+            </div>
+            <div *ngIf="type == 'iconography'" class="ml-1">
+              <i class="mr-1 fas" [ngClass]="entity.icon"></i>
+              <span>{{ entity.id }} {{ entity.label }}</span>
             </div>
             <div *ngIf="type != 'artwork'" class="ml-1">
               <i class="mr-1 fas fa-images"></i>

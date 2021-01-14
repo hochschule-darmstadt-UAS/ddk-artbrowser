@@ -1,7 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/services/elasticsearch/data.service';
 import { ActivatedRoute } from '@angular/router';
-import { Entity, Artwork, Artist, Genre, Location, Material, EntityType, Type } from 'src/app/shared/models/models';
+import {
+  Entity,
+  Artwork,
+  Artist,
+  Genre,
+  Location,
+  Material,
+  EntityType,
+  Type,
+  Iconography
+} from 'src/app/shared/models/models';
 
 @Component({
   selector: 'app-entities',
@@ -27,7 +37,8 @@ export class EntitiesComponent implements OnInit {
     if (this.route.pathFromRoot[1]) {
       /** get type which shall be handled from url */
       this.route.pathFromRoot[1].url.subscribe(val => {
-        const lastPathSegment = val[0].path.substr(0, val[0].path.length - 1);
+        const lastPathSegment = val[0].path.toLowerCase() === 'iconographies' ?
+          'iconography' : val[0].path.substr(0, val[0].path.length - 1);
         this.type = EntityType[lastPathSegment.toUpperCase() as keyof typeof EntityType];
         /** get max number of elements */
         this.dataService.countEntityItems(this.type).then(value => (this.queryCount = value));
@@ -64,6 +75,9 @@ export class EntitiesComponent implements OnInit {
           break;
         case EntityType.MATERIAL:
           this.getEntities<Material>(this.offset);
+          break;
+        case EntityType.ICONOGRAPHY:
+          this.getEntities<Iconography>(this.offset);
           break;
       }
     }

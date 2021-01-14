@@ -13,7 +13,7 @@
       </trans-unit>
       <trans-unit id="entities_labels" datatype="html">
         <source>{type, select, artwork {...} type {...} artist {...} location {...} genre {...} material {...}}</source>
-        <target state="final">{type, select, artwork {Artworks} type {Types} artist {Artists} location {Locations} genre {Genres} material {Materials}}</target>
+        <target state="final">{type, select, artwork {Artworks} type {Types} artist {Artists} location {Locations} genre {Genres} material {Materials} iconography {Iconographies}}</target>
         <note priority="1" from="description">Entities Type Labels</note>
       </trans-unit>
       <trans-unit id="all" datatype="html">
@@ -311,8 +311,8 @@
         <target state="final">Iconclass Hierarchy:</target>
       </trans-unit>
       <trans-unit id="iconclass_children" datatype="html">
-        <source>Children</source>
-        <target state="final">Children</target>
+        <source>subcategories</source>
+        <target state="final">Subcategories</target>
       </trans-unit>
       <trans-unit id="iconclass_keywords" datatype="html">
         <source>Keywords</source>
