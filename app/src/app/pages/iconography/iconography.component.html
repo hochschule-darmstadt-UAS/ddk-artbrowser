@@ -7,7 +7,7 @@
       <app-information *ngIf="hierarchy?.length" i18n-label="hierarchy label@@iconclass_hierarchy"
                        label="Iconclass Hierarchy" [values]="hierarchy" [badgeMaxLabelLength]="70"></app-information>
       <app-collapse *ngIf="hasIconographyChildren" class="children"
-                    i18n-heading="hierarchy children collapse@@iconclass_children" heading="Children">
+                    [headingTranslation]="'iconclass_children'" heading="Subcategories">
         <app-information [values]="children" [badgeMaxLabelLength]="70"></app-information>
       </app-collapse>
       <app-information *ngIf="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en']?.length"
@@ -26,7 +26,7 @@
       </a>
     </li>
     <li class="nav-item" *ngIf="sliderItemsChildrenIconography?.length">
-      <a class="nav-link"[ngClass]="{ active: !showCurrentIconographyArtworks }" data-toggle="tab" href="#child_iconography_artworks_tab">
+      <a class="nav-link" [ngClass]="{ active: !showCurrentIconographyArtworks }" data-toggle="tab" href="#child_iconography_artworks_tab">
         <i class="mr-1 fa fa-palette"></i>
         <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsChildrenIconography?.length }}</span>
         <ng-container i18n="Children description@@iconclass_children">artworks (including subclasses)</ng-container>

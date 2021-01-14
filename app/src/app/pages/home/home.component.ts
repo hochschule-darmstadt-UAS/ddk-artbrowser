@@ -1,8 +1,20 @@
-import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { NgbCarouselConfig, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-import { Entity, Artist, Artwork, Material, Location, Genre, Type, EntityIcon, EntityType } from 'src/app/shared/models/models';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { NgbCarousel, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import {
+  Artist,
+  Artwork,
+  Entity,
+  EntityIcon,
+  EntityType,
+  Genre,
+  Iconography,
+  Location,
+  Material,
+  Type
+} from 'src/app/shared/models/models';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
+import { usePlural } from '../../shared/models/entity.interface';
 
 /**
  * @description Interface for the category sliders.
@@ -12,6 +24,7 @@ export interface SliderCategory {
   items: Entity[];
   type: EntityType;
   icon: EntityIcon;
+  allLink: string;
 }
 
 @Component({
@@ -81,6 +94,7 @@ export class HomeComponent implements OnInit {
     cats.push(await this.getSliderCategory<Location>(EntityType.LOCATION));
     cats.push(await this.getSliderCategory<Material>(EntityType.MATERIAL));
     cats.push(await this.getSliderCategory<Type>(EntityType.TYPE));
+    cats.push(await this.getSliderCategory<Iconography>(EntityType.ICONOGRAPHY));
     return cats;
   }
 
@@ -89,7 +103,12 @@ export class HomeComponent implements OnInit {
    */
   private async getSliderCategory<T>(category: EntityType): Promise<SliderCategory> {
     const items = shuffle(await this.dataService.getCategoryItems<T>(category));
-    return { items, type: category, icon: EntityIcon[category.toUpperCase()] };
+    return {
+      items,
+      type: category,
+      icon: EntityIcon[category.toUpperCase()],
+      allLink: '/' + usePlural(EntityType.ICONOGRAPHY)
+    };
   }
 
   private setBackground() {
