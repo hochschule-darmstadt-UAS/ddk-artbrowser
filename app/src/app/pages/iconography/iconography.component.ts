@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, LOCALE_ID, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, LOCALE_ID, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -18,19 +18,23 @@ export class IconographyComponent implements OnInit {
   notation: string;
   iconclassData: Iconography;
   hierarchy: Entity[];
+  hasIconographyChildren = false;
 
   children: Iconography[] = [];
   parents: Iconography[] = [];
 
   /** Related artworks */
-  sliderItems: Artwork[] = [];
+  sliderItemsCurrentIconography: Artwork[] = [];
 
-  private appInfoRef: ElementRef;
+  sliderItemsChildrenIconography: Artwork[] = [];
+
   /**
    * @description use this to end subscription to url parameter in ngOnDestroy
    */
   private ngUnsubscribe = new Subject();
   private readonly ISO_639_1_LOCALE: string;
+
+  showCurrentIconographyArtworks = true;
 
   constructor(
     private dataService: DataService,
@@ -58,10 +62,28 @@ export class IconographyComponent implements OnInit {
         });
         this.iconclassService.getIconclassListByNotation(this.iconclassData.children.map(value => value + '')).subscribe(async res => {
           this.children = res;
-        });
+          this.hasIconographyChildren = this.children.length > 0;
+        }, (() => {
+          this.hasIconographyChildren = false;
+        }));
       });
-      /** load slider items */
-      await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(artworks => (this.sliderItems = shuffle(artworks)));
+      
+      /** load current page iconography slider items */
+      this.sliderItemsCurrentIconography = await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]);
+      this.sliderItemsCurrentIconography = this.sliderItemsCurrentIconography.filter(artwork => {
+        return artwork.iconographies.find(iconography => iconography === this.notation);
+      });
+
+      if(this.sliderItemsCurrentIconography.length > 0) {
+        this.sliderItemsCurrentIconography = shuffle(this.sliderItemsCurrentIconography);
+        this.showCurrentIconographyArtworks = true;
+      } else {
+        this.showCurrentIconographyArtworks = false;  
+      }
+      
+      /** load child iconography slider items */
+      this.sliderItemsChildrenIconography = await this.dataService.findChildArtworksByIconography(this.notation, EntityType.ARTWORK);
+      this.sliderItemsChildrenIconography = shuffle(this.sliderItemsChildrenIconography);
     });
   }
 

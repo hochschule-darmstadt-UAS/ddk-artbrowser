@@ -32,7 +32,7 @@ export class IconclassService {
   }
 
   public getIconclassListByNotation(notations: string[]): Observable<Iconography[]> {
-    notations = notations.map(notation => encodeURI(notation));
+    notations = notations.map(notation => encodeURIComponent(notation));
     const uri = environment.iconclassBase + '/?notation=' + notations.join('&notation=');
     return this.http.get(uri).map((response: Array<any>) => {
       if (!response.length) {

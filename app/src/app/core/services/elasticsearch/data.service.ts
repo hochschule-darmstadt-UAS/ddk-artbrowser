@@ -88,6 +88,31 @@ export class DataService {
     return this.performQuery<Artwork>(body);
   }
 
+    /**
+   * Fetches all child artworks of a specified iconclass
+   * Returns null if not found
+   * @param iconlass with '*' to fetch all artworks which start with the specified iconclass
+   * @param type if specified, it is assured that the returned entity has this entityType
+   */
+  public async findChildArtworksByIconography(iconclass: string, type?: EntityType): Promise<Artwork[]> {
+    const body = bodyBuilder()
+      .size(400)
+      .sort(defaultSortField, 'desc')
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('regexp', 'iconographies', {
+        value: iconclass + '.*',
+        flags: 'ALL',
+        case_insensitive: true
+      });
+    let entities = await this.performQuery<Artwork>(body);
+
+    /** Remove artwork if it belongs to the current iconclass - only return child iconclass-artworks*/
+    entities = entities.filter(artwork => {
+      return !artwork.iconographies.find(iconography => iconography === iconclass);
+    });
+    return entities;
+  }
+
   /**
    * Find an artwork by label
    * @param label artwork label
