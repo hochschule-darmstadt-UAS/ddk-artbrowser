@@ -10,3 +10,5 @@ build
 dist
 openartbrowser_etl.egg-info
 xml_importer/output
+output/
+input/
