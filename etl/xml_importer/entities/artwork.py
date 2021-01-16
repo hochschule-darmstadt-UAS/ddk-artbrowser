@@ -59,7 +59,7 @@ class Artwork(JSONEncodable):
         id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
 
-        self.id = id
+        self.id = self.entity_type + "-" + id
 
     def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
@@ -85,6 +85,9 @@ class Artwork(JSONEncodable):
         self.types = []
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
+            if not type_.id:
+                continue
+
             self.types.append(type_.id)
 
             if type_.id not in types:
@@ -92,11 +95,17 @@ class Artwork(JSONEncodable):
                 type_.clear()
                 types[type_.id] = type_
                 del type_
+            else:
+                # increase count
+                types[type_.id].count += 1
 
     def _parse_genres(self):
         self.genres = []
         for genreRoot in self.lido.findall(paths["Artwork_Genre_Path"], namespace):
             genre = Genre(genreRoot)
+            if not genre.id:
+                continue
+
             self.genres.append(genre.id)
 
             if genre.id not in genres:
@@ -104,11 +113,17 @@ class Artwork(JSONEncodable):
                 genre.clear()
                 genres[genre.id] = genre
                 del genre
+            else:
+                # increase count
+                genres[genre.id].count += 1
 
     def _parse_location(self):
         self.locations = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location = Location(locationRoot)
+            if not location.id:
+                continue
+
             self.locations.append(location.id)
 
             if location.id not in locations:
@@ -116,11 +131,17 @@ class Artwork(JSONEncodable):
                 location.clear()
                 locations[location.id] = location
                 del location
+            else:
+                # increase count
+                locations[location.id].count += 1
 
     def _parse_artists(self):
         self.artists = []
         for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
             artist = Artist(artistRoot)
+            if not artist.id:
+                continue
+
             self.artists.append(artist.id)
 
             if artist.id not in artists:
@@ -128,11 +149,18 @@ class Artwork(JSONEncodable):
                 artist.clear()
                 artists[artist.id] = artist
                 del artist
+            else:
+                # increase count
+                artists[artist.id].count += 1
 
     def _parse_iconographies(self):
         self.iconographies = []
         for iconographyRoot in self.lido.findall(paths["Artwork_Iconographies_Path"], namespace):
             iconography = Iconography(iconographyRoot)
+            # ignore iconographies without id (e.g. merged_lido_1.xml, line 6118)
+            if iconography.id == "":
+                continue
+
             self.iconographies.append(iconography.id)
 
             if iconography.id not in iconographies:
@@ -140,11 +168,16 @@ class Artwork(JSONEncodable):
                 iconography.clear()
                 iconographies[iconography.id] = iconography
                 del iconography
+            else:
+                # increase count
+                iconographies[iconography.id].count += 1
 
     def _parse_materials(self):
         self.materials = []
         for material_root in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
             material = Material(material_root)
+            if not material.id:
+                continue
             self.materials.append(material.id)
 
             if material.id not in materials:
@@ -152,6 +185,9 @@ class Artwork(JSONEncodable):
                 material.clear()
                 materials[material.id] = material
                 del material
+            else:
+                # increase count
+                materials[material.id].count += 1
 
     ####################################################################################
 
@@ -175,8 +211,9 @@ class Artwork(JSONEncodable):
     def _parse_resource(self):
         self.resources = []
 
-        for resource in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
-            self.resources.append(Resource(resource))
+        for resource_root in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
+            resource = Resource(resource_root)
+            self.resources.append(resource)
 
         # resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
         # if (len(resourceLegal_List) > 0):

@@ -1,16 +1,6 @@
 import re
 
 
-def sanitize_id(id): #TODO: ID-Format definieren, da auch mal Leerzeichen vorkommen können
-    spec_char = ["(", ")"] #Special character list, you can add new char's
-    for char in spec_char:
-        id = id.replace(char, "-")
-
-    id = id.strip()
-
-    return id
-
-
 def sanitize(text: str):
     """
     This function removes linebreaks, carriage returns, duplicated spaces and all leading
@@ -24,6 +14,22 @@ def sanitize(text: str):
     sanitized_text = sanitized_text.strip()
 
     return sanitized_text
+
+
+def sanitize_id(id: str): #TODO: ID-Format definieren, da auch mal Leerzeichen vorkommen können
+    id = sanitize(id)
+
+    remove_chars = ["(", ")", ";", "?"]
+    for char in remove_chars:
+        id = id.replace(char, "")
+
+    id = id.strip()
+
+    replace_chars = [" ", ","]
+    for char in replace_chars:
+        id = id.replace(char, "-")
+
+    return id
 
 
 def get_id_by_prio(all_ids):

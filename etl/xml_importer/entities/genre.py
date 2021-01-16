@@ -1,4 +1,4 @@
-from etl.xml_importer.parseLido import get_id_by_prio, filter_none
+from etl.xml_importer.parseLido import get_id_by_prio, filter_none, sanitize_id
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.encoding import JSONEncodable
@@ -15,6 +15,8 @@ class Genre(JSONEncodable):
         self.source_ids = []
         self.classificationType = ""
 
+        self.count = 1
+        self.rank = 0
 
     def _parse_id(self):
         genre_id = self.root.findall(paths["Genre_ID_Path"], namespace)
@@ -22,7 +24,10 @@ class Genre(JSONEncodable):
             id = get_id_by_prio(genre_id)
         else:
             id = self.root.find(paths["Genre_Label_Path"], namespace).text
-        self.id = id
+
+        id = sanitize_id(id)
+        # add entity type as id prefix to ensure uniqueness
+        self.id = self.entity_type + "-" + id
 
     def parse(self):
         self.label = self.root.find(paths["Genre_Label_Path"], namespace).text
@@ -46,5 +51,7 @@ class Genre(JSONEncodable):
             "label": self.label,
             "sourceIDs": self.source_ids,
             "classificationType": self.classificationType,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)

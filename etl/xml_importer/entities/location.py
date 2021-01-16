@@ -15,6 +15,9 @@ class Location(JSONEncodable):
         self.source_ids = []
         self.placeLabel = ""
 
+        self.count = 1
+        self.rank = 0
+
     def _parse_id(self):
         # The location id is either the label or the place label
         self._parse_label()
@@ -26,6 +29,9 @@ class Location(JSONEncodable):
 
         self.id = sanitize_location(location_id)
 
+        # add entity type as id prefix to ensure uniqueness
+        self.id = self.entity_type + "-" + self.id
+
     def parse(self):
         self._parse_label()
         self._parse_placeLabel()
@@ -34,7 +40,7 @@ class Location(JSONEncodable):
     def _parse_label(self):
         label_root = self.root.find(paths["Location_Label_Path"], namespace)
         if label_root is not None:
-            self.label = sanitize_location(label_root.text)
+            self.label = sanitize(label_root.text)
         else:
             self.label = ""
 
@@ -60,5 +66,7 @@ class Location(JSONEncodable):
             "label": self.label,
             "sourceIDs": self.source_ids,
             "placeLabel": self.placeLabel,
+            "count": self.count,
+            "rank": self.rank,
         }
         return filter_none(json)
