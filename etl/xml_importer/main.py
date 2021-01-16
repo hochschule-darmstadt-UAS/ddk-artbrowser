@@ -1,4 +1,5 @@
 import os
+import sys
 from operator import attrgetter
 import lxml.etree
 from etl.xml_importer.entities.artwork import Artwork
@@ -8,6 +9,11 @@ from etl.xml_importer.entities.artwork import artists, locations, genres, types,
 
 artworks = []
 artwork_max_count = 0
+
+
+def get_input_xml_files(input_dir):
+    xml_files = ["{}/{}".format(input_dir, file) for file in os.listdir(input_dir) if file.endswith('.xml')]
+    return xml_files
 
 
 def write_to_json(entities, json_filename):
@@ -23,17 +29,17 @@ def write_to_json(entities, json_filename):
         json.dump(entities_list, f, cls=ComplexJSONEncoder, indent=4)
 
 
-def rank_artworks(lim_i):
+def rank_artworks(file_count, output_dir):
     # read artwork temp json files one by one and add rank (rank = count / artwork_max_count)
-    for i in range(1, lim_i):
-        with open('output/artworks_{}.temp.json'.format(i)) as tmp_json:
+    for i in range(1, file_count+1):
+        with open('{}/artworks_{}.temp.json'.format(output_dir, i)) as tmp_json:
             tmp_artworks = json.load(tmp_json)
             for artwork in tmp_artworks:
                 artwork['rank'] = artwork['count'] / artwork_max_count
 
         # write new artworks to final artwork_x.json and delete temporary one
-        write_to_json(tmp_artworks, "output/artworks_{}.json".format(i))
-        os.remove('output/artworks_{}.temp.json'.format(i))
+        write_to_json(tmp_artworks, "{}/artworks_{}.json".format(output_dir, i))
+        os.remove('{}/artworks_{}.temp.json'.format(output_dir, i))
 
 
 def rank_entities(entities: dict):
@@ -51,11 +57,19 @@ def rank_entities(entities: dict):
 if __name__ == '__main__':
     namespace = {'lido': 'http://www.lido-schema.org'}
 
+    if len(sys.argv) < 3:
+        print("Usage: {} <input-directory> <output-directory>".format(sys.argv[0]))
+        exit(1)
+
+    input_dir = sys.argv[1]
+    output_dir = sys.argv[2]
+
     num_of_files = 2
-    for i in range(1, num_of_files+1):
-        print("Processing file ", i)
+    file_count = 0
+    for lidoFile in get_input_xml_files(input_dir):
+        file_count += 1
+        print("Processing file ", lidoFile)
         # TODO: Change base path of lidoFile
-        lidoFile = '/home/yannick/Downloads/openArtBrowser-Projekt/ddb_20190606/merged_lido_{}.xml'.format(i)
         for event, elem in lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',)):
             artwork = Artwork(elem)
 
@@ -73,33 +87,33 @@ if __name__ == '__main__':
 
         # to save memory we write the artworks of a single xml file to one artwork_x.temp.json file
         # these files will be used in the rank_artworks() function afterwards to create the final artwork json files
-        write_to_json(artworks, "./output/artworks_{}.temp.json".format(i))
+        write_to_json(artworks, "{}/artworks_{}.temp.json".format(output_dir, file_count))
         artworks.clear()
 
     rank_entities(artists)
-    write_to_json(artists, "./output/artists.json")
+    write_to_json(artists, "{}/artists.json".format(output_dir))
     artists.clear()
 
     rank_entities(genres)
-    write_to_json(genres, "./output/genres.json")
+    write_to_json(genres, "{}/genres.json".format(output_dir))
     genres.clear()
 
     rank_entities(iconographies)
-    write_to_json(iconographies, "./output/iconographies.json")
+    write_to_json(iconographies, "{}/iconographies.json".format(output_dir))
     iconographies.clear()
 
     rank_entities(locations)
-    write_to_json(locations, "./output/locations.json")
+    write_to_json(locations, "{}/locations.json".format(output_dir))
     locations.clear()
 
     rank_entities(materials)
-    write_to_json(materials, "./output/materials.json")
+    write_to_json(materials, "{}/materials.json".format(output_dir))
     materials.clear()
 
     rank_entities(types)
-    write_to_json(types, "./output/types.json")
+    write_to_json(types, "{}/types.json".format(output_dir))
     types.clear()
 
-    rank_artworks(num_of_files + 1)  # count is done in artwork class itself
+    rank_artworks(file_count, output_dir)  # count is done in artwork class itself
 
 

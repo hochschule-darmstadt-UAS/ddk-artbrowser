@@ -2,8 +2,10 @@
 
 source venv/bin/activate
 
-python xml_importer/main.py
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/.."
 
-#Handle paths of input xml-files and output json files
-#Run the xml-importer with theses input xml-files and store the json files
-#Run the elasticsearch_uploader.py script with the generated json files.
+mkdir -p ./output
+
+python xml_importer/main.py ./input ./output
+
+python upload_to_elasticsearch/elasticsearch_uploader.py ./output
