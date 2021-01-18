@@ -15,7 +15,7 @@ import {
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
 import { usePlural } from '../../shared/models/entity.interface';
-import background_images from '../../../config/background_images.json';
+import * as ConfigJson  from '../../../config/home_movements.json';
 
 /**
  * @description Interface for the category sliders.
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
 
   private setBackground() {
     // assign backgroundImageUrl with a random image specified in the config folder.
-    const backgroundArtworksUrls = background_images.images;
+    const backgroundArtworksUrls = ConfigJson.images;
     this.backgroundImageUrl = backgroundArtworksUrls[Math.floor(Math.random() * backgroundArtworksUrls.length)];
   }
 
