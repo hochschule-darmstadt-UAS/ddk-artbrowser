@@ -4,7 +4,7 @@ import { Inject, Injectable, LOCALE_ID } from '@angular/core';
 import { ArtSearch, Artwork, Entity, EntityIcon, EntityType } from 'src/app/shared/models/models';
 import { environment } from 'src/environments/environment';
 import { usePlural } from 'src/app/shared/models/entity.interface';
-import * as bodyBuilder from 'bodybuilder';
+import bodyBuilder from 'bodybuilder';
 import { Bodybuilder } from 'bodybuilder';
 import { image, imageMedium, imageSmall } from '../ddk.service';
 
