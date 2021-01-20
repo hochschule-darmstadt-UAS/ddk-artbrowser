@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-sudo apt-get install -y python3-virtualenv
+# this must be installed by a root/sudo user
+#sudo apt-get install -y python3-virtualenv
 
 # create virtual python environment in directory 'venv'
 virtualenv venv
