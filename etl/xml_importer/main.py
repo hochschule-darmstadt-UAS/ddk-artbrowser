@@ -1,5 +1,6 @@
 import os
 import sys
+import ntpath
 from operator import attrgetter
 import lxml.etree
 from etl.xml_importer.entities.artwork import Artwork
@@ -13,7 +14,7 @@ artwork_max_count = 0
 
 def get_input_xml_files(input_dir):
     xml_files = ["{}/{}".format(input_dir, file) for file in os.listdir(input_dir) if file.endswith('.xml')]
-    return xml_files
+    return sorted(xml_files)
 
 
 def write_to_json(entities, json_filename):
@@ -29,17 +30,19 @@ def write_to_json(entities, json_filename):
         json.dump(entities_list, f, cls=ComplexJSONEncoder, indent=4)
 
 
-def rank_artworks(file_count, output_dir):
+def rank_artworks(tmp_files, output_dir):
     # read artwork temp json files one by one and add rank (rank = count / artwork_max_count)
-    for i in range(1, file_count+1):
-        with open('{}/artworks_{}.temp.json'.format(output_dir, i)) as tmp_json:
+    for file in tmp_files:
+        output_filename = ntpath.basename(file).replace(".temp", "")
+
+        with open(file) as tmp_json:
             tmp_artworks = json.load(tmp_json)
             for artwork in tmp_artworks:
                 artwork['rank'] = artwork['count'] / artwork_max_count
 
         # write new artworks to final artwork_x.json and delete temporary one
-        write_to_json(tmp_artworks, "{}/artworks_{}.json".format(output_dir, i))
-        os.remove('{}/artworks_{}.temp.json'.format(output_dir, i))
+        write_to_json(tmp_artworks, "{}/{}".format(output_dir, output_filename))
+        os.remove(file)
 
 
 def rank_entities(entities: dict):
@@ -66,11 +69,16 @@ if __name__ == '__main__':
 
     num_of_files = 2
     file_count = 0
-    for lidoFile in get_input_xml_files(input_dir):
+    lido_files = get_input_xml_files(input_dir)
+    tmp_files = []
+    for lido_file in lido_files:
         file_count += 1
-        print("Processing file ", lidoFile)
+        # get the xml filename without .xml extension
+        base_filename = ntpath.basename(os.path.splitext(lido_file)[0])
+
+        print("Processing file {} / {}: {}".format(file_count, len(lido_files), lido_file))
         # TODO: Change base path of lidoFile
-        for event, elem in lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',)):
+        for event, elem in lxml.etree.iterparse(lido_file, tag='{http://www.lido-schema.org}lido', events=('end',)):
             artwork = Artwork(elem)
 
             artworks.append(artwork)
@@ -87,7 +95,9 @@ if __name__ == '__main__':
 
         # to save memory we write the artworks of a single xml file to one artwork_x.temp.json file
         # these files will be used in the rank_artworks() function afterwards to create the final artwork json files
-        write_to_json(artworks, "{}/artworks_{}.temp.json".format(output_dir, file_count))
+        tmp_file = "{}/artworks_{}.temp.json".format(output_dir, base_filename)
+        tmp_files.append(tmp_file)
+        write_to_json(artworks, tmp_file)
         artworks.clear()
 
     rank_entities(artists)
@@ -114,6 +124,6 @@ if __name__ == '__main__':
     write_to_json(types, "{}/types.json".format(output_dir))
     types.clear()
 
-    rank_artworks(file_count, output_dir)  # count is done in artwork class itself
+    rank_artworks(tmp_files, output_dir)  # count is done in artwork class itself
 
 
