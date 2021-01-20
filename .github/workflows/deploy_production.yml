@@ -20,6 +20,18 @@ jobs:
           node-version: 12.x
       - run: ls -la
       - run: cd app && npm install && npm run build:de
+      
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete
+          path: etl
+          remote_path: ~/
+          remote_host: ${{ secrets.DEPLOYMENT_SERVER_PRODUCTION }}
+          remote_port: ${{ secrets.DEPLOYMENT_SERVER_PRODUCTION_SSH_PORT }} 
+          remote_user: ${{ secrets.DEPLOYMENT_USER }}
+          remote_key: ${{ secrets.DEPLOYMENT_KEY }}
+
       - name: rsync deployments
         uses: burnett01/rsync-deployments@4.1
         with:
