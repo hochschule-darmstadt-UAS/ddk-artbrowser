@@ -31,10 +31,10 @@ paths = {
     "Location_Label_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
 
     "Location_PlaceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
-    "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Name und alte_Name haben gleuchen Path
+    "Location_Name_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',    #Name and alte_Name have the same path
     "Location_Altname_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',
 
-    "Location_PlaceLabel_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
+    "Location_PlaceLabel_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##Same path as Name and Location_Name_Path
 
     #GENRE
     "Artwork_Genre_Path": 'lido:descriptiveMetadata/lido:objectClassificationWrap/lido:classificationWrap/lido:classification',
@@ -147,9 +147,5 @@ paths = {
     "Rights_Type_Path": "lido:rightsType/lido:conceptID",
     "Rights_Holder_Path": "lido:rightsHolder/lido:legalBodyID",
     #rightsHolder
-
-    #ENTITY
-    ##Prios sind niedrig oder nicht vorhanden, daher erstmal nicht beachten
-
 }
 
