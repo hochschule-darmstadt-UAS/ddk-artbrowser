@@ -15,7 +15,7 @@ import {
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
 import { usePlural } from '../../shared/models/entity.interface';
-import * as ConfigJson  from '../../../config/home_movements.json';
+import * as ConfigJson  from '../../../config/home_content.json';
 
 /**
  * @description Interface for the category sliders.
