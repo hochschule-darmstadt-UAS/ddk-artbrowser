@@ -3,7 +3,7 @@
 sudo apt-get install -y python3-virtualenv
 
 # create virtual python environment in directory 'venv'
-virtualenv venv #env. erstellen und ordner erstellen
+virtualenv venv
 
 # activate virtual environment fpr current shell session
 source venv/bin/activate
