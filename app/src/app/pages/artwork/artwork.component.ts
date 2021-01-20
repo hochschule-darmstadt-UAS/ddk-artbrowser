@@ -150,6 +150,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    * @description close popup image zoom.
    */
   closeModal() {
+    this.infoVisible = false;
     this.modalIsVisible = false;
   }
 
