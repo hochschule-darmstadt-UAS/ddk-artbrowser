@@ -107,7 +107,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
         }
         let entities = await this.dataService.findByLabel(term.toLowerCase());
         entities = entities.filter(v => (v.label.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-          v.altLabels.find(i => i.toLowerCase().indexOf(term.toLowerCase()) > -1)));
+          (v.altLabels && v.altLabels.find(i => i.toLowerCase().indexOf(term.toLowerCase()) > -1))));
 
         // sort results by rank and modify rank by whether it starts with search term
         entities = this.sortSearchResultsByRank(entities, term);
