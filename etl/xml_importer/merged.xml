@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lido:lidoWrap xmlns:html="http://www.w3.org/1999/xhtml"
+               xmlns:stx="http://www.startext.de/stxmap"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+               xmlns:lido="http://www.lido-schema.org"
+               xsi:schemaLocation="http://www.lido-schema.org http://www.lido-schema.org/schema/v1.0/lido-v1.0.xsd">
+
+   <lido:lido>
+    <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"
+                    lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">DE-Mb112/lido/t3/00023088,T,001,T,065</lido:lidoRecID>
+    <lido:category>
+        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object</lido:conceptID>
+        <lido:term xml:lang="en">Man-Made Object</lido:term>
+    </lido:category>
+    <lido:descriptiveMetadata xml:lang="de">
+        <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+                <lido:objectWorkType>
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                    lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300194222</lido:conceptID>
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                    lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4671374-8</lido:conceptID>
+                    <lido:term>Buchseite</lido:term>
+                    <lido:term lido:addedSearchTerm="yes">Buch</lido:term>
+                </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+            <lido:classificationWrap>
+                <lido:classification lido:type="europeana:type">
+                    <lido:term>IMAGE</lido:term>
+                </lido:classification>
+                <lido:classification lido:type="Objektklassifikation">
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                    lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300180362</lido:conceptID>
+                    <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                    lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4035964-5</lido:conceptID>
+                    <lido:term>Literatur</lido:term>
+                </lido:classification>
+                <lido:classification lido:type="Literaturgattung">
+                    <lido:term>liturgischer Text</lido:term>
+                </lido:classification>
+            </lido:classificationWrap>
+        </lido:objectClassificationWrap>
+        <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+                <lido:titleSet>
+                    <lido:appellationValue lido:pref="preferred">Sequentiar, Graduale und Sakramentar — ---, Folio 107Buchseite</lido:appellationValue>
+                </lido:titleSet>
+                <lido:titleSet>
+                    <lido:appellationValue lido:pref="alternative">Foo Bar</lido:appellationValue>
+                </lido:titleSet>
+            </lido:titleWrap>
+            <lido:inscriptionsWrap>
+                <lido:inscriptions lido:type="Inschrift">
+                    <lido:inscriptionDescription>
+                        <lido:descriptiveNoteValue>Inschrift: Rückseite — John Brogden</lido:descriptiveNoteValue>
+                    </lido:inscriptionDescription>
+                </lido:inscriptions>
+            </lido:inscriptionsWrap>
+            <lido:repositoryWrap>
+                <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00475">
+                    <lido:repositoryName>
+                        <lido:legalBodyName>
+                            <lido:appellationValue>Hessische Landesbibliothek Fulda (Fulda)</lido:appellationValue>
+                            <lido:appellationValue>Bibliothek Fulda</lido:appellationValue>
+                        </lido:legalBodyName>
+                    </lido:repositoryName>
+                    <lido:workID lido:type="Inventarnummer">Hs. Aa. 6, 107</lido:workID>
+                    <lido:repositoryLocation>
+                        <lido:placeID lido:type="http://terminology.lido-schema.org/lido00099"
+                                      lido:source="http://vocab.getty.edu/tgn">http://vocab.getty.edu/tgn/7005294</lido:placeID>
+                        <lido:namePlaceSet>
+                            <lido:appellationValue>Fulda</lido:appellationValue>
+                            <lido:appellationValue>Test &amp; Test2 &amp; alternativeFulda &amp;</lido:appellationValue>
+                        </lido:namePlaceSet>
+                        <lido:partOfPlace lido:politicalEntity="Kreis">
+                            <lido:namePlaceSet>
+                                <lido:appellationValue>Fulda, Kreis</lido:appellationValue>
+                            </lido:namePlaceSet>
+                            <lido:partOfPlace lido:politicalEntity="Regierungsbezirk/Provinz">
+                                <lido:namePlaceSet>
+                                    <lido:appellationValue>Kassel, Regierungsbezirk</lido:appellationValue>
+                                </lido:namePlaceSet>
+                                <lido:partOfPlace lido:politicalEntity="Bundesland">
+                                    <lido:namePlaceSet>
+                                        <lido:appellationValue>Hessen</lido:appellationValue>
+                                    </lido:namePlaceSet>
+                                    <lido:partOfPlace lido:politicalEntity="Staat">
+                                        <lido:namePlaceSet>
+                                            <lido:appellationValue>Deutschland</lido:appellationValue>
+                                        </lido:namePlaceSet>
+                                    </lido:partOfPlace>
+                                </lido:partOfPlace>
+                            </lido:partOfPlace>
+                        </lido:partOfPlace>
+                    </lido:repositoryLocation>
+                </lido:repositorySet>
+            </lido:repositoryWrap>
+            <lido:objectDescriptionWrap>
+                <lido:objectDescriptionSet lido:type="Schriftart">
+                    <lido:descriptiveNoteValue>Minuskel</lido:descriptiveNoteValue>
+                </lido:objectDescriptionSet>
+                <lido:objectDescriptionSet lido:type="Sprache">
+                    <lido:descriptiveNoteValue>lateinisch</lido:descriptiveNoteValue>
+                </lido:objectDescriptionSet>
+            </lido:objectDescriptionWrap>
+            <lido:objectMeasurementsWrap>
+                <lido:objectMeasurementsSet>
+                    <lido:displayObjectMeasurements>Höhe x Breite: 32 x 21 cm</lido:displayObjectMeasurements>
+                    <lido:objectMeasurements>
+                        <lido:measurementsSet>
+                            <lido:measurementType>Höhe x Breite</lido:measurementType>
+                            <lido:measurementUnit>cm</lido:measurementUnit>
+                            <lido:measurementValue>32 x 21</lido:measurementValue>
+                        </lido:measurementsSet>
+                    </lido:objectMeasurements>
+                </lido:objectMeasurementsSet>
+                <lido:objectMeasurementsSet>
+                    <lido:displayObjectMeasurements>Spaltenzahl: einspaltig</lido:displayObjectMeasurements>
+                </lido:objectMeasurementsSet>
+                <lido:objectMeasurementsSet>
+                    <lido:displayObjectMeasurements>Blattzahl: 116 Blätter</lido:displayObjectMeasurements>
+                </lido:objectMeasurementsSet>
+                <lido:objectMeasurementsSet>
+                    <lido:shapeObjectMeasurements>Oval</lido:shapeObjectMeasurements>
+                </lido:objectMeasurementsSet>
+                <lido:objectMeasurementsSet>
+                    <lido:formatObjectMeasurements>Sammelbild</lido:formatObjectMeasurements>
+                </lido:objectMeasurementsSet>
+                <lido:objectMeasurementsSet>
+                    <lido:qualifierObjectMeasurements>Sammelbild</lido:qualifierObjectMeasurements>
+                </lido:objectMeasurementsSet>
+            </lido:objectMeasurementsWrap>
+        </lido:objectIdentificationWrap>
+        <lido:eventWrap>
+            <lido:eventSet>
+                <lido:event>
+                    <lido:eventType>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://terminology.lido-schema.org/eventType">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+                        <lido:term>Herstellung</lido:term>
+                    </lido:eventType>
+                    <lido:eventActor>
+                        <lido:actorInRole>
+                            <lido:actor lido:type="http://terminology.lido-schema.org/lido00163">
+                                <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                              lido:source="http://vocab.getty.edu/ulan">http://vocab.getty.edu/ulan/500095236</lido:actorID>
+                                <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                              lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/118581708</lido:actorID>
+                                <lido:nameActorSet>
+                                    <lido:appellationValue lido:pref="preferred">Meyboden, Hans</lido:appellationValue>
+                                    <lido:appellationValue lido:pref="alternative">Maiboden, Hans</lido:appellationValue>
+                                </lido:nameActorSet>
+                                <lido:nationalityActor>
+                                    <lido:term>Deutschland</lido:term>
+                                </lido:nationalityActor>
+                                <lido:vitalDatesActor>
+                                    <lido:earliestDate lido:type="birthDate">1901-02-20</lido:earliestDate>
+                                    <lido:latestDate lido:type="deathDate">1965-03-05</lido:latestDate>
+                                </lido:vitalDatesActor>
+                                <lido:genderActor>männlich</lido:genderActor>
+                            </lido:actor>
+                            <lido:roleActor>
+                                <lido:term>Maler</lido:term>
+                            </lido:roleActor>
+                        </lido:actorInRole>
+                    </lido:eventActor>
+                    <lido:eventDate>
+                        <lido:displayDate>um 1120/1130</lido:displayDate>
+                        <lido:date>
+                            <lido:earliestDate>1120</lido:earliestDate>
+                            <lido:latestDate>1130</lido:latestDate>
+                        </lido:date>
+                    </lido:eventDate>
+                    <lido:eventPlace>
+                        <lido:place>
+                            <lido:placeID lido:type="http://terminology.lido-schema.org/lido00099"
+                                          lido:source="http://vocab.getty.edu/tgn">http://vocab.getty.edu/tgn/7012764</lido:placeID>
+                            <lido:namePlaceSet>
+                                <lido:appellationValue lido:pref="preferred">Weingarten Kreis Ravensburg</lido:appellationValue>
+                            </lido:namePlaceSet>
+                            <lido:namePlaceSet>
+                                <lido:appellationValue lido:pref="alternative">Weingarten</lido:appellationValue>
+                            </lido:namePlaceSet>
+                            <lido:partOfPlace lido:politicalEntity="Kreis">
+                                <lido:namePlaceSet>
+                                    <lido:appellationValue>Ravensburg, Kreis</lido:appellationValue>
+                                </lido:namePlaceSet>
+                                <lido:partOfPlace lido:politicalEntity="Regierungsbezirk/Provinz">
+                                    <lido:namePlaceSet>
+                                        <lido:appellationValue>Südwürttemberg-Hohenzollern, Regierungsbezirk</lido:appellationValue>
+                                    </lido:namePlaceSet>
+                                    <lido:partOfPlace lido:politicalEntity="Bundesland">
+                                        <lido:namePlaceSet>
+                                            <lido:appellationValue>Baden-Württemberg</lido:appellationValue>
+                                        </lido:namePlaceSet>
+                                        <lido:partOfPlace lido:politicalEntity="Staat">
+                                            <lido:namePlaceSet>
+                                                <lido:appellationValue>Deutschland</lido:appellationValue>
+                                            </lido:namePlaceSet>
+                                        </lido:partOfPlace>
+                                    </lido:partOfPlace>
+                                </lido:partOfPlace>
+                            </lido:partOfPlace>
+                        </lido:place>
+                    </lido:eventPlace>
+                    <lido:eventMaterialsTech>
+                        <lido:materialsTech>
+                            <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                                <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                                lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300010797</lido:conceptID>
+                                <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                                lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4021142-3</lido:conceptID>
+                                <lido:term>Glas</lido:term>
+                                <lido:term lido:addedSearchTerm="yes">Durchsichtiges Ding</lido:term>
+                            </lido:termMaterialsTech>
+                        </lido:materialsTech>
+                    </lido:eventMaterialsTech>
+                </lido:event>
+            </lido:eventSet>
+        </lido:eventWrap>
+        <lido:objectRelationWrap>
+            <lido:subjectWrap>
+                <lido:subjectSet>
+                    <lido:subject lido:type="Beschreibung">
+                        <lido:subjectConcept>
+                            <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                            lido:source="http://iconclass.org">http://iconclass.org/11D121</lido:conceptID>
+                            <lido:term lido:pref="preferred">das Kreuz als Christussymbol</lido:term>
+                            <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Kreuz</lido:term>
+                            <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Christus</lido:term>
+                            <lido:term lido:pref="alternative">11D121</lido:term>
+                        </lido:subjectConcept>
+                    </lido:subject>
+                </lido:subjectSet>
+                <lido:subjectSet>
+                    <lido:subject lido:type="Beschreibung">
+                        <lido:subjectConcept>
+                            <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                            lido:source="http://iconclass.org">http://iconclass.org/48A98311</lido:conceptID>
+                            <lido:term lido:pref="preferred">Laubwerkornament</lido:term>
+                            <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Laub</lido:term>
+                            <lido:term lido:pref="alternative">48A98311</lido:term>
+                        </lido:subjectConcept>
+                    </lido:subject>
+                </lido:subjectSet>
+            </lido:subjectWrap>
+            <lido:relatedWorksWrap>
+                <lido:relatedWorkSet>
+                    <lido:relatedWork>
+                        <lido:object>
+                            <lido:objectID lido:type="http://terminology.lido-schema.org/lido00100"
+                                           lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">DE-Mb112/lido/t2/00023088,T,001,T</lido:objectID>
+                            <lido:objectNote lido:type="Kurzbeschreibung">--- - Text - um 1120/1130</lido:objectNote>
+                        </lido:object>
+                    </lido:relatedWork>
+                    <lido:relatedWorkRelType>
+                        <lido:term>Teil von</lido:term>
+                    </lido:relatedWorkRelType>
+                </lido:relatedWorkSet>
+            </lido:relatedWorksWrap>
+        </lido:objectRelationWrap>
+    </lido:descriptiveMetadata>
+    <lido:administrativeMetadata xml:lang="de">
+        <lido:recordWrap>
+            <lido:recordID lido:type="http://terminology.lido-schema.org/lido00100"
+                           lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">obj00023088,T,001,T,065</lido:recordID>
+            <lido:recordType>
+                <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00141</lido:conceptID>
+                <lido:term>Einzelobjekt</lido:term>
+            </lido:recordType>
+            <lido:recordSource lido:type="europeana:dataProvider">
+                <lido:legalBodyName>
+                    <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                </lido:legalBodyName>
+            </lido:recordSource>
+            <lido:recordRights>
+                <lido:rightsType>
+                    <lido:conceptID lido:type="URI">http://creativecommons.org/publicdomain/zero/1.0/</lido:conceptID>
+                    <lido:term>CC0 1.0 Public Domain Dedication</lido:term>
+                </lido:rightsType>
+                <lido:rightsHolder>
+                    <lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099"
+                                      lido:source="ISIL (ISO 15511)">http://ld.zdb-services.de/resource/organisations/DE-Mb112</lido:legalBodyID>
+                    <lido:legalBodyName>
+                        <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                    </lido:legalBodyName>
+                </lido:rightsHolder>
+            </lido:recordRights>
+            <lido:recordInfoSet>
+                <lido:recordInfoLink>http://www.bildindex.de/document/obj00023088?part=67</lido:recordInfoLink>
+            </lido:recordInfoSet>
+        </lido:recordWrap>
+        <lido:resourceWrap>
+            <lido:resourceSet>
+                <lido:resourceID lido:type="http://terminology.lido-schema.org/lido00100">LA 2.118/33</lido:resourceID>
+                <lido:resourceRepresentation lido:type="http://terminology.lido-schema.org/lido00451">
+                    <lido:linkResource>http://www.bildindex.de/bilder/d/mi00649c07</lido:linkResource>
+                </lido:resourceRepresentation>
+                <lido:resourceType>
+                    <lido:term>Digitales Bild (retrodigitalisiert)</lido:term>
+                </lido:resourceType>
+                <lido:resourceDateTaken>
+                    <lido:displayDate>1971/1976?</lido:displayDate>
+                </lido:resourceDateTaken>
+                <lido:resourceSource lido:type="Fotograf">
+                    <lido:legalBodyName>
+                        <lido:appellationValue>Köllner, Herbert</lido:appellationValue>
+                    </lido:legalBodyName>
+                </lido:resourceSource>
+                <lido:rightsResource>
+                    <lido:rightsType>
+                        <lido:conceptID lido:type="URI">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+                        <lido:term lido:pref="preferred">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:term>
+                    </lido:rightsType>
+                    <lido:rightsHolder>
+                        <lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099"
+                                          lido:source="ISIL (ISO 15511)">http://ld.zdb-services.de/resource/organisations/DE-Mb112</lido:legalBodyID>
+                        <lido:legalBodyName>
+                            <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                        </lido:legalBodyName>
+                    </lido:rightsHolder>
+                </lido:rightsResource>
+            </lido:resourceSet>
+        </lido:resourceWrap>
+    </lido:administrativeMetadata>
+</lido:lido>
+   <lido:lido>
+      <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"
+                      lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">DE-Mb112/lido/obj/00000001</lido:lidoRecID>
+      <lido:category>
+         <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object</lido:conceptID>
+         <lido:term xml:lang="en">Man-Made Object</lido:term>
+      </lido:category>
+      <lido:descriptiveMetadata xml:lang="de">
+         <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+               <lido:objectWorkType>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300033618</lido:conceptID>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4122164-3</lido:conceptID>
+                  <lido:term>Gemälde</lido:term>
+                  <lido:term lido:addedSearchTerm="yes">Bild</lido:term>
+               </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+            <lido:classificationWrap>
+               <lido:classification lido:type="europeana:type">
+                  <lido:term>IMAGE</lido:term>
+               </lido:classification>
+               <lido:classification lido:type="Objektklassifikation">
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300033656</lido:conceptID>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4037220-0</lido:conceptID>
+                  <lido:term>Tafelmalerei</lido:term>
+                  <lido:term lido:addedSearchTerm="yes">Malerei</lido:term>
+               </lido:classification>
+            </lido:classificationWrap>
+         </lido:objectClassificationWrap>
+         <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+               <lido:titleSet>
+                  <lido:appellationValue lido:pref="preferred">Via San Giovanni in Laterano mit Blick auf das Kolosseum</lido:appellationValue>
+               </lido:titleSet>
+            </lido:titleWrap>
+            <lido:repositoryWrap>
+               <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00475">
+                  <lido:repositoryName>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Museen der Stadt Aachen — Suermondt-Ludwig-Museum (Aachen)</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:repositoryName>
+                  <lido:workID lido:type="Inventarnummer">4</lido:workID>
+                  <lido:repositoryLocation>
+                     <lido:placeID lido:type="http://terminology.lido-schema.org/lido00099"
+                                   lido:source="http://vocab.getty.edu/tgn">http://vocab.getty.edu/tgn/7004799</lido:placeID>
+                     <lido:namePlaceSet>
+                        <lido:appellationValue>Aachen</lido:appellationValue>
+                        <lido:appellationValue>Bad Aachen &amp; Aix-la-Chapelle &amp; Aken &amp; Aquisgrana &amp; Aquisgrán &amp; Aquis Granum &amp; Aquisgranum &amp; Aquae Grani &amp; Aquae Granni</lido:appellationValue>
+                     </lido:namePlaceSet>
+                     <lido:partOfPlace lido:politicalEntity="Regierungsbezirk/Provinz">
+                        <lido:namePlaceSet>
+                           <lido:appellationValue>Aachen, Regierungsbezirk</lido:appellationValue>
+                        </lido:namePlaceSet>
+                        <lido:partOfPlace lido:politicalEntity="Bundesland">
+                           <lido:namePlaceSet>
+                              <lido:appellationValue>Nordrhein-Westfalen</lido:appellationValue>
+                           </lido:namePlaceSet>
+                           <lido:partOfPlace lido:politicalEntity="Staat">
+                              <lido:namePlaceSet>
+                                 <lido:appellationValue>Deutschland</lido:appellationValue>
+                              </lido:namePlaceSet>
+                           </lido:partOfPlace>
+                        </lido:partOfPlace>
+                     </lido:partOfPlace>
+                  </lido:repositoryLocation>
+               </lido:repositorySet>
+               <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00476">
+                  <lido:repositoryName>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Central Collecting Point (Marburg / Wiesbaden)</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:repositoryName>
+                  <lido:repositoryLocation>
+                     <lido:namePlaceSet>
+                        <lido:appellationValue>Marburg / Wiesbaden</lido:appellationValue>
+                     </lido:namePlaceSet>
+                  </lido:repositoryLocation>
+               </lido:repositorySet>
+            </lido:repositoryWrap>
+            <lido:objectMeasurementsWrap>
+               <lido:objectMeasurementsSet>
+                  <lido:displayObjectMeasurements>Höhe x Breite: 130 x 110 cm</lido:displayObjectMeasurements>
+                  <lido:objectMeasurements>
+                     <lido:measurementsSet>
+                        <lido:measurementType>Höhe x Breite</lido:measurementType>
+                        <lido:measurementUnit>cm</lido:measurementUnit>
+                        <lido:measurementValue>130 x 110</lido:measurementValue>
+                     </lido:measurementsSet>
+                  </lido:objectMeasurements>
+               </lido:objectMeasurementsSet>
+            </lido:objectMeasurementsWrap>
+         </lido:objectIdentificationWrap>
+         <lido:eventWrap>
+            <lido:eventSet>
+               <lido:event>
+                  <lido:eventType>
+                     <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                     lido:source="http://terminology.lido-schema.org/eventType">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+                     <lido:term>Herstellung</lido:term>
+                  </lido:eventType>
+                  <lido:eventActor>
+                     <lido:actorInRole>
+                        <lido:actor lido:type="http://terminology.lido-schema.org/lido00163">
+                           <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                         lido:source="http://vocab.getty.edu/ulan">http://vocab.getty.edu/ulan/500025891</lido:actorID>
+                           <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                         lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/119540355</lido:actorID>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="preferred">Achenbach, Andreas</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nationalityActor>
+                              <lido:term>Deutschland</lido:term>
+                           </lido:nationalityActor>
+                           <lido:vitalDatesActor>
+                              <lido:earliestDate lido:type="birthDate">1815-09-29</lido:earliestDate>
+                              <lido:latestDate lido:type="deathDate">1910-04-01</lido:latestDate>
+                           </lido:vitalDatesActor>
+                           <lido:genderActor>männlich</lido:genderActor>
+                        </lido:actor>
+                        <lido:roleActor>
+                           <lido:term>Maler</lido:term>
+                        </lido:roleActor>
+                     </lido:actorInRole>
+                  </lido:eventActor>
+                  <lido:eventDate>
+                     <lido:displayDate>1875</lido:displayDate>
+                     <lido:date>
+                        <lido:earliestDate>1875</lido:earliestDate>
+                        <lido:latestDate>1875</lido:latestDate>
+                     </lido:date>
+                  </lido:eventDate>
+                  <lido:eventMaterialsTech>
+                     <lido:materialsTech>
+                        <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                           <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                           lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300015050</lido:conceptID>
+                           <lido:term>Öl</lido:term>
+                        </lido:termMaterialsTech>
+                     </lido:materialsTech>
+                  </lido:eventMaterialsTech>
+                  <lido:eventMaterialsTech>
+                     <lido:materialsTech>
+                        <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                           <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                           lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300014078</lido:conceptID>
+                           <lido:term>Leinwand</lido:term>
+                           <lido:term lido:addedSearchTerm="yes">Textil</lido:term>
+                        </lido:termMaterialsTech>
+                     </lido:materialsTech>
+                  </lido:eventMaterialsTech>
+               </lido:event>
+            </lido:eventSet>
+         </lido:eventWrap>
+         <lido:objectRelationWrap>
+            <lido:subjectWrap>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/11Q758</lido:conceptID>
+                        <lido:term lido:pref="preferred">Prozessionen in der christlichen Religion</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Prozession</lido:term>
+                        <lido:term lido:pref="alternative">11Q758</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/11P31521</lido:conceptID>
+                        <lido:term lido:pref="preferred">Mönch(e), Klosterbrüder</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Mönch</lido:term>
+                        <lido:term lido:pref="alternative">11P31521</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/25I141</lido:conceptID>
+                        <lido:term lido:pref="preferred">Straße</lido:term>
+                        <lido:term lido:pref="alternative">25I141</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/61F(Via San Giovanni in Laterano)</lido:conceptID>
+                        <lido:term lido:pref="preferred">Namen historischer Gebäude, Örtlichkeiten, Straßen, etc. (mit Namen)</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Name</lido:term>
+                        <lido:term lido:pref="alternative">61F(ViaSanGiovanniinLaterano)</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/61E(Roma)</lido:conceptID>
+                        <lido:term lido:pref="preferred">Namen von Städten und Dörfern (mit Namen)</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Stadt</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Dorf</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Name</lido:term>
+                        <lido:term lido:pref="alternative">61E(Roma)</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/43C8</lido:conceptID>
+                        <lido:term lido:pref="preferred">Plätze, Anlagen, Einrichtungen für Sport, Spiele und körperliche Freizeitbeschäftigungen</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Boden</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Feld</lido:term>
+                        <lido:term lido:pref="alternative">43C8</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/61F(Kolosseum)</lido:conceptID>
+                        <lido:term lido:pref="preferred">Namen historischer Gebäude, Örtlichkeiten, Straßen, etc. (mit Namen)</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Name</lido:term>
+                        <lido:term lido:pref="alternative">61F(Kolosseum)</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+            </lido:subjectWrap>
+            <lido:relatedWorksWrap>
+               <lido:relatedWorkSet>
+                  <lido:relatedWork>
+                     <lido:object>
+                        <lido:objectID lido:type="http://terminology.lido-schema.org/lido00100"
+                                       lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">lit/05017576</lido:objectID>
+                        <lido:objectNote>Achenbach, Andreas u. Oswald, Düsseld.-Hamburg-Linz, 1997-98, S. 132</lido:objectNote>
+                     </lido:object>
+                  </lido:relatedWork>
+                  <lido:relatedWorkRelType>
+                     <lido:term>dokumentiert in</lido:term>
+                  </lido:relatedWorkRelType>
+               </lido:relatedWorkSet>
+            </lido:relatedWorksWrap>
+         </lido:objectRelationWrap>
+      </lido:descriptiveMetadata>
+      <lido:administrativeMetadata xml:lang="de">
+         <lido:recordWrap>
+            <lido:recordID lido:type="http://terminology.lido-schema.org/lido00100"
+                           lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">obj00000001</lido:recordID>
+            <lido:recordType>
+               <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00141</lido:conceptID>
+               <lido:term>Einzelobjekt</lido:term>
+            </lido:recordType>
+            <lido:recordSource lido:type="europeana:dataProvider">
+               <lido:legalBodyName>
+                  <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+               </lido:legalBodyName>
+            </lido:recordSource>
+            <lido:recordRights>
+               <lido:rightsType>
+                  <lido:conceptID lido:type="URI">http://creativecommons.org/publicdomain/zero/1.0/</lido:conceptID>
+                  <lido:term>CC0 1.0 Public Domain Dedication</lido:term>
+               </lido:rightsType>
+               <lido:rightsHolder>
+                  <lido:legalBodyName>
+                     <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                  </lido:legalBodyName>
+               </lido:rightsHolder>
+            </lido:recordRights>
+            <lido:recordInfoSet>
+               <lido:recordInfoLink>http://www.bildindex.de/document/obj00000001</lido:recordInfoLink>
+            </lido:recordInfoSet>
+         </lido:recordWrap>
+         <lido:resourceWrap>
+            <lido:resourceSet>
+               <lido:resourceID lido:type="http://terminology.lido-schema.org/lido00100">192.356</lido:resourceID>
+               <lido:resourceRepresentation lido:type="http://terminology.lido-schema.org/lido00451">
+                  <lido:linkResource>http://www.bildindex.de/bilder/d/fm192356</lido:linkResource>
+               </lido:resourceRepresentation>
+               <lido:resourceType>
+                  <lido:term>Digitales Bild</lido:term>
+               </lido:resourceType>
+               <lido:rightsResource>
+                  <lido:rightsType>
+                     <lido:conceptID lido:type="URI">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+                     <lido:term lido:pref="preferred">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:term>
+                  </lido:rightsType>
+                  <lido:rightsHolder>
+                     <lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099"
+                                       lido:source="ISIL (ISO 15511)">http://ld.zdb-services.de/resource/organisations/DE-Mb112</lido:legalBodyID>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:rightsHolder>
+               </lido:rightsResource>
+            </lido:resourceSet>
+         </lido:resourceWrap>
+      </lido:administrativeMetadata>
+</lido:lido>
+   <lido:lido>
+      <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"
+                      lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">DE-Mb112/lido/obj/00000003</lido:lidoRecID>
+      <lido:category>
+         <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object</lido:conceptID>
+         <lido:term xml:lang="en">Man-Made Object</lido:term>
+      </lido:category>
+      <lido:descriptiveMetadata xml:lang="de">
+         <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+               <lido:objectWorkType>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300033618</lido:conceptID>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4122164-3</lido:conceptID>
+                  <lido:term>Gemälde</lido:term>
+                  <lido:term lido:addedSearchTerm="yes">Bild</lido:term>
+               </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+            <lido:classificationWrap>
+               <lido:classification lido:type="europeana:type">
+                  <lido:term>IMAGE</lido:term>
+               </lido:classification>
+               <lido:classification lido:type="Objektklassifikation">
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300033656</lido:conceptID>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4037220-0</lido:conceptID>
+                  <lido:term>Tafelmalerei</lido:term>
+                  <lido:term lido:addedSearchTerm="yes">Malerei</lido:term>
+               </lido:classification>
+            </lido:classificationWrap>
+         </lido:objectClassificationWrap>
+         <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+               <lido:titleSet>
+                  <lido:appellationValue lido:pref="preferred">Die vier Evangelisten</lido:appellationValue>
+               </lido:titleSet>
+            </lido:titleWrap>
+            <lido:repositoryWrap>
+               <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00475">
+                  <lido:repositoryName>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Museen der Stadt Aachen — Suermondt-Ludwig-Museum (Aachen)</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:repositoryName>
+                  <lido:workID lido:type="Inventarnummer">10</lido:workID>
+                  <lido:repositoryLocation>
+                     <lido:placeID lido:type="http://terminology.lido-schema.org/lido00099"
+                                   lido:source="http://vocab.getty.edu/tgn">http://vocab.getty.edu/tgn/7004799</lido:placeID>
+                     <lido:namePlaceSet>
+                        <lido:appellationValue>Aachen</lido:appellationValue>
+                        <lido:appellationValue>Bad Aachen &amp; Aix-la-Chapelle &amp; Aken &amp; Aquisgrana &amp; Aquisgrán &amp; Aquis Granum &amp; Aquisgranum &amp; Aquae Grani &amp; Aquae Granni</lido:appellationValue>
+                     </lido:namePlaceSet>
+                     <lido:partOfPlace lido:politicalEntity="Regierungsbezirk/Provinz">
+                        <lido:namePlaceSet>
+                           <lido:appellationValue>Aachen, Regierungsbezirk</lido:appellationValue>
+                        </lido:namePlaceSet>
+                        <lido:partOfPlace lido:politicalEntity="Bundesland">
+                           <lido:namePlaceSet>
+                              <lido:appellationValue>Nordrhein-Westfalen</lido:appellationValue>
+                           </lido:namePlaceSet>
+                           <lido:partOfPlace lido:politicalEntity="Staat">
+                              <lido:namePlaceSet>
+                                 <lido:appellationValue>Deutschland</lido:appellationValue>
+                              </lido:namePlaceSet>
+                           </lido:partOfPlace>
+                        </lido:partOfPlace>
+                     </lido:partOfPlace>
+                  </lido:repositoryLocation>
+               </lido:repositorySet>
+               <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00476">
+                  <lido:repositoryName>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Central Collecting Point (Marburg / Wiesbaden)</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:repositoryName>
+                  <lido:repositoryLocation>
+                     <lido:namePlaceSet>
+                        <lido:appellationValue>Marburg / Wiesbaden</lido:appellationValue>
+                     </lido:namePlaceSet>
+                  </lido:repositoryLocation>
+               </lido:repositorySet>
+            </lido:repositoryWrap>
+            <lido:objectMeasurementsWrap>
+               <lido:objectMeasurementsSet>
+                  <lido:displayObjectMeasurements>Höhe x Breite: 124 x 81 cm</lido:displayObjectMeasurements>
+                  <lido:objectMeasurements>
+                     <lido:measurementsSet>
+                        <lido:measurementType>Höhe x Breite</lido:measurementType>
+                        <lido:measurementUnit>cm</lido:measurementUnit>
+                        <lido:measurementValue>124 x 81</lido:measurementValue>
+                     </lido:measurementsSet>
+                  </lido:objectMeasurements>
+               </lido:objectMeasurementsSet>
+            </lido:objectMeasurementsWrap>
+         </lido:objectIdentificationWrap>
+         <lido:eventWrap>
+            <lido:eventSet>
+               <lido:event>
+                  <lido:eventType>
+                     <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                     lido:source="http://terminology.lido-schema.org/eventType">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+                     <lido:term>Herstellung</lido:term>
+                  </lido:eventType>
+                  <lido:eventActor>
+                     <lido:actorInRole>
+                        <lido:actor lido:type="http://terminology.lido-schema.org/lido00163">
+                           <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                         lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/118643924</lido:actorID>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="preferred">Aertsen, Pieter</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="alternative">Aertsz, Pieter</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="alternative">Aertszone, Pieter</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="alternative">Lange Pier</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nationalityActor>
+                              <lido:term>Niederlande</lido:term>
+                           </lido:nationalityActor>
+                           <lido:vitalDatesActor>
+                              <lido:earliestDate lido:type="birthDate">1508</lido:earliestDate>
+                              <lido:latestDate lido:type="deathDate">1575-06-02</lido:latestDate>
+                           </lido:vitalDatesActor>
+                           <lido:genderActor>männlich</lido:genderActor>
+                        </lido:actor>
+                        <lido:roleActor>
+                           <lido:term>Maler</lido:term>
+                        </lido:roleActor>
+                        <lido:attributionQualifierActor>alternative Zuschreibung</lido:attributionQualifierActor>
+                     </lido:actorInRole>
+                  </lido:eventActor>
+                  <lido:eventActor>
+                     <lido:actorInRole>
+                        <lido:actor lido:type="http://terminology.lido-schema.org/lido00163">
+                           <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                         lido:source="http://vocab.getty.edu/ulan">http://vocab.getty.edu/ulan/500031041</lido:actorID>
+                           <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                         lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/118658689</lido:actorID>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="preferred">Beuckelaer, Joachim</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="alternative">Bueckelaer, Joachim de</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="alternative">Bueckeleer, Joachim</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nationalityActor>
+                              <lido:term>Niederlande</lido:term>
+                           </lido:nationalityActor>
+                           <lido:vitalDatesActor>
+                              <lido:earliestDate lido:type="evidenceDate">1533</lido:earliestDate>
+                              <lido:latestDate lido:type="evidenceDate">1574</lido:latestDate>
+                           </lido:vitalDatesActor>
+                           <lido:genderActor>männlich</lido:genderActor>
+                        </lido:actor>
+                        <lido:roleActor>
+                           <lido:term>Maler</lido:term>
+                        </lido:roleActor>
+                        <lido:attributionQualifierActor>alternative Zuschreibung</lido:attributionQualifierActor>
+                     </lido:actorInRole>
+                  </lido:eventActor>
+                  <lido:eventDate>
+                     <lido:displayDate>1559</lido:displayDate>
+                     <lido:date>
+                        <lido:earliestDate>1559</lido:earliestDate>
+                        <lido:latestDate>1559</lido:latestDate>
+                     </lido:date>
+                  </lido:eventDate>
+                  <lido:eventMaterialsTech>
+                     <lido:materialsTech>
+                        <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                           <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                           lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300015050</lido:conceptID>
+                           <lido:term>Öl</lido:term>
+                        </lido:termMaterialsTech>
+                     </lido:materialsTech>
+                  </lido:eventMaterialsTech>
+                  <lido:eventMaterialsTech>
+                     <lido:materialsTech>
+                        <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                           <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                           lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300012264</lido:conceptID>
+                           <lido:term>Eichenholz</lido:term>
+                           <lido:term lido:addedSearchTerm="yes">Holz</lido:term>
+                        </lido:termMaterialsTech>
+                     </lido:materialsTech>
+                  </lido:eventMaterialsTech>
+               </lido:event>
+            </lido:eventSet>
+         </lido:eventWrap>
+         <lido:objectRelationWrap>
+            <lido:subjectWrap>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/11I4111</lido:conceptID>
+                        <lido:term lido:pref="preferred">die Evangelisten werden inspiriert, z.B. vom Heiligen Geist (Taube), Hand Gottes, Maria, Engel</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Inspiration</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Heilige Geist</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Taube</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Hand Gottes</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Gott</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Maria (Jungfrau)</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Engel</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">diktieren</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">schreiben</lido:term>
+                        <lido:term lido:pref="alternative">11I4111</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+            </lido:subjectWrap>
+         </lido:objectRelationWrap>
+      </lido:descriptiveMetadata>
+      <lido:administrativeMetadata xml:lang="de">
+         <lido:recordWrap>
+            <lido:recordID lido:type="http://terminology.lido-schema.org/lido00100"
+                           lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">obj00000003</lido:recordID>
+            <lido:recordType>
+               <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00141</lido:conceptID>
+               <lido:term>Einzelobjekt</lido:term>
+            </lido:recordType>
+            <lido:recordSource lido:type="europeana:dataProvider">
+               <lido:legalBodyName>
+                  <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+               </lido:legalBodyName>
+            </lido:recordSource>
+            <lido:recordRights>
+               <lido:rightsType>
+                  <lido:conceptID lido:type="URI">http://creativecommons.org/publicdomain/zero/1.0/</lido:conceptID>
+                  <lido:term>CC0 1.0 Public Domain Dedication</lido:term>
+               </lido:rightsType>
+               <lido:rightsHolder>
+                  <lido:legalBodyName>
+                     <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                  </lido:legalBodyName>
+               </lido:rightsHolder>
+            </lido:recordRights>
+            <lido:recordInfoSet>
+               <lido:recordInfoLink>http://www.bildindex.de/document/obj00000003</lido:recordInfoLink>
+            </lido:recordInfoSet>
+         </lido:recordWrap>
+         <lido:resourceWrap>
+            <lido:resourceSet>
+               <lido:resourceID lido:type="http://terminology.lido-schema.org/lido00100">192.358</lido:resourceID>
+               <lido:resourceRepresentation lido:type="http://terminology.lido-schema.org/lido00451">
+                  <lido:linkResource>http://www.bildindex.de/bilder/d/fm192358</lido:linkResource>
+               </lido:resourceRepresentation>
+               <lido:resourceType>
+                  <lido:term>Digitales Bild</lido:term>
+               </lido:resourceType>
+               <lido:rightsResource>
+                  <lido:rightsType>
+                     <lido:conceptID lido:type="URI">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+                     <lido:term lido:pref="preferred">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:term>
+                  </lido:rightsType>
+                  <lido:rightsHolder>
+                     <lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099"
+                                       lido:source="ISIL (ISO 15511)">http://ld.zdb-services.de/resource/organisations/DE-Mb112</lido:legalBodyID>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:rightsHolder>
+               </lido:rightsResource>
+            </lido:resourceSet>
+         </lido:resourceWrap>
+      </lido:administrativeMetadata>
+</lido:lido>
+   <lido:lido>
+      <lido:lidoRecID lido:type="http://terminology.lido-schema.org/lido00100"
+                      lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">DE-Mb112/lido/obj/00000004</lido:lidoRecID>
+      <lido:category>
+         <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://www.cidoc-crm.org/cidoc-crm/E22_Man-Made_Object</lido:conceptID>
+         <lido:term xml:lang="en">Man-Made Object</lido:term>
+      </lido:category>
+      <lido:descriptiveMetadata xml:lang="de">
+         <lido:objectClassificationWrap>
+            <lido:objectWorkTypeWrap>
+               <lido:objectWorkType>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300033618</lido:conceptID>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4122164-3</lido:conceptID>
+                  <lido:term>Gemälde</lido:term>
+                  <lido:term lido:addedSearchTerm="yes">Bild</lido:term>
+               </lido:objectWorkType>
+            </lido:objectWorkTypeWrap>
+            <lido:classificationWrap>
+               <lido:classification lido:type="europeana:type">
+                  <lido:term>IMAGE</lido:term>
+               </lido:classification>
+               <lido:classification lido:type="Objektklassifikation">
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300033656</lido:conceptID>
+                  <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                  lido:source="http://d-nb.info/gnd">http://d-nb.info/gnd/4037220-0</lido:conceptID>
+                  <lido:term>Tafelmalerei</lido:term>
+                  <lido:term lido:addedSearchTerm="yes">Malerei</lido:term>
+               </lido:classification>
+            </lido:classificationWrap>
+         </lido:objectClassificationWrap>
+         <lido:objectIdentificationWrap>
+            <lido:titleWrap>
+               <lido:titleSet>
+                  <lido:appellationValue lido:pref="preferred">Familienbildnis bei der silbernen Hochzeit der Familie Neuß</lido:appellationValue>
+               </lido:titleSet>
+            </lido:titleWrap>
+            <lido:inscriptionsWrap>
+               <lido:inscriptions lido:type="Inschrift">
+                  <lido:inscriptionDescription>
+                     <lido:descriptiveNoteValue>Inschrift</lido:descriptiveNoteValue>
+                  </lido:inscriptionDescription>
+               </lido:inscriptions>
+            </lido:inscriptionsWrap>
+            <lido:repositoryWrap>
+               <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00475">
+                  <lido:repositoryName>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Museen der Stadt Aachen — Suermondt-Ludwig-Museum (Aachen)</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:repositoryName>
+                  <lido:workID lido:type="Inventarnummer">28</lido:workID>
+                  <lido:repositoryLocation>
+                     <lido:placeID lido:type="http://terminology.lido-schema.org/lido00099"
+                                   lido:source="http://vocab.getty.edu/tgn">http://vocab.getty.edu/tgn/7004799</lido:placeID>
+                     <lido:namePlaceSet>
+                        <lido:appellationValue>Aachen</lido:appellationValue>
+                        <lido:appellationValue>Bad Aachen &amp; Aix-la-Chapelle &amp; Aken &amp; Aquisgrana &amp; Aquisgrán &amp; Aquis Granum &amp; Aquisgranum &amp; Aquae Grani &amp; Aquae Granni</lido:appellationValue>
+                     </lido:namePlaceSet>
+                     <lido:partOfPlace lido:politicalEntity="Regierungsbezirk/Provinz">
+                        <lido:namePlaceSet>
+                           <lido:appellationValue>Aachen, Regierungsbezirk</lido:appellationValue>
+                        </lido:namePlaceSet>
+                        <lido:partOfPlace lido:politicalEntity="Bundesland">
+                           <lido:namePlaceSet>
+                              <lido:appellationValue>Nordrhein-Westfalen</lido:appellationValue>
+                           </lido:namePlaceSet>
+                           <lido:partOfPlace lido:politicalEntity="Staat">
+                              <lido:namePlaceSet>
+                                 <lido:appellationValue>Deutschland</lido:appellationValue>
+                              </lido:namePlaceSet>
+                           </lido:partOfPlace>
+                        </lido:partOfPlace>
+                     </lido:partOfPlace>
+                  </lido:repositoryLocation>
+               </lido:repositorySet>
+               <lido:repositorySet lido:type="http://terminology.lido-schema.org/lido00476">
+                  <lido:repositoryName>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Central Collecting Point (Marburg / Wiesbaden)</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:repositoryName>
+                  <lido:repositoryLocation>
+                     <lido:namePlaceSet>
+                        <lido:appellationValue>Marburg / Wiesbaden</lido:appellationValue>
+                     </lido:namePlaceSet>
+                  </lido:repositoryLocation>
+               </lido:repositorySet>
+            </lido:repositoryWrap>
+            <lido:objectMeasurementsWrap>
+               <lido:objectMeasurementsSet>
+                  <lido:displayObjectMeasurements>Höhe x Breite: 108 x 134 cm</lido:displayObjectMeasurements>
+                  <lido:objectMeasurements>
+                     <lido:measurementsSet>
+                        <lido:measurementType>Höhe x Breite</lido:measurementType>
+                        <lido:measurementUnit>cm</lido:measurementUnit>
+                        <lido:measurementValue>108 x 134</lido:measurementValue>
+                     </lido:measurementsSet>
+                  </lido:objectMeasurements>
+               </lido:objectMeasurementsSet>
+            </lido:objectMeasurementsWrap>
+         </lido:objectIdentificationWrap>
+         <lido:eventWrap>
+            <lido:eventSet>
+               <lido:event>
+                  <lido:eventType>
+                     <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                     lido:source="http://terminology.lido-schema.org/eventType">http://terminology.lido-schema.org/lido00007</lido:conceptID>
+                     <lido:term>Herstellung</lido:term>
+                  </lido:eventType>
+                  <lido:eventActor>
+                     <lido:actorInRole>
+                        <lido:actor lido:type="http://terminology.lido-schema.org/lido00163">
+                           <lido:actorID lido:type="http://terminology.lido-schema.org/lido00099"
+                                         lido:source="http://vocab.getty.edu/ulan">http://vocab.getty.edu/ulan/500009977</lido:actorID>
+                           <lido:nameActorSet>
+                              <lido:appellationValue lido:pref="preferred">Bastiné, Jean-Baptiste Joseph</lido:appellationValue>
+                           </lido:nameActorSet>
+                           <lido:nationalityActor>
+                              <lido:term>Deutschland</lido:term>
+                           </lido:nationalityActor>
+                           <lido:nationalityActor>
+                              <lido:term>Niederlande</lido:term>
+                           </lido:nationalityActor>
+                           <lido:vitalDatesActor>
+                              <lido:earliestDate lido:type="birthDate">1783-03-13</lido:earliestDate>
+                              <lido:latestDate lido:type="deathDate">1844-01-14</lido:latestDate>
+                           </lido:vitalDatesActor>
+                           <lido:genderActor>männlich</lido:genderActor>
+                        </lido:actor>
+                        <lido:roleActor>
+                           <lido:term>Maler</lido:term>
+                        </lido:roleActor>
+                     </lido:actorInRole>
+                  </lido:eventActor>
+                  <lido:eventDate>
+                     <lido:displayDate>1842</lido:displayDate>
+                     <lido:date>
+                        <lido:earliestDate>1842</lido:earliestDate>
+                        <lido:latestDate>1842</lido:latestDate>
+                     </lido:date>
+                  </lido:eventDate>
+                  <lido:eventMaterialsTech>
+                     <lido:materialsTech>
+                        <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                           <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                           lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300015050</lido:conceptID>
+                           <lido:term>Öl</lido:term>
+                        </lido:termMaterialsTech>
+                     </lido:materialsTech>
+                  </lido:eventMaterialsTech>
+                  <lido:eventMaterialsTech>
+                     <lido:materialsTech>
+                        <lido:termMaterialsTech lido:type="http://terminology.lido-schema.org/lido00132">
+                           <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                           lido:source="http://vocab.getty.edu/aat">http://vocab.getty.edu/aat/300014078</lido:conceptID>
+                           <lido:term>Leinwand</lido:term>
+                           <lido:term lido:addedSearchTerm="yes">Textil</lido:term>
+                        </lido:termMaterialsTech>
+                     </lido:materialsTech>
+                  </lido:eventMaterialsTech>
+               </lido:event>
+            </lido:eventSet>
+         </lido:eventWrap>
+         <lido:objectRelationWrap>
+            <lido:subjectWrap>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/42D2542</lido:conceptID>
+                        <lido:term lido:pref="preferred">Silberne Hochzeit</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Silber</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">fünfundzwanzig</lido:term>
+                        <lido:term lido:pref="alternative">42D2542</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/61B2(Neuss, Hermann Josef)13(+55)</lido:conceptID>
+                        <lido:term lido:pref="preferred">Person (mit Namen) in einer Gruppe, in einem Gruppenporträt</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Person</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">historisch</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Gruppe</lido:term>
+                        <lido:term lido:pref="alternative">61B2(Neuss,HermannJosef)13(+55)</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/61BB2(Neuss, Wilhelmine)13(+55)</lido:conceptID>
+                        <lido:term lido:pref="preferred">Darstellung einer weiblichen Person (mit Namen) in einer Gruppe, in einem Gruppenporträt</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Gruppe</lido:term>
+                        <lido:term lido:pref="alternative">61BB2(Neuss,Wilhelmine)13(+55)</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/42B74(14)</lido:conceptID>
+                        <lido:term lido:pref="preferred">Familiengruppe, insbesondere Eltern mit ihren Kindern (mit ANZAHL der Kinder)</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Familiengruppe</lido:term>
+                        <lido:term lido:pref="alternative">42B74(14)</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/41D241</lido:conceptID>
+                        <lido:term lido:pref="preferred">Kleidung für offizielle Anlässe</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Amtsrobe</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Kostüm</lido:term>
+                        <lido:term lido:pref="alternative" lido:addedSearchTerm="yes">Uniform</lido:term>
+                        <lido:term lido:pref="alternative">41D241</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+               <lido:subjectSet>
+                  <lido:subject lido:type="Beschreibung">
+                     <lido:subjectConcept>
+                        <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099"
+                                        lido:source="http://iconclass.org">http://iconclass.org/46A13</lido:conceptID>
+                        <lido:term lido:pref="preferred">Bürger(liche)</lido:term>
+                        <lido:term lido:pref="alternative">46A13</lido:term>
+                     </lido:subjectConcept>
+                  </lido:subject>
+               </lido:subjectSet>
+            </lido:subjectWrap>
+         </lido:objectRelationWrap>
+      </lido:descriptiveMetadata>
+      <lido:administrativeMetadata xml:lang="de">
+         <lido:recordWrap>
+            <lido:recordID lido:type="http://terminology.lido-schema.org/lido00100"
+                           lido:source="Deutsches Dokumentationszentrum für Kunstgeschichte - Bildarchiv Foto Marburg">obj00000004</lido:recordID>
+            <lido:recordType>
+               <lido:conceptID lido:type="http://terminology.lido-schema.org/lido00099">http://terminology.lido-schema.org/lido00141</lido:conceptID>
+               <lido:term>Einzelobjekt</lido:term>
+            </lido:recordType>
+            <lido:recordSource lido:type="europeana:dataProvider">
+               <lido:legalBodyName>
+                  <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+               </lido:legalBodyName>
+            </lido:recordSource>
+            <lido:recordRights>
+               <lido:rightsType>
+                  <lido:conceptID lido:type="URI">http://creativecommons.org/publicdomain/zero/1.0/</lido:conceptID>
+                  <lido:term>CC0 1.0 Public Domain Dedication</lido:term>
+               </lido:rightsType>
+               <lido:rightsHolder>
+                  <lido:legalBodyName>
+                     <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                  </lido:legalBodyName>
+               </lido:rightsHolder>
+            </lido:recordRights>
+            <lido:recordInfoSet>
+               <lido:recordInfoLink>http://www.bildindex.de/document/obj00000004</lido:recordInfoLink>
+            </lido:recordInfoSet>
+         </lido:recordWrap>
+         <lido:resourceWrap>
+            <lido:resourceSet>
+               <lido:resourceID lido:type="http://terminology.lido-schema.org/lido00100">192.359</lido:resourceID>
+               <lido:resourceRepresentation lido:type="http://terminology.lido-schema.org/lido00451">
+                  <lido:linkResource>http://www.bildindex.de/bilder/d/fm192359</lido:linkResource>
+               </lido:resourceRepresentation>
+               <lido:resourceType>
+                  <lido:term>Digitales Bild</lido:term>
+               </lido:resourceType>
+               <lido:rightsResource>
+                  <lido:rightsType>
+                     <lido:conceptID lido:type="URI">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+                     <lido:term lido:pref="preferred">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:term>
+                  </lido:rightsType>
+                  <lido:rightsHolder>
+                     <lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099"
+                                       lido:source="ISIL (ISO 15511)">http://ld.zdb-services.de/resource/organisations/DE-Mb112</lido:legalBodyID>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:rightsHolder>
+               </lido:rightsResource>
+            </lido:resourceSet>
+            <lido:resourceSet>
+               <lido:resourceID lido:type="http://terminology.lido-schema.org/lido00100">1.201.181</lido:resourceID>
+               <lido:resourceRepresentation lido:type="http://terminology.lido-schema.org/lido00451">
+                  <lido:linkResource>http://www.bildindex.de/bilder/d/mi09141j16</lido:linkResource>
+               </lido:resourceRepresentation>
+               <lido:resourceType>
+                  <lido:term>Digitales Bild (retrodigitalisiert)</lido:term>
+               </lido:resourceType>
+               <lido:resourceDateTaken>
+                  <lido:displayDate>um 1939/1940?</lido:displayDate>
+               </lido:resourceDateTaken>
+               <lido:rightsResource>
+                  <lido:rightsType>
+                     <lido:conceptID lido:type="URI">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:conceptID>
+                     <lido:term lido:pref="preferred">http://www.deutsche-digitale-bibliothek.de/lizenzen/rv-fz/</lido:term>
+                  </lido:rightsType>
+                  <lido:rightsHolder>
+                     <lido:legalBodyID lido:type="http://terminology.lido-schema.org/lido00099"
+                                       lido:source="ISIL (ISO 15511)">http://ld.zdb-services.de/resource/organisations/DE-Mb112</lido:legalBodyID>
+                     <lido:legalBodyName>
+                        <lido:appellationValue>Bildarchiv Foto Marburg</lido:appellationValue>
+                     </lido:legalBodyName>
+                  </lido:rightsHolder>
+               </lido:rightsResource>
+            </lido:resourceSet>
+         </lido:resourceWrap>
+      </lido:administrativeMetadata>
+</lido:lido>
+
+</lido:lidoWrap>

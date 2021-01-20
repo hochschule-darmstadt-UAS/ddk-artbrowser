@@ -63,7 +63,7 @@ COPY --from=Wikicrawler /app/shared/ /app/shared/
 
 RUN ["python", "data_enhancement/split_languages.py"]
 
-# art_ontology.json is moved to /root because elasticsearch_helper.py
+# art_ontology.json is moved to /root because elasticsearch_uploader.py
 # expects the json file in the home directory
 COPY ["./crawler_output/", "/root/crawler_output/"]
 
