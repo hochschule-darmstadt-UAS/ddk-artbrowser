@@ -12,6 +12,7 @@ class Genre(JSONEncodable):
         self._parse_id()
 
         self.label = ""
+        self.alt_labels = []
         self.source_ids = []
         self.classificationType = ""
 
@@ -31,9 +32,14 @@ class Genre(JSONEncodable):
 
     def parse(self):
         self.label = self.root.find(paths["Genre_Label_Path"], namespace).text
+        self._parse_alt_labels()
         self.classificationType = self.root.attrib['{http://www.lido-schema.org}type']
-
         self._parse_source_ids()
+
+    def _parse_alt_labels(self):
+        self.alt_labels = []
+        for alt_label_root in self.root.findall(paths["Genre_AltLabel_Path"], namespace):
+            self.alt_labels.append(alt_label_root.text)
 
     def _parse_source_ids(self):
         self.source_ids = []
@@ -49,6 +55,7 @@ class Genre(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
+            "altLabels": self.alt_labels,
             "sourceIDs": self.source_ids,
             "classificationType": self.classificationType,
             "count": self.count,

@@ -32,6 +32,7 @@ class Artwork(JSONEncodable):
 
         self._parse_id()
         self._parse_label()
+        self._parse_alt_label()
         self._parse_inception()
         self._parse_inscription()
         self._parse_types()
@@ -68,6 +69,15 @@ class Artwork(JSONEncodable):
         else:
             self.label = None
 
+    def _parse_alt_label(self):
+        self.alt_labels = []
+        altLabels_list = self.lido.findall(paths["Artwork_AltLabel_Path"], namespace)
+        if altLabels_list is not None:
+            for element in altLabels_list:
+                self.alt_labels.append(sanitize(element.text))
+        else:
+            self.alt_labels = None
+
     def _parse_inception(self):
         event_display_date = self.lido.find(paths['Artwork_Inception_Path'], namespace)
         if event_display_date is not None:
@@ -78,8 +88,11 @@ class Artwork(JSONEncodable):
     def _parse_inscription(self):
         self.inscriptions = []
         all_inscriptions = self.lido.findall(paths["Artwork_Inscription_Path"], namespace)
-        for inscription in all_inscriptions:
-            self.inscriptions.append(inscription.text)
+        if all_inscriptions is not None:
+            for inscription in all_inscriptions:
+                self.inscriptions.append(inscription.text)
+        else:
+            self.inscriptions = None
 
     def _parse_types(self):
         self.types = []
@@ -213,26 +226,11 @@ class Artwork(JSONEncodable):
 
         for resource_root in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
             resource = Resource(resource_root)
-            # skip resources without linkResource (actual link to image file)
-            if resource.linkResource != "":
-                self.resources.append(resource)
+            self.resources.append(resource)
 
         # resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
         # if (len(resourceLegal_List) > 0):
         # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()
-
-    def _parse_altName(lido):
-        # TODO
-        raise NotImplementedError
-
-        # altenames_List = self.root.findall(paths["Artwork_Altename_Path"], namespace)
-        # altenames = []
-        # if len(altenames_List) > 0:
-        #    for altename in  altenames_List:
-        #        altenames.append(altename.text)
-        # else:
-        #    pass
-        # self.artwork["altName"] = altenames
 
     def calc_count(self):
         self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(self.materials) + \
@@ -252,6 +250,7 @@ class Artwork(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
+            "altLabels": self.alt_labels,
             "measurements": self.measurements,
             "recordLegal": self.recordLegal,
             "resources": self.resources,

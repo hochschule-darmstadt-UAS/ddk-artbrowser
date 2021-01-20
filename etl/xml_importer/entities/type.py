@@ -47,8 +47,12 @@ class Type(JSONEncodable):
 
     def _parse_alt_labels(self):
         self.alt_labels = []
-        for alt_label_root in self.root.findall(paths["Type_AltLabel_Path"], namespace):
-            self.alt_labels.append(alt_label_root.text)
+        alt_label_root = self.root.findall(paths["Type_AltLabel_Path"], namespace)
+        if alt_label_root is not None:
+            for element in alt_label_root:
+                self.alt_labels.append(element.text)
+        else:
+            self.alt_labels = None
 
     def _parse_source_ids(self):
         self.source_ids = []

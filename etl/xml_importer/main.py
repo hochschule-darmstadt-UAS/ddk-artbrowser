@@ -51,17 +51,13 @@ def rank_entities(entities: dict):
 if __name__ == '__main__':
     namespace = {'lido': 'http://www.lido-schema.org'}
 
-    num_of_files = 2
+    num_of_files = 1
     for i in range(1, num_of_files+1):
         print("Processing file ", i)
         # TODO: Change base path of lidoFile
-        lidoFile = '/home/yannick/Downloads/openArtBrowser-Projekt/ddb_20190606/merged_lido_{}.xml'.format(i)
+        lidoFile = "merged.xml"
         for event, elem in lxml.etree.iterparse(lidoFile, tag='{http://www.lido-schema.org}lido', events=('end',)):
             artwork = Artwork(elem)
-
-            # filter artworks without resources (Link to actual picture)
-            if not len(artwork.resources) > 0:
-                continue
 
             artworks.append(artwork)
             if artwork.count > artwork_max_count:
