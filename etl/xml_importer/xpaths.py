@@ -143,8 +143,6 @@ paths = {
     "Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
     "Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
 
-
-
     #RIGHTS
     "Rights_Type_Path": "lido:rightsType/lido:conceptID",
     "Rights_Holder_Path": "lido:rightsHolder/lido:legalBodyID",
@@ -153,6 +151,5 @@ paths = {
     #ENTITY
     ##Prios sind niedrig oder nicht vorhanden, daher erstmal nicht beachten
 
-    "namespace": "{'lido': 'http://www.lido-schema.org'}"
 }
 
