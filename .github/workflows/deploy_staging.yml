@@ -26,7 +26,7 @@ jobs:
         with:
           switches: -avzr --delete
           path: etl
-          remote_path: ~/etl
+          remote_path: ~/
           remote_host: ${{ secrets.DEPLOYMENT_SERVER_STAGING }}
           remote_port: ${{ secrets.DEPLOYMENT_SERVER_STAGING_SSH_PORT }} 
           remote_user: ${{ secrets.DEPLOYMENT_USER }}
