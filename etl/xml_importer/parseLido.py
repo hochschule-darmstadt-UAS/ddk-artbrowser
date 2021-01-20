@@ -16,7 +16,7 @@ def sanitize(text: str):
     return sanitized_text
 
 
-def sanitize_id(id: str): #TODO: ID-Format definieren, da auch mal Leerzeichen vorkommen können
+def sanitize_id(id: str):
     id = sanitize(id)
 
     remove_chars = ["(", ")", ";", "?"]
@@ -49,13 +49,18 @@ def get_id_by_prio(all_ids):
     return sanitize_id(id)
 
 
-def sanitize_location(location): ##TODO: Method besser definieren
-    spec_char = [" — ", " / ", " "]
-    spec_char2 = ["(", ")"]
-    for char in spec_char:
-        location = location.replace(char, "-")
-    for char2 in spec_char2:
-        location = location.replace(char2, "")
+def sanitize_location(location):
+    remove_chars = ["-", "—", "(", ")", ";", "&", "?", "/", ",", "\"", "."]
+    replace_chars = [" "]
+
+    for c in remove_chars:
+        location = location.replace(c, "")
+
+    location = sanitize(location)
+
+    for c in replace_chars:
+        location = location.replace(c, "-")
+
     return location
 
 
