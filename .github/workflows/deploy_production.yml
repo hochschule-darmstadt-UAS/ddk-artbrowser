@@ -1,0 +1,32 @@
+name: DEPLOY_PRODUCTION
+on:
+  workflow_dispatch:
+    branches:
+      - master
+  #push:
+  #  branches:
+  #    - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: staging
+      - name: build
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: ls -la
+      - run: cd app && npm install && npm run build:de
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete
+          path: app/dist/browser/de/*
+          remote_path: ${{ secrets.DEPLOYMENT_PATH }}
+          remote_host: ${{ secrets.DEPLOYMENT_SERVER_PRODUCTION }}
+          remote_port: ${{ secrets.DEPLOYMENT_SERVER_PRODUCTION_SSH_PORT }} 
+          remote_user: ${{ secrets.DEPLOYMENT_USER }}
+          remote_key: ${{ secrets.DEPLOYMENT_KEY }}

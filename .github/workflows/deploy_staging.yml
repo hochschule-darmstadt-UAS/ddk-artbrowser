@@ -27,12 +27,13 @@ jobs:
           switches: -avzr --delete
           path: etl
           remote_path: ~/
+          remote_path: ~/etl
           remote_host: ${{ secrets.DEPLOYMENT_SERVER_STAGING }}
           remote_port: ${{ secrets.DEPLOYMENT_SERVER_STAGING_SSH_PORT }} 
           remote_user: ${{ secrets.DEPLOYMENT_USER }}
           remote_key: ${{ secrets.DEPLOYMENT_KEY }}
       
-      - name: rsync deployments
+      - name: rsync frontend
         uses: burnett01/rsync-deployments@4.1
         with:
           switches: -avzr --delete
