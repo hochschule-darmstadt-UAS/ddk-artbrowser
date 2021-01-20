@@ -1,8 +1,0 @@
-# QID: QID of an artwork category
-SELECT DISTINCT
-?item
-WHERE {
-    ?cls wdt:P279* $QID .
-    ?item wdt:P31 ?cls;
-    wdt:P18 ?image .
-}

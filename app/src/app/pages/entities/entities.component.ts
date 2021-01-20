@@ -3,14 +3,14 @@ import { DataService } from '../../core/services/elasticsearch/data.service';
 import { ActivatedRoute } from '@angular/router';
 import {
   Entity,
-  Movement,
   Artwork,
   Artist,
   Genre,
-  Motif,
   Location,
   Material,
-  EntityType
+  EntityType,
+  Type,
+  Iconography
 } from 'src/app/shared/models/models';
 
 @Component({
@@ -19,7 +19,6 @@ import {
   styleUrls: ['./entities.component.scss']
 })
 export class EntitiesComponent implements OnInit {
-
   /** all items to display */
   entities: any[] = [];
   /** offset of the query, this is where it will continue to load */
@@ -38,10 +37,11 @@ export class EntitiesComponent implements OnInit {
     if (this.route.pathFromRoot[1]) {
       /** get type which shall be handled from url */
       this.route.pathFromRoot[1].url.subscribe(val => {
-        const lastPathSegment = val[0].path.substr(0, val[0].path.length - 1);
+        const lastPathSegment = val[0].path.toLowerCase() === 'iconographies' ?
+          'iconography' : val[0].path.substr(0, val[0].path.length - 1);
         this.type = EntityType[lastPathSegment.toUpperCase() as keyof typeof EntityType];
         /** get max number of elements */
-        this.dataService.countEntityItems(this.type).then(value => this.queryCount = value);
+        this.dataService.countEntityItems(this.type).then(value => (this.queryCount = value));
       });
     }
   }
@@ -58,8 +58,8 @@ export class EntitiesComponent implements OnInit {
 
       /** Fetch dependant on type. Maybe there is potential for improvement here. */
       switch (this.type) {
-        case EntityType.MOVEMENT:
-          this.getEntities<Movement>(this.offset);
+        case EntityType.TYPE:
+          this.getEntities<Type>(this.offset);
           break;
         case EntityType.ARTIST:
           this.getEntities<Artist>(this.offset);
@@ -73,11 +73,11 @@ export class EntitiesComponent implements OnInit {
         case EntityType.LOCATION:
           this.getEntities<Location>(this.offset);
           break;
-        case EntityType.MOTIF:
-          this.getEntities<Motif>(this.offset);
-          break;
         case EntityType.MATERIAL:
           this.getEntities<Material>(this.offset);
+          break;
+        case EntityType.ICONOGRAPHY:
+          this.getEntities<Iconography>(this.offset);
           break;
       }
     }
@@ -86,11 +86,13 @@ export class EntitiesComponent implements OnInit {
   /** fetch new dataset, starting from offset x */
   private getEntities<T extends Entity>(offset: number) {
     this.offset += this.fetchSize;
-    const capitalize = (str, lower = false) =>
-      (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
+    const capitalize = (str, lower = false) => (lower ? str.toLowerCase() : str)
+      .replace(/(?:^|\s|["'([{])+\S/g, match => match.toUpperCase());
     this.getAllEntities<T>(offset).then(entities => {
       entities.forEach(entity => {
-        entity.label = capitalize(entity.label);
+        if (entity.label) {
+          entity.label = capitalize(entity.label);
+        }
         /** If image link is missing, query for random image */
         if (!entity.image) {
           this.setRandomArtwork(entity);
@@ -131,9 +133,10 @@ export class EntitiesComponent implements OnInit {
         entity.image = artworks[randThumbIndex].image;
         entity.imageMedium = artworks[randThumbIndex].imageMedium;
         entity.imageSmall = artworks[randThumbIndex].imageSmall;
-      }).finally(() => {
-      return entity;
-    });
+      })
+      .finally(() => {
+        return entity;
+      });
   }
 
   /** fetch 20 artworks to choose from */
@@ -152,10 +155,14 @@ export class EntitiesComponent implements OnInit {
 
   /** Removes items from the component. Index can be specified to remove without search (faster) */
   removeEntity(item: Entity, index?) {
-    this.entities.splice(index ?
-      this.entities.findIndex(i => {
-        return i ? i.id === item.id : true;
-      }) : index, 1);
+    this.entities.splice(
+      index
+        ? this.entities.findIndex(i => {
+          return i ? i.id === item.id : true;
+        })
+        : index,
+      1
+    );
     this.offset--;
   }
 }

@@ -12,6 +12,9 @@ export class CollapseComponent implements OnInit {
 
   @Input() showVideo = false;
 
+  @Input() heading = 'More';
+  @Input() headingTranslation = 'more';
+
   constructor(private angulartics2: Angulartics2) {}
 
   ngOnInit() {}

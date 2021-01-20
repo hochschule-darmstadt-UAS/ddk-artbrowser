@@ -1,0 +1,26 @@
+[
+  {
+    "id": "getty-500095236",
+    "entityType": "artist",
+    "label": "Meyboden, Hans",
+    "altLabels": ["Meyboden, Hans"],
+    "sourceID": [
+      {
+        "source": "http://vocab.getty.edu/ulan",
+        "id": "http://vocab.getty.edu/ulan/500095236"
+      },
+      {
+        "source": "http://d-nb.info/gnd",
+        "id": "http://d-nb.info/gnd/118581708"
+      }
+    ],
+    "count": 68,
+    "rank": 0.9839217354317312,
+
+    "nationality": "Deutschland",
+    "dateOfBirth": "1901-02-20",
+    "dateOfDeath": "1965-03-05",
+    "gender": "männlich",
+    "roles": ["Maler"]
+  }
+]

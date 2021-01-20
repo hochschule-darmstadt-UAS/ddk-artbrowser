@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Artwork } from '../../models/models';
+import { Artwork, Measurement } from '../../models/models';
 
 @Component({
   selector: 'app-dimensions',
@@ -7,7 +7,6 @@ import { Artwork } from '../../models/models';
   styleUrls: ['./dimensions.component.scss']
 })
 export class DimensionsComponent implements OnInit {
-
   @Input() artwork: Artwork;
   /**
    * @description displays the dimensions of the artwork.
@@ -34,20 +33,90 @@ export class DimensionsComponent implements OnInit {
    */
   hideIllustration = false;
 
-  constructor() { }
+  measurement: Measurement;
+
+  constructor() {
+  }
 
   ngOnInit() {
     if (this.artwork) {
+      this.measurement = this.artwork.measurements.find(m => {
+        return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') ||
+          m.displayName.includes('Tiefe')) && m.displayName.includes(':');
+      });
       this.setDimensions();
       this.setIllustrationDimensions();
     }
   }
+
+  setDimensions() {
+    if (this.measurement.diameter) {
+      this.dimensionLabel = 'Diameter';
+      /* Displays units if available. If not cm will be displayed */
+      this.dimensionValue = this.measurement.diameter + (this.measurement.unit ? ' ' + this.measurement.unit : ' cm');
+    } else if (this.measurement.height || this.measurement.width || this.measurement.length) {
+      if (
+        (this.measurement.height && this.measurement.width) ||
+        (this.measurement.height && this.measurement.length) ||
+        (this.measurement.width && this.measurement.length)
+      ) {
+        this.dimensionLabel = 'Dimension';
+      } else if (this.measurement.height) {
+        this.dimensionLabel = 'Height';
+      } else if (this.measurement.width) {
+        this.dimensionLabel = 'Width';
+      } else if (this.measurement.length) {
+        this.dimensionLabel = 'Length';
+      }
+
+      /* Displays units if available. If not cm will be displayed */
+
+      if (
+        (this.measurement.height && this.measurement.width && this.measurement.unit !== this.measurement.unit) ||
+        (this.measurement.height && this.measurement.length && this.measurement.unit !== this.measurement.unit) ||
+        (this.measurement.width && this.measurement.length && this.measurement.unit !== this.measurement.unit)
+      ) {
+        this.dimensionValue = [
+          this.measurement.height ? this.measurement.height + (this.measurement.unit ? ' ' + this.measurement.unit : ' cm') : '',
+          this.measurement.width ? this.measurement.width + (this.measurement.unit ? ' ' + this.measurement.unit : ' cm') : '',
+          this.measurement.length ? this.measurement.length + (this.measurement.unit ? ' ' + this.measurement.unit : ' cm') : ''
+        ]
+          .filter(x => x)
+          .join(' x ');
+      } else {
+        this.dimensionValue =
+          [
+            this.measurement.height ? this.measurement.height : '',
+            this.measurement.width ? this.measurement.width : '',
+            this.measurement.length ? this.measurement.length : ''
+          ]
+            .filter(x => x)
+            .join(' x ') +
+          ' ' +
+          (this.measurement.height
+            ? this.measurement.unit
+            : this.measurement.width
+              ? this.measurement.unit
+              : this.measurement.length
+                ? this.measurement.unit
+                : 'cm');
+      }
+    }
+  }
+
   setIllustrationDimensions() {
-    this.illustrationHeight = this.calculateIllustrationDimension(this.artwork.height_unit, this.artwork.height);
-    this.illustrationWidth = this.calculateIllustrationDimension(this.artwork.width_unit, this.artwork.width);
+    // TODO: Refactor
+    this.measurement.type = this.measurement.displayName.split(':')[0];
+    this.measurement.unit = this.measurement.displayName.split(' ')[-1];
+    this.measurement.value = this.measurement.displayName.substr(this.measurement.displayName.match('[dsx]*').index,
+      this.measurement.unit.length);
+    this.measurement.height = this.measurement.value.split('x')[0];
+    this.measurement.width = this.measurement.value.split('x')[1];
+    this.illustrationHeight = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.height);
+    this.illustrationWidth = this.calculateIllustrationDimension(this.measurement.unit, this.measurement.width);
     // Hide Dimension Illustration if Artwork is smaller than 9cm x 9cm or bigger than 35m
     if (this.illustrationHeight > 1855 || (this.illustrationHeight < 5 && this.illustrationWidth < 5)) {
-        this.hideIllustration = true;
+      this.hideIllustration = true;
     }
   }
 
@@ -57,57 +126,18 @@ export class DimensionsComponent implements OnInit {
     }
     const scalingFactor = 0.53;
     switch (dimensionUnit) {
-      case 'ft': return scalingFactor * 30.48 * dimension;
-      case 'm': return  scalingFactor * 100 * dimension;
-      case 'cm': return  scalingFactor * dimension;
-      case 'mm': return  scalingFactor / 10 * dimension;
-      case 'in': return  scalingFactor * dimension * 2.54;
-      default: return 0;
+      case 'ft':
+        return scalingFactor * 30.48 * dimension;
+      case 'm':
+        return scalingFactor * 100 * dimension;
+      case 'cm':
+        return scalingFactor * dimension;
+      case 'mm':
+        return (scalingFactor / 10) * dimension;
+      case 'in':
+        return scalingFactor * dimension * 2.54;
+      default:
+        return 0;
     }
-  }
-
-  setDimensions() {
-    if (this.artwork.diameter) {
-      this.dimensionLabel = 'Diameter';
-      /* Displays units if available. If not cm will be displayed */
-      this.dimensionValue = this.artwork.diameter + (this.artwork.diameter_unit ? ' ' + this.artwork.diameter_unit : ' cm');
-    } else if (this.artwork.height || this.artwork.width || this.artwork.length) {
-
-        if ((this.artwork.height && this.artwork.width) ||
-            (this.artwork.height && this.artwork.length) ||
-            (this.artwork.width && this.artwork.length)) {
-          this.dimensionLabel = 'Dimension';
-        } else if (this.artwork.height) {
-          this.dimensionLabel = 'Height';
-        } else if (this.artwork.width) {
-          this.dimensionLabel = 'Width';
-        } else if (this.artwork.length) {
-          this.dimensionLabel = 'Length';
-        }
-
-        /* Displays units if available. If not cm will be displayed */
-
-        if (
-          (this.artwork.height && this.artwork.width && this.artwork.height_unit !== this.artwork.width_unit) ||
-          (this.artwork.height && this.artwork.length && this.artwork.height_unit !== this.artwork.length_unit) ||
-          (this.artwork.width && this.artwork.length && this.artwork.width_unit !== this.artwork.length_unit)
-          ) {
-            this.dimensionValue  = [
-              this.artwork.height ? this.artwork.height + (this.artwork.height_unit ? ' ' + this.artwork.height_unit : ' cm') : '',
-              this.artwork.width ? this.artwork.width + (this.artwork.width_unit ? ' ' + this.artwork.width_unit : ' cm') : '',
-              this.artwork.length ? this.artwork.length + (this.artwork.length_unit ? ' ' + this.artwork.length_unit : ' cm') : '',
-            ].filter(x => x).join(' x ');
-          } else {
-
-            this.dimensionValue  = [
-              this.artwork.height ? this.artwork.height : '',
-              this.artwork.width ? this.artwork.width : '',
-              this.artwork.length ? this.artwork.length : '',
-            ].filter(x => x).join(' x ') + ' ' + (this.artwork.height ?
-               this.artwork.height_unit : (this.artwork.width ? this.artwork.width_unit :
-              (this.artwork.length ? this.artwork.width_unit : 'cm')
-              ));
-          }
-      }
   }
 }

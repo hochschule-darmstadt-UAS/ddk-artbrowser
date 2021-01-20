@@ -1,0 +1,38 @@
+[
+  {
+    "id": "getty-300180362",
+    "entityType": "genre",
+    "label": "Literatur",
+    "sourceID": [
+      {
+        "source": "http://vocab.getty.edu/aat",
+        "id": "http://vocab.getty.edu/aat/300180362",
+        "term": "Buchseite"
+      },
+      {
+        "source": "http://d-nb.info/gnd",
+        "id": "http://d-nb.info/gnd/4035964-5",
+        "term": "Literatur"
+      }
+    ],
+    "count": 36557,
+    "rank": 0.9971988795518207,
+    "classificationType": "Objektklassifikation"
+  },
+  {
+    "id": "IMAGE",
+    "entityType": "genre",
+    "label": "IMAGE",
+    "count": 36557,
+    "rank": 0.9971988795518207,
+    "classificationType": "europeana:type"
+  },
+  {
+    "id": "liturgischer Text",
+    "entityType": "genre",
+    "label": "liturgischer Text",
+    "count": 36557,
+    "rank": 0.9971988795518207,
+    "classificationType": "Literaturgattung"
+  }
+]

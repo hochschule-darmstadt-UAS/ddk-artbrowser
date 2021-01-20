@@ -1,0 +1,26 @@
+[
+  {
+    "id": "11D121",
+    "entityType": "iconography",
+    "label": "das Kreuz als Christussymbol",
+    "altLabels": ["Kreuz", "Christus", "11D121"],
+    "sourceID": {
+      "source": "http://iconclass.org",
+      "id": "http://iconclass.org/11D121"
+    },
+    "count": 7,
+    "rank": 0.9030732860520094
+  },
+  {
+    "id": "48A98311",
+    "entityType": "iconography",
+    "label": "Laubwerkornament",
+    "altLabels": ["Laub", "48A98311"],
+    "sourceID": {
+      "source": "http://iconclass.org",
+      "id": ">http://iconclass.org/48A98311"
+    },
+    "count": 7,
+    "rank": 0.9030732860520094
+  }
+]

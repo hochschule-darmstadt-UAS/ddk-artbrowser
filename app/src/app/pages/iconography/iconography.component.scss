@@ -1,0 +1,19 @@
+:host ::ng-deep .app-information-content-badges {
+  display: flex;
+  flex-flow: column;
+}
+
+:host ::ng-deep .children {
+  h4 {
+    font-size: small;
+  }
+}
+
+:host ::ng-deep .more {
+  margin-left: 5.6rem;
+}
+
+.subtitle {
+  font-size: small;
+  display: block;
+}

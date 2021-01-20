@@ -1,19 +1,21 @@
-import {Component, OnInit, ViewChildren, QueryList} from '@angular/core';
-import {NgbCarouselConfig, NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { NgbCarousel, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import {
-  Entity,
   Artist,
   Artwork,
-  Movement,
-  Material,
-  Location,
-  Genre,
-  Motif,
+  Entity,
   EntityIcon,
-  EntityType
+  EntityType,
+  Genre,
+  Iconography,
+  Location,
+  Material,
+  Type
 } from 'src/app/shared/models/models';
-import {DataService} from 'src/app/core/services/elasticsearch/data.service';
-import {shuffle} from 'src/app/core/services/utils.service';
+import { DataService } from 'src/app/core/services/elasticsearch/data.service';
+import { shuffle } from 'src/app/core/services/utils.service';
+import { usePlural } from '../../shared/models/entity.interface';
+import * as ConfigJson  from '../../../config/home_content.json';
 
 /**
  * @description Interface for the category sliders.
@@ -23,6 +25,7 @@ export interface SliderCategory {
   items: Entity[];
   type: EntityType;
   icon: EntityIcon;
+  allLink: string;
 }
 
 @Component({
@@ -66,9 +69,6 @@ export class HomeComponent implements OnInit {
 
       // need to have a bit delay of time (last categories that is fetched is not refreshing carousel cycle)
       setTimeout(() => this.refreshCarousel(), 500);
-
-      // assign backgroundImageUrl with a random image from one of the artworks.
-      this.setBackground();
     });
   }
 
@@ -82,17 +82,17 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * @description Fetch items for each category using the service. Retrun an array of slider category items.
+   * @description Fetch items for each category using the service. Return an array of slider category items.
    */
   private getSlides = async (): Promise<SliderCategory[]> => {
     const cats = [];
     cats.push(await this.getSliderCategory<Artwork>(EntityType.ARTWORK));
     cats.push(await this.getSliderCategory<Artist>(EntityType.ARTIST));
-    cats.push(await this.getSliderCategory<Movement>(EntityType.MOVEMENT));
+    cats.push(await this.getSliderCategory<Genre>(EntityType.GENRE));
     cats.push(await this.getSliderCategory<Location>(EntityType.LOCATION));
     cats.push(await this.getSliderCategory<Material>(EntityType.MATERIAL));
-    cats.push(await this.getSliderCategory<Genre>(EntityType.GENRE));
-    cats.push(await this.getSliderCategory<Motif>(EntityType.MOTIF));
+    cats.push(await this.getSliderCategory<Type>(EntityType.TYPE));
+    cats.push(await this.getSliderCategory<Iconography>(EntityType.ICONOGRAPHY));
     return cats;
   }
 
@@ -101,15 +101,18 @@ export class HomeComponent implements OnInit {
    */
   private async getSliderCategory<T>(category: EntityType): Promise<SliderCategory> {
     const items = shuffle(await this.dataService.getCategoryItems<T>(category));
-    return {items, type: category, icon: EntityIcon[category.toUpperCase()]};
+    return {
+      items,
+      type: category,
+      icon: EntityIcon[category.toUpperCase()],
+      allLink: '/' + usePlural(category)
+    };
   }
 
   private setBackground() {
-    // assign backgroundImageUrl with a random image from one of the artworks.
-    const artworks = this.categories && this.categories.length ? this.categories[0].items : [];
-    if (artworks.length > 0) {
-      this.backgroundImageUrl = artworks[Math.floor(Math.random() * artworks.length)].imageMedium;
-    }
+    // assign backgroundImageUrl with a random image specified in the config folder.
+    const backgroundArtworksUrls = ConfigJson.images;
+    this.backgroundImageUrl = backgroundArtworksUrls[Math.floor(Math.random() * backgroundArtworksUrls.length)];
   }
 
   /**

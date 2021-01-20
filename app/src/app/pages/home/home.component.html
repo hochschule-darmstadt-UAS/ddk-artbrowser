@@ -7,14 +7,14 @@
 <div class="container">
   <div class="container-search">
     <div class="d-flex justify-content-center row logo">
-      <span>open</span>
+      <span>DDK</span>
       <h1>ArtBrowser</h1>
     </div>
   </div>
 
-  <div class="row pt-4 mb-4">
+  <div class="d-flex justify-content-center row pt-4 mb-4">
     <div class="mb-4 container-category" *ngFor="let category of categories; let i = index"
-         [ngClass]="categories.length / 2 > i + 1 ? 'col-lg-4' : 'col-lg-3'">
+         [ngClass]="i < 3 ? 'col-lg-4' : 'col-lg-3'">
       <div class="carousel-wrapper">
         <ngb-carousel>
           <div *ngFor="let item of category.items">
@@ -26,14 +26,13 @@
                 angularticsAction="Home tiles"
                 angularticsCategory="Navigation"
               >
-                <img class="image" (error)="onLoadingError(category, item)" src="{{ item?.imageSmall }}"
-                     alt="{{ item?.label }}"/>
+                <img class="image" (error)="onLoadingError(category, item)" src="{{ item?.imageMedium }}"
+                     alt="{{ item?.label }}" />
                 <div class="overlay">
                   <span class="type badge badge-secondary badge-pill chip">
                     <i class="fas {{ category.icon }}"></i>
                     <ng-container i18n="Entity Type Labels@@entity_labels" *ngIf="category.type; let type">
-                      {type, select, all {All} artwork {Artwork} motif {Motif} artist {Artist} location {Location} genre
-                        {Genre} movement {Movement} material {Material} }
+                      {type, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre {Genre} material {Material} iconography {Iconography}}
                     </ng-container>
                   </span>
                   <span class="label">{{ item?.label | titlecase }}</span>
@@ -43,17 +42,16 @@
           </div>
         </ngb-carousel>
 
-        <a class="entities-link" [routerLink]="['/' + category.type + 's']">
-        <span class="entities-caption">
-          <span i18n="All@@all">all</span>
-          <span class="ml-1 mr-1" i18n="Entities Type Labels@@entities_labels" *ngIf="category.type; let type">
-            {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials}}
+        <a class="entities-link" [routerLink]="[category.allLink]">
+          <span class="entities-caption">
+            <span i18n="All@@all">All</span>
+            <span class="ml-1 mr-1" i18n="Entities Type Labels@@entities_labels" *ngIf="category.type; let type">
+              {type, select, artwork {Artworks} type {Types} artist {Artists} location {Locations} genre {Genres} material {Materials} iconography {Iconographies}}
+            </span>
+            <i class="fas fa-chevron-right"></i>
           </span>
-          <i class="fas fa-chevron-right"></i>
-        </span>
         </a>
       </div>
     </div>
   </div>
-  <app-movement-overview id="mv_overview"></app-movement-overview>
 </div>
