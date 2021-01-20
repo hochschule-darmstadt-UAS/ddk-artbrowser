@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-sudo apt-get install -y python3-virtualenv #installieren env.
+sudo apt-get install -y python3-virtualenv
 
+# create virtual python environment in directory 'venv'
 virtualenv venv #env. erstellen und ordner erstellen
 
-source venv/bin/activate #aktiviere fuer shell session env.
+# activate virtual environment fpr current shell session
+source venv/bin/activate
 
-pip install -r requirements.txt #pakete aus datei lesen und installieren
+# install pip requirements into the virtual python environment
+pip install -r requirements.txt
