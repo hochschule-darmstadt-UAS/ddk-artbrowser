@@ -26,7 +26,7 @@ class Resource:
         resource_type_root = self.root.find(paths["Resource_resourceType_Path"], namespace)
         return sanitize(resource_type_root.text)
 
-    def _parse_rights(self):#Todo
+    def _parse_rights(self):
         right_root = self.root.find(paths["Resource_Rights_Path"], namespace)
         rights = Rights(right_root)
         return rights

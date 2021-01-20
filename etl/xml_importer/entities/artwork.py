@@ -48,20 +48,14 @@ class Artwork(JSONEncodable):
 
         self.clear()
 
-    # TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
-    # artwork.altName string[] 2
-    # artwork.inscriptions string[] 2
-
     def _parse_id(self):
-        # TODO: Was soll ich hier nur lido herausnehmen?: DE - Mb112 - lido - t3 - 000230
-        #         88 - T - 001 - T - 065
         id = self.lido.find(paths["Artwork_Id_Path"], namespace).text
         id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
 
         self.id = self.entity_type + "-" + id
 
-    def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
+    def _parse_label(self):
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
         if label is not None:
             self.label = sanitize(label.text)
@@ -215,12 +209,7 @@ class Artwork(JSONEncodable):
             resource = Resource(resource_root)
             self.resources.append(resource)
 
-        # resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
-        # if (len(resourceLegal_List) > 0):
-        # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()
-
     def _parse_altName(lido):
-        # TODO
         raise NotImplementedError
 
         # altenames_List = self.root.findall(paths["Artwork_Altename_Path"], namespace)

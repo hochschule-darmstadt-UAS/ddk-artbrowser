@@ -15,7 +15,7 @@ class RecordLegal:
         self._parse_info_link()
         self.clear()
 
-    def _parse_id(self): #TODO:
+    def _parse_id(self):
         self.record_ids = []
         for id_root in self.root.findall(paths["RecordLegal_RecordID_Path"], namespace):
             record_id = SourceID(id_root)

@@ -77,7 +77,6 @@ if __name__ == '__main__':
         base_filename = ntpath.basename(os.path.splitext(lido_file)[0])
 
         print("Processing file {} / {}: {}".format(file_count, len(lido_files), lido_file))
-        # TODO: Change base path of lidoFile
         for event, elem in lxml.etree.iterparse(lido_file, tag='{http://www.lido-schema.org}lido', events=('end',)):
             artwork = Artwork(elem)
 
