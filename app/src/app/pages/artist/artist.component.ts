@@ -33,6 +33,8 @@ export class ArtistComponent implements OnInit, OnDestroy {
   showTimelineTab = true;
   idDoesNotExist = false;
 
+  artistId: string;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
 
@@ -40,9 +42,9 @@ export class ArtistComponent implements OnInit, OnDestroy {
   ngOnInit() {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
-      const artistId = params.get('artistId');
+      this.artistId = params.get('artistId');
       /** Use data service to fetch entity from database */
-      this.artist = await this.dataService.findById<Artist>(artistId, EntityType.ARTIST);
+      this.artist = await this.dataService.findById<Artist>(this.artistId, EntityType.ARTIST);
       /** load slider items */
 
       if(this.artist !== null) {

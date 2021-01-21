@@ -21,7 +21,8 @@
         </app-collapse>
       </div>
     </div>
-    <app-wrong-id *ngIf="idDoesNotExist"></app-wrong-id>
+
+    <app-wrong-id *ngIf="idDoesNotExist" [id]="artistId"></app-wrong-id>
 
     <div class="col-sm-5 img" *ngIf="artist?.imageMedium">
       <img class="img-fluid rounded-circle" src="{{ artist?.imageMedium }}" alt="" />
