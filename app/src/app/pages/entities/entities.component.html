@@ -16,7 +16,7 @@
                  class="bd-highlight img-self"
                  src="{{ entity?.imageMedium }}"
                  alt="{{ entity?.label }}"
-                 (error)="onLoadingError(entity)"/>
+                 (error)="onLoadingError(entity)" />
             <img *ngIf="!entity?.imageMedium && entity?.image"
                  class="bd-highlight img-self"
                  src="{{ entity?.image }}"
@@ -27,6 +27,10 @@
                  src="{{ entity?.imageSmall }}"
                  alt="{{ entity?.label }}"
                  (error)="onLoadingError(entity)" />
+            <div class="error flex-column">
+              <i class="fa fa-camera-retro"></i>
+              <span i18n="error text@@entities_list_error" class="mt-3">An image is missing here</span>
+            </div>
           </div>
           <div class="item-caption">
             <div *ngIf="type != 'iconography'" class="ml-1">
@@ -57,8 +61,9 @@
           </div>
         </a>
         <div *ngIf="!entity?.id" class="item-link">
-          <div class="img-wrapper">
-            <!-- WARNING MESSAGE -->
+          <div class="img-wrapper error flex-column">
+            <i class="fa fa-camera-retro"></i>
+            <span i18n="error text@@entities_list_error" class="mt-3">An image is missing here</span>
           </div>
         </div>
       </div>
