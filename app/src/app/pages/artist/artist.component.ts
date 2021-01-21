@@ -31,6 +31,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   /** Toggle bool for displaying either timeline or artworks carousel component */
   showTimelineNotArtworks = true;
   showTimelineTab = true;
+  idDoesNotExist = false;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
@@ -43,11 +44,14 @@ export class ArtistComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       this.artist = await this.dataService.findById<Artist>(artistId, EntityType.ARTIST);
       /** load slider items */
-      this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => {
-        this.sliderItems = shuffle(artworks);
-        this.showTimelineTab = !!this.sliderItems.filter(item => item.inception).length; // bool if there are items with inception
-        this.showTimelineNotArtworks = this.showTimelineTab;
-      });
+
+      if(this.artist !== null) {
+        this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => {
+          this.sliderItems = shuffle(artworks);
+          this.showTimelineTab = !!this.sliderItems.filter(item => item.inception).length; // bool if there are items with inception
+          this.showTimelineNotArtworks = this.showTimelineTab;
+        });
+      } else { this.idDoesNotExist = true; }
     });
   }
 
