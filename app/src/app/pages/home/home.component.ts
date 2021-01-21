@@ -15,7 +15,7 @@ import {
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { shuffle } from 'src/app/core/services/utils.service';
 import { usePlural } from '../../shared/models/entity.interface';
-import * as ConfigJson  from '../../../config/home_content.json';
+import * as ConfigJson from '../../../config/home_content.json';
 
 /**
  * @description Interface for the category sliders.
@@ -88,11 +88,11 @@ export class HomeComponent implements OnInit {
     const cats = [];
     cats.push(await this.getSliderCategory<Artwork>(EntityType.ARTWORK));
     cats.push(await this.getSliderCategory<Artist>(EntityType.ARTIST));
+    cats.push(await this.getSliderCategory<Iconography>(EntityType.ICONOGRAPHY));
     cats.push(await this.getSliderCategory<Genre>(EntityType.GENRE));
     cats.push(await this.getSliderCategory<Location>(EntityType.LOCATION));
     cats.push(await this.getSliderCategory<Material>(EntityType.MATERIAL));
     cats.push(await this.getSliderCategory<Type>(EntityType.TYPE));
-    cats.push(await this.getSliderCategory<Iconography>(EntityType.ICONOGRAPHY));
     return cats;
   }
 
