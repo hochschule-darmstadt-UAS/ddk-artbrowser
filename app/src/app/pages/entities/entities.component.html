@@ -12,13 +12,21 @@
       <div *ngFor="let entity of entities" class="item">
         <a *ngIf="entity && entity?.id" class="item-link" [routerLink]="['/' + type, entity?.id]">
           <div class="img-wrapper">
-            <img
-              *ngIf="entity?.imageMedium"
-              class="bd-highlight img-self"
-              src="{{ entity?.imageMedium }}"
-              alt="{{ entity?.label }}"
-              (error)="onLoadingError(entity)"
-            />
+            <img *ngIf="entity?.imageMedium"
+                 class="bd-highlight img-self"
+                 src="{{ entity?.imageMedium }}"
+                 alt="{{ entity?.label }}"
+                 (error)="onLoadingError(entity)"/>
+            <img *ngIf="!entity?.imageMedium && entity?.image"
+                 class="bd-highlight img-self"
+                 src="{{ entity?.image }}"
+                 alt="{{ entity?.label }}"
+                 (error)="onLoadingError(entity)" />
+            <img *ngIf="!entity?.imageMedium && !entity?.image && entity?.imageSmall"
+                 class="bd-highlight img-self"
+                 src="{{ entity?.imageSmall }}"
+                 alt="{{ entity?.label }}"
+                 (error)="onLoadingError(entity)" />
           </div>
           <div class="item-caption">
             <div *ngIf="type != 'iconography'" class="ml-1">
@@ -48,6 +56,11 @@
             </div>
           </div>
         </a>
+        <div *ngIf="!entity?.id" class="item-link">
+          <div class="img-wrapper">
+            <!-- WARNING MESSAGE -->
+          </div>
+        </div>
       </div>
     </div>
   </app-infinite-scroll>

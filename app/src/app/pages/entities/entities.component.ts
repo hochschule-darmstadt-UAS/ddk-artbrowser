@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../core/services/elasticsearch/data.service';
 import { ActivatedRoute } from '@angular/router';
 import {
-  Entity,
-  Artwork,
   Artist,
+  Artwork,
+  Entity,
+  EntityType,
   Genre,
+  Iconography,
   Location,
   Material,
-  EntityType,
-  Type,
-  Iconography
+  Type
 } from 'src/app/shared/models/models';
 
 @Component({
@@ -94,7 +94,7 @@ export class EntitiesComponent implements OnInit {
           entity.label = capitalize(entity.label);
         }
         /** If image link is missing, query for random image */
-        if (!entity.image) {
+        if (!entity.image && entity.entityType !== EntityType.ARTWORK) {
           this.setRandomArtwork(entity);
         }
         // insert further entity processing here
@@ -102,7 +102,11 @@ export class EntitiesComponent implements OnInit {
       /** replace empty objects with fetched objects.
        *  This has the advantage of no further sorting of this.entities (which may be very large)
        */
-      this.entities.splice(offset, this.fetchSize, ...entities);
+      if (entities.length < this.fetchSize) {
+        this.offset -= this.fetchSize - entities.length;
+      }
+      this.entities.splice(offset,
+        this.fetchSize - (this.fetchSize - entities.length), ...entities);
     });
   }
 
@@ -113,6 +117,9 @@ export class EntitiesComponent implements OnInit {
 
   /** sets random related image to entity */
   private setRandomArtwork(entity) {
+    if (entity && entity.type === EntityType.ARTWORK) {
+      return;
+    }
     /** load missing movement images */
     this.getEntityArtworks(this.type, entity.id)
       .then(artworks => {
@@ -146,10 +153,8 @@ export class EntitiesComponent implements OnInit {
 
   /** Handles items which cannot be displayed */
   onLoadingError(item: Entity) {
-    if (item.id) {
+    if (item.id && item.entityType !== EntityType.ARTWORK) {
       this.setRandomArtwork(item);
-    } else {
-      this.removeEntity(item);
     }
   }
 
