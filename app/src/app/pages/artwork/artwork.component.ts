@@ -36,11 +36,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   artwork: Artwork = null;
 
   /**
-   * whether artwork image should be hidden
-   */
-  imageHidden = false;
-
-  /**
    * @description to toggle common tags container.
    * initial as false (open).
    */
@@ -106,7 +101,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       /* reset properties */
       this.artwork = this.hoveredArtwork = null;
       this.thumbnails = [];
-      this.imageHidden = this.modalIsVisible = this.commonTagsCollapsed = false;
+      this.modalIsVisible = this.commonTagsCollapsed = false;
       // clears items of all artwork tabs
       this.artworkTabs = this.artworkTabs
         .map((tab: ArtworkTab) => {
@@ -136,7 +131,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    * hide artwork image
    */
   hideImage() {
-    this.imageHidden = true;
+    this.artwork.resources[this.imageIndex].error = true;
   }
 
   /**
@@ -244,7 +239,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   }
 
   thumbnailClicked($event) {
-    if (this.artwork.resources.length > $event && this.thumbnails[$event]["image"] !== null) {
+    if (this.artwork.resources.length > $event && this.thumbnails[$event]['image'] !== null) {
       this.imageIndex = $event;
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     }
