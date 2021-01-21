@@ -10,9 +10,11 @@
         </div>
       </div>
     </div>
-    <div *ngIf="artwork?.resources[imageIndex].error" class="col-12 pb-2 text-muted">
+    <div *ngIf="artwork?.resources[imageIndex].error || !artwork?.resources[imageIndex].image"
+         class="col-12 pb-2 text-muted">
       <div class="row justify-content-center h2"><i class="fa fa-camera-retro"></i></div>
-      <span i18n="error text@@entities_list_error" class="row mt-3 justify-content-center">An image is missing here</span>
+      <span i18n="error text@@entities_list_error"
+            class="row mt-3 justify-content-center">An image is missing here</span>
     </div>
     <div class="row pb-2 justify-content-md-center text-muted">
       <span class="ml-1 mr-1">{{ imageSubtitle }}</span>

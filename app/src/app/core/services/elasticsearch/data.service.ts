@@ -82,13 +82,12 @@ export class DataService {
       .size(count)
       .sort(defaultSortField, 'desc')
       .queryMinimumShouldMatch(1, true)
-      .query('match', 'entityType', EntityType.ARTWORK)
-      .query('prefix', 'resources.linkResource', 'http');
+      .query('match', 'entityType', EntityType.ARTWORK);
     _.each(ids, id => body.orQuery('match', usePlural(type), id));
     return this.performQuery<Artwork>(body);
   }
 
-    /**
+  /**
    * Fetches all child artworks of a specified iconclass
    * Returns null if not found
    * @param iconlass with '*' to fetch all artworks which start with the specified iconclass
