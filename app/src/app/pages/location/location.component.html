@@ -6,7 +6,7 @@
       <app-information *ngIf="location?.inventoryNumber" i18n-label="Inventory Nr label@@inventorynr"
                        label="Inventory Nr" [value]="location?.inventoryNumber"></app-information>
 
-      <div>
+      <div *ngIf="location?.placeLabel || location?.sourceIDs?.length">
         <app-collapse>
           <app-information *ngIf="location?.placeLabel" i18n-label="Location label@@location" label="Location"
                            [value]="location?.placeLabel"></app-information>

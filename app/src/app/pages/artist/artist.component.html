@@ -8,7 +8,7 @@
       <app-information *ngIf="artist?.dateOfDeath" i18n-label="Died infos label@@died" label="Died"
                        [value]="artist?.dateOfDeath"></app-information>
 
-      <div>
+      <div *ngIf="artist?.gender || artist?.nationality || artist?.roles?.length || artist?.sourceIDs?.length">
         <app-collapse>
           <app-information *ngIf="artist?.gender" i18n-label="Artist gender label@@gender" label="Gender"
                            [value]="artist?.gender"></app-information>
