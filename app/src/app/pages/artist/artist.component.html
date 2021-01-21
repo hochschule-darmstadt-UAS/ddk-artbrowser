@@ -1,5 +1,7 @@
 <div class="container entity artist">
   <div class="row mb-5 border-bottom pb-5">
+    <app-wrong-id *ngIf="idDoesNotExist" [id]="artistId"></app-wrong-id>
+
     <div class="col-sm-7" *ngIf="artist">
       <app-title [entity]="artist"></app-title>
 
@@ -21,9 +23,7 @@
         </app-collapse>
       </div>
     </div>
-
-    <app-wrong-id *ngIf="idDoesNotExist" [id]="artistId"></app-wrong-id>
-
+    
     <div class="col-sm-5 img" *ngIf="artist?.imageMedium">
       <img class="img-fluid rounded-circle" src="{{ artist?.imageMedium }}" alt="" />
     </div>
