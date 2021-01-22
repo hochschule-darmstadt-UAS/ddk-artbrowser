@@ -31,8 +31,8 @@ export class ArtistComponent implements OnInit, OnDestroy {
   /** Toggle bool for displaying either timeline or artworks carousel component */
   showTimelineNotArtworks = true;
   showTimelineTab = true;
+  
   idDoesNotExist = false;
-
   artistId: string;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {

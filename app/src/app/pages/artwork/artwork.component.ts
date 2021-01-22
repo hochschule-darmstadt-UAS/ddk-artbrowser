@@ -78,6 +78,9 @@ export class ArtworkComponent implements OnInit, OnDestroy {
 
   infoVisible = false;
 
+  idDoesNotExist = false;
+  artworkId: string;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
 
@@ -110,20 +113,23 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         .filter((tab) => tab !== null);
 
       /** Use data service to fetch entity from database */
-      const artworkId = params.get('artworkId');
-      this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
-      this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
-      if (this.artwork) {
-        /* load tabs content */
-        this.loadTabs();
-      }
+      this.artworkId = params.get('artworkId');
+      this.artwork = await this.dataService.findById<Artwork>(this.artworkId, EntityType.ARTWORK);
+      
+      if(this.artwork !== null) {
+        this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
+        if (this.artwork) {
+          /* load tabs content */
+          this.loadTabs();
+        }
 
-      this.artwork.resources.forEach(res => {
-        this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
-        this.largeImages.push(res.image);
-      });
+        this.artwork.resources.forEach(res => {
+          this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
+          this.largeImages.push(res.image);
+        });
 
-      this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+        this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
+      } else { this.idDoesNotExist = true; }
     });
   }
 

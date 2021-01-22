@@ -16,7 +16,7 @@ import { DataService } from '../../core/services/elasticsearch/data.service';
 })
 export class IconographyComponent implements OnInit {
   notation: string;
-  notationExists = true;
+  notationDoesNotExist = false;
   iconclassData: Iconography;
   hierarchy: Entity[];
   hasIconographyChildren = false;
@@ -68,7 +68,7 @@ export class IconographyComponent implements OnInit {
           this.hasIconographyChildren = false;
         }));
       }, () => {
-        this.notationExists = false;
+        this.notationDoesNotExist = true;
       });
       
       /** load current page iconography slider items */

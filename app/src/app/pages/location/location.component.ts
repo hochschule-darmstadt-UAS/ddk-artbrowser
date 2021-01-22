@@ -30,19 +30,24 @@ export class LocationComponent implements OnInit, OnDestroy {
   /** Related artworks */
   sliderItems: Artwork[] = [];
 
+  idDoesNotExist = false;
+  locationId: string;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {}
 
   /** hook that is executed at component initialization */
   ngOnInit() {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
-      const locationId = params.get('locationId');
+      this.locationId = params.get('locationId');
 
       /** Use data service to fetch entity from database */
-      this.location = await this.dataService.findById<Location>(locationId, EntityType.LOCATION);
+      this.location = await this.dataService.findById<Location>(this.locationId, EntityType.LOCATION);
 
-      /** load slider items */
-      this.dataService.findArtworksByType(EntityType.LOCATION, [this.location.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
+      if(this.location !== null) {
+        /** load slider items */
+        this.dataService.findArtworksByType(EntityType.LOCATION, [this.location.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
+      } else { this.idDoesNotExist = true; }
     });
   }
 

@@ -1,6 +1,6 @@
 <div class="container entity movement">
   <div class="row mb-5 border-bottom pb-5">
-    <app-wrong-id *ngIf="!notationExists" [id]="notation"></app-wrong-id>
+    <app-wrong-id *ngIf="notationDoesNotExist" [id]="notation"></app-wrong-id>
     
     <div class="col-sm-12" *ngIf="iconclassData">
       <app-title [entity]="iconclassData"></app-title>
