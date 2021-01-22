@@ -1,10 +1,11 @@
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
-import { ArtSearch, Artwork, Entity, EntityIcon, EntityType, Iconclass } from 'src/app/shared/models/models';
+import { ArtSearch, Artwork, Entity, EntityIcon, EntityType } from 'src/app/shared/models/models';
 import { environment } from 'src/environments/environment';
-import QueryBuilder from './query.builder';
-import { usePlural } from '../../../shared/models/entity.interface';
+import { usePlural } from 'src/app/shared/models/entity.interface';
+import bodyBuilder from 'bodybuilder';
+import { Bodybuilder } from 'bodybuilder';
 import { image, imageMedium, imageSmall } from '../ddk.service';
 
 const defaultSortField = 'rank';
@@ -49,10 +50,9 @@ export class DataService {
    * @param type if specified, it is assured that the returned entity has this entityType
    */
   public async findById<T>(id: string, type?: EntityType): Promise<T> {
-    const response = await this.http.get<T>(this.searchEndPoint + '?q=id:' + id).toPromise();
-    const entities = await this.filterData<T>(response, type);
-    // set type specific attributes
-    entities.forEach(entity => DataService.setTypes(entity));
+    const body = bodyBuilder()
+      .query('match', 'id', id);
+    const entities = await this.performQuery<T>(body, this.searchEndPoint, type);
     return !entities.length ? null : entities[0];
   }
 
@@ -66,25 +66,51 @@ export class DataService {
     if (!copyids || copyids.length === 0) {
       return [];
     }
-    const query = new QueryBuilder().size(400);
-    copyids.forEach(id => query.shouldMatch('id', `${id}`));
-    return this.performQuery<T>(query, this.searchEndPoint, type);
+    const body = bodyBuilder().size(400);
+    _.each(ids, id => body.orQuery('match', 'id', id));
+    return this.performQuery<T>(body, this.searchEndPoint, type);
   }
 
   /**
    * Find Artworks by the given ids for the given type
    * @param type the type to search in
    * @param ids the ids to search for
-   * @param count the number of fetched artworks, which can be chosen from
+   * @param count the number of items returned
    */
   public findArtworksByType(type: EntityType, ids: string[], count = 200): Promise<Artwork[]> {
-    const query = new QueryBuilder()
+    const body = bodyBuilder()
       .size(count)
-      .sort(defaultSortField)
-      .minimumShouldMatch(1)
-      .mustTerm('entityType', EntityType.ARTWORK);
-    ids.forEach(id => query.shouldMatch(usePlural(type), `${id}`));
-    return this.performQuery<Artwork>(query);
+      .sort(defaultSortField, 'desc')
+      .queryMinimumShouldMatch(1, true)
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('prefix', 'resources.linkResource', 'http');
+    _.each(ids, id => body.orQuery('match', usePlural(type), id));
+    return this.performQuery<Artwork>(body);
+  }
+
+    /**
+   * Fetches all child artworks of a specified iconclass
+   * Returns null if not found
+   * @param iconlass with '*' to fetch all artworks which start with the specified iconclass
+   * @param type if specified, it is assured that the returned entity has this entityType
+   */
+  public async findChildArtworksByIconography(iconclass: string, type?: EntityType): Promise<Artwork[]> {
+    const body = bodyBuilder()
+      .size(400)
+      .sort(defaultSortField, 'desc')
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('regexp', 'iconographies', {
+        value: iconclass + '.*',
+        flags: 'ALL',
+        case_insensitive: true
+      });
+    let entities = await this.performQuery<Artwork>(body);
+
+    /** Remove artwork if it belongs to the current iconclass - only return child iconclass-artworks*/
+    entities = entities.filter(artwork => {
+      return !artwork.iconographies.find(iconography => iconography === iconclass);
+    });
+    return entities;
   }
 
   /**
@@ -92,12 +118,12 @@ export class DataService {
    * @param label artwork label
    */
   public findArtworksByLabel(label: string): Promise<Artwork[]> {
-    const query = new QueryBuilder()
+    const body = bodyBuilder()
       .size(20)
-      .sort(defaultSortField)
-      .mustMatch('entityType', 'artwork')
-      .shouldMatch('label', `${label}`);
-    return this.performQuery<Artwork>(query);
+      .sort(defaultSortField, 'desc')
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .orQuery('match', 'label', label);
+    return this.performQuery<Artwork>(body);
   }
 
   /**
@@ -105,12 +131,12 @@ export class DataService {
    * @param movement label of movement
    */
   public findArtworksByMovement(movement: string): Promise<Artwork[]> {
-    const query = new QueryBuilder()
+    const body = bodyBuilder()
       .size(5)
-      .sort(defaultSortField)
-      .mustMatch('entityType', 'artwork')
-      .mustMatch('movements', `${movement}`);
-    return this.performQuery<Artwork>(query);
+      .sort(defaultSortField, 'desc')
+      .query('match', 'entityType', EntityType.ARTWORK)
+      .query('match', usePlural(EntityType.MOVEMENT), movement);
+    return this.performQuery<Artwork>(body);
   }
 
   /**
@@ -119,63 +145,52 @@ export class DataService {
    * @param keywords the list of words to search for.
    */
   public searchArtworks(searchObj: ArtSearch, keywords: string[] = []): Promise<Artwork[]> {
-    const query = new QueryBuilder()
+    const body = bodyBuilder()
       .size(400)
-      .sort(defaultSortField)
-      .mustMatch('entityType', 'artwork');
-
+      .sort(defaultSortField, 'desc');
     _.each(searchObj, (arr, key) => {
       if (Array.isArray(arr)) {
-        arr.forEach(val => query.mustMatch(key, val));
+        _.each(arr, val => body.query('match', key, val));
       }
     });
-
-    keywords.forEach(keyword =>
-      query.mustShouldMatch([
-        { key: 'label', value: keyword }
-        // { key: 'description', value: keyword }
-      ])
+    _.each(keywords, keyword =>
+      body.query('bool', (q) => {
+        return q.orQuery('match', 'label', keyword)
+          .orQuery('match', 'altLabels', keyword);
+      })
     );
-    return this.performQuery(query);
+    return this.performQuery(body);
   }
 
   public async getEntityItems<T>(type: EntityType, count = 20, from = 0): Promise<T[]> {
-    const query = new QueryBuilder()
-      .mustMatch('entityType', type)
-      .sort(defaultSortField)
+    const body = bodyBuilder()
+      .query('match', 'entityType', type)
+      .sort(defaultSortField, 'desc')
       .size(count)
       .from(from);
-    return this.performQuery<T>(query);
+    return this.performQuery<T>(body);
   }
 
   public async countEntityItems<T>(type: EntityType) {
     const response: any = await this.http
       .get(this.countEndPoint + '?q=entityType:' + type)
       .toPromise();
-    console.log((response && response.count), response, type);
     return response.count;
   }
 
-  public async getRandomMovementArtwork<T>(movementId: string, count = 20): Promise<T[]> {
-    const query = new QueryBuilder()
-      .mustMatch('entityType', 'artwork')
-      .mustPrefix('image', 'http')
-      .sort(defaultSortField)
-      .size(count);
-    return this.performQuery<T>(query);
-  }
-
   /**
-   * Find any obejct in the index by the field label with the given label
+   * Find any object in the index by the field label with the given label
    * @param label object label
    */
   public findByLabel(label: string): Promise<any[]> {
-    const query = new QueryBuilder()
-      .shouldMatch('label', `${label}`)
-      .shouldWildcard('label', `${label}`)
-      .sort(defaultSortField)
+    // TODO: what if more then 200 entities of a single type are found?
+    const body = bodyBuilder()
+      .orQuery('match', 'label', label)
+      .orQuery('wildcard', 'label', '*' + label + '*')
+      .orQuery('wildcard', 'altLabels', label + '*')
+      .sort(defaultSortField, 'desc')
       .size(200);
-    return this.performQuery(query);
+    return this.performQuery(body);
   }
 
   /**
@@ -184,12 +199,11 @@ export class DataService {
    * @param count size of return set
    */
   public async getCategoryItems<T>(type: EntityType, count = 20): Promise<T[]> {
-    const query = new QueryBuilder()
-      .mustMatch('entityType', type)
-      // .mustPrefix('image', 'http')
-      .sort(defaultSortField)
+    const body = bodyBuilder()
+      .query('match', 'entityType', type)
+      .sort(defaultSortField, 'desc')
       .size(count);
-    return this.performQuery<T>(query);
+    return this.performQuery(body);
   }
 
   /**
@@ -198,14 +212,14 @@ export class DataService {
    * @param url endpoint
    * @param type type to filter for
    */
-  private async performQuery<T>(query: QueryBuilder, url: string = this.searchEndPoint, type?: EntityType) {
+  private async performQuery<T>(query: Bodybuilder, url: string = this.searchEndPoint, type?: EntityType) {
     const response = await this.http.post<T>(url, query.build()).toPromise();
     const entities = await this.filterData<T>(response, type);
     // set type specific attributes
     entities.forEach(entity => DataService.setTypes(entity));
 
     if (!entities.length) {
-      console.warn(NoResultsWarning(query));
+      // console.warn(NoResultsWarning(query));
     }
     return entities;
   }
@@ -218,7 +232,9 @@ export class DataService {
   private async filterData<T>(data: any, filterBy?: EntityType): Promise<T[]> {
     const entities: any = [];
     data.hits.hits.forEach((val) => {
-      if ((!val._index || val._index === this.indexName) && (!filterBy || (filterBy && val._source.entityType === filterBy))) {
+      if ((!val._index || val._index === this.indexName)
+        && (!filterBy || (filterBy && val._source.entityType === filterBy))
+        && (val._source.entityType !== EntityType.ARTWORK || val._source.resources.length)) {
         entities.push(this.addThumbnails(val._source));
       }
     });
@@ -260,5 +276,5 @@ The performed es-query did not yield any results. This might result in strange b
 
 If you encounter any such issues please consider opening a bug report: https://github.com/hochschule-darmstadt/openartbrowser/issues/new?assignees=&labels=&template=bug_report.md&title=
 
-Query: ${query.toString()}
+Query: ${JSON.stringify(query.build())}
 `;

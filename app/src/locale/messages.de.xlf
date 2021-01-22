@@ -56,7 +56,7 @@
       <trans-unit id="entities_labels" datatype="html">
         <source>{type, select, artwork {...} type {...} artist {...} location {...} genre {...} material {...}}</source>
         <target state="final">{type, select, artwork {Kunstwerke} type {Typen} artist {Künstler} location {Standorte}
-          genre {Genres} material {Materialien}}
+          genre {Genres} material {Materialien} iconography {Ikonographien}}
         </target>
         <note priority="1" from="description">Entities Type Labels</note>
       </trans-unit>
@@ -400,8 +400,12 @@
         <target state="final">Iconclass Hierarchie</target>
       </trans-unit>
       <trans-unit id="iconclass_children" datatype="html">
-        <source>Children</source>
-        <target state="final">Unterklassen</target>
+        <source>Subcategories</source>
+        <target state="final">Kunstwerke (Unterkategorien eingeschlossen)</target>
+      </trans-unit>
+      <trans-unit id="iconclass_keywords" datatype="html">
+        <source>Keywords</source>
+        <target state="final">Schlagworte</target>
       </trans-unit>
       <trans-unit id="d92b19d3d60f5e8db9974b16602fe83c00d05b7c" datatype="html">
         <source>{VAR_SELECT, select, all {All} artwork {Artwork} type {Type} artist {Artist} location {Location} genre

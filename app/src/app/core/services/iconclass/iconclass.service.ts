@@ -32,7 +32,7 @@ export class IconclassService {
   }
 
   public getIconclassListByNotation(notations: string[]): Observable<Iconography[]> {
-    notations = notations.map(notation => encodeURI(notation));
+    notations = notations.map(notation => encodeURIComponent(notation));
     const uri = environment.iconclassBase + '/?notation=' + notations.join('&notation=');
     return this.http.get(uri).map((response: Array<any>) => {
       if (!response.length) {
@@ -55,14 +55,7 @@ export class IconclassService {
   }
 
   public setIconographyLabel(iconography: Iconography) {
-    const regex = /[();]/g; // TODO: find better regex?
-    const match = regex.exec(iconography.text[this.ISO_639_1_LOCALE || 'de']); // TODO: substitute with active language
-    if (match) {
-      iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'].substr(0, match.index);
-    } else {
-      iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'];
-    }
-    iconography.label = iconography.label.length > 50 ? iconography.label.substr(0, 50) + '...' : iconography.label;
+    iconography.label = iconography.id + ': ' + iconography.text[this.ISO_639_1_LOCALE || 'de'];
     iconography.text[this.ISO_639_1_LOCALE || 'de'] =
       IconclassService.capitalizeFirstLetter(iconography.text[this.ISO_639_1_LOCALE || 'de']);
     return iconography;

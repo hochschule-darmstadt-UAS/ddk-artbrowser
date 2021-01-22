@@ -39,11 +39,11 @@ export class DimensionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.measurement = this.artwork.measurements.find(m => {
-      return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') ||
-        m.displayName.includes('Tiefe')) && m.displayName.includes(':');
-    });
     if (this.artwork) {
+      this.measurement = this.artwork.measurements.find(m => {
+        return (m.displayName.includes('Höhe') || m.displayName.includes('Breite') ||
+          m.displayName.includes('Tiefe')) && m.displayName.includes(':');
+      });
       this.setDimensions();
       this.setIllustrationDimensions();
     }

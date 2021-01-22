@@ -3,7 +3,7 @@
     <span i18n="All@@all">All</span>
     {{ queryCount }}
     <span i18n="Entities Type Labels@@entities_labels" *ngIf="type; let type">
-      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials}}
+      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials} iconography {Iconographies}}
     </span>
   </h2>
 
@@ -12,22 +12,34 @@
       <div *ngFor="let entity of entities" class="item">
         <a *ngIf="entity && entity?.id" class="item-link" [routerLink]="['/' + type, entity?.id]">
           <div class="img-wrapper">
-            <img
-              *ngIf="entity?.imageMedium"
-              class="bd-highlight img-self"
-              src="{{ entity?.imageMedium }}"
-              alt="{{ entity?.label }}"
-              (error)="onLoadingError(entity)"
-            />
+            <img *ngIf="entity?.imageMedium"
+                 class="bd-highlight img-self"
+                 src="{{ entity?.imageMedium }}"
+                 alt="{{ entity?.label }}"
+                 (error)="onLoadingError(entity)"/>
+            <img *ngIf="!entity?.imageMedium && entity?.image"
+                 class="bd-highlight img-self"
+                 src="{{ entity?.image }}"
+                 alt="{{ entity?.label }}"
+                 (error)="onLoadingError(entity)" />
+            <img *ngIf="!entity?.imageMedium && !entity?.image && entity?.imageSmall"
+                 class="bd-highlight img-self"
+                 src="{{ entity?.imageSmall }}"
+                 alt="{{ entity?.label }}"
+                 (error)="onLoadingError(entity)" />
           </div>
           <div class="item-caption">
-            <div class="ml-1">
+            <div *ngIf="type != 'iconography'" class="ml-1">
               <i class="mr-1 fas" [ngClass]="entity.icon"></i>
               <span>{{ entity.label }}</span>
             </div>
+            <div *ngIf="type == 'iconography'" class="ml-1">
+              <i class="mr-1 fas" [ngClass]="entity.icon"></i>
+              <span>{{ entity.id }} {{ entity.label }}</span>
+            </div>
             <div *ngIf="type != 'artwork'" class="ml-1">
               <i class="mr-1 fas fa-images"></i>
-              <span>{{ entity.rank }}</span>
+              <span>{{ entity.count }}</span>
             </div>
             <div *ngIf="type == 'artist'" class="ml-1">
               <div *ngIf="entity.dateOfBirth && entity.dateOfDeath">
@@ -44,6 +56,11 @@
             </div>
           </div>
         </a>
+        <div *ngIf="!entity?.id" class="item-link">
+          <div class="img-wrapper">
+            <!-- WARNING MESSAGE -->
+          </div>
+        </div>
       </div>
     </div>
   </app-infinite-scroll>

@@ -6,7 +6,7 @@ import { usePlural } from '../../models/entity.interface';
   selector: 'app-badge',
   templateUrl: './badge.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./badge.component.scss'],
+  styleUrls: ['./badge.component.scss']
 })
 export class BadgeComponent implements OnInit, OnChanges {
   @Input() entity: Entity;
@@ -19,6 +19,7 @@ export class BadgeComponent implements OnInit, OnChanges {
   highlight: boolean;
 
   tooltipBreakLimit = 150;
+  @Input() maxLabelLength = 100;
 
   /**
    * When an Entity has been passed to the component
@@ -29,7 +30,10 @@ export class BadgeComponent implements OnInit, OnChanges {
   ngOnInit() {
     if (this.entity) {
       this.redirectUrl = `/${this.entity.entityType}/${this.entity.id}` || '/';
-      this.label = this.entity.label || '';
+      // shorten label
+      this.label = this.entity.label ?
+        this.entity.label.length > this.maxLabelLength ? this.entity.label.substr(0, this.maxLabelLength) + '...' : this.entity.label
+        : '';
 
       this.tooltip = this.entity.label || null;
       if (this.tooltip) {
@@ -61,7 +65,7 @@ export class BadgeComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.isHoverBadge) {
       this.highlight = false;
-      if (this.hoveredArtwork) {
+      if (this.hoveredArtwork && this.entity.entityType) {
         this.highlight = this.hoveredArtwork[usePlural(this.entity.entityType)].includes(this.entity.id);
       }
     }

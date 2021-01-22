@@ -107,3 +107,17 @@ hr {
   75% {opacity: 0;} /* Set this to 99% for no fade-in. */
   100% {opacity: 1;}
 }
+
+/* Place text in numerator/denominator  */
+span.numerator {
+  font-size: 60%;
+  position:relative;
+  top:-0.35em;
+}
+
+span.denominator {
+  font-size: 50%;
+  position:relative;
+  top:0.5em;
+  left:-0.5em; /* This will vary with font... */
+}

@@ -25,6 +25,7 @@ const routes: Routes = [
   { path: 'types', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'locations', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'materials', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
+  { path: 'iconographies', loadChildren: './pages/entities/entities.routing.module#EntitiesRoutingModule' },
   { path: 'artist/:artistId', loadChildren: './pages/artist/artist.routing.module#ArtistRoutingModule' },
   { path: 'artwork/:artworkId', loadChildren: './pages/artwork/artwork.routing.module#ArtworkRoutingModule' },
   { path: 'genre/:genreId', loadChildren: './pages/genre/genre.routing.module#GenreRoutingModule' },

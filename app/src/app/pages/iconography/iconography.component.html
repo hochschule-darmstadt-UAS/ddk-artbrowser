@@ -1,21 +1,44 @@
 <div class="container entity movement">
   <div class="row mb-5 border-bottom pb-5">
-    <div class="col-sm-7" *ngIf="iconclassData">
+    <div class="col-sm-12" *ngIf="iconclassData">
       <app-title [entity]="iconclassData"></app-title>
       <span class="subtitle mb-3 text-muted">{{ iconclassData.text[this.ISO_639_1_LOCALE || 'de'] }}</span>
 
       <app-information *ngIf="hierarchy?.length" i18n-label="hierarchy label@@iconclass_hierarchy"
-                       label="Iconclass Hierarchy" [values]="hierarchy"></app-information>
-      <app-collapse *ngIf="children?.length" class="children"
-                    i18n-heading="hierarchy children collapse@@iconclass_children" heading="Children">
-        <app-information [values]="children"></app-information>
+                       label="Iconclass Hierarchy" [values]="hierarchy" [badgeMaxLabelLength]="70"></app-information>
+      <app-collapse *ngIf="hasIconographyChildren" class="children"
+                    [headingTranslation]="'iconclass_children'" heading="Subcategories">
+        <app-information [values]="children" [badgeMaxLabelLength]="70"></app-information>
       </app-collapse>
       <app-information *ngIf="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en']?.length"
-                       i18n-label="Inception label@@inception" label="Inception"
+                       i18n-label="Inception label@@iconclass_keywords" label="Keywords"
                        [value]="iconclassData.keywords[this.ISO_639_1_LOCALE || 'en'].join(', ')"
       ></app-information>
     </div>
   </div>
 
-  <app-slider [items]="sliderItems"></app-slider>
+  <ul *ngIf="sliderItemsCurrentIconography?.length || sliderItemsChildrenIconography?.length" class="nav nav-tabs">
+    <li class="nav-item" *ngIf="sliderItemsCurrentIconography?.length">
+      <a class="nav-link" [ngClass]="{ active: showCurrentIconographyArtworks }" data-toggle="tab" href="#current_iconography_artworks_tab">
+        <i class="mr-1 fa fa-palette"></i>
+        <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsCurrentIconography?.length }}</span>
+        <ng-container i18n="iconclass artworks@@artworks">artworks</ng-container>
+      </a>
+    </li>
+    <li class="nav-item" *ngIf="sliderItemsChildrenIconography?.length">
+      <a class="nav-link" [ngClass]="{ active: !showCurrentIconographyArtworks }" data-toggle="tab" href="#child_iconography_artworks_tab">
+        <i class="mr-1 fa fa-palette"></i>
+        <span class="ml-1 mt-auto mb-auto mr-1 artworks-amount">{{ sliderItemsChildrenIconography?.length }}</span>
+        <ng-container i18n="Children description@@iconclass_children">artworks (including subclasses)</ng-container>
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div *ngIf="sliderItemsCurrentIconography?.length" class="tab-pane fade" [ngClass]="{ 'show active': showCurrentIconographyArtworks }" id="current_iconography_artworks_tab">
+      <app-slider [items]="sliderItemsCurrentIconography"></app-slider>
+    </div>
+    <div *ngIf="sliderItemsChildrenIconography?.length" class="tab-pane fade" [ngClass]="{ 'show active': !showCurrentIconographyArtworks }" id="child_iconography_artworks_tab">
+      <app-slider [items]="sliderItemsChildrenIconography"></app-slider>
+    </div>
+  </div>
 </div>

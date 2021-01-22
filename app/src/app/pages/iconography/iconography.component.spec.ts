@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { IconclassService } from '../../core/services/iconclass/iconclass.service';
+import { SlideComponent } from '../../shared/components/carousel/slide/slide.component';
+import { DataService } from '../../core/services/elasticsearch/data.service';
 
 describe('IconographyComponent', () => {
   let component: IconographyComponent;
@@ -18,8 +20,16 @@ describe('IconographyComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NgbModule, HttpClientModule, RouterModule.forRoot([])],
-      declarations: [IconographyComponent, BadgeComponent, CarouselComponent, TitleComponent, InformationComponent, CollapseComponent],
-      providers: [IconclassService]
+      declarations: [
+        IconographyComponent,
+        SlideComponent,
+        BadgeComponent,
+        CarouselComponent,
+        TitleComponent,
+        InformationComponent,
+        CollapseComponent
+      ],
+      providers: [IconclassService, DataService]
     }).compileComponents();
   }));
 
