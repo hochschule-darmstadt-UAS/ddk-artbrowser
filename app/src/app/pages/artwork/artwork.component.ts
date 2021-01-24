@@ -105,6 +105,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       this.artwork = this.hoveredArtwork = null;
       this.thumbnails = [];
       this.modalIsVisible = this.commonTagsCollapsed = false;
+      this.imageIndex = 0;
       // clears items of all artwork tabs
       this.artworkTabs = this.artworkTabs
         .map((tab: ArtworkTab) => {
