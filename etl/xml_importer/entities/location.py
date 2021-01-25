@@ -35,6 +35,7 @@ class Location(JSONEncodable):
         self.id = self.entity_type + "-" + self.id
 
     def parse(self):
+        self._parse_label()
         self._parse_placeLabel()
         self._parse_source_ids()
 
