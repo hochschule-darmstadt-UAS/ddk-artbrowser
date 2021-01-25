@@ -46,7 +46,6 @@ class Artwork(JSONEncodable):
         self._parse_resource()
 
         self.calc_count()
-
         self.clear()
 
     # TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
