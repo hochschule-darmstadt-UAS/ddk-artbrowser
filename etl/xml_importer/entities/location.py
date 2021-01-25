@@ -64,8 +64,6 @@ class Location(JSONEncodable):
         else:
             self.inventoryNumber = ""
 
-        #print(self.inventoryNumber)
-
     def _parse_placeLabel(self):
         place_label_root = self.root.find(paths["Location_PlaceLabel_Path"], namespace)
         if place_label_root is not None:
