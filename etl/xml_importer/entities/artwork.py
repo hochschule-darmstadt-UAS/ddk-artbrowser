@@ -48,20 +48,14 @@ class Artwork(JSONEncodable):
         self.calc_count()
         self.clear()
 
-    # TODO: diese Attribute haben eine niedrige Prio, daher erstmal nicht weiter beachten
-    # artwork.altName string[] 2
-    # artwork.inscriptions string[] 2
-
     def _parse_id(self):
-        # TODO: Was soll ich hier nur lido herausnehmen?: DE - Mb112 - lido - t3 - 000230
-        #         88 - T - 001 - T - 065
         id = self.lido.find(paths["Artwork_Id_Path"], namespace).text
         id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
 
         self.id = self.entity_type + "-" + id
 
-    def _parse_label(self):  # TODO: Format DE-Mb112-00000000001
+    def _parse_label(self):
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
         if label is not None:
             self.label = sanitize(label.text)
@@ -70,12 +64,9 @@ class Artwork(JSONEncodable):
 
     def _parse_alt_label(self):
         self.alt_labels = []
-        altLabels_list = self.lido.findall(paths["Artwork_AltLabel_Path"], namespace)
-        if altLabels_list is not None:
-            for element in altLabels_list:
-                self.alt_labels.append(sanitize(element.text))
-        else:
-            self.alt_labels = None
+        altLabel_roots = self.lido.findall(paths["Artwork_AltLabel_Path"], namespace)
+        for altLabel_root in altLabel_roots:
+            self.alt_labels.append(sanitize(altLabel_root.text))
 
     def _parse_inception(self):
         event_display_date = self.lido.find(paths['Artwork_Inception_Path'], namespace)
@@ -87,11 +78,8 @@ class Artwork(JSONEncodable):
     def _parse_inscription(self):
         self.inscriptions = []
         all_inscriptions = self.lido.findall(paths["Artwork_Inscription_Path"], namespace)
-        if all_inscriptions is not None:
-            for inscription in all_inscriptions:
-                self.inscriptions.append(inscription.text)
-        else:
-            self.inscriptions = None
+        for inscription in all_inscriptions:
+            self.inscriptions.append(inscription.text)
 
     def _parse_types(self):
         self.types = []
@@ -209,8 +197,7 @@ class Artwork(JSONEncodable):
         measurements_sets = self.lido.findall(paths["Artwork_Measurements_Path"], namespace)
         for measurement_root in measurements_sets:
             measurement = Measurement(measurement_root)
-            # for now only append if the measurement has a display text (to prevent empty measurements)
-            if measurement.displayName != "":
+            if not measurement.is_empty():
                 self.measurements.append(measurement)
 
     def _parse_recordLegal(self):
@@ -226,10 +213,6 @@ class Artwork(JSONEncodable):
         for resource_root in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
             resource = Resource(resource_root)
             self.resources.append(resource)
-
-        # resourceLegal_List = self.root.findall(paths["Artwork_ResourceLegal_Path"], namespace)
-        # if (len(resourceLegal_List) > 0):
-        # self.artwork["resourceLegal"] = Resource(resourceLegal_List).getresourceLegal()
 
     def calc_count(self):
         self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(self.materials) + \

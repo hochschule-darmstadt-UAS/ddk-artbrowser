@@ -5,8 +5,6 @@ paths = {
     "Artwork_Id_Path": 'lido:lidoRecID[@lido:source]',
     "Artwork_Name_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:titleWrap/lido:titleSet/lido:appellationValue[@lido:pref="preferred"][1]',
     "Artwork_Inception_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventDate/lido:displayDate',
-    #entityTape?
-    #inception?
 
     ##Prio 2
     "Artwork_AltLabel_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:titleWrap/lido:titleSet/lido:appellationValue[@lido:pref="alternative"]',
@@ -18,19 +16,12 @@ paths = {
     #"Type_EntityType_Path": 'is a simple string named "type"',
     "Type_Label_Path": 'lido:term[not(@lido:addedSearchTerm)]',
     "Type_AltLabel_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
-    #"Type_Source_Path": 'same path like 'Artwork_Type_Path''
-    #"Type_Source_Id_Path": 'same path like 'Type_ID_Path''
-    #"Type_Source_Source_Path": 'same path like 'Type_ID_Path''
-    #"Type_Source_Term_Path": 'same path like 'Type_Name_Path''
-
-    ##Prio 2
-    #altNames
 
     # LOCATION
     "Artwork_Location_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:repositoryWrap/lido:repositorySet',
     "Location_Label_Path": 'lido:repositoryName/lido:legalBodyName/lido:appellationValue',
     "Location_PlaceID_Path": 'lido:repositoryLocation/lido:placeID[@lido:source]',
-    "Location_inventoryNumber": 'lido:workId[@lido:type="Inventarnummer"]',
+    "Location_InventoryNumber_Path": 'lido:workId[@lido:type="Inventarnummer"]',
     "Location_PlaceLabel_Path": 'lido:repositoryLocation/lido:namePlaceSet/lido:appellationValue',##hat gleiche Name mit Location_Name_Path
 
     #GENRE
@@ -39,20 +30,6 @@ paths = {
     "Genre_Label_Path": 'lido:term',
     "Genre_AltLabel_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
     "Genre_ClassificationType": '[@lido:type]',
-
-
-    #id
-    #entityType
-    #name
-    #placeID
-    #placeName
-
-    ##Prio 2
-    #inventoryNumber
-
-    ##Prio 3
-    #placeAltNames
-    #altNames
 
     #ARTIST
     "Artwork_Artists_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventActor',
@@ -66,33 +43,12 @@ paths = {
     "Artist_EvidenceLast_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:latestDate[@lido:type="evidenceDate"]',
     "Artist_Gender_Path": 'lido:actorInRole/lido:actor/lido:genderActor',
     "Artist_Roles_Path": 'lido:actorInRole/lido:roleActor/lido:term',
-    #id
-    #entityType
-    #actorID
-    #name
-    #birth
-    #death
-
-    ##Prio 2
-    #altNames  2
-    #nationality  2
-    #evidenceFirst  2
-    #evidenceLast  2
-    #gender  2
-    #roles  2
 
     #MATERIAL
     "Artwork_Materials_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventMaterialsTech',
     "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
     "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
     "Material_AltLabel_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term[@lido:addedSearchTerm="yes"]',
-    #id
-    #entityType
-    #conceptID
-    #name
-
-    ##Prio 2
-    #altNames
 
     #ICONOGRAPHY
     "Artwork_Iconographies_Path": 'lido:descriptiveMetadata/lido:objectRelationWrap/lido:subjectWrap/lido:subjectSet/lido:subject[@lido:type="Beschreibung"]',
@@ -101,14 +57,6 @@ paths = {
     "Iconography_Alt_Label_Path": 'lido:subjectConcept/lido:term',
     "Iconography_Iconclass_Path": 'lido:subjectConcept/lido:term[last()]',
 
-    #id
-    #entityType
-    #conceptID
-    #name
-
-    ##Prio 2
-    #altNames
-
     #MEASUREMENT
     "Artwork_Measurements_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:objectMeasurementsWrap/lido:objectMeasurementsSet',
     "Measurement_DisplayName_Path": 'lido:displayObjectMeasurements',
@@ -116,16 +64,9 @@ paths = {
     "Measurement_Unit_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementUnit',
     "Measurement_Value_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementValue',
     "Measurement_Extend_Path": 'lido:objectMeasurements/lido:extentMeasurements',
-    "Measurement_Shape_Path": 'lido:objectMeasurements/lido:shapeMeasurements>',
+    "Measurement_Shape_Path": 'lido:objectMeasurements/lido:shapeMeasurements',
     "Measurement_Format_Path": 'lido:objectMeasurements/lido:formatMeasurements',
     "Measurement_Qualifier_Path": 'lido:objectMeasurements/lido:qualifierMeasurements',
-    ##Prio 2
-
-
-    #SOURCEID
-    #source
-    #id
-    #term
 
     #RECORDLEGAL
     "Artwork_RecordLegal_Path": 'lido:administrativeMetadata/lido:recordWrap',
@@ -145,16 +86,9 @@ paths = {
     "Resource_LinkResource_Path": 'lido:resourceRepresentation/lido:linkResource',
     "Resource_Photographer_Path": 'lido:resourceSource[@lido:type="Fotograf"]/lido:legalBodyName/lido:appellationValue',
 
-
-
     #RIGHTS
     "Rights_Type_Path": "lido:rightsType/lido:conceptID",
     "Rights_Holder_Path": "lido:rightsHolder/lido:legalBodyID",
-    #rightsHolder
 
-    #ENTITY
-    ##Prios sind niedrig oder nicht vorhanden, daher erstmal nicht beachten
-
-    "namespace": "{'lido': 'http://www.lido-schema.org'}"
 }
 

@@ -58,7 +58,7 @@ class Artist(JSONEncodable):
         self._parse_source_ids()
         self._parse_label()
         self._parse_alt_labels()
-        self._nationality()
+        self._parse_nationality()
         self._parse_birth()
         self._parse_death()
         self._parse_evidenceFirst()
@@ -80,12 +80,13 @@ class Artist(JSONEncodable):
         for root in alt_label_roots:
             self.alt_labels.append(root.text)
 
-    def _nationality(self):
+    def _parse_nationality(self):
         nationality_root = self.root.find(paths["Artist_Nationality_Path"], namespace)
         if nationality_root is not None:
-            self.death = nationality_root.text
+            nationality = nationality_root.text
+            self.nationality = nationality
         else:
-            self.death = None
+            self.nationality = None
 
     def _parse_source_ids(self):
         for source_id_root in self.root.findall(paths["Artist_ID_Path"], namespace):

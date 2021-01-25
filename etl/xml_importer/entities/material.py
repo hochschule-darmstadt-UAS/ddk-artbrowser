@@ -40,12 +40,10 @@ class Material(JSONEncodable):
 
     def _parse_alt_labels(self):
         self.alt_labels = []
-        alt_label_root = self.root.findall(paths["Material_AltLabel_Path"], namespace)
-        if alt_label_root is not None:
-            for element in alt_label_root:
-                self.alt_labels.append(element.text)
-        else:
-            self.alt_labels = None
+        alt_label_roots = self.root.findall(paths["Material_AltLabel_Path"], namespace)
+        for alt_label_root in alt_label_roots:
+            self.alt_labels.append(alt_label_root.text)
+
 
     def _parse_sourceIDs(self):
         for source_id in self.root.findall(paths["Material_ID_Path"], namespace):

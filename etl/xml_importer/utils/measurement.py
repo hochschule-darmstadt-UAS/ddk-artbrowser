@@ -26,6 +26,10 @@ class Measurement:
         self._parse_format()
         self._parse_qualifier()
 
+    def is_empty(self):
+        if (self.displayName == "" and self.type == "" and self.unit == "" and self.value == "" and self.extend == "" and self.shape == None and self.format == None and self.qualifier == None):
+            return True
+
     def _parse_displayName(self):
         displayName = self.root.find(paths["Measurement_DisplayName_Path"], namespace)
         if displayName is not None:
@@ -66,21 +70,21 @@ class Measurement:
         if shape is not None:
             self.shape = shape.text
         else:
-            self.shape = ""
+            self.shape = None
 
     def _parse_format(self):
         format = self.root.find(paths["Measurement_Format_Path"], namespace)
         if format is not None:
             self.format = format.text
         else:
-            self.format = ""
+            self.format = None
 
     def _parse_qualifier(self):
         qualifier = self.root.find(paths["Measurement_Qualifier_Path"], namespace)
         if qualifier is not None:
             self.qualifier = qualifier.text
         else:
-            self.qualifier = ""
+            self.qualifier = None
 
     def clear(self):
         del self.root
