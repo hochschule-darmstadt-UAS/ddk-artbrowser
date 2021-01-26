@@ -9,6 +9,7 @@ import { ImageViewerModule } from 'ngx-image-viewer';
 import { RouterModule } from '@angular/router';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { BadgeComponent } from 'src/app/shared/components/badge/badge.component';
+import { WrongIdComponent } from 'src/app/shared/components/wrong-id/wrong-id.component';
 import { CollapseComponent } from 'src/app/shared/components/collapse/collapse.component';
 import { InformationComponent } from '../../shared/components/information/information.component';
 import { TitleComponent } from 'src/app/shared/components/title/title.component';
@@ -34,7 +35,8 @@ describe('ArtworkComponent', () => {
         TitleComponent,
         InformationComponent,
         DimensionsComponent,
-        CollapseComponent
+        CollapseComponent,
+        WrongIdComponent
       ],
       providers: [DataService]
     }).compileComponents();

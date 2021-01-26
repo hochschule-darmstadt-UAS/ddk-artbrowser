@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 
 import { WrongIdComponent } from './wrong-id.component';
 
@@ -8,6 +9,7 @@ describe('WrongIdComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterModule.forRoot([])],
       declarations: [ WrongIdComponent ]
     })
     .compileComponents();
