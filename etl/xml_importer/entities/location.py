@@ -11,7 +11,6 @@ class Location(JSONEncodable):
         self.entity_type = 'location'
         self._parse_id()
 
-
         self.label = ""
         self.source_ids = []
         self.placeLabel = ""
@@ -27,7 +26,6 @@ class Location(JSONEncodable):
             location_id = self.placeLabel
         else:
             location_id = self.label
-
 
         self.id = sanitize_location(location_id)
 
