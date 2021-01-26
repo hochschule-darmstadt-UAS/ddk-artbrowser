@@ -44,10 +44,13 @@ export class GenreComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       this.genre = await this.dataService.findById<Genre>(this.genreId, EntityType.GENRE);
 
-      if(this.genre !== null) {
-        /** load slider items */
-        this.dataService.findArtworksByType(EntityType.GENRE, [this.genre.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
-      } else { this.idDoesNotExist = true; }
+      if (!this.genre) {
+        this.idDoesNotExist = true;
+        return;
+      }
+
+      /** load slider items */
+      this.dataService.findArtworksByType(EntityType.GENRE, [this.genre.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
   }
 

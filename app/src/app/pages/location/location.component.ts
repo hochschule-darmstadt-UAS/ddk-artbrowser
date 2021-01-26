@@ -43,11 +43,14 @@ export class LocationComponent implements OnInit, OnDestroy {
 
       /** Use data service to fetch entity from database */
       this.location = await this.dataService.findById<Location>(this.locationId, EntityType.LOCATION);
+      
+      if (!this.location) {
+        this.idDoesNotExist = true;
+        return;
+      }
 
-      if(this.location !== null) {
-        /** load slider items */
-        this.dataService.findArtworksByType(EntityType.LOCATION, [this.location.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
-      } else { this.idDoesNotExist = true; }
+      /** load slider items */
+      this.dataService.findArtworksByType(EntityType.LOCATION, [this.location.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
   }
 

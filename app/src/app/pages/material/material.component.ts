@@ -35,10 +35,13 @@ export class MaterialComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       this.material = await this.dataService.findById<Material>(this.materialId, EntityType.MATERIAL);
 
-      if(this.material !== null) {
-        /** load slider items */
-        this.dataService.findArtworksByType(EntityType.MATERIAL, [this.material.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
-      } else { this.idDoesNotExist = true; }
+      if (!this.material) {
+        this.idDoesNotExist = true;
+        return;
+      }
+
+      /** load slider items */
+      this.dataService.findArtworksByType(EntityType.MATERIAL, [this.material.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
   }
 

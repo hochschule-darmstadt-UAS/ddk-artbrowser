@@ -34,10 +34,13 @@ export class TypeComponent implements OnInit, OnDestroy {
       /** Use data service to fetch entity from database */
       this.type = await this.dataService.findById<Type>(this.typeId, EntityType.TYPE);
 
-      if(this.type !== null) {
-        /** load slider items */
-        await this.dataService.findArtworksByType(EntityType.TYPE, [this.type.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
-      } else { this.idDoesNotExist = true; }
+      if (!this.type) {
+        this.idDoesNotExist = true;
+        return;
+      }
+
+      /** load slider items */
+      await this.dataService.findArtworksByType(EntityType.TYPE, [this.type.id]).then(artworks => (this.sliderItems = shuffle(artworks)));
     });
   }
 
