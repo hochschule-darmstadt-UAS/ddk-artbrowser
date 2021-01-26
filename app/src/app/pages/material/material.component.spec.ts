@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialComponent } from './material.component';
 import { SlideComponent } from 'src/app/shared/components/carousel/slide/slide.component';
 import { CarouselComponent } from 'src/app/shared/components/carousel/carousel.component';
+import { WrongIdComponent } from 'src/app/shared/components/wrong-id/wrong-id.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +19,15 @@ describe('MaterialComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [NgbModule, HttpClientModule, RouterModule.forRoot([])],
-      declarations: [MaterialComponent, SlideComponent, CarouselComponent, BadgeComponent, TitleComponent, InformationComponent],
+      declarations: [
+        MaterialComponent, 
+        SlideComponent, 
+        CarouselComponent, 
+        BadgeComponent, 
+        TitleComponent, 
+        InformationComponent, 
+        WrongIdComponent
+      ],
       providers: [DataService]
     }).compileComponents();
   }));

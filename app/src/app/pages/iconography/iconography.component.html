@@ -1,4 +1,10 @@
-<div class="container entity movement">
+<div *ngIf="notationDoesNotExist" class="container entity movement">
+  <div class="row mb-5 border-bottom pb-5">
+    <app-wrong-id [id]="notation"></app-wrong-id>
+  </div>
+</div>
+
+<div *ngIf="!notationDoesNotExist" class="container entity movement">
   <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-12" *ngIf="iconclassData">
       <app-title [entity]="iconclassData"></app-title>

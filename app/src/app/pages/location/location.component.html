@@ -1,4 +1,10 @@
-<div class="container entity location">
+<div *ngIf="idDoesNotExist" class="container entity location">
+  <div class="row mb-5 border-bottom pb-5">
+    <app-wrong-id [id]="locationId"></app-wrong-id>
+  </div>
+</div>
+
+<div *ngIf="!idDoesNotExist" class="container entity location">
   <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="location">
       <app-title [entity]="location"></app-title>

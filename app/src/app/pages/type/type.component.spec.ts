@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { TypeComponent } from './type.component';
 import { SlideComponent } from 'src/app/shared/components/carousel/slide/slide.component';
 import { CarouselComponent } from 'src/app/shared/components/carousel/carousel.component';
+import { WrongIdComponent } from 'src/app/shared/components/wrong-id/wrong-id.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -26,7 +27,8 @@ describe('MotifComponent', () => {
         BadgeComponent,
         CollapseComponent,
         TitleComponent,
-        InformationComponent
+        InformationComponent,
+        WrongIdComponent
       ],
       providers: [DataService]
     }).compileComponents();
