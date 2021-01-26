@@ -1,7 +1,11 @@
-<div class="container entity genre">
+<div *ngIf="idDoesNotExist" class="container entity genre">
   <div class="row mb-5 border-bottom pb-5">
-    <app-wrong-id *ngIf="idDoesNotExist" [id]="genreId"></app-wrong-id>
+    <app-wrong-id  [id]="genreId"></app-wrong-id>
+  </div>
+</div>
 
+<div *ngIf="!idDoesNotExist" class="container entity genre">
+  <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="genre">
       <app-title [entity]="genre"></app-title>
 
@@ -14,6 +18,6 @@
     </div>
   </div>
   <span class="artworks-amount">{{ genre?.count }}</span>
-  <span class="ml-1 slider-heading" *ngIf="!idDoesNotExist" i18n="Artworks label@@artworks">Artworks</span>
+  <span class="ml-1 slider-heading" i18n="Artworks label@@artworks">Artworks</span>
   <app-slider *ngIf="sliderItems?.length" [items]="sliderItems"></app-slider>
 </div>

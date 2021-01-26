@@ -1,7 +1,11 @@
-<div class="container entity location">
+<div *ngIf="idDoesNotExist" class="container entity location">
   <div class="row mb-5 border-bottom pb-5">
-    <app-wrong-id *ngIf="idDoesNotExist" [id]="locationId"></app-wrong-id>
+    <app-wrong-id [id]="locationId"></app-wrong-id>
+  </div>
+</div>
 
+<div *ngIf="!idDoesNotExist" class="container entity location">
+  <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="location">
       <app-title [entity]="location"></app-title>
 
@@ -23,6 +27,6 @@
     </div>
   </div>
   <span class="artworks-amount">{{ location?.count }}</span>
-  <span class="ml-1 slider-heading" *ngIf="!idDoesNotExist" i18n="Artworks label@@artworks">Artworks</span>
+  <span class="ml-1 slider-heading" i18n="Artworks label@@artworks">Artworks</span>
   <app-slider [items]="sliderItems"></app-slider>
 </div>

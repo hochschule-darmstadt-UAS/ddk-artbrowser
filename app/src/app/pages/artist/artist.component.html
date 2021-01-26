@@ -1,7 +1,11 @@
-<div class="container entity artist">
+<div *ngIf="idDoesNotExist" class="container entity artist" >
   <div class="row mb-5 border-bottom pb-5">
-    <app-wrong-id *ngIf="idDoesNotExist" [id]="artistId"></app-wrong-id>
+    <app-wrong-id [id]="artistId"></app-wrong-id>
+  </div>
+</div>
 
+<div *ngIf="!idDoesNotExist" class="container entity artist">
+  <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="artist">
       <app-title [entity]="artist"></app-title>
 

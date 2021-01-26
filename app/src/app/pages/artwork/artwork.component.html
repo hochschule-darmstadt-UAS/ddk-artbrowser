@@ -1,7 +1,11 @@
-<div class="container entity artwork">
+<div *ngIf="idDoesNotExist" class="container entity artwork">
   <div class="col pb-5 border-bottom">
-    <app-wrong-id *ngIf="idDoesNotExist" [id]="artworkId"></app-wrong-id>
+    <app-wrong-id [id]="artworkId"></app-wrong-id>
+  </div>
+</div>
 
+<div *ngIf="!idDoesNotExist" class="container entity artwork">
+  <div class="col pb-5 border-bottom">
     <div class="row pb-2" *ngIf="artwork?.resources[imageIndex].image &&  !artwork?.resources[imageIndex].error">
       <div class="img-container mx-auto d-block" (click)="showModal()">
         <img class="img-fluid d-block" id="image-main" (error)="hideImage()"
