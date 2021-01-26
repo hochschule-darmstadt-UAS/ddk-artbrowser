@@ -11,7 +11,6 @@ class Location(JSONEncodable):
         self.entity_type = 'location'
         self._parse_id()
 
-
         self.label = ""
         self.source_ids = []
         self.placeLabel = ""
@@ -28,13 +27,13 @@ class Location(JSONEncodable):
         else:
             location_id = self.label
 
-
         self.id = sanitize_location(location_id)
 
         # add entity type as id prefix to ensure uniqueness
         self.id = self.entity_type + "-" + self.id
 
     def parse(self):
+        self._parse_label()
         self._parse_placeLabel()
         self._parse_source_ids()
 
