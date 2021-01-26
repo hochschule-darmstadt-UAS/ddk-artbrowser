@@ -1,4 +1,10 @@
-<div class="container entity artist">
+<div *ngIf="idDoesNotExist" class="container entity artist" >
+  <div class="row mb-5 border-bottom pb-5">
+    <app-wrong-id [id]="artistId"></app-wrong-id>
+  </div>
+</div>
+
+<div *ngIf="!idDoesNotExist" class="container entity artist">
   <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="artist">
       <app-title [entity]="artist"></app-title>
@@ -8,7 +14,7 @@
       <app-information *ngIf="artist?.dateOfDeath" i18n-label="Died infos label@@died" label="Died"
                        [value]="artist?.dateOfDeath"></app-information>
 
-      <div>
+      <div *ngIf="artist?.gender || artist?.nationality || artist?.roles?.length || artist?.sourceIDs?.length">
         <app-collapse>
           <app-information *ngIf="artist?.gender" i18n-label="Artist gender label@@gender" label="Gender"
                            [value]="artist?.gender"></app-information>
@@ -21,6 +27,7 @@
         </app-collapse>
       </div>
     </div>
+    
     <div class="col-sm-5 img" *ngIf="artist?.imageMedium">
       <img class="img-fluid rounded-circle" src="{{ artist?.imageMedium }}" alt="" />
     </div>

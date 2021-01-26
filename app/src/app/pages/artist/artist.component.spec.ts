@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { SlideComponent } from 'src/app/shared/components/carousel/slide/slide.component';
 import { CarouselComponent } from 'src/app/shared/components/carousel/carousel.component';
+import { WrongIdComponent } from 'src/app/shared/components/wrong-id/wrong-id.component';
 import { DataService } from 'src/app/core/services/elasticsearch/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BadgeComponent } from 'src/app/shared/components/badge/badge.component';
@@ -29,7 +30,8 @@ describe('ArtistComponent', () => {
         TitleComponent,
         InformationComponent,
         BadgeComponent,
-        CollapseComponent
+        CollapseComponent,
+        WrongIdComponent
       ],
       providers: [DataService]
     }).compileComponents();

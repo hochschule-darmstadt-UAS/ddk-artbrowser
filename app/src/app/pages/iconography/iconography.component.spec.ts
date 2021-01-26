@@ -6,6 +6,7 @@ import { CarouselComponent } from '../../shared/components/carousel/carousel.com
 import { TitleComponent } from '../../shared/components/title/title.component';
 import { InformationComponent } from '../../shared/components/information/information.component';
 import { CollapseComponent } from '../../shared/components/collapse/collapse.component';
+import { WrongIdComponent } from 'src/app/shared/components/wrong-id/wrong-id.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -27,7 +28,8 @@ describe('IconographyComponent', () => {
         CarouselComponent,
         TitleComponent,
         InformationComponent,
-        CollapseComponent
+        CollapseComponent,
+        WrongIdComponent
       ],
       providers: [IconclassService, DataService]
     }).compileComponents();

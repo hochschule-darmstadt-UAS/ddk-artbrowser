@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy, AfterViewInit {
   isHeaderSearch = false;
 
   /** Array of all placeholder values */
-  placeholderArray: string[] = ['"Mona Lisa"', '"Vincent van Gogh"', '"Renaissance"'];
+  placeholderArray: string[] = ['"Sankt Lukas"', '"Gogh, Vincent van"', '"25FF411"'];
 
   /** Counter of placeholderArray */
   counter = 0;

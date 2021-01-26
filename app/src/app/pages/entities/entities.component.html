@@ -3,7 +3,8 @@
     <span i18n="All@@all">All</span>
     {{ queryCount }}
     <span i18n="Entities Type Labels@@entities_labels" *ngIf="type; let type">
-      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations} genre {Genres} movement {Movements} material {Materials} iconography {Iconographies}}
+      {type, select, artwork {Artworks} motif {Motifs} artist {Artists} location {Locations}
+        genre {Genres} movement {Movements} material {Materials} iconography {Iconographies}}
     </span>
   </h2>
 
@@ -16,7 +17,7 @@
                  class="bd-highlight img-self"
                  src="{{ entity?.imageMedium }}"
                  alt="{{ entity?.label }}"
-                 (error)="onLoadingError(entity)"/>
+                 (error)="onLoadingError(entity)" />
             <img *ngIf="!entity?.imageMedium && entity?.image"
                  class="bd-highlight img-self"
                  src="{{ entity?.image }}"
@@ -27,6 +28,10 @@
                  src="{{ entity?.imageSmall }}"
                  alt="{{ entity?.label }}"
                  (error)="onLoadingError(entity)" />
+            <div class="error flex-column">
+              <i class="fa fa-camera-retro"></i>
+              <span i18n="error text@@entities_list_error" class="mt-3">An image is missing here</span>
+            </div>
           </div>
           <div class="item-caption">
             <div *ngIf="type != 'iconography'" class="ml-1">
@@ -56,9 +61,10 @@
             </div>
           </div>
         </a>
-        <div *ngIf="!entity?.id" class="item-link">
-          <div class="img-wrapper">
-            <!-- WARNING MESSAGE -->
+        <div *ngIf="entity && !entity.id" class="item-link">
+          <div class="img-wrapper error flex-column">
+            <i class="fa fa-camera-retro"></i>
+            <span i18n="error text@@entities_list_error" class="mt-3">An image is missing here</span>
           </div>
         </div>
       </div>

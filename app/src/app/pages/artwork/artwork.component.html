@@ -1,6 +1,12 @@
-<div class="container entity artwork">
-  <div class="col pb-5 border-bottom" *ngIf="!imageHidden && artwork?.resources[imageIndex].image">
-    <div class="row pb-2">
+<div *ngIf="idDoesNotExist" class="container entity artwork">
+  <div class="col pb-5 border-bottom">
+    <app-wrong-id [id]="artworkId"></app-wrong-id>
+  </div>
+</div>
+
+<div *ngIf="!idDoesNotExist" class="container entity artwork">
+  <div class="col pb-5 border-bottom">
+    <div class="row pb-2" *ngIf="artwork?.resources[imageIndex].image &&  !artwork?.resources[imageIndex].error">
       <div class="img-container mx-auto d-block" (click)="showModal()">
         <img class="img-fluid d-block" id="image-main" (error)="hideImage()"
              src="{{ artwork?.resources[imageIndex].image }}"
@@ -9,6 +15,12 @@
           <i class="fas fa-expand" (click)="showModal()"></i>
         </div>
       </div>
+    </div>
+    <div *ngIf="artwork?.resources[imageIndex].error || !artwork?.resources[imageIndex].image"
+         class="col-12 pb-2 text-muted">
+      <div class="row justify-content-center h2"><i class="fa fa-camera-retro"></i></div>
+      <span i18n="error text@@entities_list_error"
+            class="row mt-3 justify-content-center">An image is missing here</span>
     </div>
     <div class="row pb-2 justify-content-md-center text-muted">
       <span class="ml-1 mr-1">{{ imageSubtitle }}</span>
@@ -22,7 +34,7 @@
                          [imageSize]="{width: 100, height: 60, space: 3}" [animationSpeed]="0.1"
                          [imagePopup]="false" [manageImageRatio]="true"
                          (imageClick)="thumbnailClicked($event)"
-                         (arrowClick)="arrowClicked($event)"
+                         (arrowClick)="arrowClicked()"
                          [images]="thumbnails"></ng-image-slider>
       </div>
     </div>
