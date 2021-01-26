@@ -58,43 +58,10 @@ export class SlideComponent implements AfterViewInit {
    * @param item the item whose image could not be loaded
    */
   onLoadingError(item: Entity) {
-    const removeIndex = this.slide.items.findIndex(i => {
+    const itemIndex = this.slide.items.findIndex(i => {
       return i.id === item.id;
     });
 
-    this.slide.items.splice(removeIndex, 1);
-
-    const newItem = this.shiftItemForward(this.slide.nextSlide);
-    if (newItem) {
-      this.slide.items.push(newItem);
-    }
-
-    if (this.slide.items.length === 0) {
-      this.deleteUnusedSlides.emit();
-    }
-  }
-
-  /**
-   * removes the first item from this slide and shift succeeding items from this slide and following slides
-   * one position to the left.
-   * @param slide slide of which first item should be shifted to the previous slide
-   */
-  shiftItemForward(slide: Slide) {
-    if (!slide) {
-      return null;
-    }
-
-    if (!slide.isLastSlide) {
-      const newItem = this.shiftItemForward(slide.nextSlide);
-      if (newItem) {
-        slide.items.push(newItem);
-      }
-    }
-
-    const returnedItem = slide.items.splice(0, 1)[0];
-    if (slide.items.length === 0) {
-      this.deleteUnusedSlides.emit();
-    }
-    return returnedItem;
+    this.slide.items[itemIndex]['error'] = true;
   }
 }

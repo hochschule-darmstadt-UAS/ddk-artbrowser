@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: 'type/:typeId', loadChildren: './pages/type/type.routing.module#TypeRoutingModule' },
   { path: 'iconography/:notation', loadChildren: './pages/iconography/iconography.routing.module#IconographyRoutingModule' },
   { path: 'search', loadChildren: './pages/search-result/search-result.routing.module#SearchResultRoutingModule' },
-  { path: '**', redirectTo: '' }
+  { path: '**', loadChildren: './pages/error/error.routing.module#ErrorRoutingModule' }
 ];
 
 @NgModule({

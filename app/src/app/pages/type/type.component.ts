@@ -21,15 +21,23 @@ export class TypeComponent implements OnInit, OnDestroy {
   /** Related artworks */
   sliderItems: Artwork[] = [];
 
+  idDoesNotExist = false;
+  typeId: string;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {}
 
   /** hook that is executed at component initialization */
   ngOnInit() {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
-      const typeId = params.get('typeId');
+      this.typeId = params.get('typeId');
       /** Use data service to fetch entity from database */
-      this.type = await this.dataService.findById<Type>(typeId, EntityType.TYPE);
+      this.type = await this.dataService.findById<Type>(this.typeId, EntityType.TYPE);
+
+      if (!this.type) {
+        this.idDoesNotExist = true;
+        return;
+      }
 
       /** load slider items */
       await this.dataService.findArtworksByType(EntityType.TYPE, [this.type.id]).then(artworks => (this.sliderItems = shuffle(artworks)));

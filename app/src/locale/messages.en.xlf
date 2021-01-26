@@ -346,6 +346,10 @@
         <target state="final">Roles</target>
         <note priority="1" from="description">Roles label</note>
       </trans-unit>
+      <trans-unit id="entities_list_error" datatype="html">
+        <source>An image is missing here</source>
+        <target state="final">An image is missing here</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

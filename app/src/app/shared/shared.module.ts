@@ -16,6 +16,7 @@ import { NgxFitTextModule } from 'ngx-fit-text';
 import { DimensionsComponent } from './components/dimensions/dimensions.component';
 import { InfiniteScrollComponent } from './components/infinite-scroll/infinite-scroll.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { WrongIdComponent } from './components/wrong-id/wrong-id.component';
 
 /** Everything that should be used within multiple feature modules but isn't always required goes here */
 @NgModule({
@@ -30,7 +31,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     CollapseComponent,
     DimensionsComponent,
     InfiniteScrollComponent,
-    CollapseComponent
+    CollapseComponent,
+    WrongIdComponent
   ],
   imports: [CommonModule, NgbModule, RouterModule, FormsModule, NgxSliderModule, Angulartics2Module, NgxFitTextModule],
   exports: [
@@ -44,7 +46,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     CollapseComponent,
     DimensionsComponent,
     CollapseComponent,
-    InfiniteScrollComponent
+    InfiniteScrollComponent,
+    WrongIdComponent
   ]
 })
 export class SharedModule {}

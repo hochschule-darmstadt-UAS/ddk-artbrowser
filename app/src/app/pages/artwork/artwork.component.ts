@@ -36,11 +36,6 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   artwork: Artwork = null;
 
   /**
-   * whether artwork image should be hidden
-   */
-  imageHidden = false;
-
-  /**
    * @description to toggle common tags container.
    * initial as false (open).
    */
@@ -83,6 +78,9 @@ export class ArtworkComponent implements OnInit, OnDestroy {
 
   infoVisible = false;
 
+  idDoesNotExist = false;
+  artworkId: string;
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
 
@@ -106,7 +104,8 @@ export class ArtworkComponent implements OnInit, OnDestroy {
       /* reset properties */
       this.artwork = this.hoveredArtwork = null;
       this.thumbnails = [];
-      this.imageHidden = this.modalIsVisible = this.commonTagsCollapsed = false;
+      this.modalIsVisible = this.commonTagsCollapsed = false;
+      this.imageIndex = 0;
       // clears items of all artwork tabs
       this.artworkTabs = this.artworkTabs
         .map((tab: ArtworkTab) => {
@@ -115,19 +114,22 @@ export class ArtworkComponent implements OnInit, OnDestroy {
         .filter((tab) => tab !== null);
 
       /** Use data service to fetch entity from database */
-      const artworkId = params.get('artworkId');
-      this.artwork = await this.dataService.findById<Artwork>(artworkId, EntityType.ARTWORK);
-      this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
-      if (this.artwork) {
-        /* load tabs content */
-        this.loadTabs();
+      this.artworkId = params.get('artworkId');
+      this.artwork = await this.dataService.findById<Artwork>(this.artworkId, EntityType.ARTWORK);
+      
+      if (!this.artwork) {
+        this.idDoesNotExist = true;
+        return;
       }
+      
+      /* load tabs content */
+      this.artwork.genres = this.artwork.genres.filter((value) => value !== 'IMAGE'); // This is weird but it works :)
+      this.loadTabs();
 
       this.artwork.resources.forEach(res => {
         this.thumbnails.push({ image: res.image, thumbImage: res.imageSmall });
         this.largeImages.push(res.image);
       });
-
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     });
   }
@@ -136,7 +138,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
    * hide artwork image
    */
   hideImage() {
-    this.imageHidden = true;
+    this.artwork.resources[this.imageIndex].error = true;
   }
 
   /**
@@ -244,7 +246,7 @@ export class ArtworkComponent implements OnInit, OnDestroy {
   }
 
   thumbnailClicked($event) {
-    if (this.artwork.resources.length > $event && this.thumbnails[$event]["image"] !== null) {
+    if (this.artwork.resources.length > $event && this.thumbnails[$event]['image'] !== null) {
       this.imageIndex = $event;
       this.makeImageSubtitle(this.artwork.resources[this.imageIndex]);
     }

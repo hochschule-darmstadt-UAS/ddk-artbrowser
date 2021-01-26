@@ -14,7 +14,13 @@
       angularticsCategory="Navigation"
     >
       <div class="overlay-container">
-        <img class=" img_self" (error)="onLoadingError(item)" src="{{ item?.imageMedium }}" alt="{{ item?.label }}" />
+        <img *ngIf="!item['error']" class=" img_self" (error)="onLoadingError(item)" src="{{ item?.imageMedium }}"
+             alt="{{ item?.label }}" />
+        <div *ngIf="item['error'] || !item.imageMedium" class="col-12 pb-2 text-muted">
+          <div class="row justify-content-center h2"><i class="fa fa-camera-retro"></i></div>
+          <span i18n="error text@@entities_list_error"
+                class="row mt-3 justify-content-center">An image is missing here</span>
+        </div>
         <div class="overlay_view">
           <span class="img_description">{{ item?.label }}</span>
         </div>

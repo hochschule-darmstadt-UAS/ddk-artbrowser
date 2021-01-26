@@ -439,6 +439,26 @@
         <target state="final">Rollen</target>
         <note priority="1" from="description">Roles label</note>
       </trans-unit>
+      <trans-unit id="entities_list_error" datatype="html">
+        <source>An image is missing here</source>
+        <target state="final">Hier fehlt ein Bild</target>
+      </trans-unit>
+      <trans-unit id="error_message" datatype="html">
+        <source>Sorry, the page you requested could not be found.</source>
+        <target state="final">Die von Ihnen angeforderte Seite konnte leider nicht gefunden werden.</target>
+      </trans-unit>
+      <trans-unit id="go_home_link" datatype="html">
+        <source>Click here to go back to the start page &rArr;</source>
+        <target state="final">Hier geht es zur Startseite zurück &rArr;</target>
+      </trans-unit>
+      <trans-unit id="id_not_found_title" datatype="html">
+        <source>Page not found for following id:</source>
+        <target state="final">Seite für folgende ID nicht gefunden:</target>
+      </trans-unit>
+      <trans-unit id="id_not_found_message" datatype="html">
+        <source>It looks like nothing was found for the specified id. Maybe try a different id?</source>
+        <target state="final">Es sieht so aus, als ob für die angegebene ID nichts gefunden wurde. Vielleicht versuchen Sie eine andere ID?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
