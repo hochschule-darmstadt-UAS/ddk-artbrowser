@@ -72,21 +72,25 @@ export class IconographyComponent implements OnInit {
       });
       
       /** load current page iconography slider items */
-      this.sliderItemsCurrentIconography = await this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]);
-      this.sliderItemsCurrentIconography = this.sliderItemsCurrentIconography.filter(artwork => {
-        return artwork.iconographies.find(iconography => iconography === this.notation);
-      });
+      this.dataService.findArtworksByType(EntityType.ICONOGRAPHY, [this.notation]).then(res => {
+        if (!res.length) { return; }
+        this.sliderItemsCurrentIconography = res.filter(artwork => {
+          return artwork.iconographies.find(iconography => iconography === this.notation);
+        });
 
-      if(this.sliderItemsCurrentIconography.length > 0) {
-        this.sliderItemsCurrentIconography = shuffle(this.sliderItemsCurrentIconography);
-        this.showCurrentIconographyArtworks = true;
-      } else {
-        this.showCurrentIconographyArtworks = false;  
-      }
+        if(this.sliderItemsCurrentIconography.length > 0) {
+          this.sliderItemsCurrentIconography = shuffle(this.sliderItemsCurrentIconography);
+          this.showCurrentIconographyArtworks = true;
+        } else {
+          this.showCurrentIconographyArtworks = false; 
+        }
+      });
       
       /** load child iconography slider items */
-      this.sliderItemsChildrenIconography = await this.dataService.findChildArtworksByIconography(this.notation, EntityType.ARTWORK);
-      this.sliderItemsChildrenIconography = shuffle(this.sliderItemsChildrenIconography);
+      this.dataService.findChildArtworksByIconography(this.notation, EntityType.ARTWORK).then( res => {
+        if (!res.length) { return; }
+        this.sliderItemsChildrenIconography = shuffle(res);
+      });
     });
   }
 
