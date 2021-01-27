@@ -32,6 +32,7 @@ class Artwork(JSONEncodable):
 
         self._parse_id()
         self._parse_label()
+        self._parse_alt_label()
         self._parse_inception()
         self._parse_inscription()
         self._parse_types()
@@ -45,7 +46,6 @@ class Artwork(JSONEncodable):
         self._parse_resource()
 
         self.calc_count()
-
         self.clear()
 
     def _parse_id(self):
@@ -61,6 +61,12 @@ class Artwork(JSONEncodable):
             self.label = sanitize(label.text)
         else:
             self.label = None
+
+    def _parse_alt_label(self):
+        self.alt_labels = []
+        altLabel_roots = self.lido.findall(paths["Artwork_AltLabel_Path"], namespace)
+        for altLabel_root in altLabel_roots:
+            self.alt_labels.append(sanitize(altLabel_root.text))
 
     def _parse_inception(self):
         event_display_date = self.lido.find(paths['Artwork_Inception_Path'], namespace)
@@ -191,8 +197,7 @@ class Artwork(JSONEncodable):
         measurements_sets = self.lido.findall(paths["Artwork_Measurements_Path"], namespace)
         for measurement_root in measurements_sets:
             measurement = Measurement(measurement_root)
-            # for now only append if the measurement has a display text (to prevent empty measurements)
-            if measurement.displayName != "":
+            if not measurement.is_empty():
                 self.measurements.append(measurement)
 
     def _parse_recordLegal(self):
@@ -208,18 +213,6 @@ class Artwork(JSONEncodable):
         for resource_root in self.lido.findall(paths["Artwork_Resource_Path"], namespace):
             resource = Resource(resource_root)
             self.resources.append(resource)
-
-    def _parse_altName(lido):
-        raise NotImplementedError
-
-        # altenames_List = self.root.findall(paths["Artwork_Altename_Path"], namespace)
-        # altenames = []
-        # if len(altenames_List) > 0:
-        #    for altename in  altenames_List:
-        #        altenames.append(altename.text)
-        # else:
-        #    pass
-        # self.artwork["altName"] = altenames
 
     def calc_count(self):
         self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(self.materials) + \
@@ -239,6 +232,7 @@ class Artwork(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
+            "altLabels": self.alt_labels,
             "measurements": self.measurements,
             "recordLegal": self.recordLegal,
             "resources": self.resources,

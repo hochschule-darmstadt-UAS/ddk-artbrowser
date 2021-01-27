@@ -44,9 +44,10 @@ class Iconography(JSONEncodable):
             self.label = ""
 
     def _parse_alt_labels(self):
-        for alt_label_root in self.root.findall(paths['Iconography_Alt_Label_Path'], namespace):
-            alt_label = sanitize(alt_label_root.text)
-            self.alt_labels.append(alt_label)
+        self.alt_labels = []
+        alt_label_roots = self.root.findall(paths['Iconography_Alt_Label_Path'], namespace)
+        for alt_label_root in alt_label_roots:
+            self.alt_labels.append(sanitize(alt_label_root.text))
 
     def _parse_iconclass(self):
         iconclass_root = self.root.find(paths["Iconography_Iconclass_Path"], namespace)

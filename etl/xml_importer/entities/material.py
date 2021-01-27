@@ -10,6 +10,7 @@ class Material(JSONEncodable):
         self.root = root
         self.entity_type = 'material'
         self.label = ""
+        self.alt_labels = []
         self.source_ids = []
 
         self._parse_id()
@@ -19,6 +20,7 @@ class Material(JSONEncodable):
 
     def parse(self):
         self._parse_label()
+        self._parse_alt_labels()
         self._parse_sourceIDs()
 
     def _parse_id(self):
@@ -36,6 +38,13 @@ class Material(JSONEncodable):
     def _parse_label(self):
         self.label = self.root.findall(paths["Material_name_Path"], namespace)[0].text
 
+    def _parse_alt_labels(self):
+        self.alt_labels = []
+        alt_label_roots = self.root.findall(paths["Material_AltLabel_Path"], namespace)
+        for alt_label_root in alt_label_roots:
+            self.alt_labels.append(alt_label_root.text)
+
+
     def _parse_sourceIDs(self):
         for source_id in self.root.findall(paths["Material_ID_Path"], namespace):
             concept = SourceID(source_id)
@@ -49,6 +58,7 @@ class Material(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
+            "altLabels": self.alt_labels,
             "sourceIDs": self.source_ids,
             "count": self.count,
             "rank": self.rank,

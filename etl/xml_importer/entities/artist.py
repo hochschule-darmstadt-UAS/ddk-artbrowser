@@ -16,8 +16,13 @@ class Artist(JSONEncodable):
         self._parse_id()
 
         self.source_ids = []
+        self.nationality = ""
         self.birth = ""
         self.death = ""
+        self.evidenceFirst = ""
+        self.evidenceLast = ""
+        self.gender = ""
+        self.roles = ""
 
         self.count = 1
         self.rank = 0
@@ -52,8 +57,14 @@ class Artist(JSONEncodable):
     def parse(self):
         self._parse_source_ids()
         self._parse_label()
+        self._parse_alt_labels()
+        self._parse_nationality()
         self._parse_birth()
         self._parse_death()
+        self._parse_evidenceFirst()
+        self._parse_evidenceLast()
+        self._parse_gender()
+        self._parse_roles()
 
     def _parse_label(self):
         label_root = self.root.find(paths["Artist_Name_Path"], namespace)
@@ -64,9 +75,18 @@ class Artist(JSONEncodable):
             self.label = None
 
     def _parse_alt_labels(self):
-        alt_label_roots = self.root.xpath(paths["Artist_Altname_Path"], namespaces=namespace)
+        self.alt_labels = []
+        alt_label_roots = self.root.findall(paths["Artist_Altname_Path"], namespace)
         for root in alt_label_roots:
             self.alt_labels.append(root.text)
+
+    def _parse_nationality(self):
+        nationality_root = self.root.find(paths["Artist_Nationality_Path"], namespace)
+        if nationality_root is not None:
+            nationality = nationality_root.text
+            self.nationality = nationality
+        else:
+            self.nationality = None
 
     def _parse_source_ids(self):
         for source_id_root in self.root.findall(paths["Artist_ID_Path"], namespace):
@@ -87,6 +107,36 @@ class Artist(JSONEncodable):
         else:
             self.death = None
 
+    def _parse_evidenceFirst(self):
+        evidenceFirst_root = self.root.find(paths["Artist_EvidenceFirst_Path"], namespace)
+        if evidenceFirst_root is not None:
+            self.evidenceFirst = evidenceFirst_root.text
+        else:
+            self.evidenceFirst = None
+
+    def _parse_evidenceLast(self):
+        evidenceLast_root = self.root.find(paths["Artist_EvidenceLast_Path"], namespace)
+        if evidenceLast_root is not None:
+            self.evidenceLast = evidenceLast_root.text
+        else:
+            self.evidenceLast = None
+
+    def _parse_gender(self):
+        gender_root = self.root.find(paths["Artist_Gender_Path"], namespace)
+        if gender_root is not None:
+            self.gender = gender_root.text
+        else:
+            self.gender = None
+
+    def _parse_roles(self):
+        roles_root = self.root.find(paths["Artist_Roles_Path"], namespace)
+        if roles_root is not None:
+            self.roles = roles_root.text
+        else:
+            self.roles = None
+
+
+
     def clear(self):
         del self.root
 
@@ -95,9 +145,15 @@ class Artist(JSONEncodable):
             "id": self.id,
             "entityType": self.entity_type,
             "label": self.label,
+            "alt_labels": self.alt_labels,
             "sourceIDs": self.source_ids,
+            "nationality": self.nationality,
             "dateOfBirth": self.birth,
             "dateOfDeath": self.death,
+            "evidenceFirst": self.evidenceFirst,
+            "evidenceLast": self.evidenceLast,
+            "gender": self.gender,
+            "roles": self.roles,
             "count": self.count,
             "rank": self.rank,
         }
