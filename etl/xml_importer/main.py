@@ -12,7 +12,10 @@ import logging
 artworks = []
 artwork_max_count = 0
 
-logging.basicConfig(filename='log_xml_import.log', encoding='utf-8', level=logging.DEBUG)
+logging.basicConfig( format='%(asctime)s %(levelname)-8s %(message)s',
+    level=logging.DEBUG,
+    datefmt='%Y-%m-%d %H:%M:%S',
+    filename='log_xml_import.log', encoding='utf-8')
 
 def get_input_xml_files(input_dir):
     xml_files = ["{}/{}".format(input_dir, file) for file in os.listdir(input_dir) if file.endswith('.xml')]
@@ -63,6 +66,7 @@ def rank_entities(entities: dict):
     See also http://effbot.org/zone/element-iterparse.htm
 """
 if __name__ == '__main__':
+    logging.info("Dies ist ein Test.")
     namespace = {'lido': 'http://www.lido-schema.org'}
 
     if len(sys.argv) < 3:
