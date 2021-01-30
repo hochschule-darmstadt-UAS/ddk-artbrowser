@@ -15,6 +15,8 @@ from etl.xml_importer.parseLido import sanitize_id, sanitize, filter_none
 
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
+
 artists = dict()
 genres = dict()
 locations = dict()
@@ -44,8 +46,11 @@ class Artwork(JSONEncodable):
         self._parse_recordLegal()
         self._parse_resource()
 
+        logging.info('An Artwork was parsed from xml file complete.')
+        logging.info('Calculate count of artwork.')
         self.calc_count()
 
+        logging.info('Clear artwork.')
         self.clear()
 
     def _parse_id(self):
@@ -183,8 +188,6 @@ class Artwork(JSONEncodable):
                 # increase count
                 materials[material.id].count += 1
 
-    ####################################################################################
-
     def _parse_measurements(self):
         self.measurements = []
 
@@ -211,15 +214,6 @@ class Artwork(JSONEncodable):
 
     def _parse_altName(lido):
         raise NotImplementedError
-
-        # altenames_List = self.root.findall(paths["Artwork_Altename_Path"], namespace)
-        # altenames = []
-        # if len(altenames_List) > 0:
-        #    for altename in  altenames_List:
-        #        altenames.append(altename.text)
-        # else:
-        #    pass
-        # self.artwork["altName"] = altenames
 
     def calc_count(self):
         self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(self.materials) + \

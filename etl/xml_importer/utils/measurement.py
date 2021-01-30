@@ -1,12 +1,16 @@
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.parseLido import filter_none
 
+import logging
+
 
 class Measurement:
     def __init__(self, root):
         self.root = root
         self.displayName = ""
         self.parse()
+        logging.info('A measurement was parsed from xml file complete.')
+        logging.info('Clear measurement.')
         self.clear()
 
     def parse(self):

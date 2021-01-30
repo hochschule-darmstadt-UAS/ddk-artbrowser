@@ -4,6 +4,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths
 from etl.xml_importer.parseLido import filter_none
 
+import logging
+
 
 class RecordLegal:
     def __init__(self, root):
@@ -13,6 +15,8 @@ class RecordLegal:
         self._parse_source()
         self._parse_rights()
         self._parse_info_link()
+        logging.info('A recordLegal was parsed from xml file complete.')
+        logging.info('Clear recordLegal.')
         self.clear()
 
     def _parse_id(self):

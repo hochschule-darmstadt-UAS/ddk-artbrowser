@@ -3,6 +3,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.parseLido import sanitize, filter_none
 
+import logging
+
 
 class Resource:
     def __init__(self, root):
@@ -13,6 +15,8 @@ class Resource:
         self.resourceDateTaken = self._parse_resourceDateTaken()
         self.linkResource = self._parse_linkResource()
         self.photographer = self._parse_photographer()
+        logging.info('A resource was parsed from xml file complete.')
+        logging.info('Clear resource.')
         self.clear()
 
     def _parse_resourceID(self):

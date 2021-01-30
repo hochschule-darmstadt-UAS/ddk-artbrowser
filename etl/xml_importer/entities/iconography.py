@@ -3,6 +3,8 @@ from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.parseLido import sanitize, filter_none
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
+
 
 class Iconography(JSONEncodable):
 
@@ -18,6 +20,8 @@ class Iconography(JSONEncodable):
 
         self.count = 1
         self.rank = 0
+
+        logging.info('An iconography was parsed from xml file complete.')
 
     def _parse_id(self):
         id_root = self.root.find(paths["Iconography_Id_Path"], namespace)

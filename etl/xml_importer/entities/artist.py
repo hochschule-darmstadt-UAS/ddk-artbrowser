@@ -1,9 +1,9 @@
 from etl.xml_importer.parseLido import get_id_by_prio, sanitize_id, filter_none
 from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
-
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
 
 class Artist(JSONEncodable):
 
@@ -21,6 +21,8 @@ class Artist(JSONEncodable):
 
         self.count = 1
         self.rank = 0
+
+        logging.info('An artist was parsed from xml file complete.')
 
     def _parse_id(self):
         """

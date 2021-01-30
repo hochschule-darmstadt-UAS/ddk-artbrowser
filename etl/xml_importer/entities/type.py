@@ -3,6 +3,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import namespace, paths
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
+
 
 class Type(JSONEncodable):
 
@@ -17,6 +19,8 @@ class Type(JSONEncodable):
 
         self.count = 1
         self.rank = 0
+
+        logging.info('A type was parsed from xml file complete.')
 
     def _parse_id(self):
         all_type_ids = self.root.findall(paths["Type_ID_Path"], namespace)

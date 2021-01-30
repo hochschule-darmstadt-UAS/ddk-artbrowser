@@ -5,8 +5,6 @@ paths = {
     "Artwork_Id_Path": 'lido:lidoRecID[@lido:source]',
     "Artwork_Name_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:titleWrap/lido:titleSet/lido:appellationValue[@lido:pref="preferred"][1]',
     "Artwork_Inception_Path": 'lido:descriptiveMetadata/lido:eventWrap/lido:eventSet/lido:event/lido:eventDate/lido:displayDate',
-    #entityTape?
-    #inception?
 
     ##Prio 2
     "Artwork_Altename_Path": 'lido:descriptiveMetadata/lido:objectIdentificationWrap/lido:titleWrap/lido:titleSet/lido:appellationValue[@lido:pref="alternative"]',
@@ -18,10 +16,6 @@ paths = {
     #"Type_EntityType_Path": 'is a simple string named "type"',
     "Type_Label_Path": 'lido:term[not(@lido:addedSearchTerm)]',
     "Type_AltLabel_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
-    #"Type_Source_Path": 'same path like 'Artwork_Type_Path''
-    #"Type_Source_Id_Path": 'same path like 'Type_ID_Path''
-    #"Type_Source_Source_Path": 'same path like 'Type_ID_Path''
-    #"Type_Source_Term_Path": 'same path like 'Type_Name_Path''
 
     ##Prio 2
     #altNames
@@ -43,13 +37,6 @@ paths = {
     "Genre_Altname_Path": 'lido:term[@lido:addedSearchTerm="yes"]',
     "Genre_ClassificationType": '[@lido:type]',
 
-
-    #id
-    #entityType
-    #name
-    #placeID
-    #placeName
-
     ##Prio 2
     #inventoryNumber
 
@@ -64,12 +51,6 @@ paths = {
     "Artist_Altname_Path": 'lido:actorInRole/lido:actor/lido:nameActorSet/lido:appellationValue[not(@lido:pref="preferred")]',
     "Artist_Birth_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:earliestDate[@lido:type="birthDate"]',
     "Artist_Death_Path": 'lido:actorInRole/lido:actor/lido:vitalDatesActor/lido:latestDate[@lido:type="deathDate"]',
-    #id
-    #entityType
-    #actorID
-    #name
-    #birth
-    #death
 
     ##Prio 2
     #altNames  2
@@ -84,10 +65,6 @@ paths = {
     "Material_ID_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:conceptID[@lido:source]',
     "Material_name_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term',
     "Material_Altname_Path": 'lido:materialsTech/lido:termMaterialsTech/lido:term[@lido:addedSearchTerm="yes"]',
-    #id
-    #entityType
-    #conceptID
-    #name
 
     ##Prio 2
     #altNames
@@ -99,11 +76,6 @@ paths = {
     "Iconography_Alt_Label_Path": 'lido:subjectConcept/lido:term',
     "Iconography_Iconclass_Path": 'lido:subjectConcept/lido:term[last()]',
 
-    #id
-    #entityType
-    #conceptID
-    #name
-
     ##Prio 2
     #altNames
 
@@ -112,18 +84,12 @@ paths = {
     "Measurement_DisplayName_Path": 'lido:displayObjectMeasurements',
 
     ##Prio 2
-    "Artwork_Measurments_Type_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementType',
-    "Artwork_Measurments_Unit_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementUnit',
-    "Artwork_Measurments_Value_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementValue',
-    "Artwork_Measurments_displayName_Path": 'lido:displayObjectMeasurements',
-    "Artwork_Measurments_Shape_Path": 'lido:shapeObjectMeasurements',
-    "Artwork_Measurments_Format_Path": 'lido:formatObjectMeasurements',
-    "Artwork_Measurments_Qualifier_Path": 'lido:qualifierObjectMeasurements',
-
-    #SOURCEID
-    #source
-    #id
-    #term
+    "Measurments_Type_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementType',
+    "Measurments_Unit_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementUnit',
+    "Measurments_Value_Path": 'lido:objectMeasurements/lido:measurementsSet/lido:measurementValue',
+    "Measurments_Shape_Path": 'lido:shapeObjectMeasurements',
+    "Measurments_Format_Path": 'lido:formatObjectMeasurements',
+    "Measurments_Qualifier_Path": 'lido:qualifierObjectMeasurements',
 
     #RECORDLEGAL
     "Artwork_RecordLegal_Path": 'lido:administrativeMetadata/lido:recordWrap',
@@ -146,6 +112,5 @@ paths = {
     #RIGHTS
     "Rights_Type_Path": "lido:rightsType/lido:conceptID",
     "Rights_Holder_Path": "lido:rightsHolder/lido:legalBodyID",
-    #rightsHolder
 }
 

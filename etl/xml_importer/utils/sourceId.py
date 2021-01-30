@@ -1,6 +1,8 @@
 from etl.xml_importer.xpaths import namespace
 from etl.xml_importer.parseLido import sanitize_id, sanitize, filter_none
 
+import  logging
+
 
 class SourceID:
 
@@ -14,7 +16,8 @@ class SourceID:
         if self.id is not None:
             self.source = self._parse_source()
         self.terms = self._parse_terms()
-
+        logging.info('A sourceID was parsed from xml file complete.')
+        logging.info('Clear sourceID.')
         self.clear()
 
     def _parse_id(self):

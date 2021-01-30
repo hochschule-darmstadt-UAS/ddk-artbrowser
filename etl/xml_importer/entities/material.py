@@ -3,6 +3,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
+
 
 class Material(JSONEncodable):
 
@@ -16,6 +18,8 @@ class Material(JSONEncodable):
 
         self.count = 1
         self.rank = 0
+
+        logging.info('A material was parsed from xml file complete.')
 
     def parse(self):
         self._parse_label()

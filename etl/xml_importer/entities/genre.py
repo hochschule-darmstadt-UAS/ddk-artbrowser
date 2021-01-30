@@ -3,6 +3,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
+
 
 class Genre(JSONEncodable):
 
@@ -17,6 +19,8 @@ class Genre(JSONEncodable):
 
         self.count = 1
         self.rank = 0
+
+        logging.info('A genre was parsed from xml file complete.')
 
     def _parse_id(self):
         genre_id = self.root.findall(paths["Genre_ID_Path"], namespace)

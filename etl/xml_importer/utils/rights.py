@@ -2,6 +2,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import paths, namespace
 from etl.xml_importer.parseLido import filter_none
 
+import logging
+
 
 class Rights:
 
@@ -9,6 +11,8 @@ class Rights:
         self.root = root
         self.types = self._parse_types()
         self.holders = self._parse_holders()
+        logging.info('Rights was parsed from xml file complete.')
+        logging.info('Clear rights.')
         self.clear()
 
     def _parse_types(self):

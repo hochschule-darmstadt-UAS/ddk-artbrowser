@@ -3,6 +3,8 @@ from etl.xml_importer.utils.sourceId import SourceID
 from etl.xml_importer.xpaths import namespace, paths
 from etl.xml_importer.encoding import JSONEncodable
 
+import logging
+
 
 class Location(JSONEncodable):
 
@@ -17,6 +19,8 @@ class Location(JSONEncodable):
 
         self.count = 1
         self.rank = 0
+
+        logging.info('A location was parsed from xml file complete.')
 
     def _parse_id(self):
         # The location id is either the label or the place label
