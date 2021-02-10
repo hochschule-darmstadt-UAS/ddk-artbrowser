@@ -49,10 +49,15 @@ class Artwork(JSONEncodable):
         self.clear()
 
     def _parse_id(self):
+        """
+        Parses the id of artwork and sanitize it.
+        special characters are deleted add type of entity at the beginning of id
+        """
         id = self.lido.find(paths["Artwork_Id_Path"], namespace).text
         id = sanitize_id(id)
         id = id.replace("/", "-").replace(",", "-").replace("lido-", "").replace("obj-", "")
 
+        # add entity type as id prefix to ensure uniqueness
         self.id = self.entity_type + "-" + id
 
     def _parse_label(self):
@@ -77,13 +82,17 @@ class Artwork(JSONEncodable):
 
     def _parse_types(self):
         self.types = []
+
         for typeRoot in self.lido.findall(paths["Artwork_Type_Path"], namespace):
             type_ = Type(typeRoot)
+            # ignore types without id
             if not type_.id:
                 continue
 
             self.types.append(type_.id)
 
+            # If types id is not in types dictionary extract all other properties of type and build up complete types dictionary
+            # key of types dictionary is id and value is all properties of types
             if type_.id not in types:
                 type_.parse()
                 type_.clear()
@@ -97,6 +106,7 @@ class Artwork(JSONEncodable):
         self.genres = []
         for genreRoot in self.lido.findall(paths["Artwork_Genre_Path"], namespace):
             genre = Genre(genreRoot)
+            # ignore genres without id
             if not genre.id:
                 continue
 
@@ -115,6 +125,7 @@ class Artwork(JSONEncodable):
         self.locations = []
         for locationRoot in self.lido.findall(paths["Artwork_Location_Path"], namespace):
             location = Location(locationRoot)
+            # ignore locations without id
             if not location.id:
                 continue
 
@@ -133,6 +144,7 @@ class Artwork(JSONEncodable):
         self.artists = []
         for artistRoot in self.lido.findall(paths["Artwork_Artists_Path"], namespace):
             artist = Artist(artistRoot)
+            # ignore artists without id
             if not artist.id:
                 continue
 
@@ -170,6 +182,7 @@ class Artwork(JSONEncodable):
         self.materials = []
         for material_root in self.lido.findall(paths["Artwork_Materials_Path"], namespace):
             material = Material(material_root)
+            # ignore materials without id
             if not material.id:
                 continue
             self.materials.append(material.id)

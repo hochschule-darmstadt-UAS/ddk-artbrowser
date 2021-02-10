@@ -75,7 +75,7 @@ class Artist(JSONEncodable):
 
     def _parse_birth(self):
         birth_date_root = self.root.find(paths["Artist_Birth_Path"], namespace)
-        if birth_date_root is not None:  #Kann ein Artist kein Geburtsdatum haben
+        if birth_date_root is not None:
             self.birth = birth_date_root.text
         else:
             self.birth = None
