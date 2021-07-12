@@ -1,6 +1,7 @@
 import os
 import sys
 import ntpath
+from collections import OrderedDict
 from operator import attrgetter
 from pathlib import Path
 
@@ -12,6 +13,7 @@ from etl.xml_importer.entities.artwork import artists, locations, genres, types,
 from etl.xml_importer.utils.utils import setup_logger
 
 artworks = []
+artwork_metadata = dict()   # this dict stores count and rank for the ranking of the artworks
 artwork_max_count = 0
 
 logger = setup_logger(
@@ -38,14 +40,23 @@ def write_to_json(entities, json_filename):
 
 
 def rank_artworks(tmp_files, output_dir):
-    # read artwork temp json files one by one and add rank (rank = count / artwork_max_count)
+    global artwork_metadata
+    print("Ranking artworks")
+    artwork_len = len(artwork_metadata)
+
+    # sort the artwork_metadata by count and create a orderedDict from it
+    artwork_metadata = OrderedDict(sorted(artwork_metadata.items(), key=lambda x: x[1]['count']))
+    # iterate through the artwork_metadata and calculate the rank by using the position in the sorted dict
+    for i, artwork_id in enumerate(artwork_metadata):
+        artwork_metadata[artwork_id]['rank'] = (i+1) / artwork_len
+
+    # iterate through all temp files one by one and apply the previously calculated rank
     for file in tmp_files:
         output_filename = ntpath.basename(file).replace(".temp", "")
-
         with open(file) as tmp_json:
             tmp_artworks = json.load(tmp_json)
             for artwork in tmp_artworks:
-                artwork['rank'] = artwork['count'] / artwork_max_count
+                artwork['rank'] = artwork_metadata[artwork['id']]['rank']
 
         # write new artworks to final artwork_x.json and delete temporary one
         write_to_json(tmp_artworks, "{}/{}".format(output_dir, output_filename))
@@ -53,9 +64,10 @@ def rank_artworks(tmp_files, output_dir):
 
 
 def rank_entities(entities: dict):
-    max_count = max(entities.values(), key=attrgetter('count')).count
-    for id, entity in entities.items():
-        entity.rank = entity.count / max_count
+    sorted_entities = sorted(entities.values(), key=lambda e: e.count)
+    entities_len = len(entities)
+    for i, entity in enumerate(sorted_entities):
+        entity.rank = (i+1) / entities_len
 
 
 """
@@ -91,6 +103,9 @@ if __name__ == '__main__':
                 artworks.append(artwork)
                 if artwork.count > artwork_max_count:
                     artwork_max_count = artwork.count
+
+                # store the artworks metadata before deleting for later ranking
+                artwork_metadata[artwork.id] = {'count': artwork.count, 'rank': -1}
                 del artwork
 
                 # It's safe to call clear() here because no descendants will be accessed

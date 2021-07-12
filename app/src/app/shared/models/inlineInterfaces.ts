@@ -21,6 +21,7 @@ export interface Resource {
   imageSmall: string;
   imageMedium: string;
   image: string;
+  error: boolean; // used to mark loading errors
 }
 
 export interface RecordLegal {

@@ -31,6 +31,9 @@ export class ArtistComponent implements OnInit, OnDestroy {
   /** Toggle bool for displaying either timeline or artworks carousel component */
   showTimelineNotArtworks = true;
   showTimelineTab = true;
+  
+  idDoesNotExist = false;
+  artistId: string;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
   }
@@ -39,9 +42,15 @@ export class ArtistComponent implements OnInit, OnDestroy {
   ngOnInit() {
     /** Extract the id of entity from URL params. */
     this.route.paramMap.pipe(takeUntil(this.ngUnsubscribe)).subscribe(async params => {
-      const artistId = params.get('artistId');
+      this.artistId = params.get('artistId');
       /** Use data service to fetch entity from database */
-      this.artist = await this.dataService.findById<Artist>(artistId, EntityType.ARTIST);
+      this.artist = await this.dataService.findById<Artist>(this.artistId, EntityType.ARTIST);
+      
+      if (!this.artist) {
+        this.idDoesNotExist = true;
+        return;
+      }
+
       /** load slider items */
       this.dataService.findArtworksByType(EntityType.ARTIST, [this.artist.id]).then(artworks => {
         this.sliderItems = shuffle(artworks);

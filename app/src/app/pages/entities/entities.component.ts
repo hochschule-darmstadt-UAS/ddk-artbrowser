@@ -49,7 +49,8 @@ export class EntitiesComponent implements OnInit {
   /** This gets called by the app-infinite-scroll component and fetches new data */
   onScroll() {
     /** if there is no more to get, don't fetch again */
-    if (this.offset > this.queryCount) {
+    if (this.offset >= this.queryCount) {
+      this.entities = this.entities.filter(value => value !== null && value !== undefined && Object.keys(value).length !== 0);
       return;
     }
 
@@ -102,11 +103,13 @@ export class EntitiesComponent implements OnInit {
       /** replace empty objects with fetched objects.
        *  This has the advantage of no further sorting of this.entities (which may be very large)
        */
+      entities = entities.filter(value => Object.keys(value).length !== 0);
       if (entities.length < this.fetchSize) {
-        this.offset -= this.fetchSize - entities.length;
+        offset -= this.fetchSize - entities.length;
       }
       this.entities.splice(offset,
         this.fetchSize - (this.fetchSize - entities.length), ...entities);
+      this.entities = this.entities.filter(value => value !== null && value !== undefined && Object.keys(value).length !== 0);
     });
   }
 

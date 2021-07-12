@@ -1,4 +1,10 @@
-<div class="container entity location">
+<div *ngIf="idDoesNotExist" class="container entity location">
+  <div class="row mb-5 border-bottom pb-5">
+    <app-wrong-id [id]="locationId"></app-wrong-id>
+  </div>
+</div>
+
+<div *ngIf="!idDoesNotExist" class="container entity location">
   <div class="row mb-5 border-bottom pb-5">
     <div class="col-sm-7" *ngIf="location">
       <app-title [entity]="location"></app-title>
@@ -6,7 +12,7 @@
       <app-information *ngIf="location?.inventoryNumber" i18n-label="Inventory Nr label@@inventorynr"
                        label="Inventory Nr" [value]="location?.inventoryNumber"></app-information>
 
-      <div>
+      <div *ngIf="location?.placeLabel || location?.sourceIDs?.length">
         <app-collapse>
           <app-information *ngIf="location?.placeLabel" i18n-label="Location label@@location" label="Location"
                            [value]="location?.placeLabel"></app-information>
