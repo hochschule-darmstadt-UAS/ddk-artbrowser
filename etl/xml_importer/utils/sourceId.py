@@ -34,6 +34,8 @@ class SourceID:
         terms = []
         term_roots = self.root.getparent().findall(self.term_path, namespace)
         for term_root in term_roots:
+            if term_root.text is None:
+                continue
             term = sanitize(term_root.text)
             terms.append(term)
 

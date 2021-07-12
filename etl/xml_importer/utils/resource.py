@@ -24,7 +24,7 @@ class Resource:
 
     def _parse_resourceType(self):
         resource_type_root = self.root.find(paths["Resource_resourceType_Path"], namespace)
-        return sanitize(resource_type_root.text)
+        return sanitize(resource_type_root.text) if resource_type_root.text is not None else ""
 
     def _parse_rights(self):
         right_root = self.root.find(paths["Resource_Rights_Path"], namespace)

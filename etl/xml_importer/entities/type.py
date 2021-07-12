@@ -40,7 +40,7 @@ class Type(JSONEncodable):
         # here we use the xpath(...) function instead of find/finall so that we can use the xpath 'not' feature
         # (see 'Type_Label_Path' in xpaths.py). This seems not to be supported by the find/findall function.
         label_root = self.root.xpath(paths["Type_Label_Path"], namespaces=namespace)
-        if len(label_root) > 0:
+        if len(label_root) > 0 and label_root[0].text is not None:
             self.label = sanitize(label_root[0].text)
         else:
             self.label = ""

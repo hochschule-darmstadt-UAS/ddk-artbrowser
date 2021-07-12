@@ -7,6 +7,8 @@ def sanitize(text: str):
     and trailing spaces from the passed string and returns the sanitized one. This function should be used
     for fields which contain longer strings like 'label' or 'term'.
     """
+    if text is None:
+        return ""
     # remove newline and carriage return
     sanitized_text = text.replace('\n', ' ').replace('\r', '')
     # remove duplicated spaces and remove leading and trailing spaces
@@ -17,6 +19,8 @@ def sanitize(text: str):
 
 
 def sanitize_id(id: str):
+    if id is None:
+        return ""
     id = sanitize(id)
 
     remove_chars = ["(", ")", ";", "?"]
@@ -50,11 +54,17 @@ def get_id_by_prio(all_ids):
 
 
 def sanitize_location(location):
+    if location is None:
+        return ""
+
     remove_chars = ["-", "—", "(", ")", ";", "&", "?", "/", ",", "\"", "."]
     replace_chars = [" "]
 
     for c in remove_chars:
         location = location.replace(c, "")
+
+        if location is None or location == "":
+            return ""
 
     location = sanitize(location)
 

@@ -39,14 +39,14 @@ class Location(JSONEncodable):
 
     def _parse_label(self):
         label_root = self.root.find(paths["Location_Label_Path"], namespace)
-        if label_root is not None:
+        if label_root is not None and label_root.text is not None:
             self.label = sanitize(label_root.text)
         else:
             self.label = ""
 
     def _parse_placeLabel(self):
         place_label_root = self.root.find(paths["Location_PlaceLabel_Path"], namespace)
-        if place_label_root is not None:
+        if place_label_root is not None and place_label_root.text is not None:
             self.placeLabel = sanitize(place_label_root.text)
         else:
             self.placeLabel = ""

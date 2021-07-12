@@ -57,7 +57,7 @@ class Artwork(JSONEncodable):
 
     def _parse_label(self):
         label = self.lido.find(paths["Artwork_Name_Path"], namespace)
-        if label is not None:
+        if label is not None and label.text is not None:
             self.label = sanitize(label.text)
         else:
             self.label = None
@@ -222,8 +222,9 @@ class Artwork(JSONEncodable):
         # self.artwork["altName"] = altenames
 
     def calc_count(self):
-        self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(self.materials) + \
-            len(self.locations) + len(self.resources) + len(self.inscriptions)
+        self.count = len(self.artists) + len(self.iconographies) + len(self.types) + len(self.genres) + len(
+            self.materials) + \
+                     len(self.locations) + len(self.resources) + len(self.inscriptions)
         if self.recordLegal:
             self.count += 1
         if self.label:

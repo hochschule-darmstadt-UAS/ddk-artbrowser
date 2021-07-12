@@ -2,15 +2,22 @@ import os
 import sys
 import ntpath
 from operator import attrgetter
+from pathlib import Path
+
 import lxml.etree
 from etl.xml_importer.entities.artwork import Artwork
 import json
 from etl.xml_importer.encoding import ComplexJSONEncoder
 from etl.xml_importer.entities.artwork import artists, locations, genres, types, materials, iconographies
+from etl.xml_importer.utils.utils import setup_logger
 
 artworks = []
 artwork_max_count = 0
 
+logger = setup_logger(
+    "data_extraction.get_wikidata_items",
+    Path(__file__).parent.parent.absolute() / "logs" / "main_logfile",
+)
 
 def get_input_xml_files(input_dir):
     xml_files = ["{}/{}".format(input_dir, file) for file in os.listdir(input_dir) if file.endswith('.xml')]
@@ -72,32 +79,36 @@ if __name__ == '__main__':
     lido_files = get_input_xml_files(input_dir)
     tmp_files = []
     for lido_file in lido_files:
-        file_count += 1
-        # get the xml filename without .xml extension
-        base_filename = ntpath.basename(os.path.splitext(lido_file)[0])
+        try:
+            file_count += 1
+            # get the xml filename without .xml extension
+            base_filename = ntpath.basename(os.path.splitext(lido_file)[0])
 
-        print("Processing file {} / {}: {}".format(file_count, len(lido_files), lido_file))
-        for event, elem in lxml.etree.iterparse(lido_file, tag='{http://www.lido-schema.org}lido', events=('end',)):
-            artwork = Artwork(elem)
+            print("Processing file {} / {}: {}".format(file_count, len(lido_files), lido_file))
+            for event, elem in lxml.etree.iterparse(lido_file, tag='{http://www.lido-schema.org}lido', events=('end',)):
+                artwork = Artwork(elem)
 
-            artworks.append(artwork)
-            if artwork.count > artwork_max_count:
-                artwork_max_count = artwork.count
-            del artwork
+                artworks.append(artwork)
+                if artwork.count > artwork_max_count:
+                    artwork_max_count = artwork.count
+                del artwork
 
-            # It's safe to call clear() here because no descendants will be accessed
-            elem.clear()
-            # Also eliminate now-empty references from the root node to elem
-            for ancestor in elem.xpath('ancestor-or-self::*'):
-                while ancestor.getprevious() is not None:
-                    del ancestor.getparent()[0]
+                # It's safe to call clear() here because no descendants will be accessed
+                elem.clear()
+                # Also eliminate now-empty references from the root node to elem
+                for ancestor in elem.xpath('ancestor-or-self::*'):
+                    while ancestor.getprevious() is not None:
+                        del ancestor.getparent()[0]
 
-        # to save memory we write the artworks of a single xml file to one artwork_x.temp.json file
-        # these files will be used in the rank_artworks() function afterwards to create the final artwork json files
-        tmp_file = "{}/artworks_{}.temp.json".format(output_dir, base_filename)
-        tmp_files.append(tmp_file)
-        write_to_json(artworks, tmp_file)
-        artworks.clear()
+            # to save memory we write the artworks of a single xml file to one artwork_x.temp.json file
+            # these files will be used in the rank_artworks() function afterwards to create the final artwork json files
+            tmp_file = "{}/artworks_{}.temp.json".format(output_dir, base_filename)
+            tmp_files.append(tmp_file)
+            write_to_json(artworks, tmp_file)
+            artworks.clear()
+        except Exception as e:
+            print("Error processing file {} / {}: {}".format(file_count, len(lido_files), lido_file))
+            logger.exception(e)
 
     rank_entities(artists)
     write_to_json(artists, "{}/artists.json".format(output_dir))

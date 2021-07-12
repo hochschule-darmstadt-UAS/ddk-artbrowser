@@ -38,13 +38,15 @@ class Iconography(JSONEncodable):
 
     def _parse_label(self):
         label_root = self.root.find(paths["Iconography_Label_Path"], namespace)
-        if label_root is not None:
+        if label_root is not None and label_root.text is not None:
             self.label = sanitize(label_root.text)
         else:
             self.label = ""
 
     def _parse_alt_labels(self):
         for alt_label_root in self.root.findall(paths['Iconography_Alt_Label_Path'], namespace):
+            if alt_label_root.text is None:
+                continue
             alt_label = sanitize(alt_label_root.text)
             self.alt_labels.append(alt_label)
 

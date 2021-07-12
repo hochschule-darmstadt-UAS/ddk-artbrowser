@@ -34,7 +34,9 @@ class Material(JSONEncodable):
         self.id = self.entity_type + "-" + self.id
 
     def _parse_label(self):
-        self.label = self.root.findall(paths["Material_name_Path"], namespace)[0].text
+        lable_root = self.root.findall(paths["Material_name_Path"], namespace)
+        if lable_root is not None and len(lable_root) > 0 and lable_root[0].text is not None:
+            self.label = lable_root[0].text
 
     def _parse_sourceIDs(self):
         for source_id in self.root.findall(paths["Material_ID_Path"], namespace):
